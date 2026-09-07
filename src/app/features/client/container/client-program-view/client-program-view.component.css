@@ -1,0 +1,13 @@
+.action_td td {
+    padding: 0 20px 0 0 !important;
+}
+.input_flex {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    grid-gap: 10px;
+}
+
+.input_flex select{
+    flex: 1;
+}

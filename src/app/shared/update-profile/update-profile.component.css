@@ -1,0 +1,37 @@
+.error-msg {
+  color: #ff7b7b;
+  font-size: 12px;
+  margin-top: 2px;
+}
+
+.pp_pic {
+  height: 55px;
+  width: 55px;
+  border-radius: 100%;
+  object-fit: cover;
+  border: 2px solid rgba(92, 140, 200, 0.35);
+}
+
+.form-switch label {
+  font-size: 13px;
+  color: var(--Light-Text-Color, #9AADC4);
+}
+
+.auth_text {
+  font-size: 11px;
+  color: var(--Light-Text-Color, #9AADC4);
+}
+
+.form-switch input[type="checkbox"] {
+  box-shadow: none;
+  outline: none;
+}
+
+.form-switch input[type="checkbox"]:checked {
+  background-color: var(--Accent-Green, #4CAF50) !important;
+  border-color: var(--Accent-Green, #4CAF50);
+}
+
+:host ::ng-deep .text-muted {
+  color: var(--Light-Text-Color, #9AADC4) !important;
+}

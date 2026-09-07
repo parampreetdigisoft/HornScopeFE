@@ -1,0 +1,105 @@
+.error-msg {
+  color:#ff7b7b;
+  font-size: 12px;
+  margin-top: 2px;
+}
+.add_btn {
+    color: var(--Secondary-Color);
+    /* font-family: 'Montserrat'; */
+    font-size: 11px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    border-radius: 50px;
+    border: 1px solid var(--Secondary-Color);
+    padding: 8px 10px;
+    background: transparent;
+    width: 80px;
+    max-width: 100%;
+    transition: 0.3s all;
+}
+.add_btn:hover {
+  color:  var(--Primary-Color);
+  border: 1px solid var(--Primary-Color);
+  background: transparent;
+}
+.minus_btn {
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    margin-left: auto;
+}
+.form-control {
+    border-radius: 50px;
+    border: 1px solid #e4e4e4;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: 40px;
+    font-weight: 600;
+    padding-left: 16px;
+    color: #ffffff;
+/* font-family: 'Montserrat'; */
+font-size: 13px;
+font-style: normal;
+font-weight: 400;
+line-height: normal;
+}
+.form-control:focus, .form-control:focus-visible {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.wrong_upload_alert p {
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    display: block;
+    margin-bottom: 10px;
+    margin-left: 5px;
+    color: red;
+}
+
+.weight-select-wrapper {
+    position: relative;
+    width: 100%;
+    display: block;
+}
+
+.weight-select {
+    width: 100%;
+    padding-right: 40px; /* room so the number doesn't sit under the star */
+    box-sizing: border-box;
+    transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.tier-dot {
+    position: absolute;
+    top: 50%;
+    right: 36px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Only the star gets colored — nothing here targets the select's text anymore */
+.tier-dot.weight-critical {
+  font-weight: 600;
+    color: #dc3545;
+}
+
+.tier-dot.weight-high {
+  font-weight: 600;
+    color: #b38600;
+}
+
+.tier-dot.weight-standard {
+    font-weight: 600;
+    color: #28a745;
+}

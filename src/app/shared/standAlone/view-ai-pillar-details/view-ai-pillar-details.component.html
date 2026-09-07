@@ -1,0 +1,204 @@
+<div class="offcanvas-header ai-detail-header">
+  <app-ai-edit-toolbar [canEdit]="canEdit"
+    [editMode]="editMode"
+    [saving]="saving"
+    [editDisabled]="!hasPillarScoreRecord"
+    editDisabledReason="No pillar score record is available to edit yet."
+    (edit)="startEdit()"
+    (cancel)="cancelEdit()"
+    (save)="saveChanges()"
+    title="AI Pillar Details">
+  </app-ai-edit-toolbar>
+  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+</div>
+
+<ng-container>
+  <div [class.ai-edit-surface]="editMode" class="cross-pillar_outter pillar-detail-content">
+    <div class="integrate_outter">
+      <div class="integrate_list">
+        <table class="kpi_custom_table">
+          <thead>
+            <tr>
+              <th scope="col">AI Confidence</th>
+              <th scope="col">AI Score</th>
+              <th scope="col">Evaluator Score</th>
+              <th scope="col">Discrepancy</th>
+              <th scope="col">Average Score</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="last_data">
+              <td>
+                <app-ai-editable-field [editMode]="editMode"
+                  [showLabel]="false"
+                  [value]="getFieldValue('confidenceLevel')"
+                  (valueChange)="setFieldValue('confidenceLevel', $event)"
+                  fieldType="confidence">
+                </app-ai-editable-field>
+              </td>
+              <td>
+                <div class="kpi-metric-cell">
+                  <app-circular-score [value]="pillar?.aiProgress ?? 0"></app-circular-score>
+                </div>
+              </td>
+              <td>
+                <div class="kpi-metric-cell">
+                  <app-circular-score [value]="pillar?.evaluatorScore ?? 0"></app-circular-score>
+                </div>
+              </td>
+              <td class="kpi-discrepancy-col">
+                <div class="kpi-metric-cell kpi-discrepancy-cell">
+                  <app-sparkline-score [value]="discrepancy"></app-sparkline-score>
+                </div>
+              </td>
+              <td>
+                <div class="kpi-metric-cell">
+                  <app-circular-score [value]="averageProgress"></app-circular-score>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div *ngIf="shouldShowEvidenceSummary()" class="cross-pillar">
+        <h5>Evidence Summary</h5>
+        <app-ai-editable-field [showLabel]="false"
+          [editMode]="editMode"
+          [hideAfterWords]="20"
+          [value]="getFieldValue('evidenceSummary')"
+          (valueChange)="setFieldValue('evidenceSummary', $event)"
+          label="Evidence Summary"
+          fieldType="textarea">
+        </app-ai-editable-field>
+      </div>
+
+      <div *ngFor="let field of evidenceFields"
+        class="cross-pillar"
+        [hidden]="!shouldShowEvidenceRow(field)">
+        <h5>{{ field.label }}</h5>
+        <app-ai-editable-field [label]="field.label"
+          [showLabel]="false"
+          [editMode]="editMode"
+          [fieldType]="field.type"
+          [hideAfterWords]="field.key === 'temporalScope' || field.key === 'distortionScreening' || field.key === 'relationalIntegrity' ? 15 : 10"
+          [value]="getFieldValue(field.key)"
+          (valueChange)="setFieldValue(field.key, $event)">
+        </app-ai-editable-field>
+      </div>
+
+      <div *ngIf="shouldShowStressOverallResilience()" class="cross-pillar">
+        <h5>Stress Overall Resilience</h5>
+        <app-ai-editable-field [showLabel]="false"
+          [editMode]="false"
+          [hideAfterWords]="10"
+          [value]="pillar?.stressOverallResilience ?? ''"
+          label="Stress Overall Resilience"
+          fieldType="textarea">
+        </app-ai-editable-field>
+      </div>
+    </div>
+  </div>
+
+  <div [class.ai-edit-surface]="editMode" class="cus_table kpi_table pillar-citations-table">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Source Type</th>
+            <th scope="col">Source Name</th>
+            <th scope="col">Trust Level</th>
+            <th scope="col">Conference Year</th>
+            <th scope="col">Data Extract</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let s of editMode ? citationDraft : pillar?.dataSourceCitations">
+            <td>
+              <ng-container *ngIf="editMode; else sourceTypeView">
+                <app-ai-editable-field [showLabel]="false"
+                  [editMode]="true"
+                  fieldType="text"
+                  [value]="getCitationValue(s.citationID, 'sourceType')"
+                  (valueChange)="setCitationValue(s.citationID, 'sourceType', $event)">
+                </app-ai-editable-field>
+              </ng-container>
+              <ng-template #sourceTypeView>{{ s?.sourceType ?? "" }}</ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="editMode; else sourceNameView">
+                <app-ai-editable-field [showLabel]="false"
+                  [editMode]="true"
+                  fieldType="text"
+                  placeholder="Source name"
+                  [value]="getCitationValue(s.citationID, 'sourceName')"
+                  (valueChange)="setCitationValue(s.citationID, 'sourceName', $event)">
+                </app-ai-editable-field>
+                <app-ai-editable-field [showLabel]="false"
+                  [editMode]="true"
+                  fieldType="text"
+                  placeholder="Source URL"
+                  [value]="getCitationValue(s.citationID, 'sourceURL')"
+                  (valueChange)="setCitationValue(s.citationID, 'sourceURL', $event)">
+                </app-ai-editable-field>
+              </ng-container>
+              <ng-template #sourceNameView>
+                <a [href]="s?.sourceURL" target="_blank" [matTooltip]="'Go to link'">
+                  {{ s?.sourceName ?? "" }}
+                </a>
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="editMode; else trustLevelView">
+                <app-ai-editable-field [showLabel]="false"
+                  [editMode]="true"
+                  fieldType="trust"
+                  [trustLevels]="aiTrustLevels ?? []"
+                  [value]="getCitationValue(s.citationID, 'trustLevel')"
+                  (valueChange)="setCitationValue(s.citationID, 'trustLevel', $event)">
+                </app-ai-editable-field>
+              </ng-container>
+              <ng-template #trustLevelView>
+                <span [matTooltip]="getLabelDesById(s?.trustLevel ?? 0)">
+                  {{ getLabelById(s?.trustLevel ?? 0) }}
+                </span>
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="editMode; else dataYearView">
+                <app-ai-editable-field [showLabel]="false"
+                  [editMode]="true"
+                  fieldType="number"
+                  [value]="getCitationValue(s.citationID, 'dataYear')"
+                  (valueChange)="setCitationValue(s.citationID, 'dataYear', $event)">
+                </app-ai-editable-field>
+              </ng-container>
+              <ng-template #dataYearView>{{ s?.dataYear ?? "" }}</ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="editMode; else dataExtractView">
+                <app-ai-editable-field [showLabel]="false"
+                  [editMode]="true"
+                  fieldType="textarea"
+                  [hideAfterWords]="7"
+                  [value]="getCitationValue(s.citationID, 'dataExtract')"
+                  (valueChange)="setCitationValue(s.citationID, 'dataExtract', $event)">
+                </app-ai-editable-field>
+              </ng-container>
+              <ng-template #dataExtractView>
+                <app-ai-editable-field *ngIf="s?.dataExtract"
+                  [showLabel]="false"
+                  [editMode]="false"
+                  fieldType="textarea"
+                  [hideAfterWords]="7"
+                  [typingSpeed]="5"
+                  [value]="s?.dataExtract ?? ''">
+                </app-ai-editable-field>
+              </ng-template>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>

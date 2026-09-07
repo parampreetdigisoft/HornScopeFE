@@ -1,0 +1,309 @@
+
+:host {
+  display: block;
+  padding: 0 0.5rem 1rem;
+}
+
+.cus_table .table th {
+    background-color: var(--Secondary-Color);
+    font-weight: 600;
+    color: #ffffff;
+    font-size: 14px;
+    white-space: nowrap;
+    padding: 10px 14px;
+}
+
+.cus_table .score_label_tab {
+    background: var(--Primary-Color);
+    color: #ffffff;
+    padding: 0.3rem 0.4rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.cus_table .table td {
+    font-size: 1.3rem;
+    border-bottom: 1px solid #cccccc;
+    vertical-align: middle;
+    padding: 12px 14px;
+}
+
+.cus_table .table {
+    margin: 0;
+}
+
+.cus_table {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 2rem #00000021;
+}
+
+.cus_table .table tr:last-child td {
+    border: 0;
+}
+
+.pillar-detail-content {
+    margin-bottom: 1.25rem;
+}
+
+.pillar-citations-table {
+    margin-top: 0;
+}
+
+.integrate_outter {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    width: 100%;
+    gap: 0;
+}
+
+.integrate_list {
+    width: 100%;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid rgba(92, 140, 200, 0.18);
+    box-shadow: none !important;
+    margin-bottom: 1.5rem;
+}
+
+.kpi_custom_table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-family: "Montserrat", sans-serif;
+    table-layout: fixed;
+}
+
+.kpi_custom_table th {
+    background-color: var(--Secondary-Color);
+    color: #ffffff;
+    font-weight: 600;
+    padding: 10px 12px;
+    border: 1px solid rgba(92, 140, 200, 0.18);
+    text-align: center;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.kpi_custom_table td {
+    padding: 14px 12px;
+    border: 1px solid rgba(92, 140, 200, 0.18);
+    transition: background-color 0.2s;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.last_data td {
+   background-color: rgb(92, 184, 255);
+    color: #000000 !important;
+}
+
+.kpi-metric-cell {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    min-height: 84px;
+    padding: 4px 6px;
+}
+
+.kpi-discrepancy-col {
+    min-width: 150px;
+}
+
+.kpi-discrepancy-cell {
+    min-width: 130px;
+    margin: 0 auto;
+}
+
+.cross-pillar_outter {
+    border: 1px solid rgba(92, 140, 200, 0.18);
+    padding: 1.25rem 1.5rem;
+    border-radius: 15px;
+}
+
+.integrate_outter .cross-pillar {
+    width: 100%;
+    margin-bottom: 1.5rem;
+}
+
+.integrate_outter .cross-pillar:last-child {
+    margin-bottom: 0;
+}
+
+.cross-pillar h5 {
+    font-weight: 700;
+    color: var(--Text-Color, #E8EEF8);
+    margin: 0 0 0.75rem;
+    font-size: 1rem;
+    line-height: 1.4;
+}
+
+.kpi_table tr td {
+    font-size: 13px !important;
+}
+
+.kpi_table td a {
+  color: var(--Accent-Blue, #3B9EFF);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+.kpi_table td a:hover {
+  color: var(--Accent-Lime, #A8E063);
+  text-decoration: underline;
+}
+
+.cus_table .table td:last-child {
+    max-width: 100%;
+    min-width: 180px;
+}
+
+::ng-deep .cross-pillar_outter .typing-text {
+    font-size: 14px;
+    line-height: 1.5;
+}
+
+::ng-deep .cross-pillar .ai-field {
+    width: 100%;
+}
+
+::ng-deep .cross-pillar .ai-field-textarea,
+::ng-deep .cross-pillar .ai-field-input {
+    width: 100%;
+}
+
+::ng-deep .kpi_custom_table app-circular-score,
+::ng-deep .kpi_custom_table app-ai-editable-field {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+::ng-deep .kpi_custom_table .kpi-discrepancy-cell app-sparkline-score {
+    display: flex !important;
+    width: 100%;
+    max-width: 148px;
+}
+
+::ng-deep .kpi_custom_table .kpi-discrepancy-cell .sparkline-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 0;
+}
+
+::ng-deep .kpi_custom_table .kpi-discrepancy-cell .sparkline-track {
+    position: relative;
+    flex: 1 1 auto;
+    min-width: 78px;
+    max-width: 92px;
+    height: 10px;
+    border-radius: 999px;
+    border: 1px solid rgba(255, 255, 255, 0.35) !important;
+    background: rgba(255, 255, 255, 0.1);
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25);
+    overflow: hidden;
+}
+
+::ng-deep .kpi_custom_table .kpi-discrepancy-cell .sparkline-track .segment {
+    opacity: 0.75 !important;
+    border: 0 !important;
+}
+
+::ng-deep .kpi_custom_table .kpi-discrepancy-cell .sparkline-track .score-dot {
+    width: 14px;
+    height: 14px;
+    border: 2px solid rgba(255, 255, 255, 0.95) !important;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.35);
+}
+
+::ng-deep .kpi_custom_table .kpi-discrepancy-cell .score-label {
+    color: #ffffff !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    font-size: 14px;
+    font-weight: 700;
+    min-width: 44px;
+    text-align: left;
+}
+
+::ng-deep .kpi_custom_table .confidence-badge {
+    display: inline-flex;
+    justify-content: center;
+}
+
+::ng-deep .kpi_custom_table .confidence-badge.low {
+    background-color: #ffcccc !important;
+    color: #b30000 !important;
+    border: 1px solid #ff4d4d !important;
+}
+
+::ng-deep .kpi_custom_table .confidence-badge.medium {
+    background-color: #fff3cd !important;
+    color: #856404 !important;
+    border: 1px solid #ffe69c !important;
+}
+
+::ng-deep .kpi_custom_table .confidence-badge.high {
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border: 1px solid #75d69c !important;
+}
+::ng-deep .kpi_custom_table .ai-field-input {
+    min-width: 120px;
+    max-width: 160px;
+    margin: 0 auto;
+}
+
+::ng-deep .pillar-citations-table .ai-field + .ai-field {
+    margin-top: 0.5rem;
+}
+
+.low {
+    background-color: #ffcccc !important;
+    color: #b30000 !important;
+    border: 1px solid #ff4d4d !important;
+}
+
+.medium {
+    background-color: #fff3cd !important;
+    color: #856404 !important;
+    border: 1px solid #ffe69c !important;
+}
+
+.high {
+    background-color: #d4edda !important;
+    color: #155724 !important;
+    border: 1px solid #75d69c !important;
+}
+
+.ai-detail-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 1rem;
+    padding: 1rem 1.25rem;
+}
+
+.ai-edit-surface {
+    border-color: var(--Primary-Color);
+    box-shadow: 0 0 0 1px rgba(0, 109, 119, 0.08);
+}
+
+button.btn-close:focus,
+button.btn-close:focus-visible {
+    box-shadow: 0 0 0 3px rgb(48 74 67);
+    outline: none;
+}

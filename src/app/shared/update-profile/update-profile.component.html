@@ -1,0 +1,94 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-body">
+      <button type="button" (click)="closeModel()" class="btn-close" data-bs-dismiss="modal"
+        aria-label="Close"></button>
+      <div class="row">
+        <div class="col-md">
+          <h4 class="modal_head">Update Profile</h4>
+          <p class="modal_sub_head mb-5">Enter The details and marked</p>
+        </div>
+        <div class="col-md-auto">
+          <img
+            [src]="userinfo?.profileImagePath ? urlBase+userinfo?.profileImagePath : 'assets/images/default-profile.png'"
+            class="pp_pic" (error)="onImgError($event)" [alt]="'Profile Image'" />
+        </div>
+      </div>
+      <div class="modal_tabs">
+        <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
+          <!-- Full Name -->
+          <div class="input_field">
+            <label>Full Name *</label>
+            <input type="text" formControlName="fullName" appAlphaOnly placeholder="Enter Full Name"
+              class="form-control" />
+            <div class="error-msg" *ngIf="
+                userForm.get('fullName')?.invalid &&
+                (userForm.get('fullName')?.touched || isSubmitted)
+              ">
+              Full name is required.
+            </div>
+          </div>
+          <div class="input_field">
+            <label>Email.*</label>
+            <input type="email"  formControlName="email" class="form-control" />
+            <div class="error-msg" *ngIf="userForm.get('email')?.touched || isSubmitted">
+                <span *ngIf="userForm.get('email')?.errors?.['required']">Email is
+                                        required.</span>
+                <span *ngIf="userForm.get('email')?.errors?.['email']">Invalid email
+                                        format.</span>
+                <span *ngIf="userForm.get('email')?.errors?.['emailExists']">Email is
+                                        already taken.</span>
+            </div>
+          </div>
+          <div class="input_field">
+            <label>Phone No.*</label>
+            <input type="text" formControlName="phone" placeholder="Enter Phone Number"
+              class="form-control"  minlength="10" maxlength="15" (keypress)="numberOnly($event)" />
+            <div class="error-msg" *ngIf="
+                userForm.get('phone')?.invalid &&
+                (userForm.get('phone')?.touched || isSubmitted)
+              ">
+              Phone number is required.
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="col-md-6">
+              <div class="input_field">
+                <label>Choose Image</label>
+                <input type="file" (change)="onFileSelected($event)" formControlName="profileImage"
+                  placeholder="select profile image" class="form-control" accept="image/*" />
+              </div>
+            </div>
+            <div class="col-md-6 d-flex align-items-center justify-content-center" *ngIf="selectedImage">
+              <div class="input_field">
+                <label>Preview Image</label>
+                <img
+                  [src]="selectedImage ? selectedImage : userinfo?.profileImagePath ? urlBase + userinfo?.profileImagePath : 'assets/images/default-profile.png'"
+                  class="pp_pic" (error)="onImgError($event)" [alt]="'Profile Image'" />
+              </div>
+            </div>
+          </div>
+          <div class="input_field">
+            <div class="form-check form-switch mt-3">
+              <input class="form-check-input" type="checkbox" id="is2FAEnabled" formControlName="is2FAEnabled" />
+              <label class="form-check-label" for="is2FAEnabled">
+                Enable Two-Factor Authentication
+              </label>
+            </div>
+
+            <!-- Optional helper text -->
+            <small class="text-muted d-block mt-1 auth_text">
+              When enabled, you’ll receive an OTP on your registered email during login.
+            </small>
+          </div>
+          <!-- Submit -->
+          <button type="submit" class="common_button w-100 mt-4" [disabled]="userForm.invalid">
+            {{ "Update" }}
+            <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

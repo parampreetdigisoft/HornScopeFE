@@ -1,0 +1,112 @@
+::ng-deep .analyst_multi_select .ng-select-container {
+  border: 0;
+  min-height: 30px;
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.transfer_popup .modal-content {
+  border-radius: 14px;
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22));
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
+  background: linear-gradient(180deg, #0B1633 0%, #09122A 100%);
+  color: var(--Text-Color, #E8EEF8);
+}
+
+.transfer_popup .modal-body {
+  padding: 28px 30px;
+  color: var(--Light-Text-Color, #9AADC4);
+}
+
+.modal_head {
+  font-size: 20px;
+  font-weight: 600;
+  margin-bottom: 18px;
+  color: var(--Text-Color, #E8EEF8);
+}
+
+.btn-close {
+  position: absolute;
+  right: 18px;
+  top: 18px;
+  opacity: 0.75;
+  filter: invert(1) grayscale(1);
+}
+
+.details_list strong {
+  font-weight: 600;
+  color: var(--Text-Color, #E8EEF8);
+}
+
+.details_list span {
+  margin-left: 6px;
+  color: var(--Light-Text-Color, #9AADC4);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+h5 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  color: var(--Text-Color, #E8EEF8);
+}
+
+.details_list {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  margin-bottom: 10px;
+  border-radius: 10px;
+  background: rgba(16, 32, 68, 0.72);
+  border: 1px solid rgba(92, 140, 200, 0.18);
+  transition: all 0.25s ease;
+}
+
+.details_list:hover {
+  background: rgba(59, 158, 255, 0.12);
+  border-color: rgba(59, 158, 255, 0.3);
+}
+
+.form-check-input {
+  width: 42px;
+  height: 22px;
+  cursor: pointer;
+  background-color: rgba(16, 32, 68, 0.9);
+  border-color: rgba(92, 140, 200, 0.35);
+}
+
+.form-check-input:focus {
+  box-shadow: 0 0 0 2px rgba(59, 158, 255, 0.25);
+}
+
+.input_field {
+  margin-top: 22px;
+}
+
+.input_field label {
+  font-size: 14px;
+  font-weight: 600;
+  margin-bottom: 6px;
+  display: block;
+  color: var(--Light-Text-Color, #9AADC4);
+}
+
+.analyst_multi_select {
+  border-radius: 10px;
+}
+
+.spinner-border {
+  width: 16px;
+  height: 16px;
+}
+
+.form-switch input {
+  box-shadow: none;
+}
+
+.form-switch input:checked {
+  background-color: var(--Accent-Green, #4CAF50) !important;
+  border-color: var(--Accent-Green, #4CAF50);
+}

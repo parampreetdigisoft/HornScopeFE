@@ -1,0 +1,191 @@
+.see_response {
+  border-radius: 50px;
+  border: 1px solid #7AC2AE;
+  padding: 5px 15px;
+  color: #7AC2AE;
+  font-size: 12px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 20px;
+  transition: 0.3s all;
+}
+
+.see_response:hover {
+  border: 1px solid #304A43;
+  color: #304A43;
+}
+
+.input_field {
+  margin-bottom: 0;
+}
+
+.inner_div {
+  gap: 20px;
+}
+
+.input_flex {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.heading_area .input_field {
+  flex: 1;
+  justify-content: flex-end;
+  display: flex;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
+
+.heading_area .input_field .vcp-filter-select {
+  flex: 0 1 280px;
+  min-width: 240px;
+  max-width: 280px;
+  width: 100%;
+}
+
+.heading_area .input_field ng-select.form-control {
+  padding: 0 !important;
+  border: 0 !important;
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-select-container {
+  min-height: 44px !important;
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
+  border-radius: 12px !important;
+  background: var(--Surface-Elevated, #102044) !important;
+  box-shadow: none !important;
+  padding: 4px 8px 4px 12px !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+  font-size: 13px !important;
+  font-weight: 400 !important;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease,
+    transform 0.18s ease;
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-select-container:hover {
+  border-color: rgba(92, 140, 200, 0.42) !important;
+  background: #132a52 !important;
+  transform: translateY(-1px);
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-value-container {
+  padding-left: 0 !important;
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-placeholder,
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-value-label,
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-value,
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-input > input {
+  color: var(--Text-Color, #E8EEF8) !important;
+  font-size: 13px !important;
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-placeholder {
+  color: var(--Light-Text-Color, #9AADC4) !important;
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-arrow-wrapper {
+  padding-right: 4px !important;
+  transition: transform 0.22s ease;
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-arrow {
+  border-color: #9AADC4 transparent transparent !important;
+  transition: border-color 0.22s ease;
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select.ng-select-opened .ng-arrow-wrapper {
+  transform: rotate(180deg);
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container,
+:host ::ng-deep .heading_area .input_field .vcp-filter-select.ng-select-opened > .ng-select-container {
+  border-color: var(--Accent-Blue, #3B9EFF) !important;
+  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.18) !important;
+  transform: translateY(0);
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-clear-wrapper {
+  color: #9AADC4 !important;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-clear-wrapper:hover {
+  color: #fff !important;
+  transform: scale(1.08);
+}
+
+.no_result_found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 60px;
+}
+
+.no_result_found h3 {
+  font-weight: 700;
+}
+
+@media only screen and (max-width: 1550px) {
+  .heading_area .input_field .vcp-filter-select {
+    flex-basis: 220px;
+    min-width: 200px;
+    max-width: 220px;
+  }
+}
+
+@media only screen and (max-width: 1440px) {
+  .page_head {
+    font-size: 22px;
+  }
+
+  .heading_area .input_field {
+    flex: unset;
+  }
+
+  .heading_area .input_field .vcp-filter-select {
+    flex-basis: 200px;
+    min-width: 180px;
+    max-width: 200px;
+  }
+}
+
+@media only screen and (max-width: 1339px) {
+  .custom_gap {
+    gap: 20px !important;
+  }
+
+  .input_flex {
+    justify-content: flex-start;
+  }
+}
+
+@media only screen and (max-width: 991px) {
+  .heading_area .input_field .vcp-filter-select {
+    flex: 1 1 calc(50% - 6px);
+    min-width: 160px;
+    max-width: 100%;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .input_flex {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .heading_area .input_field .vcp-filter-select {
+    flex: 1 1 100%;
+    min-width: 0;
+    max-width: 100%;
+  }
+}

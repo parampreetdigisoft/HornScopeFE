@@ -1,0 +1,479 @@
+/**
+ * VCP global dark dropdown theme
+ * Applies to ng-select + native selects across all feature screens.
+ * Import last in styles.css so it wins over legacy per-component overrides.
+ */
+
+/* ---- ng-select containers ---- */
+.compare_select .ng-select .ng-select-container,
+.compare_select ng-select .ng-select-container,
+.input_flex ng-select .ng-select-container,
+.input_field ng-select .ng-select-container,
+.input_field .vcp-filter-select .ng-select-container,
+.heading_area ng-select .ng-select-container,
+.heading_area .input_field ng-select .ng-select-container,
+.analyst_multi_select.ng-select .ng-select-container,
+ng-select.analyst_multi_select .ng-select-container,
+ng-select.form-control .ng-select-container,
+.program_pillar ng-select .ng-select-container,
+.modal_design ng-select .ng-select-container,
+.filter_select_shell ng-select .ng-select-container,
+.vcp-filter-select .ng-select-container,
+.assessment_select .ng-select-container {
+  min-height: 44px !important;
+  background: var(--Surface-Elevated, #102044) !important;
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
+  border-radius: 12px !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+  box-shadow: none !important;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease,
+    transform 0.18s ease;
+}
+
+/* .compare_select .ng-select .ng-select-container:hover,
+.input_flex ng-select .ng-select-container:hover,
+.input_field ng-select .ng-select-container:hover,
+.heading_area ng-select .ng-select-container:hover,
+.analyst_multi_select.ng-select .ng-select-container:hover,
+ng-select.analyst_multi_select .ng-select-container:hover,
+.program_pillar ng-select .ng-select-container:hover,
+.vcp-filter-select .ng-select-container:hover {
+  border-color: rgba(92, 140, 200, 0.42) !important;
+  background: #132a52 !important;
+} */
+
+.compare_select .ng-select.ng-select-focused .ng-select-container,
+.compare_select .ng-select.ng-select-opened .ng-select-container,
+.input_flex ng-select.ng-select-focused .ng-select-container,
+.input_flex ng-select.ng-select-opened .ng-select-container,
+.input_field ng-select.ng-select-focused .ng-select-container,
+.input_field ng-select.ng-select-opened .ng-select-container,
+.heading_area ng-select.ng-select-focused .ng-select-container,
+.heading_area ng-select.ng-select-opened .ng-select-container,
+.analyst_multi_select.ng-select-focused .ng-select-container,
+.analyst_multi_select.ng-select-opened .ng-select-container,
+.vcp-filter-select.ng-select-focused .ng-select-container,
+.vcp-filter-select.ng-select-opened .ng-select-container {
+  border-color: var(--Accent-Blue, #3B9EFF) !important;
+  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.18) !important;
+  min-width: 100% !important;
+}
+
+/* ---- ng-select text / arrow ---- */
+.compare_select .ng-select .ng-placeholder,
+.compare_select .ng-select .ng-value-label,
+.compare_select .ng-select .ng-value,
+.input_flex ng-select .ng-placeholder,
+.input_flex ng-select .ng-value-label,
+.input_flex ng-select .ng-value,
+.input_field ng-select .ng-placeholder,
+.input_field ng-select .ng-value-label,
+.input_field ng-select .ng-value,
+.heading_area ng-select .ng-placeholder,
+.heading_area ng-select .ng-value-label,
+.heading_area ng-select .ng-value,
+.analyst_multi_select .ng-placeholder,
+.analyst_multi_select .ng-value-label,
+.analyst_multi_select .ng-value,
+.vcp-filter-select .ng-placeholder,
+.vcp-filter-select .ng-value-label,
+.vcp-filter-select .ng-value,
+.ng-select .ng-input > input {
+  color: var(--Text-Color, #E8EEF8) !important;
+}
+
+.compare_select .ng-select .ng-placeholder,
+.input_flex ng-select .ng-placeholder,
+.input_field ng-select .ng-placeholder,
+.heading_area ng-select .ng-placeholder,
+.analyst_multi_select .ng-placeholder,
+.vcp-filter-select .ng-placeholder {
+  color: var(--Light-Text-Color, #9AADC4) !important;
+}
+
+.compare_select .ng-select .ng-arrow,
+.input_flex ng-select .ng-arrow,
+.input_field ng-select .ng-arrow,
+.heading_area ng-select .ng-arrow,
+.analyst_multi_select .ng-arrow,
+.vcp-filter-select .ng-arrow,
+.ng-select .ng-arrow {
+  border-color: #9AADC4 transparent transparent !important;
+  transition: transform 0.22s ease;
+}
+
+.analyst_multi_select.ng-select-opened .ng-arrow-wrapper,
+.input_flex ng-select.ng-select-opened .ng-arrow-wrapper,
+.heading_area ng-select.ng-select-opened .ng-arrow-wrapper,
+.vcp-filter-select.ng-select-opened .ng-arrow-wrapper {
+  transform: rotate(180deg);
+}
+
+/* Multi-select chips in dark theme */
+.compare_select .ng-value-container .ng-value,
+.analyst_multi_select .ng-value-container .ng-value,
+ng-select.analyst_multi_select .ng-value-container .ng-value {
+  display: inline-flex !important;
+  align-items: center !important;
+  margin: 2px 4px 2px 0 !important;
+  padding: 2px 8px !important;
+  background: rgba(59, 158, 255, 0.18) !important;
+  border: 1px solid rgba(92, 140, 200, 0.35) !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+  border-radius: 8px !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  line-height: normal!important;
+  white-space: nowrap !important;
+  max-width: 100% !important;
+}
+
+.analyst_multi_select .ng-value .ng-value-label,
+.compare_select .ng-value .ng-value-label {
+  padding: 0 !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+}
+
+.analyst_multi_select .ng-value .ng-value-icon,
+.compare_select .ng-value .ng-value-icon {
+  border: none !important;
+  border-right: none !important;
+  padding: 0 0 0 6px !important;
+  color: var(--Light-Text-Color, #9AADC4) !important;
+  background: transparent !important;
+}
+
+.analyst_multi_select .ng-value .ng-value-icon:hover,
+.compare_select .ng-value .ng-value-icon:hover {
+  color: #ffffff !important;
+  background: transparent !important;
+}
+
+/* ---- ng-select host wrappers (prevent double border on multi-select) ---- */
+.compare_select .analyst_multi_select,
+.compare_select ng-select.analyst_multi_select,
+.input_flex ng-select.analyst_multi_select,
+.input_field ng-select.analyst_multi_select,
+ng-select.analyst_multi_select.form-control,
+.multi_select ng-select.form-control,
+.input_flex ng-select.form-control,
+.input_field ng-select.form-control {
+  display: block !important;
+  width: 100% !important;
+  min-width: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  box-shadow: none !important;
+  appearance: none !important;
+}
+
+/* ---- multi-select container layout ---- */
+ng-select.analyst_multi_select.ng-select-multiple .ng-select-container,
+.analyst_multi_select.ng-select-multiple .ng-select-container,
+.compare_select ng-select.analyst_multi_select .ng-select-container,
+.input_flex ng-select.analyst_multi_select .ng-select-container {
+  min-height: 44px !important;
+  /* max-height: 92px !important; */
+  height: auto !important;
+  min-width: 190px !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  align-items: flex-start !important;
+  padding: 5px 4px 5px 8px !important;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(92, 140, 200, 0.45) transparent;
+  align-items: center !important;
+}
+
+ng-select.analyst_multi_select.ng-select-multiple .ng-value-container,
+.analyst_multi_select.ng-select-multiple .ng-value-container,
+.compare_select ng-select.analyst_multi_select .ng-value-container {
+  padding: 0 !important;
+  gap: 2px !important;
+  flex-wrap: wrap !important;
+  align-items: center !important;
+  max-width: 100% !important;
+}
+
+ng-select.analyst_multi_select.ng-select-multiple .ng-input,
+.analyst_multi_select.ng-select-multiple .ng-input {
+  padding: 0 !important;
+  /* min-width: 48px !important; */
+}
+
+ng-select.analyst_multi_select.ng-select-multiple .ng-input > input,
+.analyst_multi_select.ng-select-multiple .ng-input > input {
+  color: var(--Text-Color, #E8EEF8) !important;
+  font-size: 13px !important;
+}
+
+ng-select.analyst_multi_select .ng-clear-wrapper,
+.analyst_multi_select .ng-clear-wrapper {
+  color: var(--Light-Text-Color, #9AADC4) !important;
+  margin-right: 2px !important;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+ng-select.analyst_multi_select .ng-clear-wrapper:hover,
+.analyst_multi_select .ng-clear-wrapper:hover {
+  color: #ffffff !important;
+  transform: scale(1.08);
+}
+
+ng-select.analyst_multi_select .ng-arrow-wrapper,
+.analyst_multi_select .ng-arrow-wrapper {
+  padding-right: 6px !important;
+}
+
+ng-select.analyst_multi_select.ng-select-multiple .ng-select-container::-webkit-scrollbar,
+.analyst_multi_select.ng-select-multiple .ng-select-container::-webkit-scrollbar {
+  width: 4px;
+}
+
+ng-select.analyst_multi_select.ng-select-multiple .ng-select-container::-webkit-scrollbar-thumb,
+.analyst_multi_select.ng-select-multiple .ng-select-container::-webkit-scrollbar-thumb {
+  background: rgba(92, 140, 200, 0.4);
+  border-radius: 999px;
+}
+
+/* Pillar KPI multi-select in admin forms */
+ng-select.pillar-kpi-select.ng-select-multiple .ng-value-container .ng-value {
+  background: rgba(76, 175, 80, 0.22) !important;
+  border: 1px solid rgba(168, 224, 99, 0.35) !important;
+}
+
+/* ---- ng-select host wrappers ---- */
+
+/* ---- native selects ---- */
+.input_flex select.form-control,
+.input_field select.form-control,
+.input_flex select,
+.heading_area select.form-control,
+.compare_select select.form-control,
+.program_pillar select.form-control {
+  background-color: var(--Surface-Elevated, #102044) !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%239AADC4' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") !important;
+  background-repeat: no-repeat !important;
+  background-position: center right 13px !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
+  border-radius: 12px !important;
+  min-height: 44px !important;
+  padding: 10px 30px 10px 12px !important;
+  font-family: "Poppins", sans-serif !important;
+  font-size: 13px !important;
+  appearance: none !important;
+  transition:
+    border-color 0.22s ease,
+    box-shadow 0.22s ease,
+    background-color 0.22s ease;
+}
+
+.input_flex select.form-control:hover,
+.input_field select.form-control:hover,
+.heading_area select.form-control:hover {
+  border-color: rgba(92, 140, 200, 0.42) !important;
+  background-color: #132a52 !important;
+}
+
+.input_flex select.form-control:focus,
+.input_field select.form-control:focus,
+.heading_area select.form-control:focus {
+  border-color: var(--Accent-Blue, #3B9EFF) !important;
+  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.18) !important;
+  outline: none !important;
+}
+
+.input_flex select option,
+.input_field select option,
+.heading_area select option {
+  background: var(--Surface-Color, #0B1633);
+  color: var(--Text-Color, #E8EEF8);
+}
+
+/* ---- dropdown panel options (global panels) ---- */
+.analyst_multi_select .ng-dropdown-panel .ng-option.ng-option-selected,
+.analyst_multi_select .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
+  background: rgba(76, 175, 80, 0.22) !important;
+  color: #ffffff !important;
+  font-weight: 600 !important;
+}
+
+.analyst_multi_select .ng-dropdown-panel .ng-option.ng-option-marked,
+.analyst_multi_select .ng-dropdown-panel .ng-option:hover {
+  background: rgba(59, 158, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+@keyframes vcpDropdownIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+body > .ng-dropdown-panel {
+  animation: vcpDropdownIn 0.2s ease;
+  transform-origin: top center;
+}
+
+body > .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+/* Scrollable modals: keep ng-select panel in DOM — do not use appendTo="body" */
+.modal_design .modal-body .ng-select,
+.pillar-modal-body .ng-select {
+  position: relative;
+}
+
+.modal_design .modal-body .ng-select.ng-select-opened,
+.pillar-modal-body .ng-select.ng-select-opened {
+  z-index: 20051;
+}
+
+.modal_design .modal-body .ng-select .ng-dropdown-panel,
+.pillar-modal-body .ng-select .ng-dropdown-panel {
+  z-index: 20050 !important;
+  animation: vcpDropdownIn 0.2s ease;
+  transform-origin: top center;
+}
+
+.modal_design .modal-body .ng-select .ng-dropdown-panel .ng-option,
+.pillar-modal-body .ng-select .ng-dropdown-panel .ng-option {
+  transition: background-color 0.16s ease, color 0.16s ease;
+}
+
+/* ---- dashboard / filter shells ---- */
+.program_pillar .input_field .analyst_multi_select .ng-select-container,
+.program_pillar .input_field .form-control {
+  background: var(--Surface-Elevated, #102044) !important;
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+  border-radius: 12px !important;
+  min-height: 44px !important;
+}
+
+.program_pillar .input_field .analyst_multi_select .ng-placeholder,
+.program_pillar .input_field .analyst_multi_select .ng-value-label,
+.program_pillar .input_field .analyst_multi_select .ng-value,
+.program_pillar .input_field .analyst_multi_select .ng-input > input {
+  color: var(--Text-Color, #E8EEF8) !important;
+}
+
+.program_pillar .input_field .analyst_multi_select.ng-select-focused .ng-select-container,
+.program_pillar .input_field .analyst_multi_select.ng-select-opened .ng-select-container {
+  border-color: var(--Accent-Blue, #3B9EFF) !important;
+  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.18) !important;
+}
+
+.filter_select_shell {
+  background: var(--Surface-Elevated, #102044) !important;
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
+}
+
+.filter_select_shell .ng-select .ng-select-container {
+  background: transparent !important;
+  border: none !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+}
+
+.filter_select_shell:focus-within {
+  border-color: var(--Accent-Blue, #3B9EFF) !important;
+  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.18) !important;
+}
+
+.filter_year_select {
+  color: var(--Text-Color, #E8EEF8) !important;
+}
+
+.pulse-insight-dashboard .pulse-ng-select .ng-select-container {
+  background: var(--Surface-Elevated, #102044) !important;
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+}
+
+.input_flex ng-select.analyst_multi_select .ng-placeholder {
+    padding-bottom: 0 !important;
+    top: 50% !important;
+    transform: translateY(-50%);
+    position: absolute;
+}
+
+/* ---- responsive widths ---- */
+@media only screen and (max-width: 991px) {
+  .input_flex {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .compare_select ng-select,
+  .input_flex ng-select,
+  .input_field ng-select {
+    flex: 1 1 calc(50% - 8px);
+    max-width: 100%;
+    min-width: 160px;
+  }
+}
+
+@media only screen and (max-width: 767px) {
+  .compare_select ng-select,
+  .input_flex ng-select,
+  .input_field ng-select,
+  .heading_area ng-select {
+    flex: 1 1 100%;
+    max-width: 100%;
+    min-width: 0;
+  }
+}
+
+/* ---- Bootstrap dropdown-menu dark theme across all feature screens ---- */
+.dropdown-menu {
+  background-color: var(--Surface-Elevated, #102044) !important;
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65), 0 0 20px rgba(59, 158, 255, 0.15) !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+  padding: 6px 0 !important;
+  z-index: 1060 !important;
+  min-width: 180px !important;
+}
+
+.dropdown-menu .dropdown-header {
+  color: var(--Accent-Lime, #A8E063) !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.06em !important;
+  padding: 8px 16px 4px !important;
+}
+
+.dropdown-menu .dropdown-item {
+  color: var(--Text-Color, #E8EEF8) !important;
+  font-size: 13px !important;
+  padding: 8px 16px !important;
+  transition: background-color 0.18s ease, color 0.18s ease !important;
+  cursor: pointer !important;
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus {
+  background-color: rgba(59, 158, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.dropdown-menu .dropdown-divider {
+  border-top: 1px solid rgba(92, 140, 200, 0.18) !important;
+  margin: 4px 0 !important;
+  opacity: 1 !important;
+}
+

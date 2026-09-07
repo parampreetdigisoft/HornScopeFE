@@ -1,0 +1,26 @@
+<div class="ai-edit-toolbar">
+  <h5 class="ai-edit-title">{{ title }}</h5>
+  <div class="ai-edit-actions" *ngIf="canEdit">
+    <ng-container *ngIf="!editMode; else editActions">
+      <button type="button"
+        class="common_button"
+        [disabled]="editDisabled"
+        [attr.title]="editDisabled ? editDisabledReason : null"
+        (click)="edit.emit()">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+          <path d="M4 20h4l10.5-10.5a1.5 1.5 0 0 0 0-2.12L16.62 5a1.5 1.5 0 0 0-2.12 0L4 15.5V20Z" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/>
+        </svg>
+        Edit
+      </button>
+    </ng-container>
+    <ng-template #editActions>
+      <button type="button" class="common_button common_button_cancel" [disabled]="saving" (click)="cancel.emit()">
+        Cancel
+      </button>
+      <button type="button" class="common_button" [disabled]="saving" (click)="save.emit()">
+        Save Changes
+        <span *ngIf="saving" class="spinner-border spinner-border-sm me-1"></span>
+      </button>
+    </ng-template>
+  </div>
+</div>

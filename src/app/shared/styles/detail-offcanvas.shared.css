@@ -1,0 +1,139 @@
+/* Dark theme for Bootstrap offcanvas detail panels (KPI / program / AI) */
+.offcanvas.custom-sidebar,
+.offcanvas.kpi_sidebar,
+.offcanvas.document_sidebar,
+.offcanvas.custom-sidebar.kpi_sidebar {
+  --bs-offcanvas-bg: var(--Surface-Color, #0B1633);
+  --bs-offcanvas-color: var(--Text-Color, #E8EEF8);
+  background: linear-gradient(180deg, #0B1633 0%, #09122A 100%) !important;
+  color: var(--Text-Color, #E8EEF8) !important;
+  border-left: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
+  box-shadow: -16px 0 40px rgba(0, 0, 0, 0.45);
+}
+
+.offcanvas.custom-sidebar .offcanvas-header,
+.offcanvas.kpi_sidebar .offcanvas-header,
+.offcanvas.document_sidebar .offcanvas-header {
+  border-bottom: 1px solid rgba(92, 140, 200, 0.18);
+  background: rgba(16, 32, 68, 0.65);
+}
+
+.offcanvas.custom-sidebar .offcanvas-title,
+.offcanvas.kpi_sidebar .offcanvas-title,
+.offcanvas.document_sidebar .offcanvas-title,
+.offcanvas.custom-sidebar h4,
+.offcanvas.kpi_sidebar h4,
+.offcanvas.document_sidebar h4,
+.offcanvas.custom-sidebar h5,
+.offcanvas.kpi_sidebar h5,
+.offcanvas.document_sidebar h5 {
+  color: var(--Text-Color, #E8EEF8) !important;
+}
+
+.offcanvas.custom-sidebar .btn-close,
+.offcanvas.kpi_sidebar .btn-close,
+.offcanvas.document_sidebar .btn-close {
+  filter: invert(1) grayscale(1);
+  opacity: 0.75;
+}
+
+.offcanvas.custom-sidebar .offcanvas-body,
+.offcanvas.kpi_sidebar .offcanvas-body,
+.offcanvas.document_sidebar .offcanvas-body {
+  color: var(--Light-Text-Color, #9AADC4);
+}
+
+/* Shared card / table surfaces used inside offcanvas detail components */
+.program_pillar,
+.cross-pillar_outter {
+  background: rgba(16, 32, 68, 0.72) !important;
+  border: 1px solid rgba(92, 140, 200, 0.18) !important;
+  color: var(--Text-Color, #E8EEF8);
+}
+
+.cross-pillar h5,
+h4.kpi_head_col,
+.program_cards_h1,
+.program_cards_h1 {
+  color: var(--Text-Color, #E8EEF8) !important;
+}
+
+.program_pillar + app-ag-bar {
+  background-color: rgba(8, 18, 42, 0.9) !important;
+  border: 1px solid rgba(92, 140, 200, 0.16);
+}
+
+.integrate_list {
+  border: 1px solid rgba(92, 140, 200, 0.18) !important;
+  background: rgba(8, 18, 42, 0.55);
+}
+
+.kpi_custom_table th,
+.cus_table .table th {
+  background-color: rgba(16, 32, 68, 0.95) !important;
+  color: #E8EEF8 !important;
+  border-color: rgba(92, 140, 200, 0.2) !important;
+}
+
+.kpi_custom_table td,
+.cus_table .table td {
+  color: #C9D6EA !important;
+  border-color: rgba(92, 140, 200, 0.16) !important;
+  background: transparent;
+}
+
+.kpi_custom_table tr:nth-child(even),
+.cus_table .table tr:nth-child(even) td,
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-bg-type: rgba(16, 32, 68, 0.45);
+  background-color: rgba(16, 32, 68, 0.45) !important;
+}
+
+.cus_table {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+  border: 1px solid rgba(92, 140, 200, 0.16);
+}
+
+.program_cards_p,
+.program_cards_disc,
+.program_cards_p path {
+  color: var(--Light-Text-Color, #9AADC4);
+  fill: var(--Accent-Lime, #A8E063);
+}
+
+.low,
+.medium,
+.high,
+.trust-badge,
+.badge-low,
+.badge-medium,
+.badge-high {
+  border: 1px solid rgba(92, 140, 200, 0.22);
+}
+
+a.detail_link,
+.integrate_list a,
+.program_pillar a {
+  color: var(--Accent-Blue, #3B9EFF) !important;
+}
+
+/* Slim scrollbars inside offcanvas panels */
+.offcanvas.custom-sidebar .offcanvas-body,
+.offcanvas.kpi_sidebar .offcanvas-body,
+.offcanvas.document_sidebar .offcanvas-body {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(92, 140, 200, 0.45) transparent;
+}
+
+.offcanvas.custom-sidebar .offcanvas-body::-webkit-scrollbar,
+.offcanvas.kpi_sidebar .offcanvas-body::-webkit-scrollbar,
+.offcanvas.document_sidebar .offcanvas-body::-webkit-scrollbar {
+  width: 5px;
+}
+
+.offcanvas.custom-sidebar .offcanvas-body::-webkit-scrollbar-thumb,
+.offcanvas.kpi_sidebar .offcanvas-body::-webkit-scrollbar-thumb,
+.offcanvas.document_sidebar .offcanvas-body::-webkit-scrollbar-thumb {
+  background: rgba(92, 140, 200, 0.4);
+  border-radius: 999px;
+}

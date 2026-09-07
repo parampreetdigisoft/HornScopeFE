@@ -1,0 +1,42 @@
+.ai-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.ai-field-compact {
+  gap: 0.2rem;
+}
+
+.ai-field-label {
+  font-weight: 600;
+  color: var(--Text-Color, #E8EEF8);
+  font-size: 0.95rem;
+}
+
+.ai-field-readonly {
+  color: var(--Light-Text-Color, #9AADC4);
+  font-size: 0.95rem;
+}
+
+.ai-field-input,
+.ai-field-textarea {
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22));
+  border-radius: 0.5rem;
+  font-size: 0.95rem;
+  background: var(--Surface-Elevated, #102044);
+  color: var(--Text-Color, #E8EEF8);
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.ai-field-input:focus,
+.ai-field-textarea:focus {
+  border-color: var(--Accent-Blue, #3B9EFF);
+  box-shadow: 0 0 0 0.15rem rgba(59, 158, 255, 0.18);
+  outline: none;
+}
+
+.ai-field-textarea {
+  min-height: 72px;
+  resize: vertical;
+}

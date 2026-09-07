@@ -1,0 +1,45 @@
+import { Directive, ElementRef, HostListener } from '@angular/core';
+
+@Directive({
+  selector: '[appNumberOnly]'
+})
+export class NumberOnlyDirective {
+  // ✅ Allow optional leading '-' and up to 2 decimal places
+  private regex: RegExp = new RegExp(/^-?\d*\.?\d{0,2}$/g);
+
+  private specialKeys: Array<string> = [
+    'Backspace', 'Tab', 'End', 'Home', 'ArrowLeft', 'ArrowRight', 'Delete'
+  ];
+
+  constructor(private el: ElementRef) {}
+
+  @HostListener('keydown', ['$event'])
+  onKeyDown(event: KeyboardEvent) {
+    // Always allow special keys
+    if (this.specialKeys.indexOf(event.key) !== -1) {
+      return;
+    }
+
+    const current: string = this.el.nativeElement.value;
+    const position = this.el.nativeElement.selectionStart;
+    const next: string = [
+      current.slice(0, position),
+      event.key === 'Decimal' ? '.' : event.key,
+      current.slice(position)
+    ].join('');
+
+    // ✅ Allow minus only at the beginning
+    if (event.key === '-') {
+      // If cursor not at start or '-' already exists, block it
+      if (position !== 0 || current.includes('-')) {
+        event.preventDefault();
+      }
+      return;
+    }
+
+    // ✅ Validate against regex (numbers and optional decimal)
+    if (next && !String(next).match(this.regex)) {
+      event.preventDefault();
+    }
+  }
+}

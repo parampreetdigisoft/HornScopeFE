@@ -1,0 +1,149 @@
+/* Default Bootstrap width is 400px */
+.custom-sidebar {
+    width: 775px !important;
+    /* set your desired width */
+}
+
+.action_td input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #397b69;
+}
+
+.action_td td {
+    padding: 0 20px 0 0 !important;
+}
+
+.document_td_data div:empty,
+.document_sidebar app-ai-document-view-details .bold_num:empty {
+    display: none;
+}
+
+.document_td_data .bold_num,
+::ng-deep .document_sidebar app-ai-document-view-details .bold_num {
+    background: var(--Primary-Color);
+    color: #ffffff;
+    padding: 2px 8px;
+    border-radius: 0.5rem;
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+::ng-deep .document_sidebar app-ai-document-view-details .program_card_outter .program_card_img img {
+    max-width: 300px;
+}
+
+::ng-deep .document_sidebar app-ai-document-view-details .program_card_outter .program_card_inner {
+    padding: 10px 0px;
+}
+
+::ng-deep .document_sidebar app-ai-document-view-details .program_card_outter .program_card_inner .program_cards_h1 {
+    font-size: 18px;
+    margin-right: auto;
+}
+
+::ng-deep .document_sidebar .program_cards_disc {
+    margin: 10px 0 0px !important;
+    font-size: 14px;
+}
+
+.compare_city_table .table thead tr {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.compare_city_table tbody td.action_td table {
+    width: 100%;
+}
+
+.compare_city_table tbody td.action_td table .action_icons {
+    justify-content: center;
+}
+
+.compare_city_table tbody td.action_td table .action_icons a.mat-mdc-tooltip-trigger span {
+    display: inline-block;
+    background-color: #164074 !important;
+    padding: 8px 10px;
+    white-space: nowrap;
+    color: #ffffff;
+    border-radius: 5px;
+    color: rgb(59 158 255);
+    border: 1px solid rgba(59, 158, 255, 0.55);
+    background: rgba(59, 158, 255, 0.08);
+}
+
+.compare_city_table .action_td td {
+    padding: 0 !important;
+}
+
+.table_outer .table_custom_inner tbody td.action_td table .btn_spinner .spinner-border {
+    border-radius: 100px !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    width: 30px;
+    height: 30px;
+    background: transparent;
+}
+p.btn_spinner {
+    display: inline-block;
+    padding: 0px 0px;
+    white-space: nowrap;
+    color: #ffffff;
+    border-radius: 5px;
+}
+
+@media only screen and (max-width:1550px) {
+    .table_outer .table th {
+        padding: 11px 6px;
+        font-size: 15px;
+    }
+
+    .table_outer .table td {
+        font-size: 13px;
+        padding: 10px 6px;
+    }
+
+    .table_custom_inner {
+        overflow-x: auto !important;
+    }
+}
+
+.compare_select .analyst_multi_select {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+.table_custom_inner {
+    overflow: auto;
+}
+
+.table_custom_inner::-webkit-scrollbar {
+    display: none;
+}
+
+.card_title {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.document_cat05.document_td_data {
+    display: flex;
+}
+
+::ng-deep .document_sidebar .program_pillar {
+    background-color: #f7f7f7;
+    padding: 0px 15px;
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid #e4e4e4;
+    margin-bottom: 15px;
+    margin-top: 15px;
+}
+
+::ng-deep span.spinner-border.spinner-border-sm
+{
+    width: 20px !important;
+    height: 20px !important;
+}

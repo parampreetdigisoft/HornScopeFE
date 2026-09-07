@@ -1,0 +1,55 @@
+.typing-container {
+  transition: opacity 0.35s ease-out;
+  opacity: 1;
+  display: block;
+}
+
+.typing-container.collapsed {
+  opacity: 1;   /* smooth fade-back */
+}
+
+.typing-text {
+  font-family: inherit;
+  white-space: pre-wrap;
+}
+
+.cursor {
+  display: inline-block;
+  width: 2px;
+  background: var(--Accent-Lime, #A8E063);
+  margin-left: 4px;
+  animation: blink 0.8s infinite;
+}
+
+.toggle-btn {
+  border: none;
+  background: transparent;
+  color: var(--Accent-Blue, #3B9EFF);
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  display: flex;
+  margin-top: 6px;
+  padding: 0;
+  align-items: center;
+  grid-gap: 4px;
+}
+
+.toggle-btn:hover {
+  text-decoration: underline;
+}
+.arrow_icon svg {
+    width: 14px;
+    height: auto;
+    fill: #ffffff;
+}
+.arrow_icon {
+    display: inline-block;
+}
+
+
+
+@keyframes blink {
+  0%, 50% { opacity: 1; }
+  51%, 100% { opacity: 0; }
+}

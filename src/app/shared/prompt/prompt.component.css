@@ -1,0 +1,124 @@
+:host {
+  display: contents;
+}
+
+.modal.prompt_modal .modal-content {
+  background: linear-gradient(180deg, #0B1633 0%, #09122A 100%);
+  color: var(--Text-Color, #E8EEF8);
+  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22));
+  border-radius: 16px;
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+h5.modal-title {
+  color: var(--Text-Color, #E8EEF8);
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 600;
+  text-align: center;
+  line-height: normal;
+  text-transform: capitalize;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
+.modal-body {
+  color: var(--Light-Text-Color, #9AADC4);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  text-align: center;
+  line-height: 1.5;
+  text-transform: none;
+  padding: 8px 28px 20px;
+}
+
+.modal-body,
+.modal-header,
+.modal-footer {
+  border: none !important;
+  background: transparent;
+}
+
+button.btn {
+  border-radius: 10px;
+  display: flex;
+  height: 46px;
+  padding: 13px 15px;
+  justify-content: center;
+  align-items: center;
+}
+
+button.btn-close {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  filter: invert(1) grayscale(1);
+  opacity: 0.7;
+}
+
+button.btn-close:hover {
+  opacity: 1;
+}
+
+.modal-header {
+  padding-top: 28px;
+  align-items: center;
+  justify-content: center;
+}
+
+.modal-header svg {
+  width: 48px;
+  height: 48px;
+}
+
+.modal-footer {
+  justify-content: center;
+  gap: 10px;
+  padding-bottom: 24px;
+}
+
+.modal-footer button {
+  width: 34%;
+  min-width: 110px;
+  color: #fff;
+  font-size: 15px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: normal;
+}
+
+button.btn.btn_cancel {
+  border-radius: 10px;
+  color: var(--Accent-Lime, #A8E063) !important;
+  border: 1px solid rgba(92, 140, 200, 0.35);
+  background: transparent;
+  transition: 0.25s all;
+}
+
+button.btn.btn_cancel:hover {
+  background-color: rgba(59, 158, 255, 0.16) !important;
+  color: #ffffff !important;
+  border: 1px solid var(--Accent-Blue, #3B9EFF);
+}
+
+button.btn.btn_confirm,
+button.btn.btn-danger {
+  border-radius: 10px;
+  background: linear-gradient(135deg, #4CAF50 0%, #3d9c40 100%) !important;
+  border: 1px solid rgba(168, 224, 99, 0.35) !important;
+  color: #fff !important;
+  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.28);
+}
+
+button.btn.btn_confirm:hover,
+button.btn.btn-danger:hover {
+  background: linear-gradient(135deg, #57c25b 0%, #449e48 100%) !important;
+  color: #fff !important;
+}
+
+button.btn-close:focus,
+button.btn-close:focus-visible {
+  box-shadow: none !important;
+}

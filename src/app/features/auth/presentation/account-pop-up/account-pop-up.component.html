@@ -1,0 +1,22 @@
+<div class="ahi_account_popup" role="dialog" aria-modal="true" aria-labelledby="ahi-popup-title">
+  <div class="ahi_account_popup__card">
+    <div class="ahi_account_popup__accent" aria-hidden="true"></div>
+
+    <figure class="ahi_account_popup__logo">
+      <img src="assets/images/Logo-climate-pulse.png" alt="Horn Scope" />
+    </figure>
+
+    <div class="ahi_account_popup__icon_wrap" aria-hidden="true">
+      <span class="ahi_account_popup__icon_ring">
+        <i class="bi bi-check-lg"></i>
+      </span>
+    </div>
+
+    <h2 id="ahi-popup-title" class="ahi_account_popup__title">{{ title }}</h2>
+    <p class="ahi_account_popup__text">{{ text }}</p>
+
+    <button type="button" (click)="onSubmit()" class="common_button ahi_account_popup__btn">
+      {{ buttonText || 'Log In' }}
+    </button>
+  </div>
+</div>

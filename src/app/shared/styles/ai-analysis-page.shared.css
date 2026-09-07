@@ -1,0 +1,125 @@
+/* Shared toolbar + table layout for AI program / question analysis pages */
+
+.ai-analysis-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px 20px;
+}
+
+.ai-analysis-toolbar__title {
+  flex: 1 1 260px;
+  min-width: 0;
+}
+
+.ai-analysis-toolbar__title .page_head {
+  margin: 0;
+}
+
+.ai-analysis-toolbar__filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 12px;
+  flex: 1 1 380px;
+}
+
+.ai-analysis-toolbar__filter {
+  flex: 1 1 220px;
+  min-width: 200px;
+  max-width: 280px;
+  margin-bottom: 0 !important;
+}
+
+.ai-analysis-toolbar__filter .analyst_multi_select,
+.ai-analysis-toolbar__filter ng-select {
+  width: 100%;
+}
+
+.ai-analysis-toolbar__refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid rgb(255 255 255 / 22%);
+  background: var(--Surface-Elevated);
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.ai-analysis-toolbar__refresh:hover {
+  border-color: rgba(168, 224, 99, 0.45);
+  background: #132a52;
+}
+
+
+/* Table polish */
+.compare_city_table.ai-analysis-table .table thead th {
+  vertical-align: middle;
+  /* text-align: center; */
+  white-space: nowrap;
+  border-right: 1px solid rgb(255 255 255 / 22%);
+  padding: 14px 12px;
+}
+
+.compare_city_table.ai-analysis-table .table thead th:last-child {
+  border-right: 0;
+}
+
+.compare_city_table.ai-analysis-table .table tbody td {
+  text-align: center;
+  vertical-align: middle;
+  border-right: 1px solid rgb(255 255 255 / 22%);
+}
+
+.compare_city_table.ai-analysis-table .table tbody td:last-child {
+  border-right: 0;
+}
+
+.compare_city_table.ai-analysis-table .table thead th.question-col,
+.compare_city_table.ai-analysis-table .table tbody td.question-col,
+.compare_city_table.ai-analysis-table .table thead th.program-col,
+.compare_city_table.ai-analysis-table .table tbody td.program-col,
+.compare_city_table.ai-analysis-table .table thead th.city-col,
+.compare_city_table.ai-analysis-table .table tbody td.city-col {
+  text-align: left;
+}
+
+.compare_city_table.ai-analysis-table .table tbody td.action_td {
+  text-align: center;
+}
+
+.compare_city_table.ai-analysis-table td:has(.confidence-badge) {
+  text-align: center;
+}
+
+.compare_city_table.ai-analysis-table .table_custom_inner {
+  overflow-x: auto;
+  min-height: 240px;
+}
+
+.compare_city_table.ai-analysis-table {
+  min-height: 260px;
+}
+
+.compare_city_table.ai-analysis-table .action_td .dropdown {
+  position: relative;
+}
+.compare_city_table.ai-analysis-table .table thead th.program-col {
+    border-left: 1px solid rgb(255 255 255 / 22%);
+}
+
+@media (max-width: 991px) {
+  .ai-analysis-toolbar__filters {
+    justify-content: stretch;
+    flex: 1 1 100%;
+  }
+
+  .ai-analysis-toolbar__filter {
+    max-width: none;
+  }
+}

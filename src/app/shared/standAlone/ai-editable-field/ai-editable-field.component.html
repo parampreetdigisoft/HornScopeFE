@@ -1,0 +1,79 @@
+<div class="ai-field" [class.ai-field-compact]="compact">
+  <label *ngIf="showLabel && label" class="ai-field-label">{{ label }}</label>
+
+  <ng-container *ngIf="!editMode; else editTemplate">
+    <ng-container [ngSwitch]="fieldType">
+      <span *ngSwitchCase="'number'" class="ai-field-readonly">{{ numericValue ?? 'NA' }}</span>
+      <span *ngSwitchCase="'confidence'" class="confidence-badge" [ngClass]="(displayValue || 'low').toLowerCase()">
+        {{ displayValue || 'NA' }}
+      </span>
+      <span *ngSwitchCase="'trust'" class="ai-field-readonly">{{ getTrustLabel(numericValue) }}</span>
+      <app-typing-text
+        *ngSwitchDefault
+        [text]="displayValue"
+        [speed]="typingSpeed"
+        [numberOfWordAfterHideText]="hideAfterWords">
+      </app-typing-text>
+    </ng-container>
+  </ng-container>
+
+  <ng-template #editTemplate>
+    <ng-container [ngSwitch]="fieldType">
+      <input
+        *ngSwitchCase="'number'"
+        type="number"
+        class="form-control ai-field-input"
+        [min]="min"
+        [max]="max"
+        [step]="step"
+        [placeholder]="placeholder"
+        [ngModel]="numericValue"
+        (ngModelChange)="onNumberChange($event)" />
+
+      <select
+        *ngSwitchCase="'confidence'"
+        class="form-control ai-field-input"
+        [ngModel]="displayValue"
+        (ngModelChange)="onSelectChange($event)">
+        <option value="">Select confidence</option>
+        <option *ngFor="let option of confidenceOptions" [value]="option">{{ option }}</option>
+      </select>
+
+      <select
+        *ngSwitchCase="'trust'"
+        class="form-control ai-field-input"
+        [ngModel]="numericValue"
+        (ngModelChange)="onSelectChange($event)">
+        <option [ngValue]="null">Select trust level</option>
+        <option *ngFor="let level of trustLevels" [ngValue]="level.trustValue">{{ level.trustName }}</option>
+      </select>
+
+      <select
+        *ngSwitchCase="'score'"
+        class="form-control ai-field-input"
+        [ngModel]="numericValue"
+        (ngModelChange)="onSelectChange($event)">
+        <option [ngValue]="null">Select Score</option>
+        <option *ngFor="let score of scoreList" [ngValue]="score">{{ score }}</option>
+      </select>
+
+
+      <input
+        *ngSwitchCase="'text'"
+        type="text"
+        class="form-control ai-field-input"
+        [placeholder]="placeholder"
+        [ngModel]="displayValue"
+        (ngModelChange)="onTextChange($event)" />
+
+      <textarea
+        *ngSwitchDefault
+        class="form-control ai-field-textarea"
+        rows="3"
+        [placeholder]="placeholder"
+        [ngModel]="displayValue"
+        (ngModelChange)="onTextChange($event)">
+      </textarea>
+    </ng-container>
+  </ng-template>
+</div>

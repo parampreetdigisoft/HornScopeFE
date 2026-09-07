@@ -1,0 +1,217 @@
+/* ============================================================
+   VCP Dashboard UI — shared layout, cards, charts, interactions
+   Import in admin / analyst / evaluator dashboard components
+   ============================================================ */
+
+app-admin-dashboard,
+app-analyst-dashboard,
+app-evaluator-dashboard {
+  display: block;
+  width: 100%;
+  padding: 4px 0 28px;
+}
+
+app-analyst-dashboard,
+app-evaluator-dashboard {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  align-items: flex-start;
+}
+
+/* ── Stat cards row ─────────────────────────────────────────── */
+.dashboard_cards {
+  width: 100%;
+  margin-bottom: 0px;
+}
+
+.dashboard_cards_inner .row {
+  --bs-gutter-x: 20px;
+  --bs-gutter-y: 20px;
+}
+
+.dashboard_card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px !important;
+  border: 1px solid rgba(0, 109, 119, 0.1) !important;
+  border-top: 4px solid #01223E !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+}
+
+.dashboard_card2 {
+  border-top-color: #5C9CC0 !important;
+}
+
+.dashboard_card3 {
+  border-top-color: #77B44D !important;
+}
+
+/* .dashboard_card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 32px rgba(0, 109, 119, 0.14) !important;
+  border-color: rgba(0, 109, 119, 0.22) !important;
+} */
+
+.dashboard_card_inner span {
+  background: linear-gradient(135deg, rgba(0, 109, 119, 0.12) 0%, rgba(168, 224, 99, 0.18) 100%) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+/* .dashboard_card:hover .dashboard_card_inner span {
+  transform: scale(1.05);
+  box-shadow: 0 6px 16px rgba(0, 109, 119, 0.12);
+} */
+
+.dashboard_card_inner span svg path {
+  fill: var(--Primary-Color) !important;
+}
+
+.dashboard_number h4 {
+  color: #4a5f62 !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+}
+
+.dashboard_number h5 {
+  color: var(--Primary-Color) !important;
+  font-weight: 700 !important;
+}
+
+/* ── Filter / chart panel (program_pillar) ─────────────────────── */
+.program_pillar {
+  background: #ffffff !important;
+  padding: 20px !important;
+  border-radius: 16px !important;
+  border: 1px solid rgba(0, 109, 119, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 109, 119, 0.06);
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.program_pillar:hover {
+  box-shadow: 0 8px 28px rgba(0, 109, 119, 0.1);
+  border-color: rgba(0, 109, 119, 0.16);
+}
+
+.program_pillar .input_field label {
+  color: var(--Primary-Color);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.02em;
+}
+
+.program_pillar .input_field .form-control,
+.program_pillar .input_field .analyst_multi_select .ng-select-container {
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.program_pillar .input_field .form-control:focus,
+.program_pillar .input_field .analyst_multi_select.ng-select-focused .ng-select-container {
+  border-color: rgba(0, 109, 119, 0.35) !important;
+  box-shadow: 0 0 0 3px rgba(168, 224, 99, 0.15);
+}
+
+.program_pillar .calender_icon svg {
+  stroke: var(--Primary-Color);
+}
+
+/* ── Chart containers ───────────────────────────────────────── */
+#chartPillar,
+.ahi-chart-panel {
+  width: 100%;
+  margin-top: 20px;
+  padding: 20px 16px 12px;
+  background: linear-gradient(180deg, rgba(0, 109, 119, 0.03) 0%, #ffffff 48%);
+  border-radius: 14px;
+  border: 1px solid rgba(0, 109, 119, 0.08);
+  transition: border-color 0.25s ease, box-shadow 0.25s ease;
+}
+
+#chartPillar:hover,
+.ahi-chart-panel:hover {
+  border-color: rgba(168, 224, 99, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(168, 224, 99, 0.12);
+}
+
+.cus_chart_right {
+  padding: 4px 8px;
+}
+
+/* ── Radial / overview chart card ───────────────────────────── */
+.apx_chart_new {
+  border: 1px solid rgba(0, 109, 119, 0.1) !important;
+  border-radius: 16px !important;
+  box-shadow: 0 4px 20px rgba(0, 109, 119, 0.06) !important;
+  transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+  overflow: hidden;
+}
+
+/* .apx_chart_new:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 12px 32px rgba(0, 109, 119, 0.12) !important;
+  border-color: rgba(0, 109, 119, 0.18) !important;
+} */
+
+.card_heading {
+  background: linear-gradient(180deg, rgba(0, 109, 119, 0.04) 0%, #ffffff 100%);
+  border-bottom: 1px solid rgba(0, 109, 119, 0.1) !important;
+  padding: 18px 24px !important;
+  position: relative;
+}
+
+/* .card_heading::after {
+  content: '';
+  position: absolute;
+  left: 24px;
+  bottom: -1px;
+  width: 56px;
+  height: 3px;
+  border-radius: 3px 3px 0 0;
+  background: linear-gradient(90deg, var(--Primary-Color), #A8E063);
+} */
+
+.card_heading h3 {
+  color: #003d44 !important;
+  font-weight: 700 !important;
+  font-size: 17px !important;
+  margin: 0 !important;
+}
+
+.apx_chart_new apx-chart {
+  display: block;
+  padding: 12px 16px 20px;
+}
+
+/* ── Analyst program line chart ─────────────────────────────── */
+.outer_graph {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(0, 109, 119, 0.1);
+  box-shadow: 0 4px 20px rgba(0, 109, 119, 0.06);
+  padding: 20px 16px 16px;
+  transition: box-shadow 0.25s ease, border-color 0.25s ease;
+}
+
+.outer_graph:hover {
+  border-color: rgba(0, 109, 119, 0.18);
+  box-shadow: 0 10px 28px rgba(0, 109, 119, 0.1);
+}
+
+/* ── Action buttons row ─────────────────────────────────────── */
+.program_pillar .common_button {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  min-height: 44px;
+}
+
+/* .program_pillar .common_button:hover {
+  transform: translateY(-2px);
+} */
+
+/* ── Loader overlay ─────────────────────────────────────────── */
+.loader_main {
+  background: rgba(245, 248, 247, 0.75);
+  backdrop-filter: blur(4px);
+  border-radius: 16px;
+  min-height: 280px;
+}

@@ -1,0 +1,26 @@
+.cus_pagination>li.active span {
+    background: var(--Accent-Blue, #3B9EFF);
+    color: #fff;
+}
+.pagi_label:hover {
+    color: var(--Accent-Lime, #A8E063);
+}
+.pagi_label {
+    transition: 0.3s all;
+}
+
+.no_result_found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  text-align: center;
+  color: var(--Light-Text-Color, #9AADC4);
+}
+
+.no_result_found h3 {
+  font-weight: 600;
+  font-size: 20px;
+  color: var(--Text-Color, #E8EEF8);
+  letter-spacing: 0.5px;
+}

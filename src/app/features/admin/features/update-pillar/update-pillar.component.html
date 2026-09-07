@@ -1,0 +1,308 @@
+<div class="modal-dialog modal-dialog-centered modal-xl pillar-modal-dialog">
+  <div class="modal-content pillar-modal-content">
+    <div class="pillar-modal-header">
+      <div>
+        <h4 class="modal_head mb-1">{{ pillar ? "Update" : "Add" }} Pillar</h4>
+        <p class="modal_sub_head mb-0">Fill basic details, then add description and KPI mappings</p>
+      </div>
+      <button
+        type="button"
+        class="btn-close"
+        data-bs-dismiss="modal"
+        aria-label="Close"
+        (click)="closeModal.emit()"
+      ></button>
+    </div>
+
+    <div class="pillar-modal-body" *ngIf="pillarForm">
+      <form [formGroup]="pillarForm" id="pillarForm" (ngSubmit)="onSubmit()">
+        <div class="pillar-meta-section">
+          <div class="meta-couple meta-couple-primary">
+            <div class="meta-field meta-name">
+              <label>Pillar Name *</label>
+              <input
+                type="text"
+                formControlName="pillarName"
+                placeholder="Enter pillar name"
+                class="form-control"
+              />
+              <div
+                class="error-msg"
+                *ngIf="
+                  pillarForm.get('pillarName')?.invalid &&
+                  (pillarForm.get('pillarName')?.touched || isSubmitted)
+                "
+              >
+                Pillar name is required
+              </div>
+            </div>
+
+            <div class="meta-field meta-code">
+              <label>Pillar Code</label>
+              <input
+                type="text"
+                formControlName="pillarCode"
+                placeholder="e.g. ENV"
+                class="form-control"
+              />
+            </div>
+          </div>
+
+          <div class="meta-couple">
+            <div class="meta-field meta-display-order">
+              <label>Display Order *</label>
+              <input
+                type="number"
+                formControlName="displayOrder"
+                class="form-control"
+                min="1"
+                step="1"
+              />
+              <div
+                class="error-msg"
+                *ngIf="
+                  pillarForm.get('displayOrder')?.invalid &&
+                  (pillarForm.get('displayOrder')?.touched || isSubmitted)
+                "
+              >
+                Enter a valid display order
+              </div>
+            </div>
+
+            <!-- <div class="meta-field meta-weight">
+              <label>Weight *</label>
+              <input
+                type="number"
+                formControlName="weight"
+                class="form-control"
+                step="0.01"
+                min="0.01"
+                placeholder="1.00"
+              />
+              <div
+                class="error-msg"
+                *ngIf="
+                  pillarForm.get('weight')?.invalid &&
+                  (pillarForm.get('weight')?.touched || isSubmitted)
+                "
+              >
+                Enter a valid weight
+              </div>
+            </div> -->
+          </div>
+
+          <div class="meta-couple">
+            <div class="meta-field meta-reliability">
+              <label>Reliability</label>
+              <label class="reliability-card">
+                <input type="checkbox" formControlName="reliability" />
+                <span class="reliability-switch">
+                  <span class="reliability-switch-thumb"></span>
+                </span>
+                <span class="reliability-card-body">
+                  <span class="reliability-status">
+                    {{ pillarForm.get('reliability')?.value ? 'Enabled' : 'Disabled' }}
+                  </span>
+                  <span class="reliability-hint">
+                    {{ pillarForm.get('reliability')?.value ? 'Included in KPI calculations' : 'Excluded from KPI calculations' }}
+                  </span>
+                </span>
+              </label>
+            </div>
+
+            <div class="meta-field meta-image">
+              <label>Pillar Image</label>
+              <div class="image-upload-card">
+                <img
+                  [src]="
+                    selectedImage
+                      ? selectedImage
+                      : pillar?.imagePath
+                        ? urlBase + '/' + pillar?.imagePath
+                        : 'assets/images/noImageAvailable.png'
+                  "
+                  class="image-preview"
+                  (error)="onImgError($event)"
+                  alt="Pillar preview"
+                />
+                <div class="image-upload-actions">
+                  <span class="image-upload-title">Upload image</span>
+                  <span class="image-upload-hint">PNG or JPG, max 5MB</span>
+                  <label class="image-file-picker">
+                    <input
+                      #fileInput
+                      type="file"
+                      (change)="onFileSelected($event)"
+                      accept="image/*"
+                      class="image-file-input-hidden"
+                    />
+                    <span class="image-file-trigger">Choose File</span>
+                    <span class="image-file-name">{{ selectedFileName }}</span>
+                  </label>
+                </div>
+              </div>
+              <div class="error-msg" *ngIf="imageError">{{ imageError }}</div>
+            </div>
+          </div>
+        </div>
+
+        <div class="pillar-primary-stack">
+          <section class="primary-panel description-panel">
+            <div class="panel-head">
+              <h5>Description *</h5>
+              <span class="panel-hint">Main pillar content</span>
+            </div>
+            <quill-editor
+              *ngIf="quillEditorKey > 0"
+              formControlName="description"
+              [format]="'html'"
+              [style]="{ height: '240px' }"
+              placeholder="Enter pillar description..."
+              (onEditorCreated)="onEditorCreated($event)"
+            ></quill-editor>
+            <div
+              class="error-msg"
+              *ngIf="
+                pillarForm.get('description')?.invalid &&
+                (pillarForm.get('description')?.touched || isSubmitted)
+              "
+            >
+              Description is required.
+            </div>
+          </section>
+
+          <section class="primary-panel kpi-panel">
+            <div class="panel-head">
+              <h5>KPI Mappings</h5>
+              <span class="kpi-count-badge">{{ selectedKpiCount }} selected</span>
+            </div>
+
+            <div class="locked-kpis-wrap" *ngIf="existingKpiDetails.length > 0">
+              <div class="locked-kpis-tags">
+                <span class="locked-kpis-title">Existing KPI Values (Locked) :</span>
+                <span class="locked-kpi-tag" *ngFor="let kpi of existingKpiDetails">
+                  {{ kpi.layerCode }}
+                </span>
+              </div>
+               <span class="kpi-change-pill lock" *ngIf="hasLockedKpis">
+                Existing KPI values are locked for this pillar
+              </span>
+            </div>
+
+            <div class="compare_select kpi-select-wrap">
+              <ng-select
+                *ngIf="kpiSelectReady"
+                [items]="filteredKpis"
+                bindValue="layerID"
+                bindLabel="layerCode"
+                formControlName="kpiLayerIds"
+                [multiple]="true"
+                [searchable]="true"
+                [searchFn]="customSearchFn"
+                [closeOnSelect]="false"
+                [clearable]="!hasLockedKpis"
+                class="form-control analyst_multi_select pillar-kpi-select"
+                [placeholder]="'Search by KPIs'"
+                (change)="onKpiSelectionChange($event)"
+              >
+                <ng-template ng-label-tmp let-item="item">
+                  {{ item.layerCode }}
+                </ng-template>
+                <ng-template ng-option-tmp let-item="item">
+                  ({{ item.layerCode }}) {{ item.layerName }}
+                </ng-template>
+              </ng-select>
+            </div>
+
+            <div class="kpi-mapping-loader" *ngIf="isLoadingMappings">
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading mappings...
+            </div>
+
+            <div class="kpi-mapping-loader kpi-details-loader" *ngIf="isLoadingKpiDetails">
+              <span class="spinner-border spinner-border-sm"></span>
+              Loading linked pillars...
+            </div>
+
+            <div class="kpi-details-panel" *ngIf="replacementKpiDetails.length > 0">
+              <div class="kpi-details-head">
+                <div>
+                  <span class="kpi-details-kicker">Replacement Mapping</span>
+                  <h6>Choose existing pillar to replace for each new KPI</h6>
+                </div>
+              </div>
+
+              <div class="error-msg replacement-error" *ngIf="replacementValidationMessage">
+                {{ replacementValidationMessage }}
+              </div>
+
+              <div class="kpi-details-grid">
+                <article class="kpi-detail-card" *ngFor="let item of replacementKpiDetails; trackBy: trackByLayerId">
+                  <div class="kpi-detail-card-head">
+                    <div>
+                      <span class="kpi-detail-code"> ({{ item.kpi.layerCode }})</span>
+                      <h6>{{ item.kpi.layerName }}</h6>
+                    </div>
+                    <span class="kpi-detail-count">{{ item.pillars.length }} replace options</span>
+                  </div>
+
+                  <ng-container *ngIf="item.pillars.length > 0; else emptyKpiPillars">
+                    <div class="category-groups-grid">
+                      <div class="category-group" *ngFor="let category of replacementPillarsByCategoryCache[item.kpi.layerID]; trackBy: trackByCategoryKey">
+                        <div class="category-head">{{ category.label }}</div>
+
+                      <label
+                        class="pillar-radio-option"
+                        *ngFor="let pillar of category.pillars; trackBy: trackByPillarId"
+                        [attr.for]="'replace-' + item.kpi.layerID + '-' + pillar.pillarID"
+                        >
+                          <input
+                            [id]="'replace-' + item.kpi.layerID + '-' + pillar.pillarID"
+                            type="radio"
+                            [name]="'kpi-pillars-' + item.kpi.layerID"
+                            [value]="pillar.pillarID"
+                            (change)="selectPillarForKpi(item.kpi.layerID, pillar.pillarID)"
+                          />
+                          <span class="pillar-radio-ui"></span>
+                          <span class="pillar-radio-content">
+                          <span class="pillar-radio-title">{{ pillar.pillarName }}</span>
+                          </span>
+                        </label>
+                      </div>
+                    </div>
+                  </ng-container>
+
+                  <ng-template #emptyKpiPillars>
+                    <div class="kpi-empty-state">
+                      No existing pillar found to replace for this KPI.
+                    </div>
+                  </ng-template>
+                </article>
+              </div>
+            </div>
+          </section>
+        </div>
+      </form>
+    </div>
+
+    <div class="pillar-modal-footer">
+      <button
+        type="button"
+        class="pillar-cancel-btn"
+        data-bs-dismiss="modal"
+        (click)="closeModal.emit()"
+      >
+        Cancel
+      </button>
+      <button
+        type="submit"
+        form="pillarForm"
+        class="common_button pillar-save-btn"
+        [disabled]="loading"
+      >
+        {{ pillar ? "Update Pillar" : "Save Pillar" }}
+        <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+      </button>
+    </div>
+  </div>
+</div>

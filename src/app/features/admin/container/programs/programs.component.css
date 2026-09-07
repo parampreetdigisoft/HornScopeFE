@@ -1,0 +1,84 @@
+.no_result_found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+.no_result_found h3{    
+    font-weight: 700;
+}
+
+.bold_num {
+    color: var(--Secondary-Color);
+    font-weight: 800;
+}
+
+.export-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+.export-count {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: #ffffff;
+    color: #2f6f5e;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 50%;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    box-shadow: 0 0 0 2px #3e7b69;
+}
+
+.action-header {
+  color: var(--Light-Text-Color);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 12px 15px;
+  border-bottom: 0;
+}
+
+.action-header-content {
+  display: flex;
+  align-items: center;
+  grid-gap: 18px;
+  /* justify-content: space-between; */
+}
+
+.global_Checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #3e7b69; 
+    width: 20px;    
+    height: 20px;
+    accent-color: var(--Primary-Color);
+    border-radius: 5px;
+}
+
+.compare_select .analyst_multi_select {
+  flex: 1;
+  width: 100%;
+  min-width: 0;
+}
+
+::ng-deep .analyst_multi_select .ng-clear-wrapper {
+    width: auto !important;
+    height: 100%;
+    order: 3;
+}
+::ng-deep .analyst_multi_select .ng-arrow-wrapper{
+    padding-right: 0 !important;
+}
+
+.program_img{
+    background-color: var(--Primary-Color) !important;
+}

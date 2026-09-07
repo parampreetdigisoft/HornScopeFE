@@ -1,0 +1,108 @@
+<div class="heading_area ai-analysis-toolbar">
+  <div class="ai-analysis-toolbar__title">
+    <h3 class="page_head ai_table_title">
+      @if (headerTextValue == null) {
+        <span>Analyzing…</span>
+      } @else {
+        <app-typing-text [text]="headerTextValue" [speed]="20" [numberOfWordAfterHideText]="100"></app-typing-text>
+      }
+    </h3>
+  </div>
+
+  <div class="ai-analysis-toolbar__filters">
+    <div class="compare_select input_field input_flex ai-analysis-toolbar__filter">
+      <ng-select [items]="programs" bindValue="climateProgramID" bindLabel="programName" [searchable]="true"
+        class="form-control analyst_multi_select" [placeholder]="selectedclimateProgramID > 0 ? '' : 'Search Program..'"
+        [(ngModel)]="selectedclimateProgramID" (change)="getAIPillarQuestions()" [searchFn]="customSearchFn">
+        <ng-template ng-label-tmp let-item="item">{{ item.programName }}</ng-template>
+        <ng-template ng-option-tmp let-item="item">
+          {{ item.programName }}, {{ item.location }} ({{ item.score?.toFixed(1) || 'NA' }})
+        </ng-template>
+      </ng-select>
+    </div>
+
+    <div class="compare_select input_field input_flex ai-analysis-toolbar__filter">
+      <ng-select [items]="pillars" bindValue="pillarID" bindLabel="pillarName" [searchable]="true"
+        class="form-control analyst_multi_select" [placeholder]="selectedPillarID > 0 ? '' : 'Search Pillar..'"
+        [(ngModel)]="selectedPillarID" (change)="getAIPillarQuestions()">
+        <ng-template ng-label-tmp let-item="item">{{ item.pillarName }}</ng-template>
+        <ng-template ng-option-tmp let-item="item">{{ item.pillarName }}</ng-template>
+      </ng-select>
+    </div>
+
+    <a class="icon-refresh ai-analysis-toolbar__refresh" style="cursor: pointer" [matTooltip]="'Refresh'"
+      (click)="getAIPillarQuestions(currentPage); $event.preventDefault()">
+      <span style="display: inline-block">
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="-0.45 0 60.369 60.369">
+          <g transform="translate(-446.571 -211.615)">
+            <path d="M504.547,265.443h-9.019a30.964,30.964,0,0,0-29.042-52.733,1.5,1.5,0,1,0,.792,2.894,27.955,27.955,0,0,1,25.512,48.253l0-10.169h-.011a1.493,1.493,0,0,0-2.985,0h0v13.255a1.5,1.5,0,0,0,1.5,1.5h13.256a1.5,1.5,0,1,0,0-3Z" />
+            <path d="M485.389,267.995a27.956,27.956,0,0,1-25.561-48.213l0,10.2h.015a1.491,1.491,0,0,0,2.978,0h.007V216.791a1.484,1.484,0,0,0-1.189-1.532l-.018-.005a1.533,1.533,0,0,0-.223-.022c-.024,0-.046-.007-.07-.007H448.071a1.5,1.5,0,0,0,0,3h8.995a30.963,30.963,0,0,0,29.115,52.664a1.5,1.5,0,0,0-.792-2.894Z" />
+          </g>
+        </svg>
+      </span>
+    </a>
+  </div>
+</div>
+
+<div class="table_outer compare_city_table ai-analysis-table">
+  <div class="table_custom_inner">
+    <table class="table table-striped table-bordered">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th class="question-col">Program</th>
+          <th>Analyst Score</th>
+          <th>AI Score</th>
+          <th>Discrepancy</th>
+          <th>AI Trust Level</th>
+          <th>Year</th>
+          <th>Research Recency</th>
+          <th class="action_th">View Details</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let question of aiQuestions; let i = index">
+          <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+          <td class="question-col">{{ question.questionText }}</td>
+          <td>
+            <app-circular-score [value]="question?.evaluatorScore ?? 0"></app-circular-score>
+          </td>
+          <td>
+            <app-circular-score [value]="question?.aiScore ?? 0"></app-circular-score>
+          </td>
+          <td>
+            <app-sparkline-score [value]="discrepancy(question)"></app-sparkline-score>
+          </td>
+          <td>
+            <span class="confidence-badge" [ngClass]="(question?.confidenceLevel || 'low').toLowerCase()">
+              {{ question?.confidenceLevel || 'NA' }}
+            </span>
+          </td>
+          <td>{{ (question?.year ?? 0) > 0 ? question?.year : 'NA' }}</td>
+          <td [utcToLocalTooltip]="question?.updatedAt" matTooltip tooltipFormat="fullDate">
+            <span [ngClass]="commonService.researchStatusClass(question.updatedAt)" class="research_date">
+              {{ commonService.getGeneratedTime(question?.updatedAt) }}
+            </span>
+          </td>
+          <td class="action_td">
+            <div class="action_icons">
+              <a style="cursor: pointer" [matTooltip]="'View details question insights'"
+                (click)="viewDetails(question); $event.preventDefault()">
+                <span class="action_icons_view_details">View Details</span>
+              </a>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
+    (pageChange)="getAIPillarQuestions($event)"></app-pagination>
+</div>
+
+<div class="offcanvas offcanvas-end custom-sidebar kpi_sidebar" tabindex="-1" id="kpiLayerSidebar">
+  <div class="offcanvas-body">
+    <app-view-ai-question-details [question]="selectedQuestion" [aiTrustLevels]="aiTrustLevels"
+      (dataSaved)="onQuestionDetailSaved()"></app-view-ai-question-details>
+  </div>
+</div>

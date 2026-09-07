@@ -1,0 +1,126 @@
+/* ============================================================
+   VCP Modal System — consistent popup widths & dark theme
+   ============================================================ */
+
+/* Default form modals (add program, add user, file upload, etc.) */
+.modal_design .modal-dialog {
+  max-width: min(750px, calc(100vw - 32px));
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 1.75rem;
+}
+
+/* Confirmation / alert prompts */
+.modal_design.prompt_modal .modal-dialog {
+  max-width: min(480px, calc(100vw - 32px));
+}
+
+/* Compact action dialogs (transfer, comment, regenerate score) */
+.modal_design .modal-dialog.transfer_popup {
+  max-width: min(640px, calc(100vw - 32px));
+}
+
+/* Keep ng-select options in front of the table behind this compact modal */
+.modal_design .modal-dialog.transfer_popup .modal-content,
+.modal_design .modal-dialog.transfer_popup .modal-body {
+  overflow: visible;
+}
+
+/* Wide modals — pillar editor, signal intelligence brief */
+.modal_design .modal-dialog.pillar-modal-dialog,
+.modal_design.signal_detail_modal .modal-dialog {
+  max-width: min(1040px, calc(100vw - 32px));
+}
+
+/* Bootstrap size helpers inside modal_design */
+.modal_design .modal-dialog.modal-lg {
+  max-width: min(960px, calc(100vw - 32px));
+}
+
+.modal_design .modal-dialog.modal-xl {
+  max-width: min(1040px, calc(100vw - 32px));
+}
+
+@media (max-width: 767px) {
+  .modal_design .modal-dialog,
+  .modal_design .modal-dialog.pillar-modal-dialog,
+  .modal_design.signal_detail_modal .modal-dialog,
+  .modal_design .modal-dialog.modal-lg,
+  .modal_design .modal-dialog.modal-xl {
+    max-width: calc(100vw - 16px);
+    margin-top: 0.75rem;
+  }
+
+  .modal_design .modal-body {
+    padding: 24px 20px 28px;
+  }
+
+  .modal_tabs .nav-pills {
+    margin: 20px 0;
+  }
+
+  .modal_tabs .nav-link {
+    padding: 10px 16px;
+  }
+}
+
+/* Modal shell polish */
+.modal_design .modal-content {
+  background: linear-gradient(180deg, var(--Surface-Color) 0%, var(--Dark-Bg-Color, #061228) 100%);
+  color: var(--Text-Color);
+  border: 1px solid var(--Border-Color);
+  border-radius: var(--Radius-Lg, 16px);
+  box-shadow:
+    0 24px 56px rgba(0, 0, 0, 0.48),
+    inset 0 1px 0 rgba(255, 255, 255, 0.04);
+  overflow: hidden;
+}
+
+.modal_design .modal-body {
+  padding: 32px 36px 36px;
+}
+
+.modal_design .btn-close {
+  filter: invert(1) grayscale(1);
+  opacity: 0.75;
+}
+
+.modal_design .btn-close:hover {
+  opacity: 1;
+}
+
+.modal_tabs .nav-pills {
+  margin: 24px 0;
+  border-bottom: 1px solid var(--Border-Color);
+}
+
+.modal_tabs .nav-pills .nav-link.active,
+.modal_tabs .nav-pills .show > .nav-link {
+  color: var(--Accent-Lime, #A8E063);
+  border-color: var(--Accent-Lime, #A8E063);
+  background-color: transparent;
+  font-weight: 700;
+}
+
+.modal_tabs .nav-link {
+  color: var(--Light-Text-Color);
+}
+
+.modal_design .modal_tabs .input_field input[type="file"] {
+  line-height: normal;
+  padding: 4px 11px;
+  font-size: 13px;
+  max-width: 100%;
+}
+
+.modal_design .modal_tabs .input_field input[type="file"]::file-selector-button {
+  margin-right: 10px;
+  padding: 6px 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(168, 224, 99, 0.35);
+  background: rgba(168, 224, 99, 0.12);
+  color: var(--Accent-Lime, #A8E063);
+  font-weight: 600;
+  cursor: pointer;
+}
