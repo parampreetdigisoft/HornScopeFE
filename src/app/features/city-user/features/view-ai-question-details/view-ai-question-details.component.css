@@ -1,14 +1,14 @@
 .cus_table .table th {
     background-color: #77BD3E;
     font-weight: 600;
-    color: #EFE7D6;
+    color: #E8EEF4;
     font-size: 14px;
     white-space: nowrap;
 }
 
 .cus_table .score_label_tab {
-    background: #C9A24A;
-    color: #EFE7D6;
+    background: #C5A05A;
+    color: #E8EEF4;
     padding: 0.3rem 0.5rem;
     border-radius: 0.5rem;
     display: inline-flex;
@@ -18,7 +18,7 @@
 
 .cus_table .table td {
     font-size: 1.3rem;
-    border-bottom: 1px solid #332C1D;
+    border-bottom: 1px solid #1E3D5C;
     vertical-align: middle;
 }
 
@@ -49,10 +49,9 @@ h4.kpi_head_col {
     color: #304a43;
 }
 
-
 .city_pillar+app-ag-bar {
     border-radius: 15px;
-    background-color: #1B1810;
+    background-color: #123049;
     overflow: hidden;
     display: flex;
 }
@@ -79,7 +78,7 @@ span:empty, div:empty{
     flex: 1;
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid #1B1810;
+    border: 1px solid #123049;
     box-shadow: none !important;
     margin-bottom: 20px;
 }
@@ -114,16 +113,16 @@ span:empty, div:empty{
 
 .kpi_custom_table th {
   background-color: #77BD3E;
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-weight: 600;
   padding: 8px;
-  border: 1px solid #332C1D;
+  border: 1px solid #1E3D5C;
   font-size: 13px;
 }
 
 .kpi_custom_table td {
   padding: 8px;
-  border: 1px solid #332C1D;
+  border: 1px solid #1E3D5C;
   transition: background-color 0.2s;
   font-size: 14px;    
     font-style: normal;
@@ -132,48 +131,48 @@ span:empty, div:empty{
 }
 
 .kpi_custom_table tr:nth-child(even) {
-  background-color: #1B1810;
+  background-color: #123049;
 }
 
 /* .kpi_custom_table tr:hover td {
-  background-color: #1B1810;
+  background-color: #123049;
 } */
  /* .cross-pillar {
-    background-color: #1B1810;
+    background-color: #123049;
     padding: 30px;
     border-radius: 30px;
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
 } */
 .cross-pillar h5{
     font-weight: 700;
     color: #000000;
 }
 .city_pillar {
-    background-color: #1B1810;
+    background-color: #123049;
     padding: 20px;
     position: relative;
     border-radius: 15px;
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
 }
 .cross-pillar_outter{
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
     padding: 20px;
     border-radius: 15px;
 }
 .active_row td {
-    background-color: #C9A24A;
-    color: #EFE7D6;
+    background-color: #C5A05A;
+    color: #E8EEF4;
 }
 .active_row td .score_label_tab {
     background-color: rgba(255,255,255,0.08) !important;
 }
 .last_data td {
-    background-color: #C9A24A;
-    color: #EFE7D6;
+    background-color: #C5A05A;
+    color: #E8EEF4;
     text-align: center;
 }
 .last_data td span {
-    color: #EFE7D6;
+    color: #E8EEF4;
     background-color: #77BD3E;
     white-space: nowrap;
     padding: 5px 8px;
@@ -186,7 +185,6 @@ button.btn-close:focus-visible {
     box-shadow: 0 0 0 3px rgb(48 74 67); /* greenish glow */
     outline: none; /* remove default outline */
 }
-
 
 .integrate_outter .cross-pillar {
     width: 100%;
@@ -209,8 +207,8 @@ button.btn-close:focus-visible {
 }
 
 ::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track {
-    border: 1px solid #141209;
+    border: 1px solid #0C2238;
 }
 ::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track .score-dot, ::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track .segment {
-    border: 1px solid #141209 !important;
+    border: 1px solid #0C2238 !important;
 }

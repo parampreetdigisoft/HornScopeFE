@@ -10,7 +10,7 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
-import { AMI_CHART } from './ahi-chart-theme';
+import { HS_CHART } from './hs-chart-theme';
 
 export type PillarComparisonBarChartOptions = {
   series: ApexAxisChartSeries;
@@ -104,7 +104,7 @@ export function buildPillarComparisonBarChartOptions(
       type: 'bar',
       height: 500,
       background: 'transparent',
-      foreColor: AMI_CHART.textMuted,
+      foreColor: HS_CHART.textMuted,
       fontFamily: 'Poppins, sans-serif',
       toolbar: {
         show: true,
@@ -143,7 +143,7 @@ export function buildPillarComparisonBarChartOptions(
       style: {
         fontSize: '11px',
         fontWeight: 600,
-        colors: [AMI_CHART.text],
+        colors: [HS_CHART.text],
       },
     },
     stroke: {
@@ -157,7 +157,7 @@ export function buildPillarComparisonBarChartOptions(
         style: {
           fontSize: '12px',
           fontWeight: 500,
-          colors: AMI_CHART.textMuted,
+          colors: HS_CHART.textMuted,
         },
         rotate: pillarCount > 8 ? -45 : 0,
         rotateAlways: false,
@@ -169,11 +169,11 @@ export function buildPillarComparisonBarChartOptions(
         style: {
           fontSize: '13px',
           fontWeight: 600,
-          color: AMI_CHART.text,
+          color: HS_CHART.text,
         },
       },
-      axisBorder: { show: true, color: AMI_CHART.border },
-      axisTicks: { show: true, color: AMI_CHART.border },
+      axisBorder: { show: true, color: HS_CHART.border },
+      axisTicks: { show: true, color: HS_CHART.border },
     },
     yaxis: {
       title: {
@@ -181,14 +181,14 @@ export function buildPillarComparisonBarChartOptions(
         style: {
           fontSize: '13px',
           fontWeight: 600,
-          color: AMI_CHART.text,
+          color: HS_CHART.text,
         },
       },
       labels: {
         formatter: (val: number) => (val != null && !isNaN(val) ? val.toFixed(0) : ''),
         style: {
           fontSize: '12px',
-          colors: [AMI_CHART.textMuted],
+          colors: [HS_CHART.textMuted],
         },
       },
       min: yMin,
@@ -225,12 +225,12 @@ export function buildPillarComparisonBarChartOptions(
       offsetY: 0,
       fontSize: '12px',
       fontWeight: 500,
-      labels: { colors: AMI_CHART.text },
+      labels: { colors: HS_CHART.text },
       markers: { width: 12, height: 12, radius: 3 } as any,
       itemMargin: { horizontal: 12, vertical: 8 },
     },
     grid: {
-      borderColor: AMI_CHART.grid,
+      borderColor: HS_CHART.grid,
       strokeDashArray: 4,
       xaxis: { lines: { show: false } },
       yaxis: { lines: { show: true } },

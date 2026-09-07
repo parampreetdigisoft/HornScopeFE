@@ -1,5 +1,5 @@
 /* ============================================================
-   AMI Prompt Modal — used across admin / analyst / evaluator
+   HS Prompt Modal — used across admin / analyst / evaluator
    Gold / bronze / cream dark console language
    ============================================================ */
 
@@ -28,14 +28,14 @@
   position: relative;
   overflow: hidden;
   border-radius: 16px !important;
-  border: 1px solid rgba(201, 162, 74, 0.35) !important;
+  border: 1px solid rgba(197, 160, 90, 0.35) !important;
   background:
-    radial-gradient(ellipse at top, rgba(201, 162, 74, 0.12), transparent 55%),
-    linear-gradient(165deg, #1B1810 0%, #141209 48%, #0A0906 100%) !important;
+    radial-gradient(ellipse at top, rgba(197, 160, 90, 0.12), transparent 55%),
+    linear-gradient(165deg, #123049 0%, #0C2238 48%, #061525 100%) !important;
   box-shadow:
     0 24px 64px rgba(0, 0, 0, 0.55),
-    0 0 0 1px rgba(231, 200, 120, 0.08) inset !important;
-  color: #EFE7D6;
+    0 0 0 1px rgba(212, 184, 106, 0.08) inset !important;
+  color: #E8EEF4;
 }
 
 .ami-prompt-card::before {
@@ -46,7 +46,7 @@
   top: 0;
   height: 2px;
   border-radius: 0 0 2px 2px;
-  background: linear-gradient(90deg, transparent, #E7C878, #C9A24A, transparent);
+  background: linear-gradient(90deg, transparent, #D4B86A, #C5A05A, transparent);
   animation: amiPromptShimmer 2.8s ease-in-out infinite;
 }
 
@@ -77,9 +77,9 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: rgba(201, 162, 74, 0.12);
-  border: 1px solid rgba(201, 162, 74, 0.4);
-  box-shadow: 0 0 0 6px rgba(201, 162, 74, 0.06);
+  background: rgba(197, 160, 90, 0.12);
+  border: 1px solid rgba(197, 160, 90, 0.4);
+  box-shadow: 0 0 0 6px rgba(197, 160, 90, 0.06);
   animation: amiPromptPulse 2.4s ease-in-out infinite;
 }
 
@@ -89,8 +89,8 @@
 }
 
 @keyframes amiPromptPulse {
-  0%, 100% { box-shadow: 0 0 0 6px rgba(201, 162, 74, 0.06); }
-  50% { box-shadow: 0 0 0 10px rgba(201, 162, 74, 0.12); }
+  0%, 100% { box-shadow: 0 0 0 6px rgba(197, 160, 90, 0.06); }
+  50% { box-shadow: 0 0 0 10px rgba(197, 160, 90, 0.12); }
 }
 
 .ami-prompt-close {
@@ -115,18 +115,18 @@
 .ami-prompt-body {
   padding: 8px 32px 8px !important;
   text-align: center;
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   background: transparent !important;
 }
 
 .ami-prompt-title {
   width: 100%;
   margin: 0 0 10px;
-  font-family: "Playfair Display", Georgia, serif;
+  font-family: "Montserrat", Georgia, serif;
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: 0.02em;
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   text-transform: none;
   animation: amiPromptFade 0.4s ease 0.05s both;
 }
@@ -136,7 +136,7 @@
   font-size: 14px;
   line-height: 1.55;
   font-weight: 400;
-  color: #9C9484 !important;
+  color: #8FA3B5 !important;
   text-transform: none;
   animation: amiPromptFade 0.4s ease 0.1s both;
 }
@@ -170,53 +170,53 @@
 }
 
 .ami-prompt-btn--ghost {
-  color: #E7C878 !important;
-  background: rgba(201, 162, 74, 0.08) !important;
-  border: 1px solid rgba(201, 162, 74, 0.45) !important;
+  color: #D4B86A !important;
+  background: rgba(197, 160, 90, 0.08) !important;
+  border: 1px solid rgba(197, 160, 90, 0.45) !important;
 }
 
 .ami-prompt-btn--ghost:hover {
-  background: rgba(201, 162, 74, 0.18) !important;
-  border-color: #E7C878 !important;
-  color: #EFE7D6 !important;
+  background: rgba(197, 160, 90, 0.18) !important;
+  border-color: #D4B86A !important;
+  color: #E8EEF4 !important;
   transform: translateY(-2px);
-  box-shadow: 0 8px 20px rgba(201, 162, 74, 0.16);
+  box-shadow: 0 8px 20px rgba(197, 160, 90, 0.16);
 }
 
 .ami-prompt-btn--solid {
-  color: #0A0906 !important;
+  color: #061525 !important;
   border: 1px solid transparent !important;
-  background: linear-gradient(135deg, #E7C878 0%, #C9A24A 48%, #8A5A2B 100%) !important;
-  box-shadow: 0 6px 18px rgba(201, 162, 74, 0.32);
+  background: linear-gradient(135deg, #D4B86A 0%, #C5A05A 48%, #8B6B32 100%) !important;
+  box-shadow: 0 6px 18px rgba(197, 160, 90, 0.32);
 }
 
 .ami-prompt-btn--solid:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 26px rgba(201, 162, 74, 0.42);
+  box-shadow: 0 10px 26px rgba(197, 160, 90, 0.42);
   filter: brightness(1.05);
 }
 
 /* Legacy class hooks scoped to this prompt only */
 .ami-prompt-modal h5.modal-title {
-  color: #EFE7D6;
+  color: #E8EEF4;
   text-align: center;
 }
 
 .ami-prompt-modal .modal-body {
-  color: #9C9484;
+  color: #8FA3B5;
   text-align: center;
 }
 
 .ami-prompt-modal button.btn.btn_cancel {
   border-radius: 10px;
-  color: #E7C878 !important;
-  border: 1px solid rgba(201, 162, 74, 0.45);
-  background: rgba(201, 162, 74, 0.08);
+  color: #D4B86A !important;
+  border: 1px solid rgba(197, 160, 90, 0.45);
+  background: rgba(197, 160, 90, 0.08);
 }
 
 .ami-prompt-modal button.btn.btn_cancel:hover {
-  background: rgba(201, 162, 74, 0.18) !important;
-  color: #EFE7D6 !important;
+  background: rgba(197, 160, 90, 0.18) !important;
+  color: #E8EEF4 !important;
 }
 
 .ami-prompt-modal button.btn-close:focus,

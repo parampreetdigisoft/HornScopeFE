@@ -1,6 +1,6 @@
 
 .cus_table .table th {
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     font-weight: 600;
     color: #ffffff;
     font-size: 14px;
@@ -8,7 +8,7 @@
 }
 
 .cus_table .score_label_tab {
-    background: #8A5A2B;
+    background: #8B6B32;
     color: #ffffff;
     padding: 0.3rem 0.5rem;
     border-radius: 0.5rem;
@@ -42,7 +42,7 @@ h4.kpi_head_col {
     font-size: 2.2rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    color: #1A1510;
+    color: #002147;
 }
 
 
@@ -83,7 +83,7 @@ h4.kpi_head_col {
     width: 100%;
     border-radius: 15px;
     overflow: visible;
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
     box-shadow: none !important;
     margin-bottom: 20px;
 }
@@ -117,7 +117,7 @@ h4.kpi_head_col {
 }
 
 .kpi_custom_table th {
-  background-color: #C9A24A;
+  background-color: #C5A05A;
   color: #ffffff;
   font-weight: 600;
   padding: 8px;
@@ -170,19 +170,19 @@ h4.kpi_head_col {
     border-radius: 15px;
 }
 .active_row td {
-    background-color: #8A5A2B;
+    background-color: #8B6B32;
     color: #ffffff;
 }
 .active_row td .score_label_tab {
     background-color: rgba(255,255,255,0.08) !important;
 }
 .last_data td {
-    background-color: #8A5A2B;
+    background-color: #8B6B32;
     color: #ffffff;
 }
 .last_data td span {
     color: #ffffff;
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     white-space: nowrap;
     padding: 5px 8px;
     border-radius: 30px;
@@ -191,7 +191,7 @@ h4.kpi_head_col {
 
 button.btn-close:focus,
 button.btn-close:focus-visible {
-    box-shadow: 0 0 0 3px #C9A24A; /* greenish glow */
+    box-shadow: 0 0 0 3px #C5A05A; /* greenish glow */
     outline: none; /* remove default outline */
 }
 
@@ -242,19 +242,19 @@ button.btn-close:focus-visible {
 }
 
 .ai-edit-surface {
-    border-color: #8A5A2B;
+    border-color: #8B6B32;
     box-shadow: 0 0 0 1px rgba(0, 109, 119, 0.08);
 }
 .ai-edit-access-banner {
   margin: 0 0 16px;
   padding: 12px 16px;
-  background: rgba(201, 162, 74, 0.08);
-  border: 1px solid rgba(201, 162, 74, 0.25);
+  background: rgba(197, 160, 90, 0.08);
+  border: 1px solid rgba(197, 160, 90, 0.25);
   border-radius: 10px;
 }
 .ai-edit-access-banner p {
   margin: 0 0 10px;
   font-size: 13px;
   line-height: 1.45;
-  color: #EFE7D6;
+  color: #E8EEF4;
 }

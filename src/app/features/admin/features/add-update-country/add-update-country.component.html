@@ -201,7 +201,7 @@
                   <label>Select peer countries</label>
                   <ng-select [items]="countryList" bindValue="countryID" bindLabel="countryName"
                     formControlName="countries" [multiple]="true" class="form-control analyst_multi_select"
-                    [searchable]="true" placeholder=" Select peer countries" appendTo="body">
+                    [searchable]="true" placeholder=" Select peer countries">
                     <ng-template ng-label-tmp let-item="item">
                       {{ item.countryName }},
                     </ng-template>

@@ -2,7 +2,7 @@
   transition: opacity 0.35s ease-out;
   opacity: 1;
   display: block;
-  color: #EFE7D6;
+  color: #E8EEF4;
 }
 
 .typing-container.collapsed {
@@ -19,16 +19,16 @@
 .cursor {
   display: inline-block;
   width: 2px;
-  background: #E7C878;
+  background: #D4B86A;
   margin-left: 4px;
   animation: blink 0.8s infinite;
-  box-shadow: 0 0 6px rgba(231, 200, 120, 0.45);
+  box-shadow: 0 0 6px rgba(212, 184, 106, 0.45);
 }
 
 .toggle-btn {
   border: none;
   background: transparent;
-  color: #C9A24A;
+  color: #C5A05A;
   font-weight: 600;
   cursor: pointer;
   font-size: 13px;
@@ -41,7 +41,7 @@
 }
 
 .toggle-btn:hover {
-  color: #E7C878;
+  color: #D4B86A;
   text-decoration: underline;
   transform: translateX(2px);
 }

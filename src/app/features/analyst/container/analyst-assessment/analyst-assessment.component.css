@@ -1,5 +1,5 @@
 /* ==============================================================
-   Analyst Assessment — AMI command console
+   Analyst Assessment — HS command console
    Gold rail + cream questions + polished selects
    ============================================================== */
 
@@ -10,7 +10,7 @@
   max-height: calc(100dvh - 108px);
   min-height: 0;
   overflow: hidden;
-  color: #EFE7D6;
+  color: #E8EEF4;
   animation: amiAssessIn 0.45s ease both;
 }
 
@@ -25,8 +25,8 @@
 }
 
 @keyframes amiRailPulse {
-  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 74, 0.25); }
-  50% { box-shadow: 0 0 0 6px rgba(201, 162, 74, 0); }
+  0%, 100% { box-shadow: 0 0 0 0 rgba(197, 160, 90, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(197, 160, 90, 0); }
 }
 
 .header_btns {
@@ -79,18 +79,18 @@
 
 :host ::ng-deep .assessment_country_select .ng-select-container {
   background: linear-gradient(180deg, #1F1B12 0%, #17140E 100%) !important;
-  border: 1px solid rgba(201, 162, 74, 0.38) !important;
+  border: 1px solid rgba(197, 160, 90, 0.38) !important;
   border-radius: 12px !important;
   min-height: 40px !important;
-  box-shadow: inset 0 1px 0 rgba(231, 200, 120, 0.06) !important;
+  box-shadow: inset 0 1px 0 rgba(212, 184, 106, 0.06) !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease !important;
 }
 
 :host ::ng-deep .assessment_country_select:hover .ng-select-container,
 :host ::ng-deep .assessment_country_select.ng-select-focused > .ng-select-container,
 :host ::ng-deep .assessment_country_select.ng-select-opened > .ng-select-container {
-  border-color: #E7C878 !important;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.16), inset 0 1px 0 rgba(231, 200, 120, 0.08) !important;
+  border-color: #D4B86A !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.16), inset 0 1px 0 rgba(212, 184, 106, 0.08) !important;
 }
 
 :host ::ng-deep .assessment_country_select .ng-value-container {
@@ -101,7 +101,7 @@
 :host ::ng-deep .assessment_country_select .ng-value,
 :host ::ng-deep .assessment_country_select .ng-value-label,
 :host ::ng-deep .assessment_country_select .ng-input > input {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   font-size: 13px !important;
   font-weight: 600 !important;
 }
@@ -115,7 +115,7 @@
 }
 
 :host ::ng-deep .assessment_country_select .ng-placeholder {
-  color: #9C9484 !important;
+  color: #8FA3B5 !important;
   font-weight: 500 !important;
 }
 
@@ -124,7 +124,7 @@
 }
 
 :host ::ng-deep .assessment_country_select .ng-arrow-wrapper .ng-arrow {
-  border-color: #E7C878 transparent transparent !important;
+  border-color: #D4B86A transparent transparent !important;
   border-width: 5px 5px 2.5px !important;
 }
 
@@ -159,8 +159,8 @@
   margin: 0 !important;
   min-width: 280px;
   z-index: 40;
-  background: #141209;
-  border: 1px solid rgba(201, 162, 74, 0.28);
+  background: #0C2238;
+  border: 1px solid rgba(197, 160, 90, 0.28);
   border-radius: 12px;
   padding: 6px;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.45);
@@ -168,7 +168,7 @@
 }
 
 .header_btns .dropdown-item {
-  color: #EFE7D6;
+  color: #E8EEF4;
   border-radius: 8px;
   font-size: 13px;
   padding: 10px 12px;
@@ -177,8 +177,8 @@
 
 .header_btns .dropdown-item:hover,
 .header_btns .dropdown-item:focus {
-  background: rgba(201, 162, 74, 0.16);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.16);
+  color: #D4B86A;
 }
 
 /* Workspace shell — fills remaining viewport under heading */
@@ -194,10 +194,10 @@
   position: relative;
   padding: 10px;
   border-radius: 18px;
-  border: 1px solid rgba(201, 162, 74, 0.22);
+  border: 1px solid rgba(197, 160, 90, 0.22);
   background:
-    radial-gradient(ellipse at top left, rgba(201, 162, 74, 0.07), transparent 45%),
-    #0A0906;
+    radial-gradient(ellipse at top left, rgba(197, 160, 90, 0.07), transparent 45%),
+    #061525;
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
 }
 
@@ -222,10 +222,10 @@
   max-height: 100%;
   overflow: auto;
   border-radius: 14px;
-  background: #141209;
-  border: 1px solid #332C1D;
+  background: #0C2238;
+  border: 1px solid #1E3D5C;
   scrollbar-width: thin;
-  scrollbar-color: #C9A24A transparent;
+  scrollbar-color: #C5A05A transparent;
 }
 
 .faq_sidebar_inner {
@@ -246,11 +246,11 @@
 }
 
 .faq_sidebar_item_inner:hover {
-  background: rgba(201, 162, 74, 0.08);
+  background: rgba(197, 160, 90, 0.08);
 }
 
 .faq_sidebar_item_inner p {
-  color: #9C9484;
+  color: #8FA3B5;
   font-size: 13px;
   font-weight: 500;
   line-height: 1.35;
@@ -262,7 +262,7 @@
 }
 
 .faq_sidebar_item.active .faq_sidebar_item_inner p {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   font-weight: 600;
 }
 
@@ -271,7 +271,7 @@
   width: 2px;
   height: 42px;
   display: block;
-  background: linear-gradient(180deg, #C9A24A, transparent);
+  background: linear-gradient(180deg, #C5A05A, transparent);
   position: absolute;
   left: 32px;
   bottom: -28px;
@@ -283,14 +283,14 @@
 }
 
 .faq_sidebar_item.active .faq_sidebar_item_inner:after {
-  background: linear-gradient(180deg, #E7C878, transparent);
+  background: linear-gradient(180deg, #D4B86A, transparent);
   opacity: 0.8;
 }
 
 .faq_inner_svg {
   border-radius: 12px;
-  border: 1px solid rgba(201, 162, 74, 0.35);
-  background: rgba(201, 162, 74, 0.14) !important;
+  border: 1px solid rgba(197, 160, 90, 0.35);
+  background: rgba(197, 160, 90, 0.14) !important;
   z-index: 2;
   height: 46px;
   width: 46px;
@@ -309,27 +309,27 @@
 }
 
 .faq_sidebar_item.active .current-active span.faq_inner_svg {
-  background: linear-gradient(145deg, rgba(231, 200, 120, 0.35), rgba(138, 90, 43, 0.25)) !important;
-  border-color: #C9A24A !important;
+  background: linear-gradient(145deg, rgba(212, 184, 106, 0.35), rgba(139, 107, 50, 0.25)) !important;
+  border-color: #C5A05A !important;
   animation: amiRailPulse 2.4s ease-in-out infinite;
 }
 
 .faq_sidebar_item.active .current-active.faq_sidebar_item_inner {
-  background: rgba(201, 162, 74, 0.12);
-  border: 1px solid rgba(201, 162, 74, 0.28);
+  background: rgba(197, 160, 90, 0.12);
+  border: 1px solid rgba(197, 160, 90, 0.28);
 }
 
 .faq_sidebar_item.active .current-active.faq_sidebar_item_inner p {
-  color: #E7C878 !important;
+  color: #D4B86A !important;
 }
 
 .faq_sidebar_item.active {
   cursor: pointer;
 }
 
-/* Mute colorful nth-child icon backgrounds — AMI gold only */
+/* Mute colorful nth-child icon backgrounds — HS gold only */
 .faq_sidebar_item:nth-child(n) .faq_inner_svg {
-  background: rgba(201, 162, 74, 0.14) !important;
+  background: rgba(197, 160, 90, 0.14) !important;
 }
 
 /* Main question column */
@@ -340,23 +340,23 @@
   height: 100%;
   max-height: 100%;
   border-radius: 14px;
-  border: 1px solid #332C1D;
-  background: #141209;
+  border: 1px solid #1E3D5C;
+  background: #0C2238;
   padding: 14px;
   position: relative;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: #C9A24A transparent;
+  scrollbar-color: #C5A05A transparent;
 }
 
 .tabs_discrp_inner {
   background:
-    linear-gradient(135deg, rgba(201, 162, 74, 0.12), rgba(20, 18, 9, 0.6));
+    linear-gradient(135deg, rgba(197, 160, 90, 0.12), rgba(12, 34, 56, 0.6));
   padding: 16px 18px;
-  color: #C9C7BF;
+  color: #B8C5D0;
   border-radius: 14px;
   margin-bottom: 16px;
-  border: 1px solid rgba(201, 162, 74, 0.22);
+  border: 1px solid rgba(197, 160, 90, 0.22);
   animation: amiQuestionIn 0.4s ease both;
 }
 
@@ -372,16 +372,16 @@
 
 .faq_main_item {
   border-radius: 14px;
-  border: 1px solid #332C1D;
-  border-left: 3px solid #C9A24A;
-  background: #1B1810;
+  border: 1px solid #1E3D5C;
+  border-left: 3px solid #C5A05A;
+  background: #123049;
   padding: 14px 16px;
   margin-bottom: 12px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
 }
 
 .faq_main_item:hover {
-  border-color: rgba(201, 162, 74, 0.4);
+  border-color: rgba(197, 160, 90, 0.4);
   box-shadow: 0 10px 28px rgba(0, 0, 0, 0.25);
 }
 
@@ -392,7 +392,7 @@
 }
 
 .faq_main_item_inner p {
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-size: 14px;
   font-weight: 600;
   line-height: 1.45;
@@ -401,13 +401,13 @@
 
 .faqtextarea textarea,
 .faqtextarea .form-control {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   font-size: 13px !important;
   padding: 12px 14px;
   outline: none;
   box-shadow: none;
-  background: #141209 !important;
-  border: 1px solid #332C1D !important;
+  background: #0C2238 !important;
+  border: 1px solid #1E3D5C !important;
   border-radius: 12px !important;
   resize: vertical;
   min-height: 84px;
@@ -415,18 +415,18 @@
 }
 
 .faqtextarea textarea::placeholder {
-  color: #8B887E;
+  color: #7A8A9A;
 }
 
 .faqtextarea textarea:focus {
-  border-color: #C9A24A !important;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.16) !important;
+  border-color: #C5A05A !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.16) !important;
 }
 
 /* ng-select control (panel is body-appended — see ami-features-theme) */
 .assessment_select {
   width: 100%;
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-size: 12px;
 }
 
@@ -435,7 +435,7 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-size: 12px;
   line-height: 1.3;
 }
@@ -485,8 +485,8 @@
   height: 18px;
   padding: 0 5px;
   border-radius: 4px;
-  background: rgba(201, 162, 74, 0.18);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.18);
+  color: #D4B86A;
   font-weight: 700;
   text-align: center;
   font-size: 11px;
@@ -494,7 +494,7 @@
 }
 
 .assessment_option_user {
-  color: #E7C878;
+  color: #D4B86A;
   font-weight: 600;
   font-size: 11px;
 }
@@ -505,25 +505,25 @@
   overflow: hidden;
   text-overflow: ellipsis;
   overflow-wrap: normal;
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-size: 12px;
   line-height: 1.3;
 }
 
 :host ::ng-deep .assessment_select .ng-select-container {
   min-height: 38px !important;
-  border: 1px solid #332C1D !important;
+  border: 1px solid #1E3D5C !important;
   border-radius: 8px !important;
-  background: #141209 !important;
+  background: #0C2238 !important;
   box-shadow: none !important;
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
 :host ::ng-deep .assessment_select.ng-select-focused:not(.ng-select-opened) > .ng-select-container,
 :host ::ng-deep .assessment_select.ng-select-opened > .ng-select-container {
-  border-color: #C9A24A !important;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.16) !important;
+  border-color: #C5A05A !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.16) !important;
 }
 
 :host ::ng-deep .assessment_select .ng-value-container {
@@ -533,20 +533,20 @@
 
 :host ::ng-deep .assessment_select .ng-value,
 :host ::ng-deep .assessment_select .ng-value-label {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   background: transparent !important;
 }
 
 :host ::ng-deep .assessment_select .ng-placeholder {
-  color: #8B887E !important;
+  color: #7A8A9A !important;
 }
 
 :host ::ng-deep .assessment_select .ng-arrow-wrapper .ng-arrow {
-  border-color: #E7C878 transparent transparent;
+  border-color: #D4B86A transparent transparent;
 }
 
 :host ::ng-deep .assessment_select .ng-clear-wrapper {
-  color: #9C9484;
+  color: #8FA3B5;
 }
 
 :host ::ng-deep .assessment_select {
@@ -568,9 +568,9 @@
   transform: none !important;
   margin-top: 4px !important;
   overflow: hidden !important;
-  border: 1px solid #C9A24A !important;
+  border: 1px solid #C5A05A !important;
   border-radius: 8px !important;
-  background: #1A1610 !important;
+  background: #0F2A40 !important;
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.45) !important;
 }
 
@@ -620,7 +620,7 @@
   padding: 12px 30px;
   text-align: right;
   z-index: 1000;
-  background: linear-gradient(180deg, transparent, rgba(10, 9, 6, 0.92));
+  background: linear-gradient(180deg, transparent, rgba(6, 21, 37, 0.92));
 }
 
 /* ── Desktop responsive ─────────────────────────────────────── */

@@ -1,0 +1,84 @@
+/* ============================================================
+   Hornscope global theme
+   Navy + gold from the brand logo (compass / Horn of Africa)
+   Imported first from styles.css so every page inherits tokens.
+   --ami-* aliases keep existing feature CSS working.
+   ============================================================ */
+
+:root {
+  --hs-navy: #002147;
+  --hs-navy-mid: #0a2a4a;
+  --hs-bg: #061525;
+  --hs-panel: #0c2238;
+  --hs-panel-2: #123049;
+  --hs-dropdown: #0f2a40;
+  --hs-border: #1e3d5c;
+  --hs-border-soft: #16324a;
+  --hs-gold: #c5a05a;
+  --hs-gold-bright: #d4b86a;
+  --hs-bronze: #8b6b32;
+  --hs-slate: #7a94a8;
+  --hs-silver: #b8c5d0;
+  --hs-silver-dim: #7a8a9a;
+  --hs-cream: #e8eef4;
+  --hs-muted: #8fa3b5;
+  --hs-danger: #c45c3e;
+  --hs-success: #5a9b8a;
+  --hs-radius: 10px;
+  --hs-shadow: 0 12px 36px rgba(6, 21, 37, 0.45);
+  --hs-font: "Montserrat", "Inter", "Poppins", system-ui, sans-serif;
+  --hs-font-display: "Montserrat", "Inter", system-ui, sans-serif;
+  --hs-font-mono: "JetBrains Mono", Consolas, monospace;
+  --hs-gradient: linear-gradient(135deg, #d4b86a 0%, #c5a05a 48%, #8b6b32 100%);
+  --hs-gradient-hover: linear-gradient(135deg, #e0c878 0%, #c9a85a 48%, #9a7840 100%);
+
+  /* Back-compat aliases used across dashboards and feature pages */
+  --ami-bg: var(--hs-bg);
+  --hs-panel: var(--hs-panel);
+  --hs-panel-2: var(--hs-panel-2);
+  --ami-border: var(--hs-border);
+  --ami-border-soft: var(--hs-border-soft);
+  --ami-gold: var(--hs-gold);
+  --ami-gold-bright: var(--hs-gold-bright);
+  --ami-bronze: var(--hs-bronze);
+  --ami-silver: var(--hs-silver);
+  --ami-silver-dim: var(--hs-silver-dim);
+  --ami-cream: var(--hs-cream);
+  --ami-muted: var(--hs-muted);
+  --ami-danger: var(--hs-danger);
+  --ami-success: var(--hs-success);
+  --ami-radius: var(--hs-radius);
+  --ami-shadow: var(--hs-shadow);
+  --ami-font: var(--hs-font);
+  --ami-font-display: var(--hs-font-display);
+  --ami-font-mono: var(--hs-font-mono);
+
+  --Primary-Color: var(--hs-gold);
+  --Secondary-Color: var(--hs-gold-bright);
+  --Hover-Primary-color: var(--hs-bronze);
+  --Accent-Green: var(--hs-success);
+  --HS-Gradient: var(--hs-gradient);
+  --HS-Gradient-Hover: var(--hs-gradient-hover);
+  --White-Color: #ffffff;
+  --Text-Color: var(--hs-navy);
+  --Border-Color: #d5dee8;
+  --background-Color: #f4f7fa;
+  --Light-Text-Color: var(--hs-muted);
+  --Light-Bg-Color: var(--hs-gold);
+  --Dark-Bg-Color: var(--hs-bg);
+  --Light-Border-Color: rgba(0, 33, 71, 0.06);
+  --Green-text-Color: var(--hs-navy);
+  --Hero-Cream: #f4f7fa;
+  --Hero-Cream-Deep: #d5dee8;
+  --Surface-Elevated: var(--hs-panel-2);
+
+  --ami-auth-bg: var(--hs-bg);
+  --ami-auth-panel: var(--hs-panel);
+  --ami-auth-panel-2: var(--hs-panel-2);
+  --ami-auth-border: var(--hs-border);
+  --ami-auth-gold: var(--hs-gold);
+  --ami-auth-gold-hi: var(--hs-gold-bright);
+  --ami-auth-bronze: var(--hs-bronze);
+  --ami-auth-cream: var(--hs-cream);
+  --ami-auth-muted: var(--hs-muted);
+}

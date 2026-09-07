@@ -38,7 +38,7 @@
 .kpi_compare_chart_panel::-webkit-scrollbar-thumb,
 #chart::-webkit-scrollbar-thumb,
 .table_outer.table-responsive::-webkit-scrollbar-thumb {
-  background: rgba(201, 162, 74, 0.4);
+  background: rgba(197, 160, 90, 0.4);
   border-radius: 8px;
 }
 
@@ -85,14 +85,13 @@ app-kpi-comparision app-ag-bar:nth-child(3) {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
   background-repeat: no-repeat;
   background-position: center right 13px;
-  color: #EFE7D6;
+  color: #E8EEF4;
   /* font-family: 'Montserrat'; */
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-
 
 .input_flex {
   display: flex;
@@ -104,7 +103,6 @@ app-kpi-comparision app-ag-bar:nth-child(3) {
 .input_flex select {
   flex: 1;
 }
-
 
 .city_card_outter {
   display: flex;
@@ -164,26 +162,26 @@ app-kpi-comparision app-ag-bar:nth-child(3) {
 .city_cards_p {
   font-size: 14px;
   background-color: #4b6635;
-  color: #EFE7D6;
+  color: #E8EEF4;
   padding: 2px 10px;
   border-radius: 20px;
 }
 
 ::ng-deep .analyst_multi_select .ng-option-selected {
-  background-color: rgba(201, 162, 74, 0.18) !important;
-  color: #C9A24A !important;
+  background-color: rgba(197, 160, 90, 0.18) !important;
+  color: #C5A05A !important;
   font-weight: 600;
 }
 
 ::ng-deep .analyst_multi_select .ng-option:hover {
-  background-color: rgba(201, 162, 74, 0.16) !important;
-  color: #E7C878 !important;
+  background-color: rgba(197, 160, 90, 0.16) !important;
+  color: #D4B86A !important;
 }
 
 ::ng-deep #chart .apexcharts-menu,
 ::ng-deep .apexcharts-canvas .apexcharts-menu {
-  background: #1B1810 !important;
-  border: 1px solid #C9A24A !important;
+  background: #123049 !important;
+  border: 1px solid #C5A05A !important;
   border-radius: 10px !important;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
   padding: 6px !important;
@@ -191,7 +189,7 @@ app-kpi-comparision app-ag-bar:nth-child(3) {
 
 ::ng-deep #chart .apexcharts-menu-item,
 ::ng-deep .apexcharts-canvas .apexcharts-menu-item {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   background: transparent !important;
   border-radius: 8px !important;
   padding: 8px 12px !important;
@@ -199,8 +197,8 @@ app-kpi-comparision app-ag-bar:nth-child(3) {
 
 ::ng-deep #chart .apexcharts-menu-item:hover,
 ::ng-deep .apexcharts-canvas .apexcharts-menu-item:hover {
-  background: rgba(201, 162, 74, 0.18) !important;
-  color: #E7C878 !important;
+  background: rgba(197, 160, 90, 0.18) !important;
+  color: #D4B86A !important;
 }
 
 ::ng-deep .compare_select .ng-select-container {
@@ -252,21 +250,20 @@ app-kpi-comparision app-ag-bar:nth-child(3) {
   max-width: 100%;
 }
 
-
 .table_outer .compare_table tbody td.action_td table .action_icons {
     justify-content: flex-start;
 }
 
 .table_outer .compare_table tbody td.action_td table .action_icons span {
     display: inline-block;
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #0a0906;
+    color: #061525;
     border-radius: 5px;
 }
 .action_icons a svg g path {
-    fill: #141209 !important;
+    fill: #0C2238 !important;
 }
 
 .table_outer .compare_table tbody td.action_td table .btn_spinner .spinner-border {
@@ -276,15 +273,15 @@ app-kpi-comparision app-ag-bar:nth-child(3) {
 }
 p.btn_spinner {
     display: inline-block;
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #EFE7D6;
+    color: #E8EEF4;
     border-radius: 5px;
 }
 p.btn_spinner_export {
     display: inline-block;
     white-space: nowrap;
-    color: #EFE7D6;
+    color: #E8EEF4;
     border-radius: 5px;
 }

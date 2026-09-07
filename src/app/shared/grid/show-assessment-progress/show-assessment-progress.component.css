@@ -4,10 +4,10 @@
 
 .assessment_card {
   border-radius: 14px;
-  border: 1px solid rgba(201, 162, 74, 0.3);
+  border: 1px solid rgba(197, 160, 90, 0.3);
   background:
-    radial-gradient(ellipse at top, rgba(201, 162, 74, 0.14), transparent 55%),
-    linear-gradient(165deg, #1B1810 0%, #141209 100%);
+    radial-gradient(ellipse at top, rgba(197, 160, 90, 0.14), transparent 55%),
+    linear-gradient(165deg, #123049 0%, #0C2238 100%);
   padding: 12px 10px 10px;
   transition: border-color 0.22s ease, box-shadow 0.22s ease, transform 0.22s ease;
   animation: amiProgressIn 0.45s ease both;
@@ -23,21 +23,21 @@
   position: absolute;
   inset: 0 0 auto 0;
   height: 2px;
-  background: linear-gradient(90deg, #E7C878, #C9A24A, transparent);
+  background: linear-gradient(90deg, #D4B86A, #C5A05A, transparent);
   opacity: 0.9;
   pointer-events: none;
 }
 
 .assessment_card:hover {
-  border-color: rgba(231, 200, 120, 0.5);
-  box-shadow: 0 10px 28px rgba(201, 162, 74, 0.16);
+  border-color: rgba(212, 184, 106, 0.5);
+  box-shadow: 0 10px 28px rgba(197, 160, 90, 0.16);
   transform: translateY(-2px);
 }
 
 .chart-title {
   font-size: 11px;
   font-weight: 700;
-  color: #E7C878;
+  color: #D4B86A;
   text-align: center;
   margin-bottom: 4px;
   letter-spacing: 0.1em;
@@ -77,15 +77,15 @@
   justify-content: space-between;
   align-items: flex-start;
   gap: 6px;
-  color: #9C9484;
+  color: #8FA3B5;
   font-size: 11px;
   font-weight: 500;
   line-height: 1.35;
   margin-top: 6px;
   padding: 7px 8px;
   border-radius: 8px;
-  background: rgba(10, 9, 6, 0.45);
-  border: 1px solid #332C1D;
+  background: rgba(6, 21, 37, 0.45);
+  border: 1px solid #1E3D5C;
   transition: border-color 0.2s ease, background 0.2s ease;
   position: relative;
   z-index: 1;
@@ -94,8 +94,8 @@
 }
 
 .assessmentdata:hover {
-  border-color: rgba(201, 162, 74, 0.35);
-  background: rgba(201, 162, 74, 0.08);
+  border-color: rgba(197, 160, 90, 0.35);
+  background: rgba(197, 160, 90, 0.08);
 }
 
 .assessmentdata-label {
@@ -109,7 +109,7 @@
   flex: 0 0 auto;
   font-family: "JetBrains Mono", "DM Mono", monospace;
   font-weight: 700;
-  color: #E7C878;
+  color: #D4B86A;
   font-variant-numeric: tabular-nums;
   font-size: 11px;
   white-space: nowrap;

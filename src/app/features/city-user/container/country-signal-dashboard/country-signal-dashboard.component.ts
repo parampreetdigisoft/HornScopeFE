@@ -22,7 +22,7 @@ import { CountryHistoryDto } from 'src/app/core/models/countryHistoryDto';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
 import { AiCountrySummeryRequestPdfDto } from 'src/app/core/models/aiVm/AiCountrySummeryRequestPdfDto';
 import { ResultResponseDto } from 'src/app/core/models/ResultResponseDto';
-import { AMI_CHART } from 'src/app/core/constants/ahi-chart-theme';
+import { HS_CHART } from 'src/app/core/constants/hs-chart-theme';
 import { CommonService } from 'src/app/core/services/common.service';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserService } from 'src/app/core/services/user.service';
@@ -331,7 +331,7 @@ export class CountryUserDashboardComponent implements OnInit {
         : 'Select a country',
       overallLabel: `Overall Score ${Number(overall).toFixed(1)}/100 · ${condition}`,
       stats: [
-        { label: first?.code || 'AMI', value: Number(overall).toFixed(1) },
+        { label: first?.code || 'HS', value: Number(overall).toFixed(1) },
         { label: second?.code || 'IND-2', value: Number(second?.aiScore ?? 0).toFixed(1) },
         { label: third?.code || 'IND-3', value: Number(third?.aiScore ?? 0).toFixed(1) },
       ],
@@ -342,7 +342,7 @@ export class CountryUserDashboardComponent implements OnInit {
     const data = [...this.aiPillars];
     if (!data.length) return null;
     const categories = this.truncateCategories(data.map((p) => p.pillarName));
-    const colors = [AMI_CHART.lineAi];
+    const colors = [HS_CHART.lineAi];
 
     return {
       series: [{ name: 'Score', data: data.map((x) => Number(x.aiValue ?? 0)) }],
@@ -376,7 +376,7 @@ export class CountryUserDashboardComponent implements OnInit {
       markers: {
         size: 6,
         colors,
-        strokeColors: AMI_CHART.deep,
+        strokeColors: HS_CHART.deep,
         strokeWidth: 2,
         hover: { size: 9, sizeOffset: 3 },
       },
@@ -387,27 +387,27 @@ export class CountryUserDashboardComponent implements OnInit {
           rotateAlways: true,
           rotate: -35,
           maxHeight: 72,
-          style: { fontSize: '11px', fontWeight: 500, colors: AMI_CHART.textMuted },
+          style: { fontSize: '11px', fontWeight: 500, colors: HS_CHART.textMuted },
         },
-        axisBorder: { show: true, color: AMI_CHART.grid },
-        axisTicks: { show: true, color: AMI_CHART.grid },
+        axisBorder: { show: true, color: HS_CHART.grid },
+        axisTicks: { show: true, color: HS_CHART.grid },
         tooltip: { enabled: false },
       },
       yaxis: {
         title: {
           text: 'Score',
-          style: { fontSize: '12px', fontWeight: 600, color: AMI_CHART.textMuted },
+          style: { fontSize: '12px', fontWeight: 600, color: HS_CHART.textMuted },
         },
         min: 0,
         max: 100,
         tickAmount: 5,
         labels: {
           formatter: (val) => `${Math.round(val)}`,
-          style: { fontSize: '12px', colors: [AMI_CHART.textMuted] },
+          style: { fontSize: '12px', colors: [HS_CHART.textMuted] },
         },
       },
       grid: {
-        borderColor: AMI_CHART.grid,
+        borderColor: HS_CHART.grid,
         strokeDashArray: 4,
         padding: { top: 8, right: 8, bottom: -8, left: 4 },
         xaxis: { lines: { show: false } },
@@ -423,7 +423,7 @@ export class CountryUserDashboardComponent implements OnInit {
           if (!pillar) return '';
 
           const score = Number(pillar.aiValue ?? 0);
-          const accent = '#E7C878';
+          const accent = '#D4B86A';
           const statusText =
             score >= 75
               ? 'Excellent Performance'
@@ -437,7 +437,7 @@ export class CountryUserDashboardComponent implements OnInit {
           const barWidth = Math.min(Math.max(score, 0), 100);
 
           return `
-            <div style="padding:18px 20px;min-width:320px;max-width:480px;background:linear-gradient(160deg,#1B1810 0%,#141209 100%);border-radius:14px;box-shadow:0 18px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(201,162,74,0.35);border-left:4px solid ${accent};font-family:Inter,system-ui,sans-serif;position:relative;overflow:hidden;color:#EFE7D6; flex: 1;
+            <div style="padding:18px 20px;min-width:320px;max-width:480px;background:linear-gradient(160deg,#123049 0%,#0C2238 100%);border-radius:14px;box-shadow:0 18px 48px rgba(0,0,0,0.55), 0 0 0 1px rgba(197,160,90,0.35);border-left:4px solid ${accent};font-family:Inter,system-ui,sans-serif;position:relative;overflow:hidden;color:#E8EEF4; flex: 1;
 min-width: 0;
 white-space: normal;
 overflow-wrap: anywhere;
@@ -456,11 +456,11 @@ word-break: break-word;">
                   </div>
                 </div>
                 <div style="margin-bottom:4px;">
-                  <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px;text-transform:uppercase;letter-spacing:0.8px;font-weight:700;color:#9C9484;">
+                  <div style="display:flex;justify-content:space-between;margin-bottom:8px;font-size:11px;text-transform:uppercase;letter-spacing:0.8px;font-weight:700;color:#8FA3B5;">
                     <span>Score</span>
                     <span style="color:${accent};font-size:13px;font-weight:800;text-shadow:0 0 10px ${accent}88;">${score.toFixed(1)}</span>
                   </div>
-                  <div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;position:relative;border:1px solid rgba(201,162,74,0.18);">
+                  <div style="width:100%;height:10px;background:rgba(255,255,255,0.08);border-radius:10px;overflow:hidden;position:relative;border:1px solid rgba(197,160,90,0.18);">
                     <div style="width:${barWidth}%;height:100%;background:linear-gradient(90deg, ${accent} 0%, ${accent}ee 100%);border-radius:10px;box-shadow:0 0 12px ${accent}99;"></div>
                   </div>
                 </div>
@@ -502,7 +502,7 @@ word-break: break-word;">
             background: 'transparent',
           },
           track: {
-            background: AMI_CHART.hollow,
+            background: HS_CHART.hollow,
             strokeWidth: '100%',
             margin: 0,
           },
@@ -511,13 +511,13 @@ word-break: break-word;">
             name: {
               show: true,
               offsetY: -12,
-              color: AMI_CHART.textMuted,
+              color: HS_CHART.textMuted,
               fontSize: '13px',
             },
             value: {
               show: true,
               offsetY: 8,
-              color: AMI_CHART.text,
+              color: HS_CHART.text,
               fontSize: '28px',
               fontWeight: 700,
               formatter: (value: number) => `${Number(value).toFixed(1)}`,
@@ -526,7 +526,7 @@ word-break: break-word;">
           },
         },
       },
-      colors: [AMI_CHART.primary],
+      colors: [HS_CHART.primary],
       labels: ['Score'],
       legend: { show: false },
     };

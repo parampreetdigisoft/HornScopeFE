@@ -58,7 +58,7 @@
                                 <ng-select [items]="tierOptions" bindValue="value" bindLabel="label"
                                     formControlName="tier" [multiple]="false"
                                     class="form-control analyst_multi_select" [searchable]="false"
-                                    [placeholder]="countryUserForm.get('tier')?.invalid ? 'Select Tier Plan' : ''" appendTo="body">
+                                    [placeholder]="countryUserForm.get('tier')?.invalid ? 'Select Tier Plan' : ''">
 
                                     <ng-template ng-label-tmp let-item="item" class="select_item">
                                         {{ item.label }}
@@ -81,7 +81,7 @@
                                     formControlName="pillars" [multiple]="true" [closeOnSelect]="false"
                                     class="form-control analyst_multi_select" [searchable]="true"
                                     [placeholder]="countryUserForm.get('pillars')?.invalid ? 'Select Domains' : ''"
-                                    (change)="checkSelectionLimit('pillars')" [trackByFn]="trackByFn" appendTo="body">
+                                    (change)="checkSelectionLimit('pillars')" [trackByFn]="trackByFn">
 
                                     <ng-template ng-label-tmp let-item="item" class="select_item">
                                         {{ item.pillarName }}
@@ -123,7 +123,7 @@
                                     formControlName="country" [multiple]="true" [closeOnSelect]="false"
                                     class="form-control analyst_multi_select" [searchable]="true"
                                     [placeholder]="countryUserForm.get('country')?.invalid ? 'Assign Country' : ''"
-                                    (change)="checkSelectionLimit('country')" appendTo="body">
+                                    (change)="checkSelectionLimit('country')">
 
                                     <ng-template ng-label-tmp let-item="item" class="select_item">
                                         {{ item.countryName}}

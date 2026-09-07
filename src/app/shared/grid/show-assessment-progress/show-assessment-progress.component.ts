@@ -67,7 +67,7 @@ export class ShowAssessmentProgressComponent implements OnInit, OnChanges, OnDes
           show: false
         },
         background: "transparent",
-        foreColor: "#EFE7D6",
+        foreColor: "#E8EEF4",
       },
       plotOptions: {
         radialBar: {
@@ -78,7 +78,7 @@ export class ShowAssessmentProgressComponent implements OnInit, OnChanges, OnDes
           hollow: {
             margin: 0,
             size: "72%",
-            background: "#141209",
+            background: "#0C2238",
             image: undefined,
             position: "front",
             dropShadow: {
@@ -90,7 +90,7 @@ export class ShowAssessmentProgressComponent implements OnInit, OnChanges, OnDes
             }
           },
           track: {
-            background: "#332C1D",
+            background: "#1E3D5C",
             strokeWidth: "55%",
             margin: 2,
             dropShadow: {
@@ -106,7 +106,7 @@ export class ShowAssessmentProgressComponent implements OnInit, OnChanges, OnDes
             name: {
               offsetY: -8,
               show: true,
-              color: "#9C9484",
+              color: "#8FA3B5",
               fontSize: "11px",
               fontWeight: 500,
               fontFamily: "Inter, Poppins, sans-serif",
@@ -116,7 +116,7 @@ export class ShowAssessmentProgressComponent implements OnInit, OnChanges, OnDes
                 return val.toString() + "%";
               },
               offsetY: 2,
-              color: "#E7C878",
+              color: "#D4B86A",
               fontSize: "20px",
               fontWeight: 700,
               fontFamily: "Inter, Poppins, sans-serif",
@@ -127,7 +127,7 @@ export class ShowAssessmentProgressComponent implements OnInit, OnChanges, OnDes
       },
       fill: {
         type: "solid",
-        colors: ["#C9A24A"]
+        colors: ["#C5A05A"]
       },
       stroke: {
         lineCap: "round"

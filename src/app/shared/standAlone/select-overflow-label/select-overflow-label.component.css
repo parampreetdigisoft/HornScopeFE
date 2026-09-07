@@ -22,9 +22,9 @@
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-  background: rgba(201, 162, 74, 0.18);
-  color: #e7c878;
-  border: 1px solid rgba(201, 162, 74, 0.35);
+  background: rgba(197, 160, 90, 0.18);
+  color: #d4b86a;
+  border: 1px solid rgba(197, 160, 90, 0.35);
   border-radius: 6px;
   padding: 2px 8px;
   font-size: 12px;

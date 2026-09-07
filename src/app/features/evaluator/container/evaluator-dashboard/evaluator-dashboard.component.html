@@ -1,42 +1,42 @@
-<div class="ami-dashboard eval-dash" *ngIf="!isLoader">
+<div class="hs-dashboard eval-dash" *ngIf="!isLoader">
 	<div class="ami-kpi-strip">
-		<div class="ami-kpi-card">
-			<div class="ami-kpi-icon"><i class="bi bi-globe2"></i></div>
+		<div class="hs-kpi-card">
+			<div class="hs-kpi-icon"><i class="bi bi-globe2"></i></div>
 			<div>
-				<div class="ami-kpi-label">Total Countries</div>
-				<div class="ami-kpi-value">{{ countryHistory?.totalCountry ?? 0 }}</div>
-				<div class="ami-kpi-sub">Assigned countries</div>
+				<div class="hs-kpi-label">Total Countries</div>
+				<div class="hs-kpi-value">{{ countryHistory?.totalCountry ?? 0 }}</div>
+				<div class="hs-kpi-sub">Assigned countries</div>
 			</div>
 		</div>
-		<div class="ami-kpi-card">
-			<div class="ami-kpi-icon"><i class="bi bi-clipboard2-check"></i></div>
+		<div class="hs-kpi-card">
+			<div class="hs-kpi-icon"><i class="bi bi-clipboard2-check"></i></div>
 			<div>
-				<div class="ami-kpi-label">Active</div>
-				<div class="ami-kpi-value">{{ countryHistory?.activeCountry ?? 0 }}</div>
-				<div class="ami-kpi-sub">Active assessments</div>
+				<div class="hs-kpi-label">Active</div>
+				<div class="hs-kpi-value">{{ countryHistory?.activeCountry ?? 0 }}</div>
+				<div class="hs-kpi-sub">Active assessments</div>
 			</div>
 		</div>
-		<div class="ami-kpi-card">
-			<div class="ami-kpi-icon"><i class="bi bi-hourglass-split"></i></div>
+		<div class="hs-kpi-card">
+			<div class="hs-kpi-icon"><i class="bi bi-hourglass-split"></i></div>
 			<div>
-				<div class="ami-kpi-label">In Progress</div>
-				<div class="ami-kpi-value">{{ countryHistory?.inprocessCountry ?? 0 }}</div>
-				<div class="ami-kpi-sub">Manual in progress</div>
+				<div class="hs-kpi-label">In Progress</div>
+				<div class="hs-kpi-value">{{ countryHistory?.inprocessCountry ?? 0 }}</div>
+				<div class="hs-kpi-sub">Manual in progress</div>
 			</div>
 		</div>
-		<div class="ami-kpi-card">
-			<div class="ami-kpi-icon"><i class="bi bi-check2-all"></i></div>
+		<div class="hs-kpi-card">
+			<div class="hs-kpi-icon"><i class="bi bi-check2-all"></i></div>
 			<div>
-				<div class="ami-kpi-label">Completed</div>
-				<div class="ami-kpi-value">{{ countryHistory?.compeleteCountry ?? 0 }}</div>
-				<div class="ami-kpi-sub">Manual completed</div>
+				<div class="hs-kpi-label">Completed</div>
+				<div class="hs-kpi-value">{{ countryHistory?.compeleteCountry ?? 0 }}</div>
+				<div class="hs-kpi-sub">Manual completed</div>
 			</div>
 		</div>
 	</div>
 
-	<div class="ami-controls">
-		<div class="ami-controls-left">
-			<div class="ami-field">
+	<div class="hs-controls">
+		<div class="hs-controls-left">
+			<div class="hs-field">
 				<label>Select Country *</label>
 				<ng-select [items]="countries"
 					[searchable]="true"
@@ -54,7 +54,7 @@
 					</ng-template>
 				</ng-select>
 			</div>
-			<div class="ami-field">
+			<div class="hs-field">
 				<label>Select Year *</label>
 				<ng-select
 					[items]="commonService.applicateYears"
@@ -67,10 +67,10 @@
 				</ng-select>
 			</div>
 		</div>
-		<div class="ami-actions">
+		<div class="hs-actions">
 			<button *ngIf="countryQuestionHistoryResponse?.pillars?.length"
 				type="button"
-				class="ami-btn ami-btn-solid"
+				class="hs-btn hs-btn-solid"
 				[matTooltip]="'Export domain details'"
 				(click)="exportCountryPillar()">
 				Export
@@ -79,15 +79,15 @@
 		</div>
 	</div>
 
-	<div class="ami-grid-2">
-		<div class="ami-panel">
-			<div class="ami-panel-title">
+	<div class="hs-grid-2">
+		<div class="hs-panel">
+			<div class="hs-panel-title">
 				<span><i class="bi bi-graph-up"></i> Manual Score Overview</span>
-				<div class="ami-legend">
-					<span><span class="ami-dot ami-dot-gold"></span> Manual Score</span>
+				<div class="hs-legend">
+					<span><span class="hs-dot hs-dot-gold"></span> Manual Score</span>
 				</div>
 			</div>
-			<div class="ami-chart-host" *ngIf="chartPillarOptions?.series?.length; else emptyPillar">
+			<div class="hs-chart-host" *ngIf="chartPillarOptions?.series?.length; else emptyPillar">
 				<apx-chart
 					[series]="chartPillarOptions!.series!"
 					[chart]="chartPillarOptions!.chart!"
@@ -109,11 +109,11 @@
 			</ng-template>
 		</div>
 
-		<div class="ami-panel">
-			<div class="ami-panel-title">
+		<div class="hs-panel">
+			<div class="hs-panel-title">
 				<span><i class="bi bi-pie-chart"></i> Country Overview</span>
 			</div>
-			<div class="ami-chart-host" *ngIf="chartOptions?.series?.length; else emptyRadial">
+			<div class="hs-chart-host" *ngIf="chartOptions?.series?.length; else emptyRadial">
 				<apx-chart
 					[series]="chartOptions!.series!"
 					[chart]="chartOptions!.chart!"

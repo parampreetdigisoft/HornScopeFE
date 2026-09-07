@@ -1,19 +1,8 @@
 /* ============================================================
-   AMI Auth UI — single-viewport dark / gold
+   Hornscope Auth UI — navy / gold, single-viewport
+   Tokens from hornscope-theme.css
    Loaded via account.component (ViewEncapsulation.None)
    ============================================================ */
-
-:root {
-  --ami-auth-bg: #0A0906;
-  --ami-auth-panel: #141209;
-  --ami-auth-panel-2: #1B1810;
-  --ami-auth-border: #332C1D;
-  --ami-auth-gold: #C9A24A;
-  --ami-auth-gold-hi: #E7C878;
-  --ami-auth-bronze: #8A5A2B;
-  --ami-auth-cream: #EFE7D6;
-  --ami-auth-muted: #9C9484;
-}
 
 /* ── Page shell ─────────────────────────────────────────────── */
 app-login,
@@ -37,11 +26,11 @@ app-confirm-mail {
   overflow-x: hidden;
   overflow-y: auto;
   background:
-    radial-gradient(ellipse 70% 50% at 8% 0%, rgba(201, 162, 74, 0.18) 0%, transparent 55%),
-    radial-gradient(ellipse 60% 45% at 100% 100%, rgba(138, 90, 43, 0.24) 0%, transparent 50%),
-    linear-gradient(150deg, #0D0B07 0%, #141209 42%, #1B1810 100%);
+    radial-gradient(ellipse 70% 50% at 8% 0%, rgba(197, 160, 90, 0.18) 0%, transparent 55%),
+    radial-gradient(ellipse 60% 45% at 100% 100%, rgba(0, 33, 71, 0.55) 0%, transparent 50%),
+    linear-gradient(150deg, #051220 0%, #0C2238 42%, #123049 100%);
   scrollbar-width: thin;
-  scrollbar-color: #C9A24A #141209;
+  scrollbar-color: #C5A05A #0C2238;
 }
 
 .vui_before_login::before {
@@ -62,7 +51,7 @@ app-confirm-mail {
   width: 480px;
   height: 480px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(201, 162, 74, 0.16) 0%, transparent 68%);
+  background: radial-gradient(circle, rgba(197, 160, 90, 0.16) 0%, transparent 68%);
   top: -160px;
   right: -100px;
   pointer-events: none;
@@ -99,12 +88,12 @@ app-confirm-mail {
   max-height: calc(100dvh - 32px);
   overflow: hidden;
   border-radius: 18px;
-  background: linear-gradient(165deg, #1B1810 0%, #141209 100%) !important;
-  border: 1px solid rgba(201, 162, 74, 0.32) !important;
+  background: linear-gradient(165deg, #123049 0%, #0C2238 100%) !important;
+  border: 1px solid rgba(197, 160, 90, 0.32) !important;
   padding: 28px 28px 24px !important;
   box-shadow:
     0 24px 48px rgba(0, 0, 0, 0.5),
-    inset 0 1px 0 rgba(231, 200, 120, 0.08);
+    inset 0 1px 0 rgba(212, 184, 106, 0.08);
   animation: amiAuthCardIn 0.45s ease-out both;
   color: var(--ami-auth-cream);
 }
@@ -114,7 +103,7 @@ app-confirm-mail {
   max-width: 400px;
   overflow: auto;
   scrollbar-width: thin;
-  scrollbar-color: #332C1D transparent;
+  scrollbar-color: #1E3D5C transparent;
 }
 
 .ami_auth_card::before {
@@ -125,7 +114,7 @@ app-confirm-mail {
   right: 20px;
   height: 3px;
   border-radius: 0 0 4px 4px;
-  background: linear-gradient(90deg, #E7C878, #C9A24A, #8A5A2B);
+  background: linear-gradient(90deg, #D4B86A, #C5A05A, #8B6B32);
   background-size: 200% 100%;
   animation: amiAuthShimmer 4s ease infinite;
 }
@@ -149,7 +138,7 @@ app-confirm-mail {
   min-height: 0;
   border-radius: 20px;
   overflow: hidden;
-  border: 1px solid rgba(201, 162, 74, 0.28);
+  border: 1px solid rgba(197, 160, 90, 0.28);
   box-shadow: 0 28px 56px rgba(0, 0, 0, 0.45);
   animation: amiAuthCardIn 0.5s ease-out both;
 }
@@ -168,7 +157,7 @@ app-confirm-mail {
 .ami_auth_brand {
   min-width: 0;
   min-height: 0;
-  background: linear-gradient(165deg, #0A0906 0%, #141209 48%, #8A5A2B 120%);
+  background: linear-gradient(165deg, #061525 0%, #0C2238 48%, #8B6B32 120%);
   color: #fff;
   padding: clamp(18px, 2.4vh, 28px) clamp(18px, 2vw, 28px);
   display: flex;
@@ -178,7 +167,7 @@ app-confirm-mail {
   overflow-x: hidden;
   overflow-y: auto;
   scrollbar-width: thin;
-  scrollbar-color: rgba(201, 162, 74, 0.45) transparent;
+  scrollbar-color: rgba(197, 160, 90, 0.45) transparent;
 }
 
 .ami_auth_brand::before {
@@ -186,7 +175,7 @@ app-confirm-mail {
   position: absolute;
   inset: 0;
   background:
-    radial-gradient(circle at 20% 85%, rgba(201, 162, 74, 0.22) 0%, transparent 45%),
+    radial-gradient(circle at 20% 85%, rgba(197, 160, 90, 0.22) 0%, transparent 45%),
     radial-gradient(circle at 90% 10%, rgba(255, 255, 255, 0.06) 0%, transparent 40%);
   pointer-events: none;
 }
@@ -216,9 +205,9 @@ app-confirm-mail {
   gap: 6px;
   padding: 5px 12px;
   border-radius: 999px;
-  background: rgba(201, 162, 74, 0.16);
-  border: 1px solid rgba(201, 162, 74, 0.4);
-  color: #EFE7D6;
+  background: rgba(197, 160, 90, 0.16);
+  border: 1px solid rgba(197, 160, 90, 0.4);
+  color: #E8EEF4;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.06em;
@@ -234,8 +223,8 @@ app-confirm-mail {
   padding: 10px 12px;
   margin-bottom: 14px;
   border-radius: 12px;
-  background: rgba(201, 162, 74, 0.1);
-  border: 1px solid rgba(201, 162, 74, 0.32);
+  background: rgba(197, 160, 90, 0.1);
+  border: 1px solid rgba(197, 160, 90, 0.32);
 }
 
 .ami_aevum_chip > i {
@@ -243,8 +232,8 @@ app-confirm-mail {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, rgba(201, 162, 74, 0.35), rgba(138, 90, 43, 0.28));
-  color: #E7C878;
+  background: linear-gradient(135deg, rgba(197, 160, 90, 0.35), rgba(139, 107, 50, 0.28));
+  color: #D4B86A;
   font-size: 16px;
   display: grid;
   place-items: center;
@@ -308,8 +297,8 @@ app-confirm-mail {
   width: 26px;
   height: 26px;
   border-radius: 8px;
-  background: rgba(201, 162, 74, 0.22);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.22);
+  color: #D4B86A;
   display: inline-grid;
   place-items: center;
   font-size: 13px;
@@ -325,14 +314,14 @@ app-confirm-mail {
   height: auto;
   border-radius: 0 !important;
   border: none !important;
-  border-left: 1px solid rgba(201, 162, 74, 0.2) !important;
+  border-left: 1px solid rgba(197, 160, 90, 0.2) !important;
   box-shadow: none !important;
   overflow-x: hidden;
   overflow-y: auto;
   padding: clamp(16px, 2.2vh, 26px) clamp(18px, 2vw, 28px) !important;
-  background: linear-gradient(165deg, #1B1810 0%, #141209 100%) !important;
+  background: linear-gradient(165deg, #123049 0%, #0C2238 100%) !important;
   scrollbar-width: thin;
-  scrollbar-color: #C9A24A #141209;
+  scrollbar-color: #C5A05A #0C2238;
 }
 
 .ami_auth_shell .ami_auth_card::-webkit-scrollbar,
@@ -346,7 +335,7 @@ app-confirm-mail {
 .ami_auth_shell .vui_before_login_cards::-webkit-scrollbar-thumb,
 .ami_auth_brand::-webkit-scrollbar-thumb,
 .vui_before_login::-webkit-scrollbar-thumb {
-  background: #C9A24A;
+  background: #C5A05A;
   border-radius: 8px;
 }
 
@@ -354,7 +343,7 @@ app-confirm-mail {
 .ami_auth_shell .vui_before_login_cards::-webkit-scrollbar-track,
 .ami_auth_brand::-webkit-scrollbar-track,
 .vui_before_login::-webkit-scrollbar-track {
-  background: #141209;
+  background: #0C2238;
 }
 
 /* ── Logo / headings ────────────────────────────────────────── */
@@ -371,25 +360,25 @@ app-confirm-mail {
   margin: 0 auto 4px;
   padding: 8px 10px;
   border-radius: 14px;
-  background: #050505;
-  border: 1px solid rgba(201, 162, 74, 0.45);
+  background: #ffffff;
+  border: 1px solid rgba(197, 160, 90, 0.45);
   box-shadow:
-    0 0 0 4px rgba(201, 162, 74, 0.08),
+    0 0 0 4px rgba(197, 160, 90, 0.08),
     0 10px 24px rgba(0, 0, 0, 0.4);
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
 .vui_before_login .vui_logo > a:hover {
   transform: translateY(-1px);
-  border-color: rgba(231, 200, 120, 0.7);
+  border-color: rgba(212, 184, 106, 0.7);
   box-shadow:
-    0 0 0 4px rgba(201, 162, 74, 0.14),
+    0 0 0 4px rgba(197, 160, 90, 0.14),
     0 12px 28px rgba(0, 0, 0, 0.45);
 }
 
 .vui_before_login .vui_logo img,
 .ami_auth_logo_plate img {
-  width: 128px;
+  width: 220px;
   max-width: 100%;
   height: auto;
   display: block;
@@ -410,8 +399,8 @@ app-confirm-mail {
 
 .vui_before_signup .vui_logo > a,
 .ami_auth_brand .vui_logo > a {
-  background: #050505 !important;
-  border: 1px solid rgba(201, 162, 74, 0.45) !important;
+  background: #ffffff !important;
+  border: 1px solid rgba(197, 160, 90, 0.45) !important;
   padding: 8px 10px !important;
   margin-left: 0;
 }
@@ -453,9 +442,9 @@ app-confirm-mail {
   display: grid;
   place-items: center;
   margin: 0 auto 14px;
-  background: linear-gradient(135deg, rgba(201, 162, 74, 0.22), rgba(138, 90, 43, 0.28));
-  border: 1px solid rgba(201, 162, 74, 0.35);
-  color: #E7C878;
+  background: linear-gradient(135deg, rgba(197, 160, 90, 0.22), rgba(139, 107, 50, 0.28));
+  border: 1px solid rgba(197, 160, 90, 0.35);
+  color: #D4B86A;
   font-size: 22px;
   animation: amiAuthIconPop 0.45s ease both;
 }
@@ -487,8 +476,8 @@ app-confirm-mail {
   width: 22px;
   height: 22px;
   border-radius: 7px;
-  background: rgba(201, 162, 74, 0.14);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.14);
+  color: #D4B86A;
   font-size: 12px;
 }
 
@@ -511,17 +500,16 @@ app-confirm-mail {
 }
 
 .vui_before_login .input_field .form-control::placeholder {
-  color: #8B887E !important;
+  color: #7A8A9A !important;
 }
 
 .vui_before_login .input_field .form-control:hover {
-  border-color: rgba(201, 162, 74, 0.5) !important;
-  background: #201C14 !important;
+  border-color: rgba(197, 160, 90, 0.5) !important;
 }
 
 .vui_before_login .input_field .form-control:focus {
   border-color: var(--ami-auth-gold) !important;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.2) !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.2) !important;
   background: var(--ami-auth-panel-2) !important;
   outline: none;
   color: var(--ami-auth-cream) !important;
@@ -531,11 +519,11 @@ app-confirm-mail {
 .vui_before_login input.form-control:-webkit-autofill,
 .vui_before_login input.form-control:-webkit-autofill:hover,
 .vui_before_login input.form-control:-webkit-autofill:focus {
-  -webkit-text-fill-color: #EFE7D6 !important;
-  caret-color: #EFE7D6;
-  box-shadow: 0 0 0 1000px #1B1810 inset !important;
+  -webkit-text-fill-color: #E8EEF4 !important;
+  caret-color: #E8EEF4;
+  box-shadow: 0 0 0 1000px #123049 inset !important;
   transition: background-color 9999s ease-in-out 0s;
-  border-color: rgba(201, 162, 74, 0.45) !important;
+  border-color: rgba(197, 160, 90, 0.45) !important;
 }
 
 .vui_before_login .error-msg,
@@ -559,7 +547,7 @@ app-confirm-mail {
   border-radius: 9px;
   background: transparent;
   cursor: pointer;
-  color: #C9A24A;
+  color: #C5A05A;
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
@@ -568,54 +556,54 @@ app-confirm-mail {
 }
 
 .vui_before_login .password_eye_icon:hover {
-  background: rgba(201, 162, 74, 0.14);
+  background: rgba(197, 160, 90, 0.14);
 }
 
 .vui_before_login .password_eye_icon i {
   font-size: 16px;
-  color: #C9A24A;
+  color: #C5A05A;
 }
 
 .vui_before_login .password_eye_icon path {
-  fill: #C9A24A;
+  fill: #C5A05A;
 }
 
 /* ── Checkbox / switch / links ──────────────────────────────── */
 .vui_before_login .vui_checkbox .form-check-input:checked,
 .vui_before_login .form-switch .form-check-input:checked {
-  border-color: #C9A24A !important;
-  background-color: #C9A24A !important;
+  border-color: #C5A05A !important;
+  background-color: #C5A05A !important;
 }
 
 .vui_before_login .form-check-label,
 .vui_before_login .form-switch .form-check-label {
-  color: #C9C7BF !important;
+  color: #B8C5D0 !important;
   font-size: 13px;
   font-weight: 500;
 }
 
 .vui_before_login .auth_text {
   font-size: 11px;
-  color: #9C9484 !important;
+  color: #8FA3B5 !important;
   line-height: 1.4;
 }
 
 .vui_before_login .vui_reset_pass_link {
-  color: #C9A24A !important;
+  color: #C5A05A !important;
   font-weight: 600;
   text-decoration: none !important;
   transition: color 0.2s ease;
 }
 
 .vui_before_login .vui_reset_pass_link:hover {
-  color: #E7C878 !important;
+  color: #D4B86A !important;
   text-decoration: underline !important;
 }
 
 .vui_before_login a.create_new_account {
   font-size: 14px;
   padding-top: 10px;
-  color: #C9A24A !important;
+  color: #C5A05A !important;
 }
 
 /* ── Primary button ─────────────────────────────────────────── */
@@ -629,15 +617,15 @@ app-confirm-mail {
   align-items: center;
   justify-content: center;
   gap: 8px;
-  background: linear-gradient(135deg, #E7C878, #C9A24A, #8A5A2B) !important;
-  color: #0A0906 !important;
+  background: linear-gradient(135deg, #D4B86A, #C5A05A, #8B6B32) !important;
+  color: #061525 !important;
   border: none !important;
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 .vui_before_login .common_button:not(:disabled):hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 22px rgba(201, 162, 74, 0.4);
+  box-shadow: 0 10px 22px rgba(197, 160, 90, 0.4);
 }
 
 .vui_before_login .common_button:disabled {
@@ -647,18 +635,18 @@ app-confirm-mail {
 
 /* ── Divider / social ───────────────────────────────────────── */
 .vui_before_login .or {
-  border-top: 1px solid #332C1D;
+  border-top: 1px solid #1E3D5C;
   margin-top: 14px;
   margin-bottom: 12px;
 }
 
 .vui_before_login .or span {
-  border: 1px solid #332C1D;
+  border: 1px solid #1E3D5C;
   border-radius: 999px;
   padding: 3px 12px;
   font-size: 11px;
-  color: #9C9484;
-  background: #141209;
+  color: #8FA3B5;
+  background: #0C2238;
   top: -12px;
   margin: 8px auto 0;
   display: table;
@@ -695,33 +683,33 @@ app-confirm-mail {
   border-radius: 11px !important;
   font-size: 20px !important;
   font-weight: 700;
-  color: #EFE7D6 !important;
-  border: 2px solid #332C1D !important;
-  background: #1B1810 !important;
+  color: #E8EEF4 !important;
+  border: 2px solid #1E3D5C !important;
+  background: #123049 !important;
   padding: 4px !important;
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
 .vui_before_login .otp_field > input:focus {
-  border-color: #C9A24A !important;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.22) !important;
+  border-color: #C5A05A !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.22) !important;
   transform: scale(1.05);
   outline: none;
 }
 
 .vui_before_login .resend_code {
   font-size: 13px;
-  color: #9C9484;
+  color: #8FA3B5;
 }
 
 .vui_before_login .resend_code a {
-  color: #C9A24A;
+  color: #C5A05A;
   font-weight: 700;
   text-decoration: none;
 }
 
 .vui_before_login .resend_code a:hover:not(.disabled) {
-  color: #E7C878;
+  color: #D4B86A;
   text-decoration: underline;
 }
 
@@ -733,8 +721,8 @@ app-confirm-mail {
 .vui_before_login .ami_2fa_box {
   padding: 12px 14px;
   border-radius: 12px;
-  background: rgba(201, 162, 74, 0.08);
-  border: 1px solid rgba(201, 162, 74, 0.22);
+  background: rgba(197, 160, 90, 0.08);
+  border: 1px solid rgba(197, 160, 90, 0.22);
 }
 
 /* ── Signup-specific compact bits (global) ──────────────────── */
@@ -744,7 +732,7 @@ app-confirm-mail {
   gap: 12px;
   margin-bottom: 12px !important;
   padding-bottom: 12px !important;
-  border-bottom: 1px solid #332C1D;
+  border-bottom: 1px solid #1E3D5C;
 }
 
 .ami_signup_form_head_icon {
@@ -752,8 +740,8 @@ app-confirm-mail {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(201, 162, 74, 0.2), rgba(138, 90, 43, 0.28));
-  color: #E7C878;
+  background: linear-gradient(135deg, rgba(197, 160, 90, 0.2), rgba(139, 107, 50, 0.28));
+  color: #D4B86A;
   font-size: 18px;
   display: grid;
   place-items: center;
@@ -767,8 +755,8 @@ app-confirm-mail {
   gap: 12px 16px;
   padding: 10px 12px;
   border-radius: 12px;
-  background: #141209;
-  border: 1px solid #332C1D;
+  background: #0C2238;
+  border: 1px solid #1E3D5C;
 }
 
 .ami_captcha_box {
@@ -789,7 +777,7 @@ app-confirm-mail {
 }
 
 .text-muted {
-  color: #9C9484 !important;
+  color: #8FA3B5 !important;
 }
 
 /* ── Responsive ─────────────────────────────────────────────── */
@@ -818,7 +806,7 @@ app-confirm-mail {
 
   .vui_before_login .vui_logo img,
   .ami_auth_logo_plate img {
-    width: 112px;
+    width: 168px;
   }
 }
 
@@ -882,7 +870,7 @@ app-confirm-mail {
 
   .ami_auth_shell .ami_auth_card {
     border-left: none !important;
-    border-top: 1px solid rgba(201, 162, 74, 0.2) !important;
+    border-top: 1px solid rgba(197, 160, 90, 0.2) !important;
     padding: 20px 18px !important;
     overflow: visible;
   }

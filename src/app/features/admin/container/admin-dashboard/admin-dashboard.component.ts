@@ -27,7 +27,7 @@ import {
   ApexStates,
 } from "ng-apexcharts";
 import { AiCountryPillarDashboardResponseDto } from "src/app/core/models/AiCountryPillarDashboardResponseDto";
-import { AMI_CHART, amiScoreColor, AMI_AXIS_STYLE } from "src/app/core/constants/ahi-chart-theme";
+import { HS_CHART, amiScoreColor, HS_AXIS_STYLE } from "src/app/core/constants/hs-chart-theme";
 import { SignalIndexHelpers, SignalTab } from "src/app/core/utils/signal-index.helpers";
 import { DashboardModeResponseDto } from "src/app/core/models/CountrySignalDashboardDto";
 
@@ -328,24 +328,24 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
           hollow: {
             margin: 0,
             size: "40%",
-            background: AMI_CHART.hollow,
+            background: HS_CHART.hollow,
             image: undefined,
             position: "front",
           },
           track: {
-            background: AMI_CHART.grid,
+            background: HS_CHART.grid,
           },
           dataLabels: {
             show: true,
             name: {
               show: true,
               offsetY: -10,
-              color: AMI_CHART.textMuted,
+              color: HS_CHART.textMuted,
             },
             value: {
               show: true,
               offsetY: 10,
-              color: AMI_CHART.text,
+              color: HS_CHART.text,
               formatter: (value: number) => {
                 return `${((value * total) / 100).toFixed(0)}`;
               },
@@ -353,7 +353,7 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
             total: {
               show: true,
               label: "Total Country",
-              color: AMI_CHART.textMuted,
+              color: HS_CHART.textMuted,
               formatter: (value: any) => {
                 return `${total}`;
               },
@@ -361,7 +361,7 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
           },
         },
       },
-      colors: [...AMI_CHART.radialBar],
+      colors: [...HS_CHART.radialBar],
       labels: [
         "Total",
         "Manual Active",
@@ -379,7 +379,7 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
         offsetY: 0,
         labels: {
           useSeriesColors: true,
-          colors: AMI_CHART.textMuted,
+          colors: HS_CHART.textMuted,
         },
         formatter: function (seriesName: any, opts: any) {
           return (
@@ -442,15 +442,15 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
         style: {
           fontSize: '11px',
           fontWeight: 500,
-          colors: [AMI_CHART.text]
+          colors: [HS_CHART.text]
         },
         background: {
           enabled: true,
-          foreColor: AMI_CHART.deep,
+          foreColor: HS_CHART.deep,
           padding: 6,
           borderRadius: 4,
           borderWidth: 1,
-          borderColor: AMI_CHART.border,
+          borderColor: HS_CHART.border,
           opacity: 0.95
         }
       },
@@ -458,7 +458,7 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
       stroke: {
         curve: 'smooth',
         width: 3,
-        colors: [AMI_CHART.primary, AMI_CHART.secondary],
+        colors: [HS_CHART.primary, HS_CHART.secondary],
       },
 
       fill: {
@@ -471,12 +471,12 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
         }
       },
 
-      colors: [AMI_CHART.primary, AMI_CHART.secondary],
+      colors: [HS_CHART.primary, HS_CHART.secondary],
 
       markers: {
         size: data.map(p => 4),
         colors: data.map(p => amiScoreColor(p.aiValue)),
-        strokeColors: AMI_CHART.primaryMid,
+        strokeColors: HS_CHART.primaryMid,
         strokeWidth: 2,
         hover: {
           size: 8,
@@ -492,16 +492,16 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
           style: {
             fontSize: '11px',
             fontWeight: 500,
-            colors: AMI_CHART.textMuted
+            colors: HS_CHART.textMuted
           }
         },
         axisBorder: {
           show: true,
-          color: AMI_CHART.border
+          color: HS_CHART.border
         },
         axisTicks: {
           show: true,
-          color: AMI_CHART.border
+          color: HS_CHART.border
         }
       },
 
@@ -511,7 +511,7 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
           style: {
             fontSize: '13px',
             fontWeight: 600,
-            color: AMI_CHART.textMuted
+            color: HS_CHART.textMuted
           }
         },
         min: 0,
@@ -521,13 +521,13 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
           formatter: (val) => val >= 0 ? `${Math.round(val)}` : '',
           style: {
             fontSize: '12px',
-            colors: AMI_CHART.textMuted
+            colors: HS_CHART.textMuted
           }
         }
       },
 
       grid: {
-        ...AMI_AXIS_STYLE.grid,
+        ...HS_AXIS_STYLE.grid,
         xaxis: {
           lines: { show: false }
         },
@@ -562,35 +562,35 @@ export class AdminDashboardComponent extends SignalIndexHelpers implements OnIni
           <div style="
             padding: 16px 18px;
             min-width: 280px;
-            background: #141209;
+            background: #0C2238;
             border-radius: 12px;
-            box-shadow: ${AMI_CHART.tooltipShadow};
-            border: 1px solid #332C1D;
-            border-left: 4px solid ${AMI_CHART.primary};
+            box-shadow: ${HS_CHART.tooltipShadow};
+            border: 1px solid #1E3D5C;
+            border-left: 4px solid ${HS_CHART.primary};
             font-family: Inter, system-ui, sans-serif;
-            color: #EFE7D6;
+            color: #E8EEF4;
           ">
-            <div style="font-weight:700; font-size:15px; margin-bottom:8px; color:#EFE7D6;">
+            <div style="font-weight:700; font-size:15px; margin-bottom:8px; color:#E8EEF4;">
               ${pillar.pillarName}
             </div>
             <div style="font-size:11px; color:${progressColor}; margin-bottom:12px; font-weight:600;">
               ${statusText}
             </div>
             <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; font-size:12px;">
-              <div style="background:#1B1810; border:1px solid #332C1D; border-radius:8px; padding:10px;">
-                <div style="color:#9C9484; margin-bottom:4px;">AI Score</div>
-                <div style="font-family:JetBrains Mono,monospace; font-weight:700; color:#E7C878;">${progressPercent.toFixed(1)}</div>
+              <div style="background:#123049; border:1px solid #1E3D5C; border-radius:8px; padding:10px;">
+                <div style="color:#8FA3B5; margin-bottom:4px;">AI Score</div>
+                <div style="font-family:JetBrains Mono,monospace; font-weight:700; color:#D4B86A;">${progressPercent.toFixed(1)}</div>
               </div>
-              <div style="background:#1B1810; border:1px solid #332C1D; border-radius:8px; padding:10px;">
-                <div style="color:#9C9484; margin-bottom:4px;">Manual Score</div>
-                <div style="font-family:JetBrains Mono,monospace; font-weight:700; color:#C9C7BF;">${evaluatorProgressPercent.toFixed(1)}</div>
+              <div style="background:#123049; border:1px solid #1E3D5C; border-radius:8px; padding:10px;">
+                <div style="color:#8FA3B5; margin-bottom:4px;">Manual Score</div>
+                <div style="font-family:JetBrains Mono,monospace; font-weight:700; color:#B8C5D0;">${evaluatorProgressPercent.toFixed(1)}</div>
               </div>
-              <div style="background:#1B1810; border:1px solid #332C1D; border-radius:8px; padding:10px;">
-                <div style="color:#9C9484; margin-bottom:4px;">Difference</div>
+              <div style="background:#123049; border:1px solid #1E3D5C; border-radius:8px; padding:10px;">
+                <div style="color:#8FA3B5; margin-bottom:4px;">Difference</div>
                 <div style="font-family:JetBrains Mono,monospace; font-weight:700;">${Math.abs(progressPercent - evaluatorProgressPercent).toFixed(0)}</div>
               </div>
-              <div style="background:#1B1810; border:1px solid #332C1D; border-radius:8px; padding:10px;">
-                <div style="color:#9C9484; margin-bottom:4px;">Avg Score</div>
+              <div style="background:#123049; border:1px solid #1E3D5C; border-radius:8px; padding:10px;">
+                <div style="color:#8FA3B5; margin-bottom:4px;">Avg Score</div>
                 <div style="font-family:JetBrains Mono,monospace; font-weight:700;">${avgScore.toFixed(0)}</div>
               </div>
             </div>

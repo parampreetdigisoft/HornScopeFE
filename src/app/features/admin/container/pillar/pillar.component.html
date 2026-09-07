@@ -105,6 +105,15 @@
                     </div>
                 </td>
             </tr>
+            <tr *ngIf="!isLoader && pillars.length === 0">
+                <td colspan="5">
+                    <div class="no_result_found">
+                        <div class="no_result_found_inner">
+                            <h3><i class="fas fa-search"></i> No Result Found</h3>
+                        </div>
+                    </div>
+                </td>
+            </tr>
         </tbody>
     </table>
     <div *ngIf="isLoader" class="loader_main">

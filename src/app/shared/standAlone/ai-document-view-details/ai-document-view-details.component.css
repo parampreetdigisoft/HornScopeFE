@@ -20,7 +20,7 @@
 }
 
 .city_cards_p path {
-    fill: #C9A24A;
+    fill: #C5A05A;
 }
 
 .city_cards_p svg {
@@ -55,7 +55,7 @@
 
 
 .cus_table .table th {
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     font-weight: 600;
     color: #ffffff;
     font-size: 14px;
@@ -64,7 +64,7 @@
 
 
 .cus_table .score_label_tab {
-    background: #8A5A2B;
+    background: #8B6B32;
     color: #ffffff;
     padding: 0.3rem 0.5rem;
     border-radius: 0.5rem;
@@ -98,7 +98,7 @@ h4.kpi_head_col {
     font-size: 2.2rem;
     font-weight: 600;
     margin-bottom: 2rem;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 
@@ -117,7 +117,7 @@ h4.kpi_head_col {
 
 button.btn-close:focus,
 button.btn-close:focus-visible {
-    box-shadow: 0 0 0 3px #C9A24A; /* greenish glow */
+    box-shadow: 0 0 0 3px #C5A05A; /* greenish glow */
     outline: none; /* remove default outline */
 }
 
@@ -135,7 +135,7 @@ button.btn-close:focus-visible {
 .modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(8, 6, 3, 0.78);
+  background: rgba(4, 14, 26, 0.78);
   backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
@@ -146,7 +146,7 @@ button.btn-close:focus-visible {
 }
 
 .modal-box {
-  background: #141209;
+  background: #0C2238;
   width: 100%;
   max-width: 600px;
   max-height: calc(100vh - 48px);
@@ -154,8 +154,8 @@ button.btn-close:focus-visible {
   position: relative;
   margin: auto;
   border-radius: 10px;
-  border: 1px solid rgba(201, 162, 74, 0.32);
-  color: #EFE7D6;
+  border: 1px solid rgba(197, 160, 90, 0.32);
+  color: #E8EEF4;
   box-shadow: 0 24px 64px rgba(0,0,0,0.5);
   animation: amiDocIn 0.35s ease both;
 }
@@ -206,7 +206,7 @@ button.btn-close:focus-visible {
   cursor: pointer;
     white-space: nowrap;
     border-radius: 5px !important;
-    background-color: #8A5A2B !important;
+    background-color: #8B6B32 !important;
     color: #ffffff !important;
     display: inline-block;
     padding: 8px 10px;
@@ -218,7 +218,7 @@ button.btn-close:focus-visible {
 }
 
 .save-btn {
-    background: #C9A24A;
+    background: #C5A05A;
     color: #ffffff !important;
     border: none;
     padding: 8px 10px;
@@ -235,7 +235,7 @@ button.btn-close:focus-visible {
     cursor: pointer;
     white-space: nowrap;
     border-radius: 5px !important;
-    background-color: #8A5A2B !important;
+    background-color: #8B6B32 !important;
     color: #ffffff !important;
     display: inline-block;
     padding: 8px 10px;
@@ -249,7 +249,7 @@ button.btn-close:focus-visible {
 .file-item {
   display: flex;
   justify-content: space-between;
-  background: #1B1810;
+  background: #123049;
   padding: 6px 10px;
   margin-top: 6px;
   border-radius: 5px;
@@ -293,7 +293,7 @@ td.file_size {
     line-height: normal;
     display: block;
     margin-left: 5px;
-    color: #E7C878;
+    color: #D4B86A;
 }
 
 .modal-header h3 {
@@ -302,7 +302,7 @@ td.file_size {
     font-weight: 600;
     line-height: normal;
     text-transform: capitalize;
-    color: #EFE7D6;
+    color: #E8EEF4;
     padding-right: 28px;
 }
 .modal-box .input_field label.image-file-picker,
@@ -314,13 +314,13 @@ td.file_size {
   width: 100%;
   height: 42px;
   min-height: 42px;
-  border: 1px solid #332C1D;
+  border: 1px solid #1E3D5C;
   border-radius: 10px;
-  background: #1B1810;
+  background: #123049;
   overflow: hidden;
   cursor: pointer;
   margin: 0 !important;
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-size: 12px;
   font-weight: 600;
   line-height: 42px;
@@ -328,12 +328,12 @@ td.file_size {
 }
 
 .image-file-picker:hover {
-  border-color: rgba(201, 162, 74, 0.45);
+  border-color: rgba(197, 160, 90, 0.45);
 }
 
 .image-file-picker:focus-within {
-  border-color: #C9A24A;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.18);
+  border-color: #C5A05A;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.18);
 }
 
 .image-file-input-hidden {
@@ -352,11 +352,11 @@ td.file_size {
   flex: 0 0 auto;
   height: 100%;
   padding: 0 14px;
-  background: rgba(201, 162, 74, 0.16);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.16);
+  color: #D4B86A;
   font-size: 12px;
   font-weight: 600;
-  border-right: 1px solid #332C1D;
+  border-right: 1px solid #1E3D5C;
   white-space: nowrap;
 }
 
@@ -367,13 +367,13 @@ td.file_size {
   min-width: 0;
   height: 100%;
   padding: 0 12px;
-  color: #9C9484;
+  color: #8FA3B5;
   font-size: 12px;
   font-weight: 500;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background: #1B1810;
+  background: #123049;
 }
 
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select {
@@ -382,37 +382,37 @@ td.file_size {
 }
 
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select .ng-select-container {
-  background: #1B1810 !important;
-  border: 1px solid #332C1D !important;
+  background: #123049 !important;
+  border: 1px solid #1E3D5C !important;
   min-height: 42px !important;
   border-radius: 10px !important;
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   box-shadow: none !important;
 }
 
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select.ng-select-opened .ng-select-container,
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select.ng-select-focused .ng-select-container {
-  border-color: #C9A24A !important;
+  border-color: #C5A05A !important;
 }
 
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select .ng-value,
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select .ng-value-label,
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select .ng-input > input {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
 }
 
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select .ng-placeholder {
-  color: #8B887E !important;
+  color: #7A8A9A !important;
 }
 
 ::ng-deep .ai-doc-upload-overlay .ai-doc-select .ng-arrow-wrapper .ng-arrow {
-  border-color: #E7C878 transparent transparent !important;
+  border-color: #D4B86A transparent transparent !important;
 }
 
 ::ng-deep body.ai-doc-upload-open > .ng-dropdown-panel {
   z-index: 12000 !important;
-  background: #1A1610 !important;
-  border: 1px solid #C9A24A !important;
+  background: #0F2A40 !important;
+  border: 1px solid #C5A05A !important;
   border-radius: 10px !important;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
   padding: 6px 0 !important;
@@ -421,7 +421,7 @@ td.file_size {
 
 ::ng-deep body.ai-doc-upload-open > .ng-dropdown-panel .ng-option {
   background: transparent !important;
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   padding: 11px 12px !important;
   margin: 0 6px !important;
   border-radius: 10px !important;
@@ -429,14 +429,14 @@ td.file_size {
 }
 
 ::ng-deep body.ai-doc-upload-open > .ng-dropdown-panel .ng-option:hover {
-  background: rgba(201, 162, 74, 0.16) !important;
-  color: #E7C878 !important;
+  background: rgba(197, 160, 90, 0.16) !important;
+  color: #D4B86A !important;
 }
 
 ::ng-deep body.ai-doc-upload-open > .ng-dropdown-panel .ng-option.ng-option-selected,
 ::ng-deep body.ai-doc-upload-open > .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
-  background: rgba(201, 162, 74, 0.18) !important;
-  color: #E7C878 !important;
+  background: rgba(197, 160, 90, 0.18) !important;
+  color: #D4B86A !important;
   font-weight: 600;
   border: none !important;
 }
@@ -446,13 +446,13 @@ td.file_size {
   to { opacity: 1; }
 }
 .upload-btn, .cancel-btn, .save-btn {
-  background: linear-gradient(135deg, #E7C878, #C9A24A, #8A5A2B) !important;
-  color: #0A0906 !important;
+  background: linear-gradient(135deg, #D4B86A, #C5A05A, #8B6B32) !important;
+  color: #061525 !important;
   border: none !important;
   font-weight: 600;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 .upload-btn:hover, .cancel-btn:hover, .save-btn:hover {
   transform: translateY(-1px);
-  box-shadow: 0 6px 16px rgba(201,162,74,0.3);
+  box-shadow: 0 6px 16px rgba(197,160,90,0.3);
 }

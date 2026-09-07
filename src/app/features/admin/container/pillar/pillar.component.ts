@@ -40,13 +40,19 @@ export class PillarComponent implements OnInit, OnDestroy {
   GetAllPillars() {
     this.pillars = [];
     this.isLoader = true;
-    this.adminService.getAllPillars().subscribe((pillars) => {
-      this.pillars = pillars.map((p) => ({
-        ...p,
-        expand: false,
-        showToggle: this.isLongText(p.description),
-      }));
-      this.isLoader = false;
+    this.adminService.getAllPillars().subscribe({
+      next: (pillars) => {
+        this.pillars = pillars.map((p) => ({
+          ...p,
+          expand: false,
+          showToggle: this.isLongText(p.description),
+        }));
+        this.isLoader = false;
+      },
+      error: () => {
+        this.pillars = [];
+        this.isLoader = false;
+      },
     });
   }
 

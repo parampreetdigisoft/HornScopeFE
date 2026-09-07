@@ -29,10 +29,10 @@
 }
 
 .segment.bad { background: #B5502E; }
-.segment.poor { background: #8A5A2B; }
-.segment.average { background: #C9A24A; }
-.segment.good { background: #E7C878; }
-.segment.excellent { background: #B7A25A; }
+.segment.poor { background: #8B6B32; }
+.segment.average { background: #C5A05A; }
+.segment.good { background: #D4B86A; }
+.segment.excellent { background: #5A9B8A; }
 
 .score-dot {
   position: absolute;
@@ -42,7 +42,7 @@
   border-radius: 50%;
   transform: translate(-50%, -50%);
   box-shadow:
-    0 2px 8px rgba(201, 162, 74, 0.35),
+    0 2px 8px rgba(197, 160, 90, 0.35),
     0 0 0 3px rgba(14, 12, 8, 0.85);
   z-index: 10;
   transition: left 0.8s cubic-bezier(0.4, 0, 0.2, 1),
@@ -91,7 +91,7 @@
   min-width: 38px;
   text-align: right;
   white-space: nowrap;
-  color: #E7C878;
+  color: #D4B86A;
   font-variant-numeric: tabular-nums;
   transition: transform 0.2s ease;
 }
@@ -102,5 +102,5 @@
 
 .no-data {
   font-size: 12px;
-  color: #9C9484;
+  color: #8FA3B5;
 }

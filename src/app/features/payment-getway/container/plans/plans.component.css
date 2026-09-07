@@ -1,19 +1,19 @@
-/* AMI Payment Plans — dark / gold theme */
+/* HS Payment Plans — dark / gold theme */
 
 .plan_section {
   background:
-    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(201, 162, 74, 0.14) 0%, transparent 55%),
-    linear-gradient(160deg, #141209 0%, #0A0906 100%);
+    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(197, 160, 90, 0.14) 0%, transparent 55%),
+    linear-gradient(160deg, #0C2238 0%, #061525 100%);
   padding: 48px 0 56px;
   width: calc(100% - 40px);
   margin: 0 auto;
   border-radius: 20px;
-  border: 1px solid rgba(201, 162, 74, 0.28);
-  box-shadow: inset 0 1px 0 rgba(231, 200, 120, 0.06);
+  border: 1px solid rgba(197, 160, 90, 0.28);
+  box-shadow: inset 0 1px 0 rgba(212, 184, 106, 0.06);
 }
 
 .common_head_white {
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-size: 32px;
   font-weight: 700;
   text-align: center;
@@ -22,7 +22,7 @@
 
 .common_sub_head_white {
   margin: 10px auto 0;
-  color: #9C9484;
+  color: #8FA3B5;
   text-align: center;
   font-size: 15px;
   font-weight: 400;
@@ -46,8 +46,8 @@
 
 .inner_outer_plan {
   border-radius: 16px;
-  background: linear-gradient(165deg, #1B1810 0%, #141209 100%);
-  border: 1px solid #332C1D;
+  background: linear-gradient(165deg, #123049 0%, #0C2238 100%);
+  border: 1px solid #1E3D5C;
   padding: 22px;
   height: 100%;
   display: flex;
@@ -57,7 +57,7 @@
 }
 
 .outer_plan:hover .inner_outer_plan {
-  border-color: rgba(201, 162, 74, 0.45);
+  border-color: rgba(197, 160, 90, 0.45);
   box-shadow: 0 18px 40px rgba(0, 0, 0, 0.35);
 }
 
@@ -70,13 +70,13 @@
 
 .plan_head span {
   flex: 1;
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-size: 17px;
   font-weight: 650;
 }
 
 .plan_head svg rect {
-  fill: #C9A24A !important;
+  fill: #C5A05A !important;
 }
 
 .price_head {
@@ -86,7 +86,7 @@
 }
 
 .plan_price_head {
-  color: #E7C878;
+  color: #D4B86A;
   font-size: 36px;
   font-weight: 700;
   display: block;
@@ -94,7 +94,7 @@
 }
 
 .plan_limit_head {
-  color: #9C9484;
+  color: #8FA3B5;
   font-size: 14px;
   font-weight: 500;
   display: block;
@@ -104,7 +104,7 @@
 .plan_desc {
   margin-top: 10px;
   margin-bottom: 18px;
-  color: #C9C7BF;
+  color: #B8C5D0;
   font-size: 14px;
   font-weight: 500;
   line-height: 1.45;
@@ -121,7 +121,7 @@
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  color: #EFE7D6;
+  color: #E8EEF4;
   font-size: 13.5px;
   font-weight: 500;
   line-height: 1.35;
@@ -141,16 +141,16 @@
 }
 
 .plans_advantage svg rect {
-  fill: #8A5A2B !important;
+  fill: #8B6B32 !important;
 }
 
 .choose_plan_btn {
   border-radius: 10px;
-  border: 1px solid rgba(201, 162, 74, 0.45);
-  background: linear-gradient(135deg, #E7C878, #C9A24A, #8A5A2B);
+  border: 1px solid rgba(197, 160, 90, 0.45);
+  background: linear-gradient(135deg, #D4B86A, #C5A05A, #8B6B32);
   padding: 12px 18px;
   display: block;
-  color: #0A0906 !important;
+  color: #061525 !important;
   font-size: 15px;
   font-weight: 700;
   text-align: center;
@@ -161,8 +161,8 @@
 
 .choose_plan_btn:hover {
   filter: brightness(1.06);
-  color: #0A0906;
-  box-shadow: 0 10px 22px rgba(201, 162, 74, 0.28);
+  color: #061525;
+  box-shadow: 0 10px 22px rgba(197, 160, 90, 0.28);
 }
 
 .choose_plan_btn svg {
@@ -170,18 +170,18 @@
 }
 
 .choose_plan_btn svg path {
-  stroke: #0A0906;
+  stroke: #061525;
 }
 
 .plan_selected {
-  background: #141209;
-  color: #E7C878 !important;
-  border-color: #C9A24A;
+  background: #0C2238;
+  color: #D4B86A !important;
+  border-color: #C5A05A;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 10px;
-  box-shadow: inset 0 0 0 1px rgba(201, 162, 74, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(197, 160, 90, 0.35);
 }
 
 .plan_selected svg {
@@ -191,17 +191,17 @@
 }
 
 .plan_selected svg rect {
-  fill: #C9A24A !important;
+  fill: #C5A05A !important;
 }
 
 .plan_selected svg path {
-  stroke: #0A0906 !important;
+  stroke: #061525 !important;
 }
 
 .most_popular {
   padding: 0 2px;
   border-radius: 18px;
-  background: linear-gradient(135deg, #E7C878, #C9A24A);
+  background: linear-gradient(135deg, #D4B86A, #C5A05A);
   margin-top: -28px;
 }
 
@@ -214,7 +214,7 @@
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
-  color: #0A0906;
+  color: #061525;
   font-size: 14px;
   font-weight: 700;
   padding: 8px 0;
@@ -222,14 +222,14 @@
 }
 
 .most_popular_text svg path {
-  fill: #0A0906 !important;
+  fill: #061525 !important;
 }
 
 .banner-link1 {
-  color: #0A0906 !important;
+  color: #061525 !important;
   font-size: 15px;
   font-weight: 700;
-  background: linear-gradient(135deg, #E7C878, #C9A24A, #8A5A2B);
+  background: linear-gradient(135deg, #D4B86A, #C5A05A, #8B6B32);
   border-radius: 10px;
   padding: 14px 22px;
   display: inline-flex;
@@ -243,17 +243,17 @@
 
 .banner-link1:hover {
   filter: brightness(1.05);
-  box-shadow: 0 12px 28px rgba(201, 162, 74, 0.3);
-  color: #0A0906;
+  box-shadow: 0 12px 28px rgba(197, 160, 90, 0.3);
+  color: #061525;
 }
 
 .outter_term {
   margin-top: 20px;
-  background: #1B1810;
-  border: 1px solid #332C1D;
+  background: #123049;
+  border: 1px solid #1E3D5C;
   padding: 14px 16px;
   border-radius: 12px;
-  color: #C9C7BF;
+  color: #B8C5D0;
 }
 
 .outter_term label {
@@ -265,13 +265,13 @@
 }
 
 .outter_term input[type="checkbox"] {
-  accent-color: #C9A24A;
+  accent-color: #C5A05A;
   margin-top: 3px;
   flex-shrink: 0;
 }
 
 .outter_term label span a {
-  color: #E7C878;
+  color: #D4B86A;
   font-weight: 650;
   text-decoration: none;
 }

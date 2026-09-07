@@ -1,4 +1,3 @@
-
 .error-msg {
 color: #ff5f5f;
   font-size: 12px;
@@ -7,14 +6,14 @@ color: #ff5f5f;
 
 /* Highlight selected options */
 ::ng-deep .analyst_multi_select .ng-option-selected {
-  background-color: rgba(201, 162, 74, 0.18) !important;
+  background-color: rgba(197, 160, 90, 0.18) !important;
   color: #304a43 !important;
   font-weight: 600;
 }
 
 /* Optional: hover style */
 ::ng-deep .analyst_multi_select .ng-option:hover {
-  background-color: rgba(201, 162, 74, 0.14) !important;
+  background-color: rgba(197, 160, 90, 0.14) !important;
 }
 
 .alert-info {
@@ -25,7 +24,7 @@ color: #ff5f5f;
 
  ::ng-deep .multi_select .ng-select-container {
   color: #332;
-  background-color: #EFE7D600 !important;
+  background-color: #E8EEF400 !important;
   border-radius: 0 !important;
   border: none !important;
   min-height: auto !important;
@@ -50,7 +49,7 @@ color: #ff5f5f;
     box-shadow: none !important;
 }
 ::ng-deep .multi_select .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
-    background-color: #EFE7D600;
+    background-color: #E8EEF400;
 }
 ::ng-deep .multi_select .ng-clear-wrapper, ::ng-deep .multi_select span.ng-arrow-wrapper {
     margin-top: 4px;

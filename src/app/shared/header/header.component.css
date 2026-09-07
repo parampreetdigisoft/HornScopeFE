@@ -5,7 +5,7 @@
     top: 0;
     z-index: 99;
     animation: ami-fade-up 0.4s ease both;
-    background: #0A0906;
+    background: #061525;
 }
 
 .vui_header_inner
@@ -14,8 +14,8 @@
     padding: 12px 18px;
     min-height: 56px;
     background:
-      linear-gradient(180deg, #12100C 0%, #0A0906 100%);
-    border: 1px solid rgba(201, 162, 74, 0.22);
+      linear-gradient(180deg, #0A1C30 0%, #061525 100%);
+    border: 1px solid rgba(197, 160, 90, 0.22);
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.35);
     display: flex;
     flex-wrap: wrap;
@@ -27,8 +27,8 @@
 }
 
 .vui_header_inner:hover {
-    border-color: rgba(231, 200, 120, 0.4);
-    box-shadow: 0 10px 32px rgba(201, 162, 74, 0.12);
+    border-color: rgba(212, 184, 106, 0.4);
+    box-shadow: 0 10px 32px rgba(197, 160, 90, 0.12);
 }
 
 .vui_header_inner::after {
@@ -39,16 +39,16 @@
     bottom: 0;
     height: 2px;
     border-radius: 2px;
-    background: linear-gradient(90deg, #E7C878 0%, #C9A24A 40%, transparent 100%);
+    background: linear-gradient(90deg, #D4B86A 0%, #C5A05A 40%, transparent 100%);
     opacity: 0.9;
 }
 
 .vui_dashboard_logo img
 {
-    width: 118px;
+    width: 80px;
     height: auto;
     display: block;
-    filter: drop-shadow(0 1px 6px rgba(201, 162, 74, 0.25));
+    filter: drop-shadow(0 1px 6px rgba(197, 160, 90, 0.25));
     transition: transform 0.25s ease;
 }
 
@@ -71,13 +71,13 @@
     border-radius: 100%;
     overflow: hidden;
     object-fit: cover;
-    box-shadow: 0 0 0 2px #C9A24A, 0 0 12px 0 rgba(201, 162, 74, 0.35);
+    box-shadow: 0 0 0 2px #C5A05A, 0 0 12px 0 rgba(197, 160, 90, 0.35);
     transition: box-shadow 0.22s ease, transform 0.22s ease;
 }
 
 .profile_pic:hover img {
     transform: scale(1.05);
-    box-shadow: 0 0 0 2px #E7C878, 0 0 16px 0 rgba(231, 200, 120, 0.45);
+    box-shadow: 0 0 0 2px #D4B86A, 0 0 16px 0 rgba(212, 184, 106, 0.45);
 }
 
 .profile_pic
@@ -87,7 +87,7 @@
 
 .user_name
 {
-    color: var(--ami-cream, #EFE7D6);
+    color: var(--ami-cream, #E8EEF4);
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
@@ -98,7 +98,7 @@
 
 .user_role
 {
-    color: var(--ami-gold-bright, #E7C878);
+    color: var(--ami-gold-bright, #D4B86A);
     font-size: 11px;
     font-style: normal;
     font-weight: 500;
@@ -116,8 +116,8 @@
 
 .chat_icon
 {
-    background-color: rgba(201, 162, 74, 0.1);
-    border: 1px solid rgba(201, 162, 74, 0.35);
+    background-color: rgba(197, 160, 90, 0.1);
+    border: 1px solid rgba(197, 160, 90, 0.35);
     height: 36px;
     width: 36px;
     border-radius: 100%;
@@ -129,9 +129,9 @@
 }
 
 .chat_icon:hover {
-    border-color: #E7C878;
-    background: rgba(201, 162, 74, 0.2);
-    box-shadow: 0 2px 12px rgba(201, 162, 74, 0.25);
+    border-color: #D4B86A;
+    background: rgba(197, 160, 90, 0.2);
+    box-shadow: 0 2px 12px rgba(197, 160, 90, 0.25);
 }
 
 .chat_icon_notification::after
@@ -140,12 +140,12 @@
     height: 8px;
     width: 8px;
     border-radius: 100%;
-    background-color: var(--ami-gold, #C9A24A);
+    background-color: var(--ami-gold, #C5A05A);
     position: absolute;
     top: 8px;
     right: 8px;
     z-index: 1;
-    animation: ami-score-glow 2s ease-in-out infinite;
+    animation: hs-score-glow 2s ease-in-out infinite;
 }
 
 /*menu icon*/
@@ -159,7 +159,7 @@
 }
 
 .menu-icon span {
-  background: var(--ami-gold-bright, #E7C878);
+  background: var(--ami-gold-bright, #D4B86A);
   height: 2px;
   width: 100%;
   position: absolute;
@@ -222,7 +222,7 @@
         right: 5px;
     }
     .vui_dashboard_logo img {
-        width: 88px;
+        width: 150px;
     }
     .menu_toggle {
         display: inline-block !important;

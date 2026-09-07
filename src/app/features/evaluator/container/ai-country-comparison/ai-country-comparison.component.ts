@@ -260,7 +260,7 @@ export class AiCountryComparisonComponent implements OnInit {
         },
         fontFamily: 'Inter, system-ui, -apple-system, sans-serif',
         background: 'transparent',
-        foreColor: '#EFE7D6'
+        foreColor: '#E8EEF4'
       },
       colors: colorPalette.map(c => c.primary),
       stroke: {
@@ -286,7 +286,7 @@ export class AiCountryComparisonComponent implements OnInit {
       markers: {
         size: 5,
         strokeWidth: 2,
-        strokeColors: '#141209',
+        strokeColors: '#0C2238',
         colors: colorPalette.map(c => c.primary),
         hover: {
           size: 10,
@@ -299,7 +299,7 @@ export class AiCountryComparisonComponent implements OnInit {
         labels: {
           show: true,
           style: {
-            colors: Array(categories?.length).fill('#9C9484'),
+            colors: Array(categories?.length).fill('#8FA3B5'),
             fontSize: '12px',
             fontWeight: 600,
             fontFamily: 'Inter, system-ui, sans-serif'
@@ -318,7 +318,7 @@ export class AiCountryComparisonComponent implements OnInit {
         labels: {
           show: true,
           style: {
-            colors: '#9C9484',
+            colors: '#8FA3B5',
             fontSize: '11px',
             fontWeight: 500
           },
@@ -354,7 +354,7 @@ export class AiCountryComparisonComponent implements OnInit {
         formatter: (seriesName: string, opts: any) => {
           const seriesIndex = opts.seriesIndex;
           const avgScore = series[seriesIndex].data.reduce((a: number, b: number) => a + b, 0) / series[seriesIndex].data.length;
-          return `${seriesName} <span style="color: #9C9484; font-weight: 400; margin-left: 4px;">(Avg: ${avgScore.toFixed(1)})</span>`;
+          return `${seriesName} <span style="color: #8FA3B5; font-weight: 400; margin-left: 4px;">(Avg: ${avgScore.toFixed(1)})</span>`;
         }
       },
       plotOptions: {
@@ -363,11 +363,11 @@ export class AiCountryComparisonComponent implements OnInit {
           offsetX: 0,
           offsetY: 0,
           polygons: {
-            strokeColors: '#332C1D',
+            strokeColors: '#1E3D5C',
             strokeWidth: 1.5,
-            connectorColors: '#332C1D',
+            connectorColors: '#1E3D5C',
             fill: {
-              colors: ['#141209', '#1B1810']
+              colors: ['#0C2238', '#123049']
             }
           }
         }
@@ -391,18 +391,18 @@ export class AiCountryComparisonComponent implements OnInit {
           let tooltipHtml = `
           <div style="
             padding: 16px; 
-            background: linear-gradient(135deg, #1B1810 0%, #141209 100%); 
+            background: linear-gradient(135deg, #123049 0%, #0C2238 100%); 
             border-radius: 12px; 
             box-shadow: 0 12px 32px rgba(0,0,0,0.45);
             min-width: 280px;
-            border: 1px solid #332C1D;
+            border: 1px solid #1E3D5C;
           ">
             <div style="
               font-weight: 700; 
               margin-bottom: 12px; 
-              color: #EFE7D6; 
+              color: #E8EEF4; 
               font-size: 14px; 
-              border-bottom: 2px solid #332C1D; 
+              border-bottom: 2px solid #1E3D5C; 
               padding-bottom: 8px;
               display: flex;
               align-items: center;
@@ -411,7 +411,7 @@ export class AiCountryComparisonComponent implements OnInit {
               <span style="
                 width: 8px; 
                 height: 8px; 
-                background: linear-gradient(135deg, #E7C878, #C9A24A); 
+                background: linear-gradient(135deg, #D4B86A, #C5A05A); 
                 border-radius: 50%;
                 display: inline-block;
               "></span>
@@ -477,7 +477,7 @@ export class AiCountryComparisonComponent implements OnInit {
               <div style="
                 margin-top: 8px; 
                 height: 6px; 
-                background: #332C1D; 
+                background: #1E3D5C; 
                 border-radius: 3px; 
                 overflow: hidden;
               ">
@@ -503,24 +503,24 @@ export class AiCountryComparisonComponent implements OnInit {
           <div style="
             margin-top: 12px; 
             padding-top: 12px; 
-            border-top: 1px solid #332C1D;
+            border-top: 1px solid #1E3D5C;
             display: flex;
             justify-content: space-around;
             font-size: 11px;
-            color: #9C9484;
+            color: #8FA3B5;
           ">
             <div style="text-align: center;">
-              <div style="font-weight: 600; color: #9C9484;">Avg</div>
-              <div style="font-weight: 700; color: #EFE7D6; margin-top: 2px;">${avgScore.toFixed(1)}</div>
+              <div style="font-weight: 600; color: #8FA3B5;">Avg</div>
+              <div style="font-weight: 700; color: #E8EEF4; margin-top: 2px;">${avgScore.toFixed(1)}</div>
             </div>
-            <div style="width: 1px; background: #332C1D;"></div>
+            <div style="width: 1px; background: #1E3D5C;"></div>
             <div style="text-align: center;">
-              <div style="font-weight: 600; color: #9C9484;">Range</div>
-              <div style="font-weight: 700; color: #EFE7D6; margin-top: 2px;">${spread.toFixed(1)}</div>
+              <div style="font-weight: 600; color: #8FA3B5;">Range</div>
+              <div style="font-weight: 700; color: #E8EEF4; margin-top: 2px;">${spread.toFixed(1)}</div>
             </div>
-            <div style="width: 1px; background: #332C1D;"></div>
+            <div style="width: 1px; background: #1E3D5C;"></div>
             <div style="text-align: center;">
-              <div style="font-weight: 600; color: #9C9484;">Best</div>
+              <div style="font-weight: 600; color: #8FA3B5;">Best</div>
               <div style="font-weight: 700; color: #059669; margin-top: 2px;">${maxScore.toFixed(1)}</div>
             </div>
           </div>

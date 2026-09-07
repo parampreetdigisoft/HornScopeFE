@@ -1,44 +1,44 @@
-<div class="ami-dashboard" *ngIf="!isLoader">
+<div class="hs-dashboard" *ngIf="!isLoader">
   <!-- KPI strip -->
   <div class="ami-kpi-strip">
-    <div class="ami-kpi-card">
-      <div class="ami-kpi-icon"><i class="bi bi-globe2"></i></div>
+    <div class="hs-kpi-card">
+      <div class="hs-kpi-icon"><i class="bi bi-globe2"></i></div>
       <div>
-        <div class="ami-kpi-label">Total Countries</div>
-        <div class="ami-kpi-value">{{ countryHistory?.totalCountry ?? 0 }}</div>
-        <div class="ami-kpi-sub">Active Countries</div>
+        <div class="hs-kpi-label">Total Countries</div>
+        <div class="hs-kpi-value">{{ countryHistory?.totalCountry ?? 0 }}</div>
+        <div class="hs-kpi-sub">Active Countries</div>
       </div>
     </div>
-    <div class="ami-kpi-card">
-      <div class="ami-kpi-icon"><i class="bi bi-activity"></i></div>
+    <div class="hs-kpi-card">
+      <div class="hs-kpi-icon"><i class="bi bi-activity"></i></div>
       <div>
-        <div class="ami-kpi-label">Active</div>
-        <div class="ami-kpi-value">{{ countryHistory?.activeCountry ?? 0 }}</div>
-        <div class="ami-kpi-sub">In Assessment</div>
+        <div class="hs-kpi-label">Active</div>
+        <div class="hs-kpi-value">{{ countryHistory?.activeCountry ?? 0 }}</div>
+        <div class="hs-kpi-sub">In Assessment</div>
       </div>
     </div>
-    <div class="ami-kpi-card">
-      <div class="ami-kpi-icon"><i class="bi bi-hourglass-split"></i></div>
+    <div class="hs-kpi-card">
+      <div class="hs-kpi-icon"><i class="bi bi-hourglass-split"></i></div>
       <div>
-        <div class="ami-kpi-label">In Progress</div>
-        <div class="ami-kpi-value">{{ countryHistory?.inprocessCountry ?? 0 }}</div>
-        <div class="ami-kpi-sub">Ongoing Work</div>
+        <div class="hs-kpi-label">In Progress</div>
+        <div class="hs-kpi-value">{{ countryHistory?.inprocessCountry ?? 0 }}</div>
+        <div class="hs-kpi-sub">Ongoing Work</div>
       </div>
     </div>
-    <div class="ami-kpi-card">
-      <div class="ami-kpi-icon"><i class="bi bi-check2-circle"></i></div>
+    <div class="hs-kpi-card">
+      <div class="hs-kpi-icon"><i class="bi bi-check2-circle"></i></div>
       <div>
-        <div class="ami-kpi-label">Completed</div>
-        <div class="ami-kpi-value">{{ countryHistory?.compeleteCountry ?? 0 }}</div>
-        <div class="ami-kpi-sub">Assessment Completed</div>
+        <div class="hs-kpi-label">Completed</div>
+        <div class="hs-kpi-value">{{ countryHistory?.compeleteCountry ?? 0 }}</div>
+        <div class="hs-kpi-sub">Assessment Completed</div>
       </div>
     </div>
   </div>
 
   <!-- Filters + actions -->
-  <div class="ami-controls">
-    <div class="ami-controls-left">
-      <div class="ami-field">
+  <div class="hs-controls">
+    <div class="hs-controls-left">
+      <div class="hs-field">
         <label>Select Country *</label>
         <ng-select [items]="countries"
           bindValue="countryID"
@@ -57,7 +57,7 @@
           </ng-template>
         </ng-select>
       </div>
-      <div class="ami-field">
+      <div class="hs-field">
         <label>Select Year *</label>
         <ng-select
           [items]="commonService.applicateYears"
@@ -71,10 +71,10 @@
         </ng-select>
       </div>
     </div>
-    <div class="ami-actions">
+    <div class="hs-actions">
       <button *ngIf="countryQuestionHistoryReponse?.pillars?.length"
         type="button"
-        class="ami-btn ami-btn-outline"
+        class="hs-btn hs-btn-outline"
         [matTooltip]="'Go to the AI analysis page to review detailed country insights and scores'"
         (click)="goToCountryAnalysis()">
         AI Country Insights
@@ -82,7 +82,7 @@
       </button>
       <button *ngIf="countryQuestionHistoryReponse?.pillars?.length"
         type="button"
-        class="ami-btn ami-btn-solid"
+        class="hs-btn hs-btn-solid"
         [matTooltip]="'Export domain details'"
         (click)="ExportCountryPillar()">
         Export
@@ -92,16 +92,16 @@
   </div>
 
   <!-- Charts row -->
-  <div class="ami-grid-2">
-    <div class="ami-panel" *ngIf="chartPillarOptions?.series">
-      <div class="ami-panel-title">
+  <div class="hs-grid-2">
+    <div class="hs-panel" *ngIf="chartPillarOptions?.series">
+      <div class="hs-panel-title">
         <span><i class="bi bi-graph-up"></i> Country Performance Overview</span>
-        <div class="ami-legend">
-          <span><span class="ami-dot ami-dot-silver"></span> Manual Score</span>
-          <span><span class="ami-dot ami-dot-gold"></span> AI Score</span>
+        <div class="hs-legend">
+          <span><span class="hs-dot hs-dot-silver"></span> Manual Score</span>
+          <span><span class="hs-dot hs-dot-gold"></span> AI Score</span>
         </div>
       </div>
-      <div class="ami-chart-host">
+      <div class="hs-chart-host">
         <apx-chart class="cus_chart_right"
           [series]="chartPillarOptions.series!"
           [chart]="chartPillarOptions.chart!"
@@ -120,19 +120,19 @@
       </div>
     </div>
 
-    <div class="ami-panel" *ngIf="chartOptions?.series">
-      <div class="ami-panel-title">
+    <div class="hs-panel" *ngIf="chartOptions?.series">
+      <div class="hs-panel-title">
         <span><i class="bi bi-pie-chart"></i> Country Overview</span>
       </div>
-      <div class="ami-overview-stats">
-        <span><i class="ami-ov-dot ami-ov-dot-1"></i> Total: <b>{{ countryHistory?.totalCountry ?? 0 }}</b></span>
-        <span><i class="ami-ov-dot ami-ov-dot-2"></i> Manual Active: <b class="g">{{ countryHistory?.activeCountry ?? 0 }}</b></span>
-        <span><i class="ami-ov-dot ami-ov-dot-3"></i> Manual InProgress: <b class="g">{{ countryHistory?.inprocessCountry ?? 0 }}</b></span>
-        <span><i class="ami-ov-dot ami-ov-dot-4"></i> Manual Completed: <b>{{ countryHistory?.compeleteCountry ?? 0 }}</b></span>
-        <span><i class="ami-ov-dot ami-ov-dot-5"></i> AI Finalized: <b class="g">{{ countryHistory?.finalizeCountry ?? 0 }}</b></span>
-        <span><i class="ami-ov-dot ami-ov-dot-6"></i> AI Pending Review: <b>{{ countryHistory?.unFinalize ?? 0 }}</b></span>
+      <div class="hs-overview-stats">
+        <span><i class="hs-ov-dot hs-ov-dot-1"></i> Total: <b>{{ countryHistory?.totalCountry ?? 0 }}</b></span>
+        <span><i class="hs-ov-dot hs-ov-dot-2"></i> Manual Active: <b class="g">{{ countryHistory?.activeCountry ?? 0 }}</b></span>
+        <span><i class="hs-ov-dot hs-ov-dot-3"></i> Manual InProgress: <b class="g">{{ countryHistory?.inprocessCountry ?? 0 }}</b></span>
+        <span><i class="hs-ov-dot hs-ov-dot-4"></i> Manual Completed: <b>{{ countryHistory?.compeleteCountry ?? 0 }}</b></span>
+        <span><i class="hs-ov-dot hs-ov-dot-5"></i> AI Finalized: <b class="g">{{ countryHistory?.finalizeCountry ?? 0 }}</b></span>
+        <span><i class="hs-ov-dot hs-ov-dot-6"></i> AI Pending Review: <b>{{ countryHistory?.unFinalize ?? 0 }}</b></span>
       </div>
-      <div class="ami-chart-host">
+      <div class="hs-chart-host">
         <apx-chart [series]="chartOptions.series!"
           [chart]="chartOptions.chart!"
           [plotOptions]="chartOptions.plotOptions!"
@@ -145,7 +145,7 @@
   </div>
 
   <!-- Operational Intelligence Indexes (inlined ROSEW) -->
-  <div class="ami-index-section" *ngIf="selectedCountries">
+  <div class="hs-index-section" *ngIf="selectedCountries">
     <div class="signal-dashboard-wrap embedded ami-themed">
       <div class="dashboard_control_bar">
         <nav class="tab_head" aria-label="Dashboard modes">
@@ -331,7 +331,7 @@
       </h4>
       <span class="ami-section-hint">Compare AI and evaluation scores across countries</span>
     </div>
-    <div class="ami-chart-host">
+    <div class="hs-chart-host">
       <apx-chart [series]="apexchartOptions.series!"
         [chart]="apexchartOptions.chart!"
         [xaxis]="apexchartOptions.xaxis!"

@@ -16,7 +16,7 @@ import {
   DashboardQuestionScoreDto,
   SignalCardDto,
 } from 'src/app/core/models/CountrySignalDashboardDto';
-import { AMI_CHART, AMI_AXIS_STYLE } from 'src/app/core/constants/ahi-chart-theme';
+import { HS_CHART, HS_AXIS_STYLE } from 'src/app/core/constants/hs-chart-theme';
 
 export type SignalTab = 'stress' | 'warning' | 'resilience';
 
@@ -312,12 +312,12 @@ export class SignalIndexHelpers {
     const categories = questions.map((q) => this.truncateLabel(q.layerCode || q.questionDescription || `Q${q.questionID}`, 22));
     const scores = questions.map((q) => (this.hasScore(q.aiScore) ? Number(q.aiScore) : 0));
     const barColors = questions.map((q) => {
-      if (!this.hasScore(q.aiScore)) return '#8B887E';
+      if (!this.hasScore(q.aiScore)) return '#7A8A9A';
       const score = Number(q.aiScore);
       if (score <= 40) return '#B5502E';
-      if (score <= 60) return '#C9A24A';
-      if (score <= 80) return '#E7C878';
-      return '#C9C7BF';
+      if (score <= 60) return '#C5A05A';
+      if (score <= 80) return '#D4B86A';
+      return '#B8C5D0';
     });
 
     this.glanceBarChartOptions = {
@@ -347,24 +347,24 @@ export class SignalIndexHelpers {
           return this.hasScore(q?.aiScore) ? Number(val).toFixed(1) : 'N/A';
         },
         offsetX: 24,
-        style: { fontSize: '11px', fontWeight: 700, colors: [AMI_CHART.text] },
+        style: { fontSize: '11px', fontWeight: 700, colors: [HS_CHART.text] },
       },
       xaxis: {
         categories,
         max: 100,
         labels: {
-          style: AMI_AXIS_STYLE.xaxisLabels.style,
+          style: HS_AXIS_STYLE.xaxisLabels.style,
           formatter: (v: string) => v,
         },
-        axisBorder: { color: AMI_CHART.border },
+        axisBorder: { color: HS_CHART.border },
       },
       yaxis: {
         labels: {
-          style: { ...AMI_AXIS_STYLE.yaxisLabels.style, fontSize: '12px' },
+          style: { ...HS_AXIS_STYLE.yaxisLabels.style, fontSize: '12px' },
         },
       },
       grid: {
-        borderColor: AMI_CHART.grid,
+        borderColor: HS_CHART.grid,
         strokeDashArray: 4,
         xaxis: { lines: { show: true } },
         yaxis: { lines: { show: false } },
@@ -408,12 +408,12 @@ export class SignalIndexHelpers {
         fontFamily: 'Inter, sans-serif',
         background: 'transparent',
       },
-      colors: donutColors.length ? donutColors : ['#8B887E'],
+      colors: donutColors.length ? donutColors : ['#7A8A9A'],
       legend: {
         position: 'bottom',
         fontSize: '12px',
         fontWeight: 600,
-        labels: { colors: AMI_CHART.textMuted },
+        labels: { colors: HS_CHART.textMuted },
       },
       dataLabels: {
         enabled: true,
@@ -431,7 +431,7 @@ export class SignalIndexHelpers {
                 label: 'Indicators',
                 fontSize: '13px',
                 fontWeight: 600,
-                color: AMI_CHART.textMuted,
+                color: HS_CHART.textMuted,
                 formatter: () => `${questions.length}`,
               },
             },
@@ -489,13 +489,13 @@ export class SignalIndexHelpers {
 
   private getConditionColor(condition: string): string {
     const value = condition.toLowerCase();
-    if (value.includes('no data') || value.includes('stale')) return '#8B887E';
+    if (value.includes('no data') || value.includes('stale')) return '#7A8A9A';
     if (value.includes('critical') || value.includes('fragile')) return '#B5502E';
     if (value.includes('elevated') || value.includes('high')) return '#C46A3A';
-    if (value.includes('watch') || value.includes('developing')) return '#C9A24A';
-    if (value.includes('stable')) return '#E7C878';
-    if (value.includes('strong')) return '#C9C7BF';
-    return AMI_CHART.primarySoft;
+    if (value.includes('watch') || value.includes('developing')) return '#C5A05A';
+    if (value.includes('stable')) return '#D4B86A';
+    if (value.includes('strong')) return '#B8C5D0';
+    return HS_CHART.primarySoft;
   }
 
   openQuestionDetails(question: DashboardQuestionScoreDto): void {

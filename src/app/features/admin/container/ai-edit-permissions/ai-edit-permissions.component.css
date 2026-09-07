@@ -1,6 +1,6 @@
 .page_sub {
   margin: 4px 0 0;
-  color: #9C9484;
+  color: #8FA3B5;
   font-size: 14px;
   max-width: 900px;
 }
@@ -17,7 +17,7 @@
 
 .grant-panel__title {
   margin: 0 0 16px;
-  color: #C9A24A;
+  color: #C5A05A;
   font-size: 16px;
   font-weight: 600;
 }
@@ -37,7 +37,7 @@
   margin-bottom: 6px;
   font-size: 13px;
   font-weight: 500;
-  color: #9C9484;
+  color: #8FA3B5;
   padding-left: 10px !important;
 }
 
@@ -55,8 +55,8 @@
 }
 
 .badge-pending {
-  background: rgba(201, 162, 74, 0.18);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.18);
+  color: #D4B86A;
 }
 
 .badge-consumed {
@@ -70,18 +70,18 @@
 }
 
 ::ng-deep .analyst_multi_select .ng-option-selected {
-  background-color: rgba(201, 162, 74, 0.18) !important;
-  color: #C9A24A !important;
+  background-color: rgba(197, 160, 90, 0.18) !important;
+  color: #C5A05A !important;
   font-weight: 600;
 }
 
 ::ng-deep .analyst_multi_select .ng-option:hover {
-  background-color: rgba(201, 162, 74, 0.14) !important;
+  background-color: rgba(197, 160, 90, 0.14) !important;
 }
 
 ::ng-deep .compare_select .ng-select-container {
   border: none !important;
-  background-color: #1B1810 !important;
+  background-color: #123049 !important;
   min-height: auto !important;
   height: 100% !important;
 }
@@ -98,8 +98,8 @@
   white-space: nowrap;
   padding: 2px 5px !important;
   border-radius: 5px !important;
-  background-color: #C9A24A !important;
-  color: #EFE7D6 !important;
+  background-color: #C5A05A !important;
+  color: #E8EEF4 !important;
 }
 
 .notes-input {
@@ -107,25 +107,25 @@
   min-height: 42px !important;
   outline: none;
   box-shadow: none;
-  color: #EFE7D6 !important;
-  background-color: #1B1810 !important;
-  border: 1px solid #332C1D !important;
+  color: #E8EEF4 !important;
+  background-color: #123049 !important;
+  border: 1px solid #1E3D5C !important;
 }
 
 .notes-input::placeholder {
-  color: #8B887E;
+  color: #7A8A9A;
 }
 
 .heading_area select.analyst_multi_select {
-  color: #EFE7D6;
-  background-color: #1B1810;
+  color: #E8EEF4;
+  background-color: #123049;
 }
 
 .selexted_piller {
   display: inline-block;
   padding: 2px 8px;
   border-radius: 5px;
-  background-color: #C9A24A;
-  color: #EFE7D6;
+  background-color: #C5A05A;
+  color: #E8EEF4;
   font-size: 12px;
 }

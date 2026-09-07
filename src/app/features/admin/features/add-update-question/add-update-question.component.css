@@ -19,8 +19,8 @@
     transition: 0.3s all;
 }
 .add_btn:hover {
-  color:  #C9A24A;
-  border: 1px solid #C9A24A;
+  color:  #C5A05A;
+  border: 1px solid #C5A05A;
   background: transparent;
 }
 .minus_btn {
@@ -35,14 +35,14 @@
 select.form-control,
 input.form-control {
     border-radius: 50px;
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
     height: 40px;
     padding-left: 16px;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 .form-control:focus, .form-control:focus-visible {
   outline: none !important;
@@ -64,6 +64,54 @@ input.form-control {
   width: 100%;
   min-width: 0;
   max-width: none;
+  overflow: visible;
+  position: relative;
+}
+
+.modal-content,
+.modal-body,
+.modal_tabs,
+.tab-content,
+.tab-pane,
+.option-row,
+.option-row .row,
+.option-row .col-4 {
+  overflow: visible;
+}
+
+.option-row:has(.ng-select-opened) {
+  position: relative;
+  z-index: 20;
+}
+
+::ng-deep .score-select .ng-dropdown-panel {
+  overflow: hidden !important;
+  min-width: 100% !important;
+}
+
+::ng-deep .score-select .ng-dropdown-panel .scroll-host,
+::ng-deep .score-select .ng-dropdown-panel .ng-dropdown-panel-items {
+  max-height: none !important;
+  overflow: hidden !important;
+}
+
+::ng-deep .score-select .ng-dropdown-panel .scroll-host::-webkit-scrollbar,
+::ng-deep .score-select .ng-dropdown-panel::-webkit-scrollbar {
+  display: none;
+  width: 0;
+  height: 0;
+}
+
+::ng-deep .score-select .ng-dropdown-panel .ng-option {
+  min-height: 36px !important;
+  padding: 8px 12px !important;
+}
+
+::ng-deep .score-select .ng-dropdown-panel .ng-option:hover,
+::ng-deep .score-select .ng-dropdown-panel .ng-option.ng-option-selected,
+::ng-deep .score-select .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
+  border: none !important;
+  margin: 0 !important;
 }
 
 ::ng-deep .compare_select .ng-select.analyst_multi_select {
@@ -76,7 +124,7 @@ input.form-control {
 
 ::ng-deep .compare_select .ng-placeholder,
 ::ng-deep .analyst_multi_select .ng-placeholder {
-  color: #9C9484 !important;
+  color: #8FA3B5 !important;
   opacity: 1 !important;
   padding-left: 10px !important;
 }
@@ -94,9 +142,9 @@ input.form-control {
   position: relative;
   width: 100%;
   min-height: 42px;
-  border: 1px solid #332C1D;
+  border: 1px solid #1E3D5C;
   border-radius: 10px;
-  background: #1B1810;
+  background: #123049;
   overflow: hidden;
   cursor: pointer;
   margin: 0;
@@ -104,12 +152,12 @@ input.form-control {
 }
 
 .image-file-picker:hover {
-  border-color: rgba(201, 162, 74, 0.45);
+  border-color: rgba(197, 160, 90, 0.45);
 }
 
 .image-file-picker:focus-within {
-  border-color: #C9A24A;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.18);
+  border-color: #C5A05A;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.18);
 }
 
 .image-file-input-hidden {
@@ -127,11 +175,11 @@ input.form-control {
   justify-content: center;
   flex-shrink: 0;
   padding: 0 14px;
-  background: rgba(201, 162, 74, 0.16);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.16);
+  color: #D4B86A;
   font-size: 12px;
   font-weight: 600;
-  border-right: 1px solid #332C1D;
+  border-right: 1px solid #1E3D5C;
   white-space: nowrap;
 }
 
@@ -141,10 +189,10 @@ input.form-control {
   flex: 1;
   min-width: 0;
   padding: 0 12px;
-  color: #9C9484;
+  color: #8FA3B5;
   font-size: 12px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
-  background: #1B1810;
+  background: #123049;
 }

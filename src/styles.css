@@ -1,8 +1,9 @@
 /* You can add global styles to this file, and also import other style files */
 
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;500;600&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 @import "~@ng-select/ng-select/themes/default.theme.css";
-@import "./app/core/styles/ami-dashboard-theme.css";
+@import "./app/core/styles/hornscope-theme.css";
+@import "./app/core/styles/hs-dashboard-theme.css";
 @import "./app/core/styles/ami-shared-ui.css";
 @import "./app/core/styles/ami-features-theme.css";
 
@@ -10,76 +11,34 @@
 .ng-dropdown-panel .ng-option-selected,
 .ng-dropdown-panel .ng-option-selected.ng-option-marked,
 .ng-select .ng-option.ng-option-selected,
-.ami-dashboard .ng-dropdown-panel .ng-option-selected,
-.ami-dashboard .ng-dropdown-panel .ng-option-selected.ng-option-marked,
-.ami-dashboard .ng-select .ng-option.ng-option-selected,
+.hs-dashboard .ng-dropdown-panel .ng-option-selected,
+.hs-dashboard .ng-dropdown-panel .ng-option-selected.ng-option-marked,
+.hs-dashboard .ng-select .ng-option.ng-option-selected,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option-selected,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option-selected.ng-option-marked,
 body > .ng-dropdown-panel .ng-option.ng-option-selected,
 body > .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
   background-color: transparent !important;
   background: transparent !important;
-  color: #e7c878 !important;
-  border: 1px solid #c9a24a !important;
+  color: #d4b86a !important;
+  border: 1px solid #c5a05a !important;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-option:hover,
+.hs-dashboard .ng-dropdown-panel .ng-option:hover,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option:hover,
 body > .ng-dropdown-panel .ng-option:hover {
   background-color: transparent !important;
-  background: rgba(201, 162, 74, 0.16) !important;
-  color: #e7c878 !important;
+  background: rgba(197, 160, 90, 0.16) !important;
+  color: #d4b86a !important;
 }
 
-.ami-dashboard .ng-dropdown-panel,
-.ami-dashboard .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
+.hs-dashboard .ng-dropdown-panel,
+.hs-dashboard .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
 .signal-dashboard-wrap .ng-dropdown-panel,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
-  background: #1a1610 !important;
-  color: #efe7d6 !important;
-  border-color: #3a3224 !important;
-}
-
-
-:root
-{
-	/* AMI brand — gold / bronze / cream (country_index_ami_theme + public site) */
-	--ami-bg: #0A0906;
-	--ami-panel: #141209;
-	--ami-panel-2: #1B1810;
-	--ami-border: #332C1D;
-	--ami-border-soft: #241F14;
-	--ami-gold: #C9A24A;
-	--ami-gold-bright: #E7C878;
-	--ami-bronze: #8A5A2B;
-	--ami-silver: #C9C7BF;
-	--ami-silver-dim: #8B887E;
-	--ami-cream: #EFE7D6;
-	--ami-muted: #9C9484;
-	--ami-danger: #B5502E;
-	--ami-success: #B7A25A;
-	--ami-radius: 10px;
-	--ami-font: "Inter", "Poppins", system-ui, sans-serif;
-	--ami-font-display: "Playfair Display", Georgia, serif;
-	--ami-font-mono: "JetBrains Mono", Consolas, monospace;
-
-	--Primary-Color: #C9A24A;
-	--Secondary-Color: #E7C878;
-	--Hover-Primary-color: #8A5A2B;
-	--Accent-Green: #B7A25A;
-	--AMI-Gradient: linear-gradient(135deg, #E7C878 0%, #C9A24A 48%, #8A5A2B 100%);
-	--AMI-Gradient-Hover: linear-gradient(135deg, #F0D78A 0%, #D4B45E 48%, #A06735 100%);
-	--White-Color: #ffffff;
-	--Text-Color: #1A1510;
-	--Border-Color: #E6DDD0;
-	--background-Color: #F2EBE1;
-	--Light-Text-Color: #6B6358;
-	--Light-Bg-Color: #C9A24A;
-	--Dark-Bg-Color: #0A0906;
-	--Light-Border-Color: rgba(10, 9, 6, 0.04);
-	--Green-text-Color: #1A1510;
-	--Hero-Cream: #F2EBE1;
-	--Hero-Cream-Deep: #E6D9C9;
+  background: #0f2a40 !important;
+  color: #e8eef4 !important;
+  border-color: #1e3d5c !important;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -106,10 +65,10 @@ footer, header, hgroup, menu, nav, section {
 }
 
 body {
-    font-family: var(--ami-font), "Poppins", sans-serif !important;
+    font-family: var(--hs-font), "Montserrat", sans-serif !important;
     position: relative;
-    background-color: #0A0906;
-    color: var(--Text-Color);
+    background-color: var(--hs-bg);
+    color: var(--hs-cream);
 }
 ol, ul {
 	list-style: none;
@@ -129,7 +88,7 @@ table {
 
 a, a:hover
 {
-    color: rgb(199 180 133) !important;
+    color: rgb(212 184 106) !important;
     text-decoration: none;
 }
 
@@ -140,7 +99,7 @@ a, a:hover
   width: 44px;
   height: 36px;
   border-radius: 12px;
-  border: 1px solid #3c2d16;
+  border: 1px solid #1e3d5c;
   background: var(--Surface-Elevated);
   flex-shrink: 0;
   transition: border-color 0.2s ease, background-color 0.2s ease;
@@ -158,11 +117,11 @@ img, svg
 
 .common_button{
     border-radius: 8px !important;
-    background: var(--AMI-Gradient);
+    background: var(--HS-Gradient);
     padding: 9px 20px;
     text-align: center;
     border: none;
-    color: #1a1503 !important;
+    color: #061525 !important;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
@@ -173,22 +132,22 @@ img, svg
 	justify-content: center;
     cursor: pointer;
     align-items: center;
-    box-shadow: 0 4px 16px rgba(201, 162, 74, 0.28);
+    box-shadow: 0 4px 16px rgba(197, 160, 90, 0.28);
     white-space: nowrap;
 }
 
 .common_button:hover
 {
-  background: var(--AMI-Gradient-Hover);
+  background: var(--HS-Gradient-Hover);
   border-color: transparent;
   transform: translateY(-2px);
-  color: #68561d !important;
-  box-shadow: 0 8px 22px rgba(201, 162, 74, 0.38);
+  color: #002147 !important;
+  box-shadow: 0 8px 22px rgba(197, 160, 90, 0.38);
 }
 
 .page_head
 {
-	color: var(--ami-cream, #EFE7D6);
+	color: var(--ami-cream, #E8EEF4);
 font-size: 25px;
 font-style: normal;
 font-weight: 600;
@@ -275,8 +234,8 @@ border-bottom:0;
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    background: #1B1810;
-    color: #EFE7D6;
+    background: #123049;
+    color: #E8EEF4;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
@@ -284,18 +243,18 @@ border-bottom:0;
     text-transform: capitalize;
     cursor: pointer;
     transition: 0.3s;
-	border: 1px solid #332C1D;
+	border: 1px solid #1E3D5C;
 }
 
 .cus_pagination > li:not(:first-child, :last-child) span.action {
     background-color: var(--Primary-Color);
-    color: #0A0906;
+    color: #061525;
 	border-color: var(--Primary-Color);
 }
 
 .cus_pagination > li:not(:first-child, :last-child) span:hover {
     background-color: var(--Primary-Color);
-    color: #0A0906;
+    color: #061525;
 	border-color: var(--Primary-Color);
 }
 .pointer_none {
@@ -306,10 +265,10 @@ border-bottom:0;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-	background-color: #141209;
+	background-color: #0C2238;
 	padding: 16px;
 	border-radius: 12px;
-    border: 1px solid rgba(201, 162, 74, 0.18);
+    border: 1px solid rgba(197, 160, 90, 0.18);
 }
 
 .showing_data
@@ -437,11 +396,11 @@ padding-right: 40px;
 }
 
 .main_area .input_field .form-control:focus {
-    box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.2);
+    box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.2);
     outline: 0;
-    background-color: #141209;
-    border-color: rgba(201, 162, 74, 0.55);
-    color: #EFE7D6;
+    background-color: #0C2238;
+    border-color: rgba(197, 160, 90, 0.55);
+    color: #E8EEF4;
 }
 
 .modal_tabs .nav-pills .nav-link.active, .modal_tabs  .nav-pills .show>.nav-link
@@ -467,40 +426,40 @@ padding-right: 40px;
 
 .outline_btn {
     border-radius: 8px;
-    border: 1px solid var(--ami-gold, #C9A24A);
+    border: 1px solid var(--ami-gold, #C5A05A);
     padding: 5px 15px;
-    color: var(--ami-bronze, #8A5A2B);
+    color: var(--ami-bronze, #8B6B32);
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
     line-height: 20px;
     transition: .3s all;
-    background: rgba(201, 162, 74, 0.06);
+    background: rgba(197, 160, 90, 0.06);
 }
 
 .outline_btn:hover {
-    background: rgba(201, 162, 74, 0.14);
-    color: #0A0906;
-    border-color: var(--ami-gold-bright, #E7C878);
+    background: rgba(197, 160, 90, 0.14);
+    color: #061525;
+    border-color: var(--ami-gold-bright, #D4B86A);
 }
 
 .inner_content_area .city_pillar .input_field select.form-control{
-    background: #1B1810;
+    background: #123049;
     border-radius: 12px !important;
     padding: 10px 16px !important;
-    border: 1px solid #332C1D !important;
-    color: #EFE7D6 !important;
+    border: 1px solid #1E3D5C !important;
+    color: #E8EEF4 !important;
     cursor: pointer;
 }
 
 .table_outer .table thead th {
-    background-color: #1B1810;
-    color: #E7C878;
+    background-color: #123049;
+    color: #D4B86A;
     font-size: 16px;
 }
 .table_outer tbody tr:hover td {
-    background-color: rgba(201, 162, 74, 0.08);
-    border-color: #E6DDD0;
+    background-color: rgba(197, 160, 90, 0.08);
+    border-color: #D5DEE8;
 }
 
 .compare_btn svg {
@@ -535,8 +494,8 @@ padding-right: 40px;
     align-items: center;
     z-index: 5;
     background:
-      radial-gradient(ellipse at center, rgba(201, 162, 74, 0.08), transparent 55%),
-      rgba(10, 9, 6, 0.92);
+      radial-gradient(ellipse at center, rgba(197, 160, 90, 0.08), transparent 55%),
+      rgba(6, 21, 37, 0.92);
     backdrop-filter: blur(4px);
     border-radius: 12px;
     min-height: 280px;
@@ -611,7 +570,7 @@ padding-right: 40px;
     font-size: 14px;
 }
 .city_card_img .score {
-    background: var(--AMI-Gradient);
+    background: var(--HS-Gradient);
     color: #ffffff;
     display: inline-block;
     padding: 3px 10px;
@@ -692,19 +651,19 @@ padding-right: 40px;
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     background:
-      linear-gradient(145deg, #1B1810 0%, #141209 100%) !important;
+      linear-gradient(145deg, #123049 0%, #0C2238 100%) !important;
     background-position: bottom left;
     background-repeat: no-repeat;
     background-size: 80%;
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
-    border: 1px solid rgba(201, 162, 74, 0.22);
+    border: 1px solid rgba(197, 160, 90, 0.22);
     animation: ami-fade-up 0.45s ease both;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 .dashboard_card:hover {
     transform: translateY(-3px);
-    border-color: rgba(201, 162, 74, 0.4);
-    box-shadow: 0 12px 32px rgba(201, 162, 74, 0.16);
+    border-color: rgba(197, 160, 90, 0.4);
+    box-shadow: 0 12px 32px rgba(197, 160, 90, 0.16);
 }
 .dashboard_card_inner{
     display: flex;
@@ -714,8 +673,8 @@ padding-right: 40px;
 }
 .dashboard_card_inner span {
     display: flex;
-    background: rgba(201, 162, 74, 0.12);
-    border: 1px solid rgba(201, 162, 74, 0.28);
+    background: rgba(197, 160, 90, 0.12);
+    border: 1px solid rgba(197, 160, 90, 0.28);
     padding: 10px;
     border-radius: 12px;
     width: 90px;
@@ -726,17 +685,17 @@ padding-right: 40px;
 }
 .dashboard_card:hover .dashboard_card_inner span {
     transform: scale(1.05);
-    background: rgba(201, 162, 74, 0.2);
+    background: rgba(197, 160, 90, 0.2);
 }
 .dashboard_card_inner span svg {
     width: 40px;
     height: 40px;
 }
 .dashboard_card_inner span svg path{
-    fill: var(--ami-bronze, #8A5A2B);
+    fill: var(--ami-bronze, #8B6B32);
 }
 .dashboard_number h4 {
-    color: #9C9484;
+    color: #8FA3B5;
     line-height: 30px;
     margin: 5px 0;
     font-weight: 500;
@@ -745,7 +704,7 @@ padding-right: 40px;
     text-transform: uppercase;
 }
 .dashboard_number h5 {
-    color: #EFE7D6;
+    color: #E8EEF4;
     font-size: 28px;
     line-height: normal;
     font-weight: 700;
@@ -753,7 +712,7 @@ padding-right: 40px;
     font-variant-numeric: tabular-nums;
 }
 .city_pillar > .align-items-end {
-    background-color: rgba(201, 162, 74, 0.08);
+    background-color: rgba(197, 160, 90, 0.08);
     border-radius: 10px;
     padding: 10px 6px 10px 0;
     margin-bottom: 20px;
@@ -765,12 +724,12 @@ padding-right: 40px;
     position: relative;
 }
 .city_pillar{
-    background-color: #141209;
+    background-color: #0C2238;
     padding: 24px 34px;
     position: relative;
     border-radius: 12px;
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 .calender_icon {
     position: absolute;
@@ -780,12 +739,12 @@ padding-right: 40px;
 }
 .inner_content_area .heading_area {
     margin-bottom: 0;
-    background-color: #141209;
+    background-color: #0C2238;
     padding: 16px;
-    border: 1px solid rgba(201, 162, 74, 0.22);
+    border: 1px solid rgba(197, 160, 90, 0.22);
     border-radius:12px;
     margin-bottom: 10px;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 .inner_content_area .heading_area .page_head {
     font-size: 20px;
@@ -798,7 +757,7 @@ padding-right: 40px;
     content: "";
     width: 100%;
     height: calc(100% - 8px);
-    background: #0A0906;
+    background: #061525;
     display: block;
     position: absolute;
     top: 0;
@@ -831,7 +790,7 @@ padding-right: 40px;
     padding: 2px 5px !important;
     border-radius: 5px !important;
     background-color: var(--Primary-Color) !important;
-    color: #0a0906 !important;
+    color: #061525 !important;
 }
 .modal_design .tab-pane label .text-primary {
     color: var(--Primary-Color) !important;
@@ -901,17 +860,17 @@ body .content_area .inner_content_area {
 /* Confidence badge colors overridden in ami-shared-ui.css */
 
 .city_img {
-    background: linear-gradient(135deg, #C9A24A, #8A5A2B);
+    background: linear-gradient(135deg, #C5A05A, #8B6B32);
     border-radius: 15px !important;
 }
 
 .last_data td .sparkline-container .score-label {
-    color: #0A0906 !important;
+    color: #061525 !important;
 }
 
 /* App shell — dark canvas so header radius never flashes white/cream */
 .main_area {
-  background: #0A0906;
+  background: #061525;
   min-height: calc(100vh - 72px);
 }
 
@@ -923,8 +882,8 @@ body .content_area .inner_content_area {
 
 .main_area .heading_area,
 .inner_content_area .heading_area {
-  border: 1px solid rgba(201, 162, 74, 0.14);
-  box-shadow: 0 2px 12px rgba(10, 9, 6, 0.04);
+  border: 1px solid rgba(197, 160, 90, 0.14);
+  box-shadow: 0 2px 12px rgba(6, 21, 37, 0.04);
 }
 
 .page_head {
@@ -932,8 +891,8 @@ body .content_area .inner_content_area {
 }
 
 .table_outer {
-  border-color: #332C1D !important;
-  background: #141209;
+  border-color: #1E3D5C !important;
+  background: #0C2238;
   overflow: hidden;
 }
 
@@ -943,53 +902,53 @@ body .content_area .inner_content_area {
 }
 
 .pagination_outer {
-  border: 1px solid rgba(201, 162, 74, 0.12);
+  border: 1px solid rgba(197, 160, 90, 0.12);
 }
 
 /* ============================================================
-   Global dark ng-select — AMI dashboard dropdowns
+   Global dark ng-select — HS dashboard dropdowns
    (covers panels appended near body / default theme overrides)
    ============================================================ */
-.ami-dashboard .ng-dropdown-panel,
-.ami-dashboard .ng-dropdown-panel .scroll-host,
+.hs-dashboard .ng-dropdown-panel,
+.hs-dashboard .ng-dropdown-panel .scroll-host,
 .signal-dashboard-wrap .ng-dropdown-panel,
 .signal-dashboard-wrap .ng-dropdown-panel .scroll-host {
-  background: #1a1610 !important;
-  color: #efe7d6 !important;
+  background: #0f2a40 !important;
+  color: #e8eef4 !important;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-option,
+.hs-dashboard .ng-dropdown-panel .ng-option,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option {
-  background: #1a1610 !important;
-  color: #efe7d6 !important;
+  background: #0f2a40 !important;
+  color: #e8eef4 !important;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-option:hover,
+.hs-dashboard .ng-dropdown-panel .ng-option:hover,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option:hover {
-  background: rgba(201, 162, 74, 0.16) !important;
-  color: #e7c878 !important;
+  background: rgba(197, 160, 90, 0.16) !important;
+  color: #d4b86a !important;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-option.ng-option-selected,
-.ami-dashboard .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked,
+.hs-dashboard .ng-dropdown-panel .ng-option.ng-option-selected,
+.hs-dashboard .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-selected,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
   background: transparent !important;
-  color: #e7c878 !important;
-  border: 1px solid #c9a24a !important;
+  color: #d4b86a !important;
+  border: 1px solid #c5a05a !important;
 }
 
 /* Override ng-select default.theme.css light highlights inside dashboards */
-.ami-dashboard .ng-dropdown-panel .ng-option-selected,
-.ami-dashboard .ng-dropdown-panel .ng-option-selected.ng-option-marked,
-.ami-dashboard .ng-select .ng-option-selected,
+.hs-dashboard .ng-dropdown-panel .ng-option-selected,
+.hs-dashboard .ng-dropdown-panel .ng-option-selected.ng-option-marked,
+.hs-dashboard .ng-select .ng-option-selected,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option-selected {
   background-color: transparent !important;
 }
 
 .form-check input{
-    background-color: #524121 !important;
-    border: var(--bs-border-width) solid #332c1d !important;
+    background-color: #1E3D5C !important;
+    border: var(--bs-border-width) solid #1e3d5c !important;
 }
 
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder{
@@ -998,7 +957,7 @@ body .content_area .inner_content_area {
 
 ::ng-deep .compare_select .ng-select-container {
     border: none !important;
-    background-color: #1B1810 !important;
+    background-color: #123049 !important;
     min-height: auto !important;
     height: 100% !important;
 }
@@ -1014,7 +973,7 @@ body .content_area .inner_content_area {
 .compare_select .analyst_multi_select {
     flex: 1;
     height: auto;
-    background-color: #1B1810;
+    background-color: #123049;
     min-height: 36px;
     align-items: center;
     font-family: "Poppins", sans-serif !important;
@@ -1024,14 +983,14 @@ body .content_area .inner_content_area {
     line-height: normal;
     appearance: none !important;
     border-radius: 12px !important;
-    border: 1px solid #332C1D !important;
+    border: 1px solid #1E3D5C !important;
 }
 
 html body .ng-dropdown-panel .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover),
 html body .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover) {
-  background: #1A1610 !important;
-  background-color: #1A1610 !important;
-  color: #EFE7D6 !important;
+  background: #0F2A40 !important;
+  background-color: #0F2A40 !important;
+  color: #E8EEF4 !important;
   border: none !important;
   box-shadow: none !important;
   font-weight: 400 !important;

@@ -16,7 +16,7 @@
 }
 
 .city_card_ul li {
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     padding: 3px 10px;
     border-radius: 5px;
     color: #fff;
@@ -24,7 +24,7 @@
 } */
 
 .city_card_img .score {
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     color: #ffffff;
     display: inline-block;
     padding: 3px 10px;
@@ -40,24 +40,24 @@
     align-items: center;
     font-weight: 600;
     grid-gap: 3px;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 .city_cards_p path {
-    fill: #C9A24A;
+    fill: #C5A05A;
 }
 
 .city_cards_disc {
     margin: 10px 0 15px;
     /* font-size: 14px;
     line-height: 1.5;
-    color: #C9C7BF;
+    color: #B8C5D0;
 }
 
 .explore_pillars_hint {
     font-size: 14px;
     font-weight: 500;
-    color: #E7C878;
+    color: #D4B86A;
     margin-bottom: 8px; */
 }
 
@@ -76,7 +76,7 @@
     font-size: 30px;
     line-height: normal;
     font-weight: 600;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 .card_title {
@@ -113,15 +113,15 @@
 }
 
 .medium {
-    background-color: rgba(201, 162, 74, 0.2) !important;
-    color: #0A0906 !important;
-    border: 1px solid #c9a24a !important;
+    background-color: rgba(197, 160, 90, 0.2) !important;
+    color: #061525 !important;
+    border: 1px solid #c5a05a !important;
 }
 
 .high {
-    background-color: rgba(183, 162, 90, 0.2) !important;
+    background-color: rgba(90, 155, 138, 0.2) !important;
     color: #d8c788 !important;
-    border: 1px solid #b7a25a !important;
+    border: 1px solid #5a9b8a !important;
 }
 
 .accordion_icon .inactivePillar svg {
@@ -142,16 +142,16 @@
 } */
 
 .cus_table .table th {
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     font-weight: 600;
-    color: #0A0906;
+    color: #061525;
     font-size: 14px;
     white-space: nowrap;
 }
 
 .cus_table .score_label_tab {
-    background: #8A5A2B;
-    color: #EFE7D6;
+    background: #8B6B32;
+    color: #E8EEF4;
     padding: 0.3rem 0.4rem;
     border-radius: 0.5rem;
     display: inline-flex;
@@ -161,9 +161,9 @@
 
 .cus_table .table td {
     font-size: 1.3rem;
-    border-bottom: 1px solid #241F14;
+    border-bottom: 1px solid #16324A;
     vertical-align: middle;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 .cus_table .table td:first-child {
@@ -230,7 +230,7 @@ div:empty {
     flex: 1;
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid rgba(201, 162, 74, 0.18);
+    border: 1px solid rgba(197, 160, 90, 0.18);
     box-shadow: none !important;
     min-width: 200px;
 }
@@ -284,8 +284,8 @@ div:empty {
 }
 
 .kpi_custom_table th {
-    background-color: #C9A24A;
-    color: #0A0906;
+    background-color: #C5A05A;
+    color: #061525;
     font-weight: 600;
     padding: 8px;
     border: none;
@@ -295,17 +295,17 @@ div:empty {
 .kpi_custom_table td {
     padding: 8px;
     border: none;
-    border-bottom: 1px solid #241F14;
+    border-bottom: 1px solid #16324A;
     transition: background-color 0.2s;
     font-size: 14px;
     font-style: normal;
     font-weight: 400;
     line-height: 20px;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 .kpi_custom_table tr:nth-child(even) {
-    background-color: rgba(201, 162, 74, 0.06);
+    background-color: rgba(197, 160, 90, 0.06);
 } */
  .integrate_outter .outer_graph {
     width: 300px;
@@ -314,7 +314,7 @@ div:empty {
 
 .cross-pillar h5 {
     font-weight: 700;
-    color: #EFE7D6;
+    color: #E8EEF4;
     /* font-size: 16px;
     margin-bottom: 8px; */
 }
@@ -324,7 +324,7 @@ div:empty {
 .cross-pillar div {
     font-size: 13px;
     line-height: 1.5;
-    color: #C9C7BF;
+    color: #B8C5D0;
 }
 
 .cross-pillar ::ng-deep p,
@@ -336,18 +336,18 @@ div:empty {
 }
 
 .city_pillar {
-    background-color: rgba(27, 24, 16, 0.72);
+    background-color: rgba(18, 48, 73, 0.72);
     padding: 20px;
     position: relative;
     border-radius: 15px;
-    border: 1px solid rgba(201, 162, 74, 0.18);
+    border: 1px solid rgba(197, 160, 90, 0.18);
     margin-bottom: 20px;
     overflow: hidden;
     z-index: 0;
 }
 
 .cross-pillar_outter {
-    border: 1px solid rgba(201, 162, 74, 0.18);
+    border: 1px solid rgba(197, 160, 90, 0.18);
     padding: 20px;
     border-radius: 15px;
     margin-bottom: 20px;
@@ -363,7 +363,7 @@ div:empty {
 } */
 
 .active_row td {
-    background-color: #8A5A2B;
+    background-color: #8B6B32;
     color: #ffffff;
 }
 
@@ -372,13 +372,13 @@ div:empty {
 }
 
 .last_data td {
-    background-color: #8A5A2B;
+    background-color: #8B6B32;
     color: #ffffff;
 }
 
 .last_data td span {
-    color: #0A0906;
-    background-color: #C9A24A;
+    color: #061525;
+    background-color: #C5A05A;
     white-space: nowrap;
     padding: 5px 8px;
     border-radius: 30px;
@@ -388,7 +388,7 @@ div:empty {
 
 button.btn-close:focus,
 button.btn-close:focus-visible {
-    box-shadow: 0 0 0 3px #C9A24A;
+    box-shadow: 0 0 0 3px #C5A05A;
     outline: none;
 }
 
@@ -407,8 +407,8 @@ button.btn-close:focus-visible {
 }
 
 .ai-edit-surface {
-    border-color: #C9A24A;
-    box-shadow: 0 0 0 1px rgba(201, 162, 74, 0.2);
+    border-color: #C5A05A;
+    box-shadow: 0 0 0 1px rgba(197, 160, 90, 0.2);
 }
 
 .score-input {
@@ -426,8 +426,8 @@ button.btn-close:focus-visible {
     gap: 10px;
     margin: 0 0 16px;
     padding: 14px 16px;
-    background: linear-gradient(180deg, rgba(27, 24, 16, 0.98), rgba(20, 18, 9, 0.96));
-    border: 1px solid rgba(201, 162, 74, 0.35);
+    background: linear-gradient(180deg, rgba(18, 48, 73, 0.98), rgba(12, 34, 56, 0.96));
+    border: 1px solid rgba(197, 160, 90, 0.35);
     border-radius: 12px;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
 }
@@ -436,7 +436,7 @@ button.btn-close:focus-visible {
     margin: 0;
     font-size: 13px;
     line-height: 1.45;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 .ai-edit-access-actions {

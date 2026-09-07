@@ -22,7 +22,7 @@
 .kpi_td_data .bold_num,
 ::ng-deep .kpi_sidebar app-view-kpi-layer .bold_num {
     background: #463407;
-    color: #EFE7D6;
+    color: #E8EEF4;
     padding: 2px 8px;
     border-radius: 0.5rem;
     display: inline-block;
@@ -75,7 +75,7 @@
     background-color: #8f702b;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #EFE7D6;
+    color: #E8EEF4;
     border-radius: 5px;
 }
 
@@ -87,7 +87,6 @@
 .compare_city_table.table_outer .table tr td:nth-child(3) {
     width: 280px;
 }
-
 
 @media only screen and (max-width:1550px) {
     .table_outer .table th {
@@ -106,14 +105,14 @@
 }
 
 ::ng-deep .analyst_multi_select .ng-option-selected {
-    background-color: rgba(201, 162, 74, 0.18) !important;
-    color: #C9A24A !important;
+    background-color: rgba(197, 160, 90, 0.18) !important;
+    color: #C5A05A !important;
     font-weight: 600;
 }
 
 /* Optional: hover style */
 ::ng-deep .analyst_multi_select .ng-option:hover {
-    background-color: rgba(201, 162, 74, 0.14) !important;
+    background-color: rgba(197, 160, 90, 0.14) !important;
 }
 
 ::ng-deep .compare_select .ng-select-container {
@@ -148,8 +147,8 @@
     white-space: nowrap;
     padding: 2px 5px !important;
     border-radius: 5px !important;
-    background-color: #C9A24A !important;
-    color: #EFE7D6 !important;
+    background-color: #C5A05A !important;
+    color: #E8EEF4 !important;
 }
 
 .kpi_cat05.kpi_td_data {

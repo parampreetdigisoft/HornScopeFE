@@ -4,8 +4,6 @@
     /* set your desired width */
 }
 
-
-
 .action_td input[type="checkbox"] {
     width: 22px;
     height: 22px;
@@ -23,8 +21,8 @@
 
 .document_td_data .bold_num,
 ::ng-deep .document_sidebar app-ai-document-view-details .bold_num {
-    background: #C9A24A;
-    color: #EFE7D6;
+    background: #C5A05A;
+    color: #E8EEF4;
     padding: 2px 8px;
     border-radius: 0.5rem;
     display: inline-block;
@@ -68,7 +66,7 @@
     background-color: #7c642d;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #EFE7D6;
+    color: #E8EEF4;
     border-radius: 5px;
 }
 
@@ -83,13 +81,12 @@
 }
 p.btn_spinner {
     display: inline-block;
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #EFE7D6;
+    color: #E8EEF4;
     border-radius: 5px;
 }
-
 
 @media only screen and (max-width:1550px) {
     .table_outer .table th {
@@ -108,19 +105,19 @@ p.btn_spinner {
 }
 
 ::ng-deep .analyst_multi_select .ng-option-selected {
-    background-color: rgba(201, 162, 74, 0.18) !important;
-    color: #C9A24A !important;
+    background-color: rgba(197, 160, 90, 0.18) !important;
+    color: #C5A05A !important;
     font-weight: 600;
 }
 
 /* Optional: hover style */
 ::ng-deep .analyst_multi_select .ng-option:hover {
-    background-color: rgba(201, 162, 74, 0.14) !important;
+    background-color: rgba(197, 160, 90, 0.14) !important;
 }
 
 ::ng-deep .compare_select .ng-select-container {
     border: none !important;
-    background-color: #1B1810 !important;
+    background-color: #123049 !important;
     min-height: auto !important;
     height: 100% !important;
 }
@@ -136,7 +133,7 @@ p.btn_spinner {
 /* .compare_select .analyst_multi_select {
     flex: 1;
     height: auto;
-    background-color: #1B1810;
+    background-color: #123049;
     min-height: 36px;
     align-items: center;
     font-family: "Poppins", sans-serif !important;
@@ -147,7 +144,7 @@ p.btn_spinner {
     appearance: none !important;
     border-radius: 12px !important;
     padding: 6px 10px 6px 3px !important;
-    border: 1px solid #332C1D !important;
+    border: 1px solid #1E3D5C !important;
 } */
 
 .table_custom_inner {
@@ -167,8 +164,8 @@ p.btn_spinner {
     white-space: nowrap;
     padding: 2px 5px !important;
     border-radius: 5px !important;
-    background-color: #C9A24A !important;
-    color: #EFE7D6 !important;
+    background-color: #C5A05A !important;
+    color: #E8EEF4 !important;
 }
 
 .document_cat05.document_td_data {
@@ -176,10 +173,10 @@ p.btn_spinner {
 }
 
 ::ng-deep .document_sidebar .city_pillar {
-    background-color: #1B1810;
+    background-color: #123049;
     padding: 0px 15px;
     position: relative;
     border-radius: 15px;
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
     margin-bottom: 15px;
 }

@@ -51,23 +51,23 @@ export class CircularScoreComponent implements OnInit, OnChanges {
   /** Ring stroke — high scores gold, low scores bronze/danger, negatives alert */
   getColor(value: number): string {
     if (value < 0) return '#B5502E';
-    if (value >= 90) return '#E7C878';
-    if (value >= 80) return '#D4B45E';
-    if (value >= 70) return '#C9A24A';
-    if (value >= 60) return '#B7A25A';
+    if (value >= 90) return '#D4B86A';
+    if (value >= 80) return '#C9A85A';
+    if (value >= 70) return '#C5A05A';
+    if (value >= 60) return '#5A9B8A';
     if (value >= 50) return '#A67C3D';
-    if (value >= 40) return '#8A5A2B';
+    if (value >= 40) return '#8B6B32';
     if (value >= 30) return '#C46A3A';
     if (value >= 20) return '#B5502E';
-    if (value >= 10) return '#8B887E';
-    return '#8B887E';
+    if (value >= 10) return '#7A8A9A';
+    return '#7A8A9A';
   }
 
   /** Center label — high contrast on dark tables */
   getColorR(value: number): string {
     if (value < 0) return '#E08A6A';
-    if (value >= 70) return '#EFE7D6';
-    if (value >= 40) return '#E7C878';
+    if (value >= 70) return '#E8EEF4';
+    if (value >= 40) return '#D4B86A';
     return '#E08A6A';
   }
 }

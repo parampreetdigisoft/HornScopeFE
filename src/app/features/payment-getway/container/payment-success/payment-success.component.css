@@ -1,37 +1,37 @@
-/* AMI payment result screens */
+/* HS payment result screens */
 
 .cancel_card {
   background:
-    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(201, 162, 74, 0.14) 0%, transparent 55%),
-    linear-gradient(160deg, #141209 0%, #0A0906 100%) !important;
+    radial-gradient(ellipse 70% 50% at 10% 0%, rgba(197, 160, 90, 0.14) 0%, transparent 55%),
+    linear-gradient(160deg, #0C2238 0%, #061525 100%) !important;
   padding: 64px 48px;
   width: calc(100% - 40px);
   margin: 0 auto;
   border-radius: 20px;
-  border: 1px solid rgba(201, 162, 74, 0.28);
-  box-shadow: inset 0 1px 0 rgba(231, 200, 120, 0.06);
+  border: 1px solid rgba(197, 160, 90, 0.28);
+  box-shadow: inset 0 1px 0 rgba(212, 184, 106, 0.06);
 }
 
 button.btn_back {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  background: #1B1810;
-  color: #EFE7D6;
+  background: #123049;
+  color: #E8EEF4;
   font-size: 14px;
   font-weight: 600;
   line-height: 20px;
   text-transform: capitalize;
   cursor: pointer;
   transition: 0.25s ease;
-  border: 1px solid #332C1D;
+  border: 1px solid #1E3D5C;
   padding: 10px 20px;
   border-radius: 999px !important;
 }
 
 button.btn_back:hover {
-  border-color: #C9A24A;
-  color: #E7C878;
+  border-color: #C5A05A;
+  color: #D4B86A;
 }
 
 .payment_btn {
@@ -43,13 +43,13 @@ button.btn_back:hover {
 
 .payment_text h2 {
   font-weight: 700;
-  color: #EFE7D6;
+  color: #E8EEF4;
   margin-bottom: 14px;
   font-size: 2.2rem;
 }
 
 .payment_text p {
-  color: #9C9484;
+  color: #8FA3B5;
   margin-bottom: 28px;
   line-height: 1.5;
   max-width: 420px;
@@ -69,7 +69,7 @@ button.btn_back:hover {
   min-height: 240px;
   align-items: center;
   font-size: 18px;
-  color: #E7C878;
+  color: #D4B86A;
   gap: 10px;
 }
 

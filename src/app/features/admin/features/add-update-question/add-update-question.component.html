@@ -44,7 +44,6 @@
                                         [clearable]="true"
                                         formControlName="pillarID"
                                         [placeholder]="questionForm.get('pillarID')?.value ? '' : 'Select Domain'"
-                                        appendTo="body"
                                         class="form-control analyst_multi_select">
                                         <ng-template ng-label-tmp let-item="item">
                                             {{ item.pillarName }}
@@ -77,8 +76,7 @@
                                                     [clearable]="false"
                                                     formControlName="scoreValue"
                                                     [placeholder]="option.get('scoreValue')?.value === '' || option.get('scoreValue')?.value == null ? 'Select Score' : ''"
-                                                    appendTo="body"
-                                                    class="form-control analyst_multi_select">
+                                                    class="form-control analyst_multi_select score-select">
                                                 </ng-select>
                                             </div>
                                             <!-- Validation message -->

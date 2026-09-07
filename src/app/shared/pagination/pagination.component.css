@@ -11,30 +11,14 @@
 
 .cus_pagination > li.active span,
 .cus_pagination > li span.action {
-    background: linear-gradient(135deg, #E7C878, #C9A24A) !important;
-    color: #0A0906 !important;
-    border-color: #C9A24A !important;
+    background: linear-gradient(135deg, #D4B86A, #C5A05A) !important;
+    color: #061525 !important;
+    border-color: #C5A05A !important;
     font-weight: 600;
 }
 .pagi_label:hover {
-    color: #C9A24A;
+    color: #C5A05A;
 }
 .pagi_label {
     transition: 0.3s all;
-}
-
-.no_result_found {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 80px;
-  text-align: center;
-  color: #e3c576;
-}
-
-.no_result_found h3 {    
-  font-weight: 600;
-  font-size: 20px;
-  color: #e3c576;
-  letter-spacing: 0.5px;
 }

@@ -17,7 +17,7 @@ import { UserRole } from 'src/app/core/enums/UserRole';
 import { ResultResponseDto } from 'src/app/core/models/ResultResponseDto';
 import { SummarizeKpiRequestDto, SummarizeKpiResponseDto } from 'src/app/core/models/SummarizeKpiDto';
 import { AiComputationService } from 'src/app/core/services/ai-computation.service';
-import { AMI_CHART } from 'src/app/core/constants/ahi-chart-theme';
+import { HS_CHART } from 'src/app/core/constants/hs-chart-theme';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -200,12 +200,12 @@ export class ViewCountryUserKpiLayerComponent implements OnInit, OnChanges {
 
     this.chartOptions = {
       series: [ring],
-      colors: [AMI_CHART.primary],
+      colors: [HS_CHART.primary],
       chart: {
         height: 240,
         type: "radialBar",
         background: "transparent",
-        foreColor: AMI_CHART.text,
+        foreColor: HS_CHART.text,
         toolbar: { show: false }
       },
       plotOptions: {
@@ -217,7 +217,7 @@ export class ViewCountryUserKpiLayerComponent implements OnInit, OnChanges {
             background: "transparent"
           },
           track: {
-            background: AMI_CHART.grid,
+            background: HS_CHART.grid,
             strokeWidth: "100%"
           },
           dataLabels: {
@@ -225,13 +225,13 @@ export class ViewCountryUserKpiLayerComponent implements OnInit, OnChanges {
             name: {
               offsetY: -8,
               fontSize: "12px",
-              color: AMI_CHART.primaryMid
+              color: HS_CHART.primaryMid
             },
             value: {
               offsetY: 4,
               fontSize: "16px",
               fontWeight: 600,
-              color: AMI_CHART.text,
+              color: HS_CHART.text,
               formatter: () => `${value}`
             }
           }
@@ -239,7 +239,7 @@ export class ViewCountryUserKpiLayerComponent implements OnInit, OnChanges {
       },
       fill: {
         type: "solid",
-        colors: [AMI_CHART.primary]
+        colors: [HS_CHART.primary]
       },
       stroke: {
         lineCap: "round"

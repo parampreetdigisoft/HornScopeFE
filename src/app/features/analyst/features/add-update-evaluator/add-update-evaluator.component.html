@@ -63,7 +63,7 @@
                                 <ng-select [items]="countries" bindValue="countryID" bindLabel="countryName"
                                     formControlName="country" [multiple]="true" class="form-control analyst_multi_select"
                                     [searchable]="true"
-                                    [placeholder]="evaluatorForm.get('country')?.invalid ? 'Assign country' : ''" appendTo="body">
+                                    [placeholder]="evaluatorForm.get('country')?.invalid ? 'Assign country' : ''">
 
                                     <ng-template ng-label-tmp let-item="item">
                                         {{ item.countryName +', '}}

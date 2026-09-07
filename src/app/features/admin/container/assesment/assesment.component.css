@@ -25,7 +25,7 @@
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
     background-repeat: no-repeat;
     background-position: center right 13px;
-    color: #EFE7D6;
+    color: #E8EEF4;
     /* font-family: 'Montserrat'; */
     font-size: 13px;
     font-style: normal;
@@ -33,7 +33,7 @@
     line-height: normal;
     
     height: auto;
-    background-color: #1B1810;
+    background-color: #123049;
     min-height: 36px;
     align-items: center;
     font-family: "Poppins", sans-serif !important;
@@ -44,7 +44,7 @@
     appearance: none!important;
     border-radius: 12px !important;
     padding: 10px !important;
-    border: 1px solid #332C1D !important;
+    border: 1px solid #1E3D5C !important;
 }
 
 .inner_div {
@@ -67,7 +67,7 @@
 
 .heading_area .ng-select .ng-placeholder,
 .heading_area .analyst_multi_select .ng-placeholder {
-  color: #8B887E !important;
+  color: #7A8A9A !important;
   opacity: 1 !important;
 }
 
@@ -75,16 +75,6 @@
 :host ::ng-deep .heading_area .analyst_multi_select .ng-placeholder {
   width: 100%;
   padding-right: 22px;
-}
-
-.no_result_found {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 60px;
-}
-.no_result_found h3{    
-    font-weight: 700;
 }
 
 :host {

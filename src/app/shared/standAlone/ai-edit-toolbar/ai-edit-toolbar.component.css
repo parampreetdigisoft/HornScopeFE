@@ -15,10 +15,10 @@
 
 .ai-edit-title {
   margin: 0;
-  font-family: var(--ami-font-display, "Playfair Display", serif);
+  font-family: var(--ami-font-display, "Montserrat", serif);
   font-size: 1.15rem;
   font-weight: 700;
-  color: var(--ami-cream, #EFE7D6);
+  color: var(--ami-cream, #E8EEF4);
   letter-spacing: 0.02em;
 }
 
@@ -34,7 +34,7 @@
   gap: 0.35rem;
   white-space: nowrap;
   background: linear-gradient(135deg, #B5502E, #8A3A22);
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   border: 1px solid rgba(181, 80, 46, 0.45);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
 }

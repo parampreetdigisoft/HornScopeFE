@@ -272,7 +272,7 @@ export class ChatService {
   }
 
   getContriesCrossComparision() {
-    let userText = "Provide a comprehensive comparative analysis of the selected countries across all AMI pillars, highlighting healthcare performance, key market challenges, strengths, structural vulnerabilities, resilience indicators, emerging public market trends, and strategic recommendations for each pillar."
+    let userText = "Provide a comprehensive comparative analysis of the selected countries across all HS pillars, highlighting healthcare performance, key market challenges, strengths, structural vulnerabilities, resilience indicators, emerging public market trends, and strategic recommendations for each pillar."
 
     if (this.isTyping()) {
       this.stopGeneration();

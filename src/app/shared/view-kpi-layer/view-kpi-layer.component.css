@@ -16,7 +16,7 @@
 }
 
 .city_card_ul li {
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     padding: 3px 10px;
     border-radius: 5px;
     color: #fff;
@@ -24,7 +24,7 @@
 }
 
 .city_card_img .score {
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     color: #ffffff;
     display: inline-block;
     padding: 3px 10px;
@@ -43,7 +43,7 @@
 }
 
 .city_cards_p path {
-    fill: #C9A24A;
+    fill: #C5A05A;
 }
 
 .city_cards_disc {
@@ -119,17 +119,17 @@
 
 
 .cus_table .table th {
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     font-weight: 600;
-    color: #0A0906;
+    color: #061525;
     font-size: 11px;
     white-space: nowrap;
 }
 
 
 .cus_table .score_label_tab {
-    background: #8A5A2B;
-    color: #EFE7D6;
+    background: #8B6B32;
+    color: #E8EEF4;
     padding: 0.2rem 0.45rem;
     border-radius: 0.5rem;
     display: inline-flex;
@@ -139,9 +139,9 @@
 
 .cus_table .table td {
     font-size: 12px;
-    border-bottom: 1px solid #241F14;
+    border-bottom: 1px solid #16324A;
     vertical-align: middle;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 .cus_table .table {
@@ -163,7 +163,7 @@ h4.kpi_head_col {
     font-size: 16px;
     font-weight: 600;
     margin-bottom: 1rem;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 
@@ -251,8 +251,8 @@ span:empty, div:empty{
 }
 
 .kpi_custom_table th {
-  background-color: #C9A24A;
-  color: #0A0906;
+  background-color: #C5A05A;
+  color: #061525;
   font-weight: 600;
   padding: 6px 8px;
   border: none;
@@ -262,22 +262,22 @@ span:empty, div:empty{
 .kpi_custom_table td {
   padding: 6px 8px;
   border: none;
-  border-bottom: 1px solid #241F14;
+  border-bottom: 1px solid #16324A;
   transition: background-color 0.2s;
   font-size: 12px;
     font-style: normal;
     font-weight: 400;
     line-height: 18px;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 .kpi_custom_table tr:nth-child(even) {
-  background-color: rgba(201, 162, 74, 0.06);
+  background-color: rgba(197, 160, 90, 0.06);
 }
 
 .cross-pillar h5{
     font-weight: 700;
-    color: #EFE7D6;
+    color: #E8EEF4;
     font-size: 16px;
     margin-bottom: 8px;
 }
@@ -287,7 +287,7 @@ span:empty, div:empty{
 .cross-pillar div {
     font-size: 13px;
     line-height: 1.5;
-    color: #C9C7BF;
+    color: #B8C5D0;
 }
 
 .cross-pillar ::ng-deep p,
@@ -311,19 +311,19 @@ span:empty, div:empty{
     border-radius: 0;
 }
 .active_row td {
-    background-color: #8A5A2B;
+    background-color: #8B6B32;
     color: #ffffff;
 }
 .active_row td .score_label_tab {
     background-color: rgba(255,255,255,0.08) !important;
 }
 .last_data td {
-    background-color: #8A5A2B;
+    background-color: #8B6B32;
     color: #ffffff;
 }
 .last_data td span {
-    color: #0A0906;
-    background-color: #C9A24A;
+    color: #061525;
+    background-color: #C5A05A;
     white-space: nowrap;
     padding: 3px 8px;
     border-radius: 30px;
@@ -333,7 +333,7 @@ span:empty, div:empty{
 
 button.btn-close:focus,
 button.btn-close:focus-visible {
-    box-shadow: 0 0 0 3px #C9A24A; /* greenish glow */
+    box-shadow: 0 0 0 3px #C5A05A; /* greenish glow */
     outline: none; /* remove default outline */
 }
 .kpi_custom_table td:last-child {
@@ -344,7 +344,7 @@ button.btn-close:focus-visible {
     margin-top: 0;
 }
 .active_ai td {
-   background-color: rgba(201, 162, 74, 0.15) !important;
+   background-color: rgba(197, 160, 90, 0.15) !important;
 }
 
 /* AI KPI Summary */
@@ -369,29 +369,29 @@ tr.active_row {
     padding: 0.55rem 1.1rem;
     font-size: 13px;
     font-weight: 700;
-    color: #0A0906;
-    background: linear-gradient(135deg, #E7C878 0%, #C9A24A 55%, #8A5A2B 100%);
-    box-shadow: 0 2px 10px rgba(201, 162, 74, 0.28);
+    color: #061525;
+    background: linear-gradient(135deg, #D4B86A 0%, #C5A05A 55%, #8B6B32 100%);
+    box-shadow: 0 2px 10px rgba(197, 160, 90, 0.28);
     transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
 .kpi-ai-btn:hover:not(:disabled) {
     transform: translateY(-1px);
-    box-shadow: 0 4px 14px rgba(201, 162, 74, 0.38);
+    box-shadow: 0 4px 14px rgba(197, 160, 90, 0.38);
 }
 
 .kpi-ai-btn:disabled {
     opacity: 1;
     cursor: wait;
-    color: #0A0906;
-    background: linear-gradient(135deg, #C9A24A 0%, #8A5A2B 100%);
+    color: #061525;
+    background: linear-gradient(135deg, #C5A05A 0%, #8B6B32 100%);
 }
 
 .kpi-ai-btn-icon {
     display: inline-flex;
     width: 16px;
     height: 16px;
-    color: #0A0906;
+    color: #061525;
 }
 
 .kpi-ai-btn-icon svg {
@@ -403,10 +403,10 @@ tr.active_row {
     margin-top: 0.9rem;
     padding: 1rem 1.1rem;
     border-radius: 14px;
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
     background:
-        radial-gradient(ellipse at top right, rgba(201, 162, 74, 0.1), transparent 55%),
-        linear-gradient(180deg, #1B1810 0%, #141209 100%);
+        radial-gradient(ellipse at top right, rgba(197, 160, 90, 0.1), transparent 55%),
+        linear-gradient(180deg, #123049 0%, #0C2238 100%);
     box-shadow: none;
 }
 
@@ -426,14 +426,14 @@ tr.active_row {
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.02em;
-    color: #0A0906;
-    background: linear-gradient(135deg, #E7C878, #C9A24A);
+    color: #061525;
+    background: linear-gradient(135deg, #D4B86A, #C5A05A);
 }
 
 .kpi-ai-title {
     font-size: 14px;
     font-weight: 700;
-    color: #EFE7D6;
+    color: #E8EEF4;
 }
 
 .kpi-ai-loading,
@@ -442,11 +442,11 @@ tr.active_row {
     align-items: center;
     gap: 0.5rem;
     font-size: 13px;
-    color: #C9C7BF;
+    color: #B8C5D0;
 }
 
 .kpi-ai-error {
-    color: #EFE7D6;
+    color: #E8EEF4;
     background: rgba(181, 80, 46, 0.18);
     border: 1px solid rgba(181, 80, 46, 0.45);
     border-radius: 10px;
@@ -459,7 +459,7 @@ tr.active_row {
     margin: 0 0 0.75rem;
     font-size: 13px;
     line-height: 1.55;
-    color: #EFE7D6;
+    color: #E8EEF4;
     white-space: pre-line;
 }
 
@@ -471,10 +471,10 @@ tr.active_row {
 .kpi-ai-takeaways li {
     font-size: 13px;
     line-height: 1.5;
-    color: #EFE7D6;
+    color: #E8EEF4;
     margin-bottom: 0.35rem;
 }
 
 .kpi-ai-outlook strong {
-    color: #E7C878;
+    color: #D4B86A;
 }

@@ -20,9 +20,8 @@
   width: 100%;
 }
 
-
 .city_pillar {
-  background-color: #1B1810;
+  background-color: #123049;
   padding: 20px;
   position: relative;
   border-radius: 15px;
@@ -40,7 +39,7 @@
 
 .city_pillar+app-ag-bar {
   border-radius: 15px;
-  background-color: #1B1810;
+  background-color: #123049;
   overflow: hidden;
   display: flex;
 }
@@ -53,7 +52,7 @@
   border-radius: 15px;
   overflow: hidden;
   padding-top: 30px;
-  background-color: #1B1810;
+  background-color: #123049;
   flex: 1;
 }
 
@@ -83,14 +82,13 @@ app-city-details app-ag-bar:nth-child(3) {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
   background-repeat: no-repeat;
   background-position: center right 13px;
-  color: #EFE7D6;
+  color: #E8EEF4;
   /* font-family: 'Montserrat'; */
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
-
 
 .input_flex {
   display: flex;
@@ -132,11 +130,11 @@ app-city-details app-ag-bar:nth-child(3) {
   border-radius: 15px;
   overflow: hidden;
   padding-top: 30px;
-  background-color: #1B1810;
+  background-color: #123049;
 }
 
 .evaluater_design {
-  background-color: #1B1810;
+  background-color: #123049;
   border-radius: 15px;
   overflow: hidden;
   padding: 25px;
@@ -169,8 +167,8 @@ app-city-details app-ag-bar:nth-child(3) {
 .evaluater_design td,
 .evaluater_design th {
   padding: 10px 20px;
-  border-color: #332C1D;
-  background-color: #1B1810;
+  border-color: #1E3D5C;
+  background-color: #123049;
 }
 
 .evaluater_design .mat-mdc-row {
@@ -183,7 +181,7 @@ app-city-details app-ag-bar:nth-child(3) {
 }
 
 .evaluater_design .expanded+.detail-row td {
-  border-bottom: 1px solid #332C1D;
+  border-bottom: 1px solid #1E3D5C;
 }
 
 .evaluater_design .expanded .expand-toggle rect:last-child {
@@ -227,7 +225,6 @@ app-city-details app-ag-bar:nth-child(3) {
 
 }
 
-
 /* .evaluater_design .mat-elevation-z8 tr th:has(:nth-child(3)),
 .evaluater_design .mat-elevation-z8 tr td:has(:nth-child(3)),
 .evaluater_design .mat-elevation-z2 tr th:has(:nth-child(3)),
@@ -241,9 +238,8 @@ app-city-details app-ag-bar:nth-child(3) {
 }
 
 .evaluater_design .mat-elevation-z2 tr td .expand-toggle svg {
-  stroke: #141209;
+  stroke: #0C2238;
 }
-
 
 .table_responsive {
   overflow-x: auto;
@@ -261,25 +257,6 @@ min-width: max-content;
 .score_col {
   color: #77bd3e !important;
   font-weight: 700 !important;
-}
-
-.no_result_found {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 80px;
-  text-align: center;
-  color: #6c757d;
-  /* subtle grey */
-}
-
-.no_result_found h3 {
-  font-weight: 600;
-  /* semi-bold, cleaner */
-  font-size: 20px;
-  color: #495057;
-  /* darker grey for text */
-  letter-spacing: 0.5px;
 }
 
 .inactivePillar {
@@ -322,7 +299,7 @@ min-width: max-content;
 .apx_chart_new {
     flex: 1;
     border-radius: 15px;
-    background-color: #1B1810;
+    background-color: #123049;
     overflow: hidden;
     display: flex;
     box-shadow: 0px 7px 20px 0px rgb(0 0 0 / 5%);

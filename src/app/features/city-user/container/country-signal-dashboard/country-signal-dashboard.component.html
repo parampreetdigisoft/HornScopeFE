@@ -1,7 +1,7 @@
-<div class="ami-dashboard country-user-dash" *ngIf="!isLoader">
-	<div class="ami-controls">
-		<div class="ami-controls-left">
-			<div class="ami-field">
+<div class="hs-dashboard country-user-dash" *ngIf="!isLoader">
+	<div class="hs-controls">
+		<div class="hs-controls-left">
+			<div class="hs-field">
 				<label>Select Country *</label>
 				<ng-select
 					[items]="countries"
@@ -17,7 +17,7 @@
 					</ng-template>
 				</ng-select>
 			</div>
-			<div class="ami-field">
+			<div class="hs-field">
 				<label>Select Year *</label>
 				<ng-select
 					[items]="commonService.applicateYears"
@@ -30,10 +30,10 @@
 				</ng-select>
 			</div>
 		</div>
-		<div class="ami-actions">
+		<div class="hs-actions">
 			<button
 				type="button"
-				class="ami-btn ami-btn-outline"
+				class="hs-btn hs-btn-outline"
 				matTooltip="Review detailed country insights"
 				(click)="goToCountryAnalysis()">
 				Country Insights
@@ -42,7 +42,7 @@
 			<button
 				*ngIf="aiPillars.length"
 				type="button"
-				class="ami-btn ami-btn-solid"
+				class="hs-btn hs-btn-solid"
 				matTooltip="Export pillar details"
 				(click)="exportAiScores()">
 				Export
@@ -51,15 +51,15 @@
 		</div>
 	</div>
 
-	<div class="ami-grid-2">
-		<div class="ami-panel">
-			<div class="ami-panel-title">
+	<div class="hs-grid-2">
+		<div class="hs-panel">
+			<div class="hs-panel-title">
 				<span><i class="bi bi-graph-up"></i> Country Performance</span>
-				<div class="ami-legend">
-					<span><span class="ami-dot ami-dot-gold"></span> Score</span>
+				<div class="hs-legend">
+					<span><span class="hs-dot hs-dot-gold"></span> Score</span>
 				</div>
 			</div>
-			<div class="ami-chart-host" *ngIf="pillarChartOptions?.series?.length; else emptyPillar">
+			<div class="hs-chart-host" *ngIf="pillarChartOptions?.series?.length; else emptyPillar">
 				<apx-chart
 					[series]="pillarChartOptions!.series!"
 					[chart]="pillarChartOptions!.chart!"
@@ -81,11 +81,11 @@
 			</ng-template>
 		</div>
 
-		<div class="ami-panel">
-			<div class="ami-panel-title">
+		<div class="hs-panel">
+			<div class="hs-panel-title">
 				<span><i class="bi bi-pie-chart"></i> Country Overview</span>
 			</div>
-			<div class="ami-chart-host" *ngIf="radialChartOptions?.series?.length; else emptyRadial">
+			<div class="hs-chart-host" *ngIf="radialChartOptions?.series?.length; else emptyRadial">
 				<apx-chart
 					[series]="radialChartOptions!.series!"
 					[chart]="radialChartOptions!.chart!"
@@ -101,7 +101,7 @@
 		</div>
 	</div>
 
-	<div class="ami-index-section" [class.is-loading]="isKpiLoader">
+	<div class="hs-index-section" [class.is-loading]="isKpiLoader">
 		<div class="signal-dashboard-wrap embedded ami-themed">
 			<div class="dashboard_control_bar">
 				<nav class="tab_head" aria-label="Dashboard modes">
@@ -121,51 +121,51 @@
 			</div>
 		</div>
 
-		<div class="ami-banner" *ngIf="indexHero">
-			<div class="ami-banner-left">
-				<div class="ami-banner-icon"><i class="bi bi-bullseye"></i></div>
+		<div class="hs-banner" *ngIf="indexHero">
+			<div class="hs-banner-left">
+				<div class="hs-banner-icon"><i class="bi bi-bullseye"></i></div>
 				<div>
-					<div class="ami-tag">{{ indexHero.modeName }}</div>
-					<div class="ami-banner-title">{{ indexHero.countryLabel }}</div>
-					<div class="ami-banner-sub">{{ indexHero.overallLabel }}</div>
+					<div class="hs-tag">{{ indexHero.modeName }}</div>
+					<div class="hs-banner-title">{{ indexHero.countryLabel }}</div>
+					<div class="hs-banner-sub">{{ indexHero.overallLabel }}</div>
 				</div>
 			</div>
-			<div class="ami-banner-metrics">
-				<div class="ami-metric-box" *ngFor="let stat of indexHero.stats">
+			<div class="hs-banner-metrics">
+				<div class="hs-metric-box" *ngFor="let stat of indexHero.stats">
 					<div class="v">{{ stat.value }}</div>
 					<div class="k">{{ stat.label }}</div>
 				</div>
 			</div>
 		</div>
 
-		<div class="ami-score-grid" *ngIf="kpiCards?.length">
+		<div class="hs-score-grid" *ngIf="kpiCards?.length">
 			<article
-				class="ami-score-card"
+				class="hs-score-card"
 				*ngFor="let kpi of kpiCards; trackBy: trackByKpi"
 				[class.is-alert]="kpi.isAlert"
 				(click)="openKpiDetails(kpi, $event)">
-				<div class="ami-score-top">
-					<div class="ami-kpi-icon"><i class="bi" [ngClass]="kpi.icon"></i></div>
-					<div class="ami-score-header-meta">
-						<h4 class="ami-score-name">{{ kpi.name }}</h4>
+				<div class="hs-score-top">
+					<div class="hs-kpi-icon"><i class="bi" [ngClass]="kpi.icon"></i></div>
+					<div class="hs-score-header-meta">
+						<h4 class="hs-score-name">{{ kpi.name }}</h4>
 					</div>
-					<div class="ami-score-card-meta">
-						<div class="ami-score-label">{{ kpi.code }}</div>
-						<span class="ami-badge" [ngClass]="conditionClass(kpi.condition)">
+					<div class="hs-score-card-meta">
+						<div class="hs-score-label">{{ kpi.code }}</div>
+						<span class="hs-badge" [ngClass]="conditionClass(kpi.condition)">
 							{{ kpi.condition || 'Stable' }}
 						</span>
 					</div>
 				</div>
-				<div class="ami-score-value-row">
+				<div class="hs-score-value-row">
 					<strong>{{ formatScore(kpi.aiScore) }}</strong>
 					<span>/ 100</span>
 					<em>Score</em>
 				</div>
-				<div class="ami-score-track" *ngIf="kpi.aiScore != null">
+				<div class="hs-score-track" *ngIf="kpi.aiScore != null">
 					<span [style.width.%]="scoreProgress(kpi.aiScore)"></span>
 				</div>
-				<p class="ami-score-preview">{{ kpi.interpretation || kpi.description || 'No interpretation available.' }}</p>
-				<button type="button" class="ami-score-view" (click)="openKpiDetails(kpi, $event)">
+				<p class="hs-score-preview">{{ kpi.interpretation || kpi.description || 'No interpretation available.' }}</p>
+				<button type="button" class="hs-score-view" (click)="openKpiDetails(kpi, $event)">
 					<i class="bi bi-eye"></i> View details
 				</button>
 			</article>

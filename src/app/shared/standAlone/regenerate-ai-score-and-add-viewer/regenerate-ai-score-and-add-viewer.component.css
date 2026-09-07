@@ -11,12 +11,12 @@
 
 .transfer_popup .modal-content {
   border-radius: 14px;
-  border: 1px solid rgba(201, 162, 74, 0.32);
+  border: 1px solid rgba(197, 160, 90, 0.32);
   box-shadow: 0 18px 48px rgba(0, 0, 0, 0.45);
   background:
-    radial-gradient(ellipse at top right, rgba(201, 162, 74, 0.1), transparent 55%),
-    #141209;
-  color: #EFE7D6;
+    radial-gradient(ellipse at top right, rgba(197, 160, 90, 0.1), transparent 55%),
+    #0C2238;
+  color: #E8EEF4;
   animation: amiTransferIn 0.35s ease both;
 }
 
@@ -34,8 +34,8 @@
   font-size: 20px;
   font-weight: 600;
   margin-bottom: 18px;
-  color: #EFE7D6;
-  font-family: "Playfair Display", Georgia, serif;
+  color: #E8EEF4;
+  font-family: "Montserrat", Georgia, serif;
 }
 
 .btn-close {
@@ -48,19 +48,19 @@
 
 .details_list strong {
   font-weight: 600;
-  color: #E7C878;
+  color: #D4B86A;
 }
 
 .details_list span {
   margin-left: 6px;
-  color: #C9C7BF;
+  color: #B8C5D0;
 }
 
 h5 {
   font-size: 15px;
   font-weight: 600;
   margin-bottom: 12px;
-  color: #EFE7D6;
+  color: #E8EEF4;
 }
 
 .details_list {
@@ -70,14 +70,14 @@ h5 {
   padding: 14px 16px;
   margin-bottom: 10px;
   border-radius: 10px;
-  background: #1B1810;
-  border: 1px solid #332C1D;
+  background: #123049;
+  border: 1px solid #1E3D5C;
   transition: all 0.25s ease;
 }
 
 .details_list:hover {
-  background: rgba(201, 162, 74, 0.1);
-  border-color: rgba(201, 162, 74, 0.4);
+  background: rgba(197, 160, 90, 0.1);
+  border-color: rgba(197, 160, 90, 0.4);
 }
 
 .details_list.ai-option-row {
@@ -93,7 +93,7 @@ h5 {
 }
 
 .details_list.ai-option-row .ai-option-time small {
-  color: #9C9484;
+  color: #8FA3B5;
   white-space: nowrap;
 }
 
@@ -117,7 +117,7 @@ h5 {
 }
 
 .form-check-input:focus {
-  box-shadow: 0 0 0 2px rgba(201, 162, 74, 0.28);
+  box-shadow: 0 0 0 2px rgba(197, 160, 90, 0.28);
 }
 
 .input_field {
@@ -129,7 +129,7 @@ h5 {
   font-weight: 600;
   margin-bottom: 6px;
   display: block;
-  color: #E7C878;
+  color: #D4B86A;
 }
 
 .analyst_multi_select {
@@ -139,7 +139,7 @@ h5 {
 .spinner-border {
   width: 16px;
   height: 16px;
-  color: #C9A24A;
+  color: #C5A05A;
 }
 
 .form-switch input {
@@ -147,6 +147,6 @@ h5 {
 }
 
 .form-switch input:checked {
-  background-color: #C9A24A !important;
-  border-color: #C9A24A;
+  background-color: #C5A05A !important;
+  border-color: #C5A05A;
 }

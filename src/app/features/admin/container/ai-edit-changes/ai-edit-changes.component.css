@@ -49,7 +49,7 @@
 .value-cell.new { color: #166534; }
 
 .changed-row td {
-  background: #141209beb;
+  background: #0C2238beb;
 }
 
 .trail-row td {
@@ -83,7 +83,7 @@
 .review-box {
   margin-top: 20px;
   padding: 16px;
-  border: 1px solid #332C1D;
+  border: 1px solid #1E3D5C;
   background: #f8fafc;
 }
 

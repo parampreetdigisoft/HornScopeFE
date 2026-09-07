@@ -218,7 +218,7 @@ export class ComparisonComponent implements OnInit, OnDestroy {
         height: 400,
         type: "line",
         background: 'transparent',
-        foreColor: '#9C9484',
+        foreColor: '#8FA3B5',
         zoom: {
           enabled: false,
           type: 'x'
@@ -262,7 +262,7 @@ export class ComparisonComponent implements OnInit, OnDestroy {
         horizontalAlign: 'center',
         fontSize: '13px',
         fontWeight: 500,
-        labels: { colors: '#EFE7D6' },
+        labels: { colors: '#E8EEF4' },
         markers: {
           width: 20,
           height: 3,
@@ -280,10 +280,10 @@ export class ComparisonComponent implements OnInit, OnDestroy {
         }
       },
       grid: {
-        borderColor: '#241F14',
+        borderColor: '#16324A',
         strokeDashArray: 3,
         row: {
-          colors: ['rgba(201,162,74,0.06)', 'transparent'],
+          colors: ['rgba(197,160,90,0.06)', 'transparent'],
           opacity: 0.5
         },
         xaxis: {
@@ -312,7 +312,7 @@ export class ComparisonComponent implements OnInit, OnDestroy {
           style: {
             fontSize: '11px',
             fontWeight: 500,
-            colors: '#9C9484'
+            colors: '#8FA3B5'
           },
           trim: false
         },
@@ -321,11 +321,11 @@ export class ComparisonComponent implements OnInit, OnDestroy {
         },
         axisBorder: {
           show: true,
-          color: '#8B887E'
+          color: '#7A8A9A'
         },
         axisTicks: {
           show: true,
-          color: '#8B887E'
+          color: '#7A8A9A'
         }
       },
       yaxis: {
@@ -339,7 +339,7 @@ export class ComparisonComponent implements OnInit, OnDestroy {
           style: {
             fontSize: '12px',
             fontWeight: 500,
-            colors: ['#9C9484']
+            colors: ['#8FA3B5']
           }
         },
         title: {
@@ -347,12 +347,12 @@ export class ComparisonComponent implements OnInit, OnDestroy {
           style: {
             fontSize: '14px',
             fontWeight: 600,
-            color: '#EFE7D6'
+            color: '#E8EEF4'
           }
         },
         axisBorder: {
           show: true,
-          color: '#8B887E'
+          color: '#7A8A9A'
         }
       },
       tooltip: {
@@ -363,8 +363,8 @@ export class ComparisonComponent implements OnInit, OnDestroy {
           const layerName = kpiMap.get(layerCode) ?? "";
 
           let tooltipHtml = `
-          <div style="padding: 12px; background: #1B1810; border: 1px solid #332C1D; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.45); min-width: 250px;">
-            <div style="font-weight: 600; margin-bottom: 10px; color: #EFE7D6; font-size: 13px; border-bottom: 2px solid #332C1D; padding-bottom: 6px;">
+          <div style="padding: 12px; background: #123049; border: 1px solid #1E3D5C; border-radius: 8px; box-shadow: 0 12px 32px rgba(0,0,0,0.45); min-width: 250px;">
+            <div style="font-weight: 600; margin-bottom: 10px; color: #E8EEF4; font-size: 13px; border-bottom: 2px solid #1E3D5C; padding-bottom: 6px;">
               ${layerCode} - ${layerName}
             </div>
         `;
@@ -380,13 +380,13 @@ export class ComparisonComponent implements OnInit, OnDestroy {
             const color = colorPalette[idx % colorPalette.length];
 
             tooltipHtml += `
-              <div style="margin: 8px 0; padding: 8px; background: linear-gradient(135deg, #241F14 0%, #1B1810 100%); border-radius: 6px; border-left: 3px solid ${color};">
+              <div style="margin: 8px 0; padding: 8px; background: linear-gradient(135deg, #16324A 0%, #123049 100%); border-radius: 6px; border-left: 3px solid ${color};">
                 <div style="font-weight: 600; color: ${color}; margin-bottom: 6px; font-size: 12px;">
                   ${country.name}
                 </div>
                 <div style="display: flex; justify-content: space-between; font-size: 11px; margin-bottom: 3px;">
-                  <span style="color: #9C9484;">📊 Score:</span>
-                  <span style="font-weight: 600; color: #EFE7D6;">${aiValue.toFixed(2)}</span>
+                  <span style="color: #8FA3B5;">📊 Score:</span>
+                  <span style="font-weight: 600; color: #E8EEF4;">${aiValue.toFixed(2)}</span>
                 </div>
             `;
             tooltipHtml += `</div>`;

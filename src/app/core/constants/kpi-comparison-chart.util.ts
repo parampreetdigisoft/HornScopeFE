@@ -11,7 +11,7 @@ import {
   ApexYAxis,
 } from 'ng-apexcharts';
 import { ChartSeriesDto } from 'src/app/core/models/CompareCountryResponseDto';
-import { AMI_CHART } from './ahi-chart-theme';
+import { HS_CHART } from './hs-chart-theme';
 
 export type KpiComparisonChartOptions = {
   series: ApexAxisChartSeries;
@@ -115,7 +115,7 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
       height: 440,
       type: 'line',
       background: 'transparent',
-      foreColor: AMI_CHART.textMuted,
+      foreColor: HS_CHART.textMuted,
       fontFamily: 'Poppins, sans-serif',
       zoom: { enabled: false, type: 'x' },
       toolbar: {
@@ -144,7 +144,7 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
     markers: {
       size: 5,
       strokeWidth: 2,
-      strokeColors: AMI_CHART.deep,
+      strokeColors: HS_CHART.deep,
       hover: {
         size: 7,
         sizeOffset: 3,
@@ -156,7 +156,7 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
       horizontalAlign: 'center',
       fontSize: '13px',
       fontWeight: 500,
-      labels: { colors: AMI_CHART.text },
+      labels: { colors: HS_CHART.text },
       markers: {
         width: 20,
         height: 3,
@@ -170,10 +170,10 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
       onItemHover: { highlightDataSeries: true },
     },
     grid: {
-      borderColor: AMI_CHART.grid,
+      borderColor: HS_CHART.grid,
       strokeDashArray: 3,
       row: {
-        colors: ['rgba(201,162,74,0.06)', 'transparent'],
+        colors: ['rgba(197,160,90,0.06)', 'transparent'],
         opacity: 0.5,
       },
       xaxis: { lines: { show: false } },
@@ -189,13 +189,13 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         style: {
           fontSize: '11px',
           fontWeight: 500,
-          colors: AMI_CHART.textMuted,
+          colors: HS_CHART.textMuted,
         },
         trim: false,
       },
       tooltip: { enabled: false },
-      axisBorder: { show: true, color: AMI_CHART.border },
-      axisTicks: { show: true, color: AMI_CHART.border },
+      axisBorder: { show: true, color: HS_CHART.border },
+      axisTicks: { show: true, color: HS_CHART.border },
     },
     yaxis: {
       min: yMin,
@@ -208,7 +208,7 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         style: {
           fontSize: '12px',
           fontWeight: 500,
-          colors: [AMI_CHART.textMuted],
+          colors: [HS_CHART.textMuted],
         },
       },
       title: {
@@ -216,10 +216,10 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         style: {
           fontSize: '13px',
           fontWeight: 600,
-          color: AMI_CHART.text,
+          color: HS_CHART.text,
         },
       },
-      axisBorder: { show: true, color: AMI_CHART.border },
+      axisBorder: { show: true, color: HS_CHART.border },
     },
     tooltip: {
       shared: true,
@@ -230,8 +230,8 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         const layerName = kpiMap.get(layerCode) ?? '';
 
         let tooltipHtml = `
-          <div style="padding:14px 16px;min-width:260px;background:linear-gradient(160deg,#1B1810 0%,#141209 100%);border-radius:12px;box-shadow:${AMI_CHART.tooltipShadow};border:1px solid #332C1D;font-family:Poppins,sans-serif;color:#EFE7D6;">
-            <div style="font-weight:700;margin-bottom:10px;color:#EFE7D6;font-size:13px;border-bottom:1px solid #332C1D;padding-bottom:8px;">
+          <div style="padding:14px 16px;min-width:260px;background:linear-gradient(160deg,#123049 0%,#0C2238 100%);border-radius:12px;box-shadow:${HS_CHART.tooltipShadow};border:1px solid #1E3D5C;font-family:Poppins,sans-serif;color:#E8EEF4;">
+            <div style="font-weight:700;margin-bottom:10px;color:#E8EEF4;font-size:13px;border-bottom:1px solid #1E3D5C;padding-bottom:8px;">
               ${layerCode}${layerName ? ' — ' + layerName : ''}
             </div>
         `;
@@ -252,20 +252,20 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
                 ${country.name}
               </div>
               <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;">
-                <span style="color:#9C9484;">Evaluation</span>
-                <span style="font-weight:700;color:#EFE7D6;">${evalValue.toFixed(2)}</span>
+                <span style="color:#8FA3B5;">Evaluation</span>
+                <span style="font-weight:700;color:#E8EEF4;">${evalValue.toFixed(2)}</span>
               </div>
           `;
 
           if (isAiViewEnabled && aiValue != null) {
             tooltipHtml += `
               <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;">
-                <span style="color:#9C9484;">AI</span>
-                <span style="font-weight:700;color:${AMI_CHART.primaryMid};">${Number(aiValue).toFixed(2)}</span>
+                <span style="color:#8FA3B5;">AI</span>
+                <span style="font-weight:700;color:${HS_CHART.primaryMid};">${Number(aiValue).toFixed(2)}</span>
               </div>
-              <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid #332C1D;">
-                <span style="color:#9C9484;">Difference</span>
-                <span style="font-weight:700;color:${Math.abs(difference) > 10 ? '#E08A6A' : AMI_CHART.primaryMid};">
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid #1E3D5C;">
+                <span style="color:#8FA3B5;">Difference</span>
+                <span style="font-weight:700;color:${Math.abs(difference) > 10 ? '#E08A6A' : HS_CHART.primaryMid};">
                   ${difference > 0 ? '+' : ''}${difference.toFixed(2)}
                 </span>
               </div>

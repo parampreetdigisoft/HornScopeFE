@@ -6,7 +6,7 @@ import {
   ApexStates,
   ApexTooltip,
 } from 'ng-apexcharts';
-import { AMI_CHART } from './ahi-chart-theme';
+import { HS_CHART } from './hs-chart-theme';
 
 export type CountryScoreRadialOptions = {
   series: ApexNonAxisChartSeries;
@@ -40,12 +40,12 @@ export function buildCountryScoreRadialOptions(scores: {
 
   return {
     series: [ai, evaluator, discrepancy, avg],
-    colors: [...AMI_CHART.radialBarShort],
+    colors: [...HS_CHART.radialBarShort],
     chart: {
       height: 380,
       type: 'radialBar',
       background: 'transparent',
-      foreColor: AMI_CHART.text,
+      foreColor: HS_CHART.text,
       toolbar: { show: false },
       selection: { enabled: false },
       events: {
@@ -75,24 +75,24 @@ export function buildCountryScoreRadialOptions(scores: {
         hollow: {
           margin: 0,
           size: '40%',
-          background: AMI_CHART.hollow,
+          background: HS_CHART.hollow,
           image: undefined,
           position: 'front',
         },
         track: {
-          background: AMI_CHART.grid,
+          background: HS_CHART.grid,
         },
         dataLabels: {
           show: true,
           name: {
             show: true,
             offsetY: -10,
-            color: AMI_CHART.textMuted,
+            color: HS_CHART.textMuted,
           },
           value: {
             show: true,
             offsetY: 10,
-            color: AMI_CHART.text,
+            color: HS_CHART.text,
             formatter: (value: number) => {
               const parsed = Number(value);
               return Number.isNaN(parsed) ? '0.00' : parsed.toFixed(2);
@@ -101,7 +101,7 @@ export function buildCountryScoreRadialOptions(scores: {
           total: {
             show: true,
             label: 'Avg Score',
-            color: AMI_CHART.primaryMid,
+            color: HS_CHART.primaryMid,
             formatter: () => avg.toFixed(2),
           },
         },

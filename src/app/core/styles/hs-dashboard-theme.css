@@ -1,33 +1,10 @@
 /* ============================================================
-   AMI Dashboard Theme — gold / bronze command console
-   Tokens from country_index_ami_theme.html
-   Import from role dashboard + signal dashboard components
+   Hornscope Dashboard Theme — navy + gold command console
+   Color tokens live in hornscope-theme.css (:root)
    ============================================================ */
 
-:root {
-  --ami-bg: #0a0906;
-  --ami-panel: #1a1610;
-  --ami-panel-2: #231f1a;
-  --ami-border: #3a3224;
-  --ami-border-soft: #2a2418;
-  --ami-gold: #c9a24a;
-  --ami-gold-bright: #e7c878;
-  --ami-bronze: #8a5a2b;
-  --ami-silver: #c9c7bf;
-  --ami-silver-dim: #8b887e;
-  --ami-cream: #efe7d6;
-  --ami-muted: #9c9484;
-  --ami-danger: #b5502e;
-  --ami-success: #b7a25a;
-  --ami-radius: 10px;
-  --ami-shadow: 0 12px 36px rgba(0, 0, 0, 0.35);
-  --ami-font: "Inter", "Poppins", system-ui, sans-serif;
-  --ami-font-display: "Playfair Display", Georgia, serif;
-  --ami-font-mono: "JetBrains Mono", "Geist Mono", Consolas, monospace;
-}
-
 /* ── Shell ──────────────────────────────────────────────────── */
-.ami-dashboard {
+.hs-dashboard {
   display: flex;
   flex-direction: column;
   gap: 16px;
@@ -36,17 +13,17 @@
   color: var(--ami-cream);
   font-family: var(--ami-font);
   background:
-    radial-gradient(ellipse at top right, rgba(201, 162, 74, 0.08), transparent 55%),
-    radial-gradient(ellipse at bottom left, rgba(138, 90, 43, 0.06), transparent 50%),
-    #0A0906;
+    radial-gradient(ellipse at top right, rgba(197, 160, 90, 0.12), transparent 55%),
+    radial-gradient(ellipse at bottom left, rgba(0, 33, 71, 0.55), transparent 50%),
+    #061525;
   border-radius: 14px;
   animation: ami-fade-in 0.45s ease both;
 }
 
 /* Dark content area when a dashboard shell is present */
-.inner_content_area:has(.ami-dashboard),
-.content_area:has(.ami-dashboard) {
-  background: #0A0906;
+.inner_content_area:has(.hs-dashboard),
+.content_area:has(.hs-dashboard) {
+  background: #061525;
   overflow: visible;
 }
 
@@ -77,8 +54,8 @@
   gap: 14px;
 }
 
-.ami-kpi-card {
-  background: var(--ami-panel);
+.hs-kpi-card {
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   padding: 16px 18px;
@@ -92,23 +69,23 @@
   cursor: default;
 }
 
-.ami-kpi-card:nth-child(1) { animation-delay: 0.05s; }
-.ami-kpi-card:nth-child(2) { animation-delay: 0.1s; }
-.ami-kpi-card:nth-child(3) { animation-delay: 0.15s; }
-.ami-kpi-card:nth-child(4) { animation-delay: 0.2s; }
+.hs-kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.hs-kpi-card:nth-child(2) { animation-delay: 0.1s; }
+.hs-kpi-card:nth-child(3) { animation-delay: 0.15s; }
+.hs-kpi-card:nth-child(4) { animation-delay: 0.2s; }
 
-.ami-kpi-card:hover {
+.hs-kpi-card:hover {
   transform: translateY(-3px);
-  border-color: rgba(201, 162, 74, 0.45);
-  box-shadow: 0 10px 28px rgba(201, 162, 74, 0.12);
+  border-color: rgba(197, 160, 90, 0.45);
+  box-shadow: 0 10px 28px rgba(197, 160, 90, 0.12);
 }
 
-.ami-kpi-icon {
+.hs-kpi-icon {
   width: 44px;
   height: 44px;
   border-radius: 10px;
-  background: rgba(201, 162, 74, 0.1);
-  border: 1px solid rgba(201, 162, 74, 0.28);
+  background: rgba(197, 160, 90, 0.1);
+  border: 1px solid rgba(197, 160, 90, 0.28);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -117,24 +94,24 @@
   transition: transform 0.22s ease, background 0.22s ease;
 }
 
-.ami-kpi-card:hover .ami-kpi-icon {
+.hs-kpi-card:hover .hs-kpi-icon {
   transform: scale(1.06);
-  background: rgba(201, 162, 74, 0.18);
+  background: rgba(197, 160, 90, 0.18);
 }
 
-.ami-kpi-card > div:not(.ami-kpi-icon) {
+.hs-kpi-card > div:not(.hs-kpi-icon) {
   flex: 1;
   min-width: 0;
   text-align: left;
 }
 
-.ami-kpi-label {
+.hs-kpi-label {
   font-size: 13px;
   color: var(--ami-muted);
   letter-spacing: 0.02em;
 }
 
-.ami-kpi-value {
+.hs-kpi-value {
   font-family: var(--ami-font-mono);
   font-size: 28px;
   font-weight: 600;
@@ -143,39 +120,39 @@
   font-variant-numeric: tabular-nums;
 }
 
-.ami-kpi-sub {
+.hs-kpi-sub {
   font-size: 12px;
   color: var(--ami-silver-dim);
   margin-top: 2px;
 }
 
 /* ── Controls row ───────────────────────────────────────────── */
-.ami-controls {
+.hs-controls {
   display: flex;
   align-items: flex-end;
   justify-content: space-between;
   flex-wrap: wrap;
   gap: 12px;
-  background: var(--ami-panel);
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   padding: 16px 18px;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.ami-controls:hover {
-  border-color: rgba(201, 162, 74, 0.28);
+.hs-controls:hover {
+  border-color: rgba(197, 160, 90, 0.28);
   box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
 }
 
-.ami-controls-left {
+.hs-controls-left {
   display: flex;
   flex-wrap: wrap;
   gap: 14px;
   align-items: flex-end;
 }
 
-.ami-field label {
+.hs-field label {
   display: block;
   font-size: 11.5px;
   color: var(--ami-muted);
@@ -185,11 +162,11 @@
   font-weight: 600;
 }
 
-.ami-field .form-control,
-.ami-field .analyst_multi_select .ng-select-container,
-.ami-field select.form-control {
+.hs-field .form-control,
+.hs-field .analyst_multi_select .ng-select-container,
+.hs-field select.form-control {
   min-width: 200px;
-  background: var(--ami-panel-2) !important;
+  background: var(--hs-panel-2) !important;
   border: 1px solid var(--ami-border) !important;
   border-radius: 7px !important;
   color: var(--ami-cream) !important;
@@ -197,71 +174,71 @@
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.ami-field .analyst_multi_select .ng-select-container .ng-value,
-.ami-field .analyst_multi_select .ng-placeholder,
-.ami-field .analyst_multi_select .ng-input > input {
+.hs-field .analyst_multi_select .ng-select-container .ng-value,
+.hs-field .analyst_multi_select .ng-placeholder,
+.hs-field .analyst_multi_select .ng-input > input {
   color: var(--ami-cream) !important;
 }
 
-.ami-field .form-control:focus,
-.ami-field .analyst_multi_select.ng-select-focused .ng-select-container {
+.hs-field .form-control:focus,
+.hs-field .analyst_multi_select.ng-select-focused .ng-select-container {
   border-color: var(--ami-gold) !important;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.18) !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.18) !important;
 }
 
 /* ── Dark ng-select / native select (match dashboard) ───────── */
-.ami-dashboard .ami-field .analyst_multi_select,
-.ami-dashboard .analyst_multi_select,
+.hs-dashboard .hs-field .analyst_multi_select,
+.hs-dashboard .analyst_multi_select,
 .signal-dashboard-wrap .analyst_multi_select {
   background: transparent !important;
   font-size: 14px;
 }
 
-.ami-dashboard .ng-select .ng-select-container,
-.ami-dashboard .ami-field .analyst_multi_select .ng-select-container,
+.hs-dashboard .ng-select .ng-select-container,
+.hs-dashboard .hs-field .analyst_multi_select .ng-select-container,
 .signal-dashboard-wrap .ng-select .ng-select-container,
 .signal-dashboard-wrap .analyst_multi_select .ng-select-container {
-  background: #231f1a !important;
-  border: 1px solid #3a3224 !important;
+  background: #16324a !important;
+  border: 1px solid #1e3d5c !important;
   border-radius: 7px !important;
-  color: #efe7d6 !important;
+  color: #e8eef4 !important;
   box-shadow: none !important;
   min-height: 40px !important;
 }
 
-.ami-dashboard .ng-select .ng-select-container .ng-value-container .ng-value,
-.ami-dashboard .ng-select .ng-select-container .ng-value-container .ng-placeholder,
-.ami-dashboard .ng-select .ng-select-container .ng-value-container .ng-input > input,
+.hs-dashboard .ng-select .ng-select-container .ng-value-container .ng-value,
+.hs-dashboard .ng-select .ng-select-container .ng-value-container .ng-placeholder,
+.hs-dashboard .ng-select .ng-select-container .ng-value-container .ng-input > input,
 .signal-dashboard-wrap .ng-select .ng-select-container .ng-value-container .ng-value,
 .signal-dashboard-wrap .ng-select .ng-select-container .ng-value-container .ng-placeholder,
 .signal-dashboard-wrap .ng-select .ng-select-container .ng-value-container .ng-input > input {
-  color: #efe7d6 !important;
+  color: #e8eef4 !important;
   background: transparent !important;
 }
 
-.ami-dashboard .ng-select .ng-arrow-wrapper .ng-arrow,
+.hs-dashboard .ng-select .ng-arrow-wrapper .ng-arrow,
 .signal-dashboard-wrap .ng-select .ng-arrow-wrapper .ng-arrow {
-  border-color: #c9a24a transparent transparent !important;
+  border-color: #c5a05a transparent transparent !important;
 }
 
-.ami-dashboard .ng-select .ng-clear-wrapper,
+.hs-dashboard .ng-select .ng-clear-wrapper,
 .signal-dashboard-wrap .ng-select .ng-clear-wrapper {
-  color: #9c9484 !important;
+  color: #8fa3b5 !important;
 }
 
-.ami-dashboard .ng-select.ng-select-focused .ng-select-container,
-.ami-dashboard .ng-select.ng-select-opened .ng-select-container,
+.hs-dashboard .ng-select.ng-select-focused .ng-select-container,
+.hs-dashboard .ng-select.ng-select-opened .ng-select-container,
 .signal-dashboard-wrap .ng-select.ng-select-focused .ng-select-container,
 .signal-dashboard-wrap .ng-select.ng-select-opened .ng-select-container {
-  border-color: #c9a24a !important;
-  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.18) !important;
+  border-color: #c5a05a !important;
+  box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.18) !important;
 }
 
 /* Keep dropdowns inside the field (not body) so zoom cannot desync overlay coords */
-.ami-dashboard,
-.ami-controls,
-.ami-controls-left,
-.ami-field,
+.hs-dashboard,
+.hs-controls,
+.hs-controls-left,
+.hs-field,
 .signal-dashboard-wrap,
 .dashboard_control_bar,
 .filters_panel,
@@ -270,18 +247,18 @@
   overflow: visible;
 }
 
-.ami-dashboard .ng-select,
+.hs-dashboard .ng-select,
 .signal-dashboard-wrap .ng-select {
   position: relative;
   overflow: visible !important;
 }
 
-.ami-dashboard .ng-select.ng-select-opened,
+.hs-dashboard .ng-select.ng-select-opened,
 .signal-dashboard-wrap .ng-select.ng-select-opened {
   z-index: 40;
 }
 
-.ami-dashboard .ng-dropdown-panel,
+.hs-dashboard .ng-dropdown-panel,
 .signal-dashboard-wrap .ng-dropdown-panel {
   position: absolute !important;
   left: 0 !important;
@@ -291,109 +268,109 @@
   z-index: 50;
 }
 
-.ami-dashboard .ng-dropdown-panel.ng-select-bottom,
+.hs-dashboard .ng-dropdown-panel.ng-select-bottom,
 .signal-dashboard-wrap .ng-dropdown-panel.ng-select-bottom {
   top: calc(100% + 4px) !important;
   bottom: auto !important;
 }
 
-.ami-dashboard .ng-dropdown-panel.ng-select-top,
+.hs-dashboard .ng-dropdown-panel.ng-select-top,
 .signal-dashboard-wrap .ng-dropdown-panel.ng-select-top {
   bottom: calc(100% + 4px) !important;
   top: auto !important;
 }
 
 /* Dropdown panel + list */
-.ami-dashboard .ng-dropdown-panel,
+.hs-dashboard .ng-dropdown-panel,
 .signal-dashboard-wrap .ng-dropdown-panel,
 .ng-dropdown-panel.ami-dark-dd,
 body > .ng-dropdown-panel {
-  background: #1a1610 !important;
-  border: 1px solid #c9a24a !important;
+  background: #0f2a40 !important;
+  border: 1px solid #c5a05a !important;
   border-radius: 8px !important;
   box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
-  color: #efe7d6 !important;
+  color: #e8eef4 !important;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
+.hs-dashboard .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
 .ng-dropdown-panel.ami-dark-dd .ng-option,
 body > .ng-dropdown-panel .ng-option {
-  background: #1a1610 !important;
-  color: #efe7d6 !important;
+  background: #0f2a40 !important;
+  color: #e8eef4 !important;
   padding: 10px 14px !important;
-  border-bottom: 1px solid #241f14;
+  border-bottom: 1px solid #16324a;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-dropdown-panel-items .ng-option:last-child,
+.hs-dashboard .ng-dropdown-panel .ng-dropdown-panel-items .ng-option:last-child,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-dropdown-panel-items .ng-option:last-child,
 body > .ng-dropdown-panel .ng-option:last-child {
   border-bottom: none;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-option:hover,
+.hs-dashboard .ng-dropdown-panel .ng-option:hover,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option:hover,
 .ng-dropdown-panel.ami-dark-dd .ng-option:hover,
 body > .ng-dropdown-panel .ng-option:hover {
-  background: rgba(201, 162, 74, 0.16) !important;
-  color: #e7c878 !important;
+  background: rgba(197, 160, 90, 0.16) !important;
+  color: #d4b86a !important;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-option.ng-option-selected,
-.ami-dashboard .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked,
+.hs-dashboard .ng-dropdown-panel .ng-option.ng-option-selected,
+.hs-dashboard .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-selected,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked,
 .ng-dropdown-panel.ami-dark-dd .ng-option.ng-option-selected,
 body > .ng-dropdown-panel .ng-option.ng-option-selected,
 body > .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
   background: transparent !important;
-  color: #e7c878 !important;
+  color: #d4b86a !important;
   font-weight: 600;
-  border: 1px solid #c9a24a !important;
+  border: 1px solid #c5a05a !important;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-option.ng-option-disabled,
+.hs-dashboard .ng-dropdown-panel .ng-option.ng-option-disabled,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-disabled,
 body > .ng-dropdown-panel .ng-option.ng-option-disabled {
-  color: #8b887e !important;
-  background: #141209 !important;
+  color: #7a8a9a !important;
+  background: #0C2238 !important;
 }
 
-.ami-dashboard .ng-dropdown-panel .ng-optgroup-label,
+.hs-dashboard .ng-dropdown-panel .ng-optgroup-label,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-optgroup-label,
 body > .ng-dropdown-panel .ng-optgroup-label {
-  background: #141209 !important;
-  color: #9c9484 !important;
+  background: #0C2238 !important;
+  color: #8fa3b5 !important;
 }
 
 /* Native year <select> */
-.ami-dashboard .ami-field select.form-control,
-.ami-dashboard select.form-control {
-  background: #231f1a !important;
-  color: #efe7d6 !important;
-  border: 1px solid #3a3224 !important;
+.hs-dashboard .hs-field select.form-control,
+.hs-dashboard select.form-control {
+  background: #16324a !important;
+  color: #e8eef4 !important;
+  border: 1px solid #1e3d5c !important;
   color-scheme: dark;
 }
 
-.ami-dashboard .ami-field select.form-control option,
-.ami-dashboard select.form-control option {
-  background: #1a1610 !important;
-  color: #efe7d6 !important;
+.hs-dashboard .hs-field select.form-control option,
+.hs-dashboard select.form-control option {
+  background: #0f2a40 !important;
+  color: #e8eef4 !important;
 }
 
-.ami-dashboard .ami-field select.form-control option:checked,
-.ami-dashboard .ami-field select.form-control option:hover {
-  background: #332c1d !important;
-  color: #e7c878 !important;
+.hs-dashboard .hs-field select.form-control option:checked,
+.hs-dashboard .hs-field select.form-control option:hover {
+  background: #1e3d5c !important;
+  color: #d4b86a !important;
 }
 
-.ami-actions {
+.hs-actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 }
 
-.ami-btn {
+.hs-btn {
   border-radius: 7px;
   padding: 9px 16px;
   font-size: 12.5px;
@@ -406,40 +383,40 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   transition: transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
 }
 
-.ami-btn:hover {
+.hs-btn:hover {
   transform: translateY(-2px);
 }
 
-.ami-btn-outline {
+.hs-btn-outline {
   border-color: var(--ami-gold);
   color: var(--ami-gold-bright);
-  background: rgba(201, 162, 74, 0.06);
+  background: rgba(197, 160, 90, 0.06);
 }
 
-.ami-btn-outline:hover {
-  background: rgba(201, 162, 74, 0.14);
-  box-shadow: 0 6px 16px rgba(201, 162, 74, 0.2);
+.hs-btn-outline:hover {
+  background: rgba(197, 160, 90, 0.14);
+  box-shadow: 0 6px 16px rgba(197, 160, 90, 0.2);
 }
 
-.ami-btn-solid {
+.hs-btn-solid {
   background: linear-gradient(135deg, var(--ami-gold-bright), var(--ami-bronze));
-  color: #0a0906;
+  color: #061525;
   border: none;
 }
 
-.ami-btn-solid:hover {
-  box-shadow: 0 8px 20px rgba(201, 162, 74, 0.35);
+.hs-btn-solid:hover {
+  box-shadow: 0 8px 20px rgba(197, 160, 90, 0.35);
 }
 
 /* ── Panels / grid ──────────────────────────────────────────── */
-.ami-grid-2 {
+.hs-grid-2 {
   display: grid;
   grid-template-columns: minmax(0, 1.65fr) minmax(0, 1fr);
   gap: 16px;
 }
 
-.ami-panel {
-  background: var(--ami-panel);
+.hs-panel {
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   padding: 18px 20px;
@@ -447,12 +424,12 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   animation: ami-card-in 0.55s ease both;
 }
 
-.ami-panel:hover {
-  border-color: rgba(201, 162, 74, 0.35);
+.hs-panel:hover {
+  border-color: rgba(197, 160, 90, 0.35);
   box-shadow: var(--ami-shadow);
 }
 
-.ami-panel-title {
+.hs-panel-title {
   font-size: 14px;
   font-weight: 600;
   color: var(--ami-cream);
@@ -464,40 +441,40 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   flex-wrap: wrap;
 }
 
-.ami-panel-title i {
+.hs-panel-title i {
   color: var(--ami-gold);
   margin-right: 6px;
 }
 
-.ami-legend {
+.hs-legend {
   display: flex;
   gap: 16px;
   font-size: 11.5px;
   color: var(--ami-muted);
 }
 
-.ami-legend span {
+.hs-legend span {
   display: inline-flex;
   align-items: center;
   gap: 6px;
 }
 
-.ami-dot {
+.hs-dot {
   width: 8px;
   height: 8px;
   border-radius: 50%;
 }
 
-.ami-dot-silver { background: var(--ami-silver); }
-.ami-dot-gold { background: var(--ami-gold-bright); }
+.hs-dot-silver { background: var(--ami-silver); }
+.hs-dot-gold { background: var(--ami-gold-bright); }
 
-.ami-chart-host {
+.hs-chart-host {
   width: 100%;
   min-height: 0;
   height: auto;
 }
 
-.ami-overview-stats {
+.hs-overview-stats {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 8px 16px;
@@ -506,69 +483,69 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   color: var(--ami-muted);
 }
 
-.ami-overview-stats span {
+.hs-overview-stats span {
   display: inline-flex;
   align-items: center;
   gap: 8px;
 }
 
-.ami-ov-dot {
+.hs-ov-dot {
   width: 9px;
   height: 9px;
   border-radius: 50%;
   flex-shrink: 0;
 }
 
-.ami-ov-dot-1 { background: #E7C878; }
-.ami-ov-dot-2 { background: #C9C7BF; }
-.ami-ov-dot-3 { background: #C9A24A; }
-.ami-ov-dot-4 { background: #8A5A2B; }
-.ami-ov-dot-5 { background: #8B887E; }
-.ami-ov-dot-6 { background: #B5502E; }
+.hs-ov-dot-1 { background: #D4B86A; }
+.hs-ov-dot-2 { background: #B8C5D0; }
+.hs-ov-dot-3 { background: #C5A05A; }
+.hs-ov-dot-4 { background: #8B6B32; }
+.hs-ov-dot-5 { background: #7A8A9A; }
+.hs-ov-dot-6 { background: #B5502E; }
 
-.ami-overview-stats b {
+.hs-overview-stats b {
   color: var(--ami-cream);
   font-weight: 600;
 }
 
-.ami-overview-stats .g {
+.hs-overview-stats .g {
   color: var(--ami-gold-bright);
 }
 
 /* ApexCharts on dark panels */
-.ami-dashboard .apexcharts-canvas,
-.ami-dashboard .apexcharts-svg {
+.hs-dashboard .apexcharts-canvas,
+.hs-dashboard .apexcharts-svg {
   background: transparent !important;
 }
 
-.ami-dashboard .apexcharts-legend-text,
-.ami-dashboard .apexcharts-text tspan,
-.ami-dashboard .apexcharts-yaxis-title-text,
-.ami-dashboard .apexcharts-xaxis-label,
-.ami-dashboard .apexcharts-yaxis-label {
+.hs-dashboard .apexcharts-legend-text,
+.hs-dashboard .apexcharts-text tspan,
+.hs-dashboard .apexcharts-yaxis-title-text,
+.hs-dashboard .apexcharts-xaxis-label,
+.hs-dashboard .apexcharts-yaxis-label {
   fill: var(--ami-muted) !important;
   color: var(--ami-muted) !important;
 }
 
 /* ── Index tabs (ROSEW section) ─────────────────────────────── */
-.ami-index-section {
+.hs-index-section {
   display: flex;
   flex-direction: column;
   gap: 14px;
   margin-top: 4px;
 }
 
-.ami-tab-head {
+.hs-tab-head {
   display: flex;
   flex-wrap: wrap;
   gap: 8px;
-  background: var(--ami-panel);
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   padding: 10px;
 }
 
-.ami-tab-btn {
+.hs-tab-btn {
   flex: 1 1 180px;
   display: inline-flex;
   align-items: center;
@@ -585,25 +562,25 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   transition: all 0.2s ease;
 }
 
-.ami-tab-btn:hover {
-  background: var(--ami-panel-2);
+.hs-tab-btn:hover {
+  background: var(--hs-panel-2);
   color: var(--ami-cream);
 }
 
-.ami-tab-btn.active {
-  background: linear-gradient(90deg, rgba(201, 162, 74, 0.18), rgba(201, 162, 74, 0.04));
+.hs-tab-btn.active {
+  background: linear-gradient(90deg, rgba(197, 160, 90, 0.18), rgba(197, 160, 90, 0.04));
   color: var(--ami-gold-bright);
-  border-color: rgba(201, 162, 74, 0.35);
-  box-shadow: inset 0 0 0 1px rgba(201, 162, 74, 0.12);
+  border-color: rgba(197, 160, 90, 0.35);
+  box-shadow: inset 0 0 0 1px rgba(197, 160, 90, 0.12);
 }
 
-.ami-tab-btn i {
+.hs-tab-btn i {
   font-size: 15px;
 }
 
 /* ── Banner ─────────────────────────────────────────────────── */
-.ami-banner {
-  background: linear-gradient(90deg, var(--ami-panel), var(--ami-panel-2));
+.hs-banner {
+  background: linear-gradient(90deg, var(--hs-panel), var(--hs-panel-2));
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   padding: 18px 22px;
@@ -615,24 +592,24 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.ami-banner:hover {
-  border-color: rgba(201, 162, 74, 0.4);
-  box-shadow: 0 8px 24px rgba(201, 162, 74, 0.1);
+.hs-banner:hover {
+  border-color: rgba(197, 160, 90, 0.4);
+  box-shadow: 0 8px 24px rgba(197, 160, 90, 0.1);
 }
 
-.ami-banner-left {
+.hs-banner-left {
   display: flex;
   align-items: center;
   gap: 16px;
   min-width: 0;
 }
 
-.ami-banner-icon {
+.hs-banner-icon {
   width: 52px;
   height: 52px;
   border-radius: 10px;
-  background: rgba(201, 162, 74, 0.1);
-  border: 1px solid rgba(201, 162, 74, 0.3);
+  background: rgba(197, 160, 90, 0.1);
+  border: 1px solid rgba(197, 160, 90, 0.3);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -641,7 +618,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   flex-shrink: 0;
 }
 
-.ami-tag {
+.hs-tag {
   font-size: 10.5px;
   letter-spacing: 1.5px;
   color: var(--ami-gold-bright);
@@ -652,14 +629,14 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   text-transform: uppercase;
 }
 
-.ami-tag .ami-dot {
+.hs-tag .hs-dot {
   width: 6px;
   height: 6px;
   background: var(--ami-gold-bright);
   animation: ami-pulse 1.8s ease infinite;
 }
 
-.ami-banner-title {
+.hs-banner-title {
   font-family: var(--ami-font-display);
   font-size: 18px;
   font-weight: 700;
@@ -667,20 +644,20 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   line-height: 1.25;
 }
 
-.ami-banner-sub {
+.hs-banner-sub {
   font-size: 12px;
   color: var(--ami-muted);
   margin-top: 2px;
 }
 
-.ami-banner-metrics {
+.hs-banner-metrics {
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
-.ami-metric-box {
-  background: var(--ami-panel-2);
+.hs-metric-box {
+  background: var(--hs-panel-2);
   border: 1px solid var(--ami-border);
   border-radius: 8px;
   padding: 10px 16px;
@@ -689,35 +666,35 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   transition: transform 0.18s ease, border-color 0.18s ease;
 }
 
-.ami-metric-box:hover {
+.hs-metric-box:hover {
   transform: translateY(-2px);
   border-color: var(--ami-gold);
 }
 
-.ami-metric-box .v {
+.hs-metric-box .v {
   font-family: var(--ami-font-mono);
   font-size: 17px;
   font-weight: 600;
   color: var(--ami-gold-bright);
 }
 
-.ami-metric-box .k {
+.hs-metric-box .k {
   font-size: 10px;
   color: var(--ami-muted);
   margin-top: 2px;
 }
 
 /* ── Score / signal cards ───────────────────────────────────── */
-.ami-score-grid {
+.hs-score-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 14px;
 }
 
-.ami-score-card {
+.hs-score-card {
   position: relative;
   overflow: hidden;
-  background: var(--ami-panel);
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   padding: 18px;
@@ -726,26 +703,26 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   animation: ami-card-in 0.5s ease both;
 }
 
-.ami-score-card:hover {
+.hs-score-card:hover {
   transform: translateY(-4px);
-  border-color: rgba(201, 162, 74, 0.45);
+  border-color: rgba(197, 160, 90, 0.45);
   box-shadow: 0 14px 32px rgba(0, 0, 0, 0.35);
 }
 
-.ami-score-card::after {
+.hs-score-card::after {
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(120deg, transparent 40%, rgba(231, 200, 120, 0.06) 50%, transparent 60%);
+  background: linear-gradient(120deg, transparent 40%, rgba(212, 184, 106, 0.06) 50%, transparent 60%);
   transform: translateX(-100%);
   pointer-events: none;
 }
 
-.ami-score-card:hover::after {
+.hs-score-card:hover::after {
   animation: ami-shimmer 0.9s ease;
 }
 
-.ami-score-top {
+.hs-score-top {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -753,13 +730,13 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   margin-bottom: 12px;
 }
 
-.ami-score-label {
+.hs-score-label {
   font-size: 12px;
   color: var(--ami-muted);
   font-weight: 600;
 }
 
-.ami-score-value {
+.hs-score-value {
   font-family: var(--ami-font-mono);
   font-size: 28px;
   font-weight: 700;
@@ -767,13 +744,13 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   line-height: 1;
 }
 
-.ami-score-unit {
+.hs-score-unit {
   font-size: 13px;
   color: var(--ami-silver-dim);
   font-weight: 500;
 }
 
-.ami-badge {
+.hs-badge {
   display: inline-flex;
   align-items: center;
   gap: 4px;
@@ -785,37 +762,37 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   text-transform: uppercase;
 }
 
-.ami-badge.critical,
-.ami-badge.fragile,
-.ami-badge.elevated {
+.hs-badge.critical,
+.hs-badge.fragile,
+.hs-badge.elevated {
   background: rgba(181, 80, 46, 0.18);
   color: #e07a5a;
   border: 1px solid rgba(181, 80, 46, 0.35);
 }
 
-.ami-badge.watch,
-.ami-badge.developing {
-  background: rgba(201, 162, 74, 0.14);
+.hs-badge.watch,
+.hs-badge.developing {
+  background: rgba(197, 160, 90, 0.14);
   color: var(--ami-gold-bright);
-  border: 1px solid rgba(201, 162, 74, 0.3);
+  border: 1px solid rgba(197, 160, 90, 0.3);
 }
 
-.ami-badge.stable,
-.ami-badge.strong,
-.ami-badge.balanced {
-  background: rgba(183, 162, 90, 0.14);
+.hs-badge.stable,
+.hs-badge.strong,
+.hs-badge.balanced {
+  background: rgba(90, 155, 138, 0.14);
   color: var(--ami-success);
-  border: 1px solid rgba(183, 162, 90, 0.3);
+  border: 1px solid rgba(90, 155, 138, 0.3);
 }
 
-.ami-badge.no-data,
-.ami-badge.stale {
+.hs-badge.no-data,
+.hs-badge.stale {
   background: rgba(139, 136, 126, 0.15);
   color: var(--ami-silver-dim);
   border: 1px solid rgba(139, 136, 126, 0.3);
 }
 
-.ami-progress-track {
+.hs-progress-track {
   height: 8px;
   background: var(--ami-border-soft);
   border-radius: 10px;
@@ -823,7 +800,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   margin-top: 12px;
 }
 
-.ami-progress-fill {
+.hs-progress-fill {
   height: 100%;
   border-radius: 10px;
   background: linear-gradient(90deg, var(--ami-bronze), var(--ami-gold-bright));
@@ -831,7 +808,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-.ami-progress-fill::after {
+.hs-progress-fill::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -839,14 +816,14 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   animation: ami-shimmer 2s infinite;
 }
 
-.ami-score-desc {
+.hs-score-desc {
   font-size: 12px;
   color: var(--ami-muted);
   margin-top: 10px;
   line-height: 1.4;
 }
 
-.ami-score-hint {
+.hs-score-hint {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -857,31 +834,31 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   transition: opacity 0.2s ease;
 }
 
-.ami-score-card:hover .ami-score-hint {
+.hs-score-card:hover .hs-score-hint {
   opacity: 1;
 }
 
 /* Country simplified single-score card */
-.ami-country-score-hero {
+.hs-country-score-hero {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
   padding: 36px 24px;
-  background: var(--ami-panel);
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   min-height: 220px;
   transition: border-color 0.22s ease, box-shadow 0.22s ease;
 }
 
-.ami-country-score-hero:hover {
-  border-color: rgba(201, 162, 74, 0.45);
+.hs-country-score-hero:hover {
+  border-color: rgba(197, 160, 90, 0.45);
   box-shadow: var(--ami-shadow);
 }
 
-.ami-country-score-hero .ring {
+.hs-country-score-hero .ring {
   width: 140px;
   height: 140px;
   border-radius: 50%;
@@ -890,31 +867,31 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   align-items: center;
   justify-content: center;
   background:
-    radial-gradient(circle at center, var(--ami-panel-2) 58%, transparent 59%),
+    radial-gradient(circle at center, var(--hs-panel-2) 58%, transparent 59%),
     conic-gradient(var(--ami-gold-bright) calc(var(--progress, 0) * 1%), var(--ami-border) 0);
   margin-bottom: 16px;
-  box-shadow: 0 0 0 6px rgba(201, 162, 74, 0.08);
+  box-shadow: 0 0 0 6px rgba(197, 160, 90, 0.08);
 }
 
-.ami-country-score-hero .ring .v {
+.hs-country-score-hero .ring .v {
   font-family: var(--ami-font-mono);
   font-size: 32px;
   font-weight: 700;
   color: var(--ami-cream);
 }
 
-.ami-country-score-hero .ring .u {
+.hs-country-score-hero .ring .u {
   font-size: 11px;
   color: var(--ami-muted);
 }
 
-.ami-country-score-hero h3 {
+.hs-country-score-hero h3 {
   font-size: 16px;
   color: var(--ami-cream);
   margin: 0 0 6px;
 }
 
-.ami-country-score-hero p {
+.hs-country-score-hero p {
   font-size: 13px;
   color: var(--ami-muted);
   margin: 0;
@@ -951,7 +928,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 
 /* ── Country scores chart (analyst) ─────────────────────────── */
 .ami-country-scores {
-  background: var(--ami-panel);
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   padding: 18px 20px;
@@ -959,23 +936,23 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 }
 
 .ami-country-scores:hover {
-  border-color: rgba(201, 162, 74, 0.35);
+  border-color: rgba(197, 160, 90, 0.35);
   box-shadow: var(--ami-shadow);
 }
 
 /* ── Loader ─────────────────────────────────────────────────── */
-.ami-dashboard .loader_main,
+.hs-dashboard .loader_main,
 .signal-dashboard-wrap .loader_main {
   position: relative !important;
   inset: auto !important;
-  background: rgba(10, 9, 6, 0.55);
+  background: rgba(6, 21, 37, 0.55);
   backdrop-filter: blur(4px);
   border-radius: var(--ami-radius);
   min-height: 220px;
   z-index: 2;
 }
 
-.ami-dashboard .signal-dashboard-wrap.embedded > .loader_main {
+.hs-dashboard .signal-dashboard-wrap.embedded > .loader_main {
   position: relative !important;
   min-height: 180px;
 }
@@ -988,7 +965,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 
 .modal-backdrop.show {
   z-index: 1050 !important;
-  background: rgba(8, 6, 3, 0.78) !important;
+  background: rgba(4, 14, 26, 0.78) !important;
   opacity: 1 !important;
 }
 
@@ -1018,24 +995,24 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 
 .signal_detail_modal .signal_detail_content,
 .signal_detail_modal .modal-content {
-  background: #141209 !important;
-  color: #efe7d6 !important;
-  border: 1px solid #332c1d !important;
+  background: #0C2238 !important;
+  color: #e8eef4 !important;
+  border: 1px solid #1e3d5c !important;
   border-radius: 14px !important;
   box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55) !important;
   overflow: hidden;
 }
 
 .signal_detail_modal .signal_detail_header {
-  background: linear-gradient(135deg, #1b1810 0%, #241f14 55%, #1b1810 100%) !important;
-  border-bottom: 1px solid #332c1d !important;
-  color: #efe7d6 !important;
+  background: linear-gradient(135deg, #123049 0%, #16324a 55%, #123049 100%) !important;
+  border-bottom: 1px solid #1e3d5c !important;
+  color: #e8eef4 !important;
   padding: 18px 20px !important;
 }
 
 .signal_detail_modal .modal-title,
 .signal_detail_modal .signal_detail_header h5 {
-  color: #efe7d6 !important;
+  color: #e8eef4 !important;
   font-size: 16px;
   font-weight: 700;
 }
@@ -1044,9 +1021,9 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   width: 46px;
   height: 46px;
   border-radius: 10px;
-  background: rgba(201, 162, 74, 0.12);
-  border: 1px solid rgba(201, 162, 74, 0.35);
-  color: #e7c878;
+  background: rgba(197, 160, 90, 0.12);
+  border: 1px solid rgba(197, 160, 90, 0.35);
+  color: #d4b86a;
   display: grid;
   place-items: center;
   font-size: 20px;
@@ -1063,7 +1040,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 }
 
 .signal_detail_modal .modal-body {
-  background: #141209 !important;
+  background: #0C2238 !important;
   padding: 20px 22px 24px !important;
 }
 
@@ -1075,28 +1052,28 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 }
 
 .signal_detail_modal .split_card {
-  background: #1b1810 !important;
-  border: 1px solid #332c1d !important;
+  background: #123049 !important;
+  border: 1px solid #1e3d5c !important;
   border-radius: 12px !important;
   padding: 16px 18px !important;
-  color: #efe7d6 !important;
+  color: #e8eef4 !important;
 }
 
 .signal_detail_modal .ai_card {
-  border-left: 3px solid #e7c878 !important;
+  border-left: 3px solid #d4b86a !important;
 }
 
 .signal_detail_modal .manual_card {
-  border-left: 3px solid #c9c7bf !important;
+  border-left: 3px solid #b8c5d0 !important;
 }
 
 .signal_detail_modal .meta_label {
-  color: #e7c878 !important;
+  color: #d4b86a !important;
   font-size: 14px !important;
 }
 
 .signal_detail_modal .meta_value {
-  color: #9c9484 !important;
+  color: #8fa3b5 !important;
   font-size: 12px;
 }
 
@@ -1105,17 +1082,17 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   justify-content: space-between;
   gap: 12px;
   padding: 8px 0;
-  border-bottom: 1px solid #241f14;
-  color: #efe7d6;
+  border-bottom: 1px solid #16324a;
+  color: #e8eef4;
 }
 
 .signal_detail_modal .detail_item span {
-  color: #9c9484;
+  color: #8fa3b5;
   font-size: 12px;
 }
 
 .signal_detail_modal .detail_item strong {
-  color: #efe7d6;
+  color: #e8eef4;
   font-weight: 600;
   text-align: right;
   max-width: 68%;
@@ -1129,7 +1106,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 
 .signal_detail_modal .detail_item.full p {
   margin: 6px 0 0;
-  color: #c9c7bf !important;
+  color: #b8c5d0 !important;
   line-height: 1.55;
   font-size: 13px;
 }
@@ -1137,7 +1114,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 .signal_detail_modal .split_divider {
   display: flex;
   align-items: center;
-  color: #8b887e;
+  color: #7a8a9a;
   font-weight: 700;
   letter-spacing: 0.08em;
 }
@@ -1150,34 +1127,34 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 }
 
 .signal_detail_modal .signal_detail_stat {
-  background: #1b1810 !important;
-  border: 1px solid #332c1d !important;
+  background: #123049 !important;
+  border: 1px solid #1e3d5c !important;
   border-radius: 10px;
   padding: 12px 14px;
 }
 
 .signal_detail_modal .signal_detail_stat span {
-  color: #9c9484 !important;
+  color: #8fa3b5 !important;
 }
 
 .signal_detail_modal .signal_detail_stat strong {
-  color: #e7c878 !important;
+  color: #d4b86a !important;
 }
 
 .signal_detail_modal .signal_detail_block {
-  background: #1b1810 !important;
-  border: 1px solid #332c1d !important;
+  background: #123049 !important;
+  border: 1px solid #1e3d5c !important;
   border-radius: 10px;
   padding: 14px 16px;
   margin-bottom: 12px;
 }
 
 .signal_detail_modal .signal_detail_block h6 {
-  color: #e7c878 !important;
+  color: #d4b86a !important;
 }
 
 .signal_detail_modal .signal_detail_block p {
-  color: #c9c7bf !important;
+  color: #b8c5d0 !important;
 }
 
 @media (max-width: 900px) {
@@ -1190,23 +1167,23 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   }
 }
 
-/* ── Signal dashboard (ROSEW) overrides when inside AMI shell ─ */
-.ami-dashboard .signal-dashboard-wrap,
+/* ── Signal dashboard (ROSEW) overrides when inside HS shell ─ */
+.hs-dashboard .signal-dashboard-wrap,
 .signal-dashboard-wrap.ami-themed {
-  --pe-primary: #c9a24a;
-  --pe-primary-mid: #e7c878;
-  --pe-primary-soft: #8a5a2b;
-  --pe-deep: #0a0906;
-  --pe-deep-mid: #141209;
-  --pe-secondary: #c9c7bf;
-  --pe-secondary-soft: #e7c878;
-  --pe-secondary-glow: rgba(201, 162, 74, 0.4);
+  --pe-primary: #c5a05a;
+  --pe-primary-mid: #d4b86a;
+  --pe-primary-soft: #8b6b32;
+  --pe-deep: #061525;
+  --pe-deep-mid: #0C2238;
+  --pe-secondary: #b8c5d0;
+  --pe-secondary-soft: #d4b86a;
+  --pe-secondary-glow: rgba(197, 160, 90, 0.4);
   --pe-bg: transparent;
-  --pe-bg-card: #141209;
-  --pe-border: #332c1d;
-  --pe-border-focus: #c9a24a;
-  --pe-text: #efe7d6;
-  --pe-text-muted: #9c9484;
+  --pe-bg-card: #0C2238;
+  --pe-border: #1e3d5c;
+  --pe-border-focus: #c5a05a;
+  --pe-text: #e8eef4;
+  --pe-text-muted: #8fa3b5;
   --pe-shadow: rgba(0, 0, 0, 0.35);
 
   background: transparent;
@@ -1215,137 +1192,137 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   gap: 14px;
 }
 
-.ami-dashboard .dashboard_control_bar,
+.hs-dashboard .dashboard_control_bar,
 .signal-dashboard-wrap.ami-themed .dashboard_control_bar {
-  background: var(--ami-panel);
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   border-radius: var(--ami-radius);
   box-shadow: none;
   color: var(--ami-cream);
 }
 
-.ami-dashboard .tab_btn,
+.hs-dashboard .tab_btn,
 .signal-dashboard-wrap.ami-themed .tab_btn {
   color: var(--ami-silver-dim);
 }
 
-.ami-dashboard .tab_btn.active,
+.hs-dashboard .tab_btn.active,
 .signal-dashboard-wrap.ami-themed .tab_btn.active {
-  background: linear-gradient(90deg, rgba(201, 162, 74, 0.18), rgba(201, 162, 74, 0.04));
+  background: linear-gradient(90deg, rgba(197, 160, 90, 0.18), rgba(197, 160, 90, 0.04));
   color: var(--ami-gold-bright);
 }
 
-.ami-dashboard .pem_hero,
+.hs-dashboard .pem_hero,
 .signal-dashboard-wrap.ami-themed .pem_hero {
-  background: linear-gradient(120deg, #141209 0%, #1b1810 55%, #1f1a10 100%);
+  background: linear-gradient(120deg, #0C2238 0%, #123049 55%, #1f1a10 100%);
   border: 1px solid var(--ami-border-soft);
   color: var(--ami-cream);
 }
 
-.ami-dashboard .signal_card,
+.hs-dashboard .signal_card,
 .signal-dashboard-wrap.ami-themed .signal_card {
-  background: var(--ami-panel);
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   color: var(--ami-cream);
 }
 
-.ami-dashboard .signal_card:hover,
+.hs-dashboard .signal_card:hover,
 .signal-dashboard-wrap.ami-themed .signal_card:hover {
-  border-color: rgba(201, 162, 74, 0.45);
+  border-color: rgba(197, 160, 90, 0.45);
   box-shadow: 0 12px 28px rgba(0, 0, 0, 0.35);
   transform: translateY(-3px);
 }
 
-.ami-dashboard .glance_chart_card,
+.hs-dashboard .glance_chart_card,
 .signal-dashboard-wrap.ami-themed .glance_chart_card {
-  background: var(--ami-panel);
+  background: var(--hs-panel);
   border: 1px solid var(--ami-border-soft);
   color: var(--ami-cream);
 }
 
 /* Hide duplicate country filter when ROSEW is embedded */
-.ami-dashboard .signal-dashboard-wrap.embedded .filters_panel {
+.hs-dashboard .signal-dashboard-wrap.embedded .filters_panel {
   display: none;
 }
 
-.ami-dashboard .signal-dashboard-wrap.embedded .dashboard_control_bar {
+.hs-dashboard .signal-dashboard-wrap.embedded .dashboard_control_bar {
   justify-content: stretch;
 }
 
-.ami-dashboard .signal-dashboard-wrap.embedded .tab_head {
+.hs-dashboard .signal-dashboard-wrap.embedded .tab_head {
   width: 100%;
 }
 
 /* Force dark shell for Operational Intelligence section */
-.ami-dashboard .tab_body,
+.hs-dashboard .tab_body,
 .signal-dashboard-wrap .tab_body,
-.ami-dashboard .signal-dashboard-wrap,
+.hs-dashboard .signal-dashboard-wrap,
 .signal-dashboard-wrap.ami-themed,
-.ami-dashboard .ami-index-section {
-  background: #141209 !important;
-  border-color: #332c1d !important;
-  color: #efe7d6 !important;
+.hs-dashboard .hs-index-section {
+  background: #0C2238 !important;
+  border-color: #1e3d5c !important;
+  color: #e8eef4 !important;
   box-shadow: none !important;
 }
 
-.ami-dashboard .tab_body {
-  border: 1px solid #332c1d !important;
+.hs-dashboard .tab_body {
+  border: 1px solid #1e3d5c !important;
   border-radius: 16px;
 }
 
-.ami-dashboard .section_title,
-.ami-dashboard .section_header .section_title,
+.hs-dashboard .section_title,
+.hs-dashboard .section_header .section_title,
 .signal-dashboard-wrap .section_title {
-  color: #e7c878 !important;
+  color: #d4b86a !important;
 }
 
-.ami-dashboard .section_hint,
+.hs-dashboard .section_hint,
 .signal-dashboard-wrap .section_hint {
-  color: #9c9484 !important;
+  color: #8fa3b5 !important;
 }
 
-.ami-dashboard .card_grid,
-.ami-dashboard .glance_charts_section,
-.ami-dashboard .glance_charts_grid {
+.hs-dashboard .card_grid,
+.hs-dashboard .glance_charts_section,
+.hs-dashboard .glance_charts_grid {
   background: transparent !important;
 }
 
-.ami-dashboard .glance_chart_card,
+.hs-dashboard .glance_chart_card,
 .signal-dashboard-wrap .glance_chart_card {
-  background: #1a1610 !important;
-  border: 1px solid #332c1d !important;
-  color: #efe7d6 !important;
+  background: #0f2a40 !important;
+  border: 1px solid #1e3d5c !important;
+  color: #e8eef4 !important;
 }
 
-.ami-dashboard .dashboard_control_bar,
+.hs-dashboard .dashboard_control_bar,
 .signal-dashboard-wrap .dashboard_control_bar {
-  background: #141209 !important;
-  border: 1px solid #332c1d !important;
+  background: #0C2238 !important;
+  border: 1px solid #1e3d5c !important;
 }
 
-.ami-dashboard .tab_btn,
+.hs-dashboard .tab_btn,
 .signal-dashboard-wrap .tab_btn {
-  background: #1a1610 !important;
-  border: 1px solid #332c1d !important;
-  color: #c9c7bf !important;
+  background: #0f2a40 !important;
+  border: 1px solid #1e3d5c !important;
+  color: #b8c5d0 !important;
 }
 
-.ami-dashboard .tab_btn.active,
+.hs-dashboard .tab_btn.active,
 .signal-dashboard-wrap .tab_btn.active {
-  background: linear-gradient(90deg, rgba(201, 162, 74, 0.22), rgba(201, 162, 74, 0.06)) !important;
-  border-color: rgba(201, 162, 74, 0.45) !important;
-  color: #e7c878 !important;
+  background: linear-gradient(90deg, rgba(197, 160, 90, 0.22), rgba(197, 160, 90, 0.06)) !important;
+  border-color: rgba(197, 160, 90, 0.45) !important;
+  color: #d4b86a !important;
 }
 
 /* ── Indicator card: condition badge beside each score ──────── */
-.ami-dashboard .signal_value_row,
+.hs-dashboard .signal_value_row,
 .signal-dashboard-wrap .signal_value_row {
   align-items: center;
   justify-content: flex-start;
   gap: 8px;
 }
 
-.ami-dashboard .signal_value_row .condition_badge,
+.hs-dashboard .signal_value_row .condition_badge,
 .signal-dashboard-wrap .signal_value_row .condition_badge {
   margin-left: auto;
   flex: 0 1 auto;
@@ -1358,7 +1335,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   text-overflow: ellipsis;
 }
 
-.ami-dashboard .signal_header_meta h4,
+.hs-dashboard .signal_header_meta h4,
 .signal-dashboard-wrap .signal_header_meta h4 {
   margin-top: 0;
   font-size: 16px;
@@ -1367,7 +1344,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   line-height: 1.35;
 }
 
-.ami-dashboard .signal_card_header,
+.hs-dashboard .signal_card_header,
 .signal-dashboard-wrap .signal_card_header {
   flex-direction: row;
   align-items: center;
@@ -1375,28 +1352,28 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   gap: 12px;
 }
 
-.ami-dashboard .signal_header_meta,
+.hs-dashboard .signal_header_meta,
 .signal-dashboard-wrap .signal_header_meta {
   flex: 1;
   min-width: 0;
   text-align: left;
 }
 
-.ami-dashboard .signal_card h4,
+.hs-dashboard .signal_card h4,
 .signal-dashboard-wrap .signal_card h4 {
   font-size: 16px !important;
   text-align: left;
   margin: 0 !important;
 }
 
-.ami-dashboard .signal_value_row .signal_value,
+.hs-dashboard .signal_value_row .signal_value,
 .signal-dashboard-wrap .signal_value_row .signal_value {
   font-size: 32px;
 }
 
 /* ── Responsive (desktop-first breakpoints) ─────────────────── */
 @media (max-width: 1366px) {
-  .ami-dashboard {
+  .hs-dashboard {
     gap: 10px;
     padding: 8px 8px 16px;
   }
@@ -1405,83 +1382,83 @@ body > .ng-dropdown-panel .ng-optgroup-label {
     gap: 10px;
   }
 
-  .ami-kpi-card {
+  .hs-kpi-card {
     padding: 10px 12px;
     gap: 10px;
   }
 
-  .ami-kpi-icon {
+  .hs-kpi-icon {
     width: 38px;
     height: 38px;
   }
 
-  .ami-kpi-label {
+  .hs-kpi-label {
     font-size: 12px;
   }
 
-  .ami-kpi-value {
+  .hs-kpi-value {
     font-size: 22px;
   }
 
-  .ami-kpi-sub {
+  .hs-kpi-sub {
     font-size: 11px;
   }
 
-  .ami-controls {
+  .hs-controls {
     padding: 10px 12px;
   }
 
-  .ami-panel {
+  .hs-panel {
     padding: 12px 14px;
   }
 
-  .ami-panel-title {
+  .hs-panel-title {
     margin-bottom: 8px;
     font-size: 13px;
   }
 
-  .ami-chart-host {
+  .hs-chart-host {
     min-height: 0;
   }
 
-  .ami-score-grid {
+  .hs-score-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }
 
 @media (max-width: 1366px) and (max-height: 650px) {
-  .ami-dashboard {
+  .hs-dashboard {
     gap: 8px;
     padding: 6px 6px 12px;
   }
 
-  .ami-kpi-card {
+  .hs-kpi-card {
     padding: 8px 10px;
   }
 
-  .ami-kpi-value {
+  .hs-kpi-value {
     font-size: 20px;
   }
 
-  .ami-controls {
+  .hs-controls {
     padding: 8px 10px;
   }
 
-  .ami-panel {
+  .hs-panel {
     padding: 10px 12px;
   }
 
-  .ami-chart-host {
+  .hs-chart-host {
     min-height: 0;
     height: auto;
   }
 
-  .ami-overview-stats {
+  .hs-overview-stats {
     margin-bottom: 6px;
     font-size: 11px;
   }
 
-  .ami-dashboard .ng-dropdown-panel .ng-dropdown-panel-items,
+  .hs-dashboard .ng-dropdown-panel .ng-dropdown-panel-items,
   .signal-dashboard-wrap .ng-dropdown-panel .ng-dropdown-panel-items {
     max-height: min(220px, 42vh);
   }
@@ -1495,7 +1472,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 }
 
 @media (max-width: 1100px) {
-  .ami-grid-2 {
+  .hs-grid-2 {
     grid-template-columns: 1fr;
   }
 
@@ -1506,23 +1483,23 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 
 @media (max-width: 768px) {
   .ami-kpi-strip,
-  .ami-score-grid {
+  .hs-score-grid {
     grid-template-columns: 1fr;
   }
 
-  .ami-field .form-control,
-  .ami-field .analyst_multi_select .ng-select-container,
-  .ami-field select.form-control {
+  .hs-field .form-control,
+  .hs-field .analyst_multi_select .ng-select-container,
+  .hs-field select.form-control {
     min-width: 100%;
     width: 100%;
   }
 
-  .ami-controls-left,
-  .ami-actions {
+  .hs-controls-left,
+  .hs-actions {
     width: 100%;
   }
 
-  .ami-btn {
+  .hs-btn {
     flex: 1;
     justify-content: center;
   }

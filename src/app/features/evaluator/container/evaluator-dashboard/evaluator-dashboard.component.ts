@@ -20,7 +20,7 @@ import { EvaluatorService } from '../../evaluator.service';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { CommonService } from 'src/app/core/services/common.service';
-import { AMI_CHART, amiCompletionColor, amiScoreColor } from 'src/app/core/constants/ahi-chart-theme';
+import { HS_CHART, amiCompletionColor, amiScoreColor } from 'src/app/core/constants/hs-chart-theme';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -212,7 +212,7 @@ export class EvaluatorDashboardComponent implements OnInit {
           dataLabels: { position: 'center' },
         },
       },
-      colors: [...AMI_CHART.pillarBar],
+      colors: [...HS_CHART.pillarBar],
       dataLabels: {
         enabled: true,
         textAnchor: 'middle',
@@ -237,7 +237,7 @@ export class EvaluatorDashboardComponent implements OnInit {
           style: {
             fontSize: '14px',
             fontWeight: 700,
-            color: AMI_CHART.text,
+            color: HS_CHART.text,
           },
           offsetY: 0,
         },
@@ -245,18 +245,18 @@ export class EvaluatorDashboardComponent implements OnInit {
           style: {
             fontSize: '12px',
             fontWeight: 600,
-            colors: AMI_CHART.textMuted,
+            colors: HS_CHART.textMuted,
           },
           formatter: (value: string) => `${value}`,
         },
         axisBorder: {
           show: true,
-          color: AMI_CHART.border,
+          color: HS_CHART.border,
           offsetY: 0,
         },
         axisTicks: {
           show: true,
-          color: AMI_CHART.grid,
+          color: HS_CHART.grid,
           height: 5,
         },
         min: 0,
@@ -272,7 +272,7 @@ export class EvaluatorDashboardComponent implements OnInit {
           style: {
             fontSize: '11px',
             fontWeight: 600,
-            colors: AMI_CHART.textMuted,
+            colors: HS_CHART.textMuted,
           },
           offsetX: -50,
         },
@@ -281,7 +281,7 @@ export class EvaluatorDashboardComponent implements OnInit {
       },
       grid: {
         show: true,
-        borderColor: AMI_CHART.grid,
+        borderColor: HS_CHART.grid,
         strokeDashArray: 4,
         position: 'back',
         xaxis: { lines: { show: true } },
@@ -309,29 +309,29 @@ export class EvaluatorDashboardComponent implements OnInit {
           const progressWidth = Math.min(completion, 100);
 
           return `
-          <div style="background: #1A1610; border-radius: 12px; box-shadow: ${AMI_CHART.tooltipShadow}; overflow: hidden; border: 1px solid ${barColor}55; font-family: Inter, sans-serif; min-width: 280px; max-width: 420px;">
+          <div style="background: #0F2A40; border-radius: 12px; box-shadow: ${HS_CHART.tooltipShadow}; overflow: hidden; border: 1px solid ${barColor}55; font-family: Inter, sans-serif; min-width: 280px; max-width: 420px;">
             <div style="background: linear-gradient(135deg, ${barColor}cc 0%, ${barColor}88 100%); padding: 16px 20px; min-height: 56px;">
               <div style="font-weight: 800; font-size: 15px; color: #ffffff; line-height: 1.5; word-wrap: break-word;">
                 ${meta.pillarName}
               </div>
             </div>
-            <div style="padding: 18px 20px; background: #1A1610;">
-              <div style="display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 14px; padding: 12px; background: rgba(201, 162, 74, 0.08); border-radius: 8px; border: 1px solid ${AMI_CHART.border};">
-                <span style="color: ${AMI_CHART.textMuted}; font-weight: 600; font-size: 13px;">Score</span>
+            <div style="padding: 18px 20px; background: #0F2A40;">
+              <div style="display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 14px; padding: 12px; background: rgba(197, 160, 90, 0.08); border-radius: 8px; border: 1px solid ${HS_CHART.border};">
+                <span style="color: ${HS_CHART.textMuted}; font-weight: 600; font-size: 13px;">Score</span>
                 <span style="color: ${barColor}; font-weight: 900; font-size: 24px;">${percentage}</span>
               </div>
-              <div style="display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; padding: 10px 12px; background: rgba(201, 162, 74, 0.06); border-left: 3px solid ${barColor}; border-radius: 6px;">
-                <span style="color: ${AMI_CHART.textMuted}; font-weight: 600; font-size: 12px; white-space: nowrap;">Questions Answered</span>
-                <span style="color: ${AMI_CHART.text}; font-weight: 700; font-size: 15px;">
+              <div style="display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 12px; padding: 10px 12px; background: rgba(197, 160, 90, 0.06); border-left: 3px solid ${barColor}; border-radius: 6px;">
+                <span style="color: ${HS_CHART.textMuted}; font-weight: 600; font-size: 12px; white-space: nowrap;">Questions Answered</span>
+                <span style="color: ${HS_CHART.text}; font-weight: 700; font-size: 15px;">
                   ${meta.ansQuestion} / ${meta.totalQuestion}
                 </span>
               </div>
               <div style="margin-top: 14px;">
                 <div style="display: flex; justify-content: space-between; gap: 12px; align-items: center; margin-bottom: 8px;">
-                  <span style="color: ${AMI_CHART.textMuted}; font-weight: 600; font-size: 12px; white-space: nowrap;">Completion Rate</span>
+                  <span style="color: ${HS_CHART.textMuted}; font-weight: 600; font-size: 12px; white-space: nowrap;">Completion Rate</span>
                   <span style="color: ${completionColor}; font-weight: 800; font-size: 16px;">${completion}%</span>
                 </div>
-                <div style="width: 100%; height: 10px; background: rgba(201, 162, 74, 0.15); border-radius: 12px; overflow: hidden;">
+                <div style="width: 100%; height: 10px; background: rgba(197, 160, 90, 0.15); border-radius: 12px; overflow: hidden;">
                   <div style="width: ${progressWidth}%; height: 100%; background: ${completionColor}; border-radius: 12px;"></div>
                 </div>
               </div>
@@ -384,7 +384,7 @@ export class EvaluatorDashboardComponent implements OnInit {
 
   private getBarColor(scoreProgress: number, maxNumber: number): string {
     if (scoreProgress === 0) {
-      return AMI_CHART.pillarBar[0];
+      return HS_CHART.pillarBar[0];
     }
     const normalized = maxNumber > 0 ? (scoreProgress / maxNumber) * 100 : 0;
     return amiScoreColor(normalized);
@@ -421,7 +421,7 @@ export class EvaluatorDashboardComponent implements OnInit {
             background: 'transparent',
           },
           track: {
-            background: AMI_CHART.hollow,
+            background: HS_CHART.hollow,
             strokeWidth: '100%',
             margin: 2,
           },
@@ -430,13 +430,13 @@ export class EvaluatorDashboardComponent implements OnInit {
             name: {
               show: true,
               offsetY: -8,
-              color: AMI_CHART.textMuted,
+              color: HS_CHART.textMuted,
               fontSize: '12px',
             },
             value: {
               show: true,
               offsetY: 8,
-              color: AMI_CHART.text,
+              color: HS_CHART.text,
               fontSize: '22px',
               fontWeight: 700,
               formatter: (value: number) => `${((value * total) / 100).toFixed(0)}`,
@@ -444,14 +444,14 @@ export class EvaluatorDashboardComponent implements OnInit {
             total: {
               show: true,
               label: 'Total Country',
-              color: AMI_CHART.textMuted,
+              color: HS_CHART.textMuted,
               fontSize: '13px',
               formatter: () => `${total}`,
             },
           },
         },
       },
-      colors: [...AMI_CHART.radialBarShort],
+      colors: [...HS_CHART.radialBarShort],
       labels: ['Total', 'Active', 'In-Progress', 'Completed'],
       legend: {
         show: true,

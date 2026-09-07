@@ -1,15 +1,14 @@
-
 .cus_table .table th {
     background-color: #77BD3E;
     font-weight: 600;
-    color: #EFE7D6;
+    color: #E8EEF4;
     font-size: 14px;
     white-space: nowrap;
 }
 
 .cus_table .score_label_tab {
-    background: #C9A24A;
-    color: #EFE7D6;
+    background: #C5A05A;
+    color: #E8EEF4;
     padding: 0.3rem 0.5rem;
     border-radius: 0.5rem;
     display: inline-flex;
@@ -19,7 +18,7 @@
 
 .cus_table .table td {
     font-size: 1.3rem;
-    border-bottom: 1px solid #332C1D;
+    border-bottom: 1px solid #1E3D5C;
     vertical-align: middle;
 }
 
@@ -45,10 +44,9 @@ h4.kpi_head_col {
     color: #304a43;
 }
 
-
 .city_pillar+app-ag-bar {
     border-radius: 15px;
-    background-color: #1B1810;
+    background-color: #123049;
     overflow: hidden;
     display: flex;
 }
@@ -75,7 +73,7 @@ span:empty, div:empty{
     flex: 1;
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid #1B1810;
+    border: 1px solid #123049;
     box-shadow: none !important;
     margin-bottom: 20px;
 }
@@ -98,14 +96,14 @@ span:empty, div:empty{
     color: #000000;
 }
 .city_pillar {
-    background-color: #1B1810;
+    background-color: #123049;
     padding: 20px;
     position: relative;
     border-radius: 15px;
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
 }
 .cross-pillar_outter{
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
     padding: 20px;
     border-radius: 15px;
 }

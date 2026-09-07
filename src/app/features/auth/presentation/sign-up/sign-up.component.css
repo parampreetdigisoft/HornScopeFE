@@ -10,8 +10,8 @@ input[type="password"]::-ms-clear {
   padding: 10px 12px;
   margin-bottom: 14px;
   border-radius: 12px;
-  background: rgba(201, 162, 74, 0.1);
-  border: 1px solid rgba(201, 162, 74, 0.32);
+  background: rgba(197, 160, 90, 0.1);
+  border: 1px solid rgba(197, 160, 90, 0.32);
 }
 
 .ami_aevum_chip > i {
@@ -19,8 +19,8 @@ input[type="password"]::-ms-clear {
   width: 36px;
   height: 36px;
   border-radius: 10px;
-  background: linear-gradient(135deg, rgba(201, 162, 74, 0.35), rgba(138, 90, 43, 0.28));
-  color: #E7C878;
+  background: linear-gradient(135deg, rgba(197, 160, 90, 0.35), rgba(139, 107, 50, 0.28));
+  color: #D4B86A;
   font-size: 16px;
   display: grid;
   place-items: center;
@@ -47,7 +47,7 @@ input[type="password"]::-ms-clear {
   gap: 12px;
   margin-bottom: 12px;
   padding-bottom: 10px;
-  border-bottom: 1px solid #332C1D;
+  border-bottom: 1px solid #1E3D5C;
 }
 
 .ami_signup_form_head_icon {
@@ -55,8 +55,8 @@ input[type="password"]::-ms-clear {
   width: 40px;
   height: 40px;
   border-radius: 12px;
-  background: linear-gradient(135deg, rgba(201, 162, 74, 0.2), rgba(138, 90, 43, 0.28));
-  color: #E7C878;
+  background: linear-gradient(135deg, rgba(197, 160, 90, 0.2), rgba(139, 107, 50, 0.28));
+  color: #D4B86A;
   font-size: 18px;
   display: grid;
   place-items: center;
@@ -73,8 +73,8 @@ input[type="password"]::-ms-clear {
   margin-top: 6px;
   padding: 3px 10px;
   border-radius: 999px;
-  background: rgba(201, 162, 74, 0.14);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.14);
+  color: #D4B86A;
   font-size: 10px;
   font-weight: 700;
   letter-spacing: 0.04em;
@@ -92,8 +92,8 @@ input[type="password"]::-ms-clear {
   min-height: 68px;
   padding: 10px 12px;
   border-radius: 12px;
-  background: rgba(201, 162, 74, 0.08);
-  border: 1px solid rgba(201, 162, 74, 0.22);
+  background: rgba(197, 160, 90, 0.08);
+  border: 1px solid rgba(197, 160, 90, 0.22);
 }
 
 .ami_2fa_inline .form-check {
@@ -128,8 +128,8 @@ input[type="password"]::-ms-clear {
   width: 24px;
   height: 24px;
   border-radius: 7px;
-  background: rgba(201, 162, 74, 0.16);
-  color: #E7C878;
+  background: rgba(197, 160, 90, 0.16);
+  color: #D4B86A;
   font-size: 12px;
   flex-shrink: 0;
 }
@@ -179,4 +179,3 @@ input[type="password"]::-ms-clear {
     padding-bottom: 8px;
   }
 }
-

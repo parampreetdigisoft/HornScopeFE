@@ -13,7 +13,7 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
-import { AMI_CHART, AMI_AXIS_STYLE, amiScoreColor } from './ahi-chart-theme';
+import { HS_CHART, HS_AXIS_STYLE, amiScoreColor } from './hs-chart-theme';
 import { computeKpiChartYRange } from './kpi-comparison-chart.util';
 
 export type AiKpiPillarTooltipPillar = {
@@ -60,25 +60,25 @@ const TOOLTIP_SHELL = `
   padding: 14px 16px;
   min-width: 240px;
   max-width: 360px;
-  background: linear-gradient(160deg, #1B1810 0%, #141209 100%);
+  background: linear-gradient(160deg, #123049 0%, #0C2238 100%);
   border-radius: 12px;
-  box-shadow: ${AMI_CHART.tooltipShadow};
-  border: 1px solid ${AMI_CHART.border};
+  box-shadow: ${HS_CHART.tooltipShadow};
+  border: 1px solid ${HS_CHART.border};
   font-family: Inter, system-ui, -apple-system, sans-serif;
   font-size: 13px;
-  color: ${AMI_CHART.text};
+  color: ${HS_CHART.text};
 `;
 
-export const AMI_KPI_BAR_COLORS = [
-  AMI_CHART.primary,
-  AMI_CHART.secondary,
-  AMI_CHART.primarySoft,
+export const HS_KPI_BAR_COLORS = [
+  HS_CHART.primary,
+  HS_CHART.secondary,
+  HS_CHART.primarySoft,
 ] as const;
 
-export const AMI_KPI_BAR_GRADIENT_TO = [
-  AMI_CHART.primaryMid,
-  '#EFE7D6',
-  '#C9A24A',
+export const HS_KPI_BAR_GRADIENT_TO = [
+  HS_CHART.primaryMid,
+  '#E8EEF4',
+  '#C5A05A',
 ] as const;
 
 /** Short unique axis labels (full name stays in the tooltip). */
@@ -106,10 +106,10 @@ export function buildAiKpiPillarTooltipHtml(pillar: AiKpiPillarTooltipPillar): s
   if (pillar.isAccess === false) {
     return `
       <div style="${TOOLTIP_SHELL}">
-        <div style="font-weight:700;font-size:14px;color:${AMI_CHART.primaryMid};margin-bottom:8px;line-height:1.35;">
+        <div style="font-weight:700;font-size:14px;color:${HS_CHART.primaryMid};margin-bottom:8px;line-height:1.35;">
           ${escapeHtml(name)}
         </div>
-        <div style="color:${AMI_CHART.textMuted};font-size:12px;line-height:1.5;">
+        <div style="color:${HS_CHART.textMuted};font-size:12px;line-height:1.5;">
           Upgrade your plan to unlock real insights
         </div>
       </div>
@@ -117,34 +117,34 @@ export function buildAiKpiPillarTooltipHtml(pillar: AiKpiPillarTooltipPillar): s
   }
 
   const discrepancy = pillar.discrepancy ?? 0;
-  const discrepancyColor = discrepancy >= 0 ? AMI_CHART.primaryMid : AMI_CHART.completionLow;
+  const discrepancyColor = discrepancy >= 0 ? HS_CHART.primaryMid : HS_CHART.completionLow;
 
   return `
     <div style="${TOOLTIP_SHELL}">
       <div style="
         font-weight:700;
         font-size:14px;
-        color:${AMI_CHART.primaryMid};
+        color:${HS_CHART.primaryMid};
         margin-bottom:10px;
         padding-bottom:8px;
-        border-bottom:1px solid ${AMI_CHART.border};
+        border-bottom:1px solid ${HS_CHART.border};
         line-height:1.4;
         white-space:normal;
       ">
         ${escapeHtml(name)}
       </div>
       <div style="display:grid;row-gap:7px;">
-        ${metricRow('AI Score', pillar.aiProgress, AMI_CHART.primary)}
-        ${metricRow('Evaluator', pillar.evaluatorScore, AMI_CHART.secondary)}
+        ${metricRow('AI Score', pillar.aiProgress, HS_CHART.primary)}
+        ${metricRow('Evaluator', pillar.evaluatorScore, HS_CHART.secondary)}
         <div style="
           display:flex;
           justify-content:space-between;
           gap:16px;
           padding-top:6px;
           margin-top:2px;
-          border-top:1px dashed ${AMI_CHART.border};
+          border-top:1px dashed ${HS_CHART.border};
         ">
-          <span style="color:${AMI_CHART.textMuted};">Discrepancy</span>
+          <span style="color:${HS_CHART.textMuted};">Discrepancy</span>
           <span style="font-weight:700;color:${discrepancyColor};">
             ${formatScore(discrepancy)}
           </span>
@@ -156,7 +156,7 @@ export function buildAiKpiPillarTooltipHtml(pillar: AiKpiPillarTooltipPillar): s
 
 export function buildAiKpiProgressTooltipHtml(
   pillar: AiKpiPillarTooltipPillar,
-  progressColor: string = AMI_CHART.primary
+  progressColor: string = HS_CHART.primary
 ): string {
   if (pillar.isAccess === false) {
     return buildAiKpiPillarTooltipHtml(pillar);
@@ -174,7 +174,7 @@ export function buildAiKpiProgressTooltipHtml(
 
   return `
     <div style="${TOOLTIP_SHELL}">
-      <div style="font-weight:700;font-size:14px;color:${AMI_CHART.primaryMid};margin-bottom:8px;line-height:1.4;">
+      <div style="font-weight:700;font-size:14px;color:${HS_CHART.primaryMid};margin-bottom:8px;line-height:1.4;">
         ${escapeHtml(pillar.pillarName || 'Domain')}
       </div>
       <div style="
@@ -184,15 +184,15 @@ export function buildAiKpiProgressTooltipHtml(
         font-size:11px;
         font-weight:600;
         color:${progressColor};
-        background:rgba(201,162,74,0.12);
-        border:1px solid rgba(201,162,74,0.28);
+        background:rgba(197,160,90,0.12);
+        border:1px solid rgba(197,160,90,0.28);
         margin-bottom:12px;
       ">${statusText}</div>
       <div style="display:flex;justify-content:space-between;margin-bottom:6px;">
-        <span style="color:${AMI_CHART.textMuted};">Score</span>
+        <span style="color:${HS_CHART.textMuted};">Score</span>
         <span style="font-weight:700;color:${progressColor};">${formatScore(progressPercent)}</span>
       </div>
-      <div style="width:100%;height:8px;background:#241F14;border-radius:8px;overflow:hidden;">
+      <div style="width:100%;height:8px;background:#16324A;border-radius:8px;overflow:hidden;">
         <div style="width:${Math.min(Math.max(progressPercent, 0), 100)}%;height:100%;background:${progressColor};border-radius:8px;"></div>
       </div>
     </div>
@@ -208,12 +208,12 @@ export function buildAiKpiXaxis(categories: string[]): ApexXAxis {
       style: {
         fontSize: '11px',
         fontWeight: 600,
-        colors: AMI_CHART.text,
+        colors: HS_CHART.text,
         cssClass: 'ami-kpi-xaxis-label',
       },
     },
-    axisBorder: { color: AMI_CHART.border },
-    axisTicks: { color: AMI_CHART.border },
+    axisBorder: { color: HS_CHART.border },
+    axisTicks: { color: HS_CHART.border },
     tooltip: { enabled: false },
   };
 }
@@ -242,12 +242,12 @@ export function buildAiKpiGroupedBarChartOptions(args: {
 
   return {
     series,
-    colors: [...AMI_KPI_BAR_COLORS],
+    colors: [...HS_KPI_BAR_COLORS],
     chart: {
       type: 'bar',
       height: 420,
       background: 'transparent',
-      foreColor: AMI_CHART.text,
+      foreColor: HS_CHART.text,
       toolbar: { show: false },
       zoom: { enabled: false },
       animations: {
@@ -269,20 +269,20 @@ export function buildAiKpiGroupedBarChartOptions(args: {
     yaxis: {
       title: {
         text: 'Score',
-        style: { ...AMI_AXIS_STYLE.yaxisTitle.style },
+        style: { ...HS_AXIS_STYLE.yaxisTitle.style },
       },
       min: yMin,
       max: yMax,
       forceNiceScale: true,
       tickAmount: 5,
       labels: {
-        ...AMI_AXIS_STYLE.yaxisLabels,
+        ...HS_AXIS_STYLE.yaxisLabels,
         formatter: (val: number) =>
           val !== null && val !== undefined && !Number.isNaN(val) ? `${Math.round(val)}` : '',
       },
     },
     grid: {
-      ...AMI_AXIS_STYLE.grid,
+      ...HS_AXIS_STYLE.grid,
       xaxis: { lines: { show: false } },
       yaxis: { lines: { show: true } },
     },
@@ -292,7 +292,7 @@ export function buildAiKpiGroupedBarChartOptions(args: {
         shade: 'dark',
         type: 'vertical',
         shadeIntensity: 0.18,
-        gradientToColors: [...AMI_KPI_BAR_GRADIENT_TO],
+        gradientToColors: [...HS_KPI_BAR_GRADIENT_TO],
         inverseColors: false,
         opacityFrom: 1,
         opacityTo: 0.82,
@@ -317,7 +317,7 @@ export function buildAiKpiGroupedBarChartOptions(args: {
       horizontalAlign: 'center',
       offsetY: 8,
       fontSize: '12px',
-      labels: { colors: AMI_CHART.text },
+      labels: { colors: HS_CHART.text },
       markers: { strokeWidth: 0 },
     },
   };
@@ -332,12 +332,12 @@ export function buildAiKpiAreaChartOptions(args: {
 
   return {
     series: [{ name: 'Progress', data: series }],
-    colors: [AMI_CHART.primary],
+    colors: [HS_CHART.primary],
     chart: {
       type: 'area',
       height: 420,
       background: 'transparent',
-      foreColor: AMI_CHART.text,
+      foreColor: HS_CHART.text,
       toolbar: { show: false },
       zoom: { enabled: false },
       animations: {
@@ -356,22 +356,22 @@ export function buildAiKpiAreaChartOptions(args: {
       style: {
         fontSize: '11px',
         fontWeight: 700,
-        colors: [AMI_CHART.primaryMid],
+        colors: [HS_CHART.primaryMid],
       },
       background: {
         enabled: true,
-        foreColor: AMI_CHART.deep,
+        foreColor: HS_CHART.deep,
         padding: 6,
         borderRadius: 4,
         borderWidth: 1,
-        borderColor: AMI_CHART.primary,
+        borderColor: HS_CHART.primary,
         opacity: 0.95,
       },
     },
     stroke: {
       curve: 'smooth',
       width: 3,
-      colors: [AMI_CHART.primary],
+      colors: [HS_CHART.primary],
     },
     fill: {
       type: 'gradient',
@@ -379,7 +379,7 @@ export function buildAiKpiAreaChartOptions(args: {
         shade: 'dark',
         type: 'vertical',
         shadeIntensity: 0.35,
-        gradientToColors: [AMI_CHART.deep],
+        gradientToColors: [HS_CHART.deep],
         inverseColors: false,
         opacityFrom: 0.5,
         opacityTo: 0.06,
@@ -389,9 +389,9 @@ export function buildAiKpiAreaChartOptions(args: {
     markers: {
       size: pillars.map((p) => (p.isAccess === false ? 4 : 6)),
       colors: pillars.map((p) =>
-        p.isAccess === false ? AMI_CHART.accent : amiScoreColor(p.aiProgress)
+        p.isAccess === false ? HS_CHART.accent : amiScoreColor(p.aiProgress)
       ),
-      strokeColors: AMI_CHART.deep,
+      strokeColors: HS_CHART.deep,
       strokeWidth: 2,
       hover: { size: 8, sizeOffset: 3 },
     },
@@ -399,13 +399,13 @@ export function buildAiKpiAreaChartOptions(args: {
     yaxis: {
       title: {
         text: 'Score',
-        style: { ...AMI_AXIS_STYLE.yaxisTitle.style },
+        style: { ...HS_AXIS_STYLE.yaxisTitle.style },
       },
       min: 0,
       max: 100,
       tickAmount: 5,
       labels: {
-        ...AMI_AXIS_STYLE.yaxisLabels,
+        ...HS_AXIS_STYLE.yaxisLabels,
         formatter: (val: number) =>
           val !== null && val !== undefined && !Number.isNaN(val)
             ? `${Math.round(val)}`
@@ -413,7 +413,7 @@ export function buildAiKpiAreaChartOptions(args: {
       },
     },
     grid: {
-      ...AMI_AXIS_STYLE.grid,
+      ...HS_AXIS_STYLE.grid,
       xaxis: { lines: { show: false } },
       yaxis: { lines: { show: true } },
     },
@@ -437,7 +437,7 @@ export function buildAiKpiAreaChartOptions(args: {
 function metricRow(label: string, value: number | null | undefined, color: string): string {
   return `
     <div style="display:flex;justify-content:space-between;gap:16px;">
-      <span style="color:${AMI_CHART.textMuted};">${label}</span>
+      <span style="color:${HS_CHART.textMuted};">${label}</span>
       <span style="font-weight:700;color:${color};">${formatScore(value)}</span>
     </div>
   `;

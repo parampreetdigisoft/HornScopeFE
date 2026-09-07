@@ -1,4 +1,3 @@
-@import '../../../../core/styles/ami-dashboard-theme.css';
 @import './real-time-operational-stress.component.css';
 
 app-admin-dashboard {
@@ -6,7 +5,7 @@ app-admin-dashboard {
   width: 100%;
   position: relative;
   min-height: 0;
-  background: #0A0906;
+  background: var(--hs-bg, #061525);
   border-radius: 14px;
 }
 
@@ -23,58 +22,9 @@ app-admin-dashboard > .loader_main {
   justify-content: center !important;
 }
 
-app-admin-dashboard .ami-field .analyst_multi_select {
+app-admin-dashboard .hs-field .analyst_multi_select {
   width: 240px;
   padding: 0;
   border: 0;
   background: transparent !important;
-}
-
-app-admin-dashboard .ami-field .analyst_multi_select .ng-select-container {
-  background-color: #231f1a !important;
-  border: 1px solid #3a3224 !important;
-  color: #efe7d6 !important;
-}
-
-app-admin-dashboard .ami-field .analyst_multi_select .ng-value,
-app-admin-dashboard .ami-field .analyst_multi_select .ng-placeholder,
-app-admin-dashboard .ami-field .analyst_multi_select .ng-input > input {
-  color: #efe7d6 !important;
-}
-
-app-admin-dashboard .ami-field .analyst_multi_select .ng-dropdown-panel {
-  background: #1a1610 !important;
-  border: 1px solid #3a3224 !important;
-  color: #efe7d6 !important;
-}
-
-app-admin-dashboard .ami-field .analyst_multi_select .ng-option {
-  background: #1a1610 !important;
-  color: #efe7d6 !important;
-}
-
-app-admin-dashboard .ami-field .analyst_multi_select .ng-option:hover {
-  background: rgba(201, 162, 74, 0.16) !important;
-  color: #e7c878 !important;
-  border: 1px solid #c9a24a !important;
-  border-radius: 8px;
-}
-
-app-admin-dashboard .ami-field .analyst_multi_select .ng-option.ng-option-selected,
-app-admin-dashboard .ami-field .analyst_multi_select .ng-option.ng-option-selected.ng-option-marked {
-  background: transparent !important;
-  color: #e7c878 !important;
-  border: 1px solid #c9a24a !important;
-}
-
-app-admin-dashboard .ami-field select.form-control {
-  background: #231f1a !important;
-  color: #efe7d6 !important;
-  border-color: #3a3224 !important;
-  color-scheme: dark;
-}
-
-app-admin-dashboard .ami-field select.form-control option {
-  background: #1a1610;
-  color: #efe7d6;
 }

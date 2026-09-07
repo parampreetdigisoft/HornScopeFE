@@ -111,8 +111,8 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   });
 
   readonly rotatingHeadlines = [
-  'Welcome to the Africa Market Intelligence Engine',
-  'Monitor market system performance across Africa',
+  'Welcome to Hornscope',
+  'Monitor market system performance across the Horn of Africa',
   'Explore country market risks and resilience',
   'Compare market indicators, pillars, and trends',
   'Detect early market warnings and emerging risks',

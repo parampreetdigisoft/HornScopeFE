@@ -11,7 +11,7 @@
     font-weight: 700 !important;
 }
 .user_name_active{
-    color:#C9A24A !important;
+    color:#C5A05A !important;
 }
 
 .heading_area .kpi_compare_toolbar {
@@ -29,7 +29,7 @@
 
 .heading_area .ng-select .ng-placeholder,
 .heading_area .analyst_multi_select .ng-placeholder {
-  color: #8B887E !important;
+  color: #7A8A9A !important;
   opacity: 1 !important;
   display: block !important;
 }
@@ -115,7 +115,7 @@
 }
 
 .read-more {
-  color: #E7C878;
+  color: #D4B86A;
   font-weight: 600;
   cursor: pointer;
   font-size: 13px;

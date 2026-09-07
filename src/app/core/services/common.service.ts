@@ -261,70 +261,75 @@ export class CommonService {
     return [
       "#B5502E",
       "#C46A3A",
-      "#8A5A2B",
+      "#8B6B32",
       "#A67C3D",
-      "#C9A24A",
-      "#D4B45E",
-      "#E7C878",
-      "#B7A25A",
-      "#C9C7BF",
-      "#EFE7D6",
+      "#C5A05A",
+      "#C9A85A",
+      "#D4B86A",
+      "#5A9B8A",
+      "#B8C5D0",
+      "#E8EEF4",
       "#B5502E",
       "#C46A3A",
-      "#8A5A2B",
+      "#8B6B32",
       "#A67C3D",
-      "#C9A24A",
-      "#D4B45E",
-      "#E7C878",
-      "#B7A25A",
-      "#C9C7BF",
-      "#EFE7D6",
-      "#B7A25A",
-      "#C9C7BF",
-      "#EFE7D6",
+      "#C5A05A",
+      "#C9A85A",
+      "#D4B86A",
+      "#5A9B8A",
+      "#B8C5D0",
+      "#E8EEF4",
+      "#5A9B8A",
+      "#B8C5D0",
+      "#E8EEF4",
     ];
   }
   get radarColors() {
     return [
       {
-        primary: '#E7C878',
-        light: '#C9A24A',
-        gradient: 'rgba(231, 200, 120, 0.28)'
+        primary: '#D4B86A',
+        light: '#C5A05A',
+        gradient: 'rgba(212, 184, 106, 0.28)'
       },
       {
-        primary: '#C9A24A',
-        light: '#8A5A2B',
-        gradient: 'rgba(201, 162, 74, 0.28)'
+        primary: '#C5A05A',
+        light: '#8B6B32',
+        gradient: 'rgba(197, 160, 90, 0.28)'
       },
       {
-        primary: '#C9C7BF',
-        light: '#8B887E',
-        gradient: 'rgba(201, 199, 191, 0.28)'
+        primary: '#002147',
+        light: '#7A94A8',
+        gradient: 'rgba(0, 33, 71, 0.28)'
       },
       {
-        primary: '#8A5A2B',
+        primary: '#B8C5D0',
+        light: '#7A8A9A',
+        gradient: 'rgba(184, 197, 208, 0.28)'
+      },
+      {
+        primary: '#8B6B32',
         light: '#A67C3D',
-        gradient: 'rgba(138, 90, 43, 0.28)'
+        gradient: 'rgba(139, 107, 50, 0.28)'
       },
       {
-        primary: '#B7A25A',
-        light: '#D4B45E',
-        gradient: 'rgba(183, 162, 90, 0.28)'
+        primary: '#5A9B8A',
+        light: '#C9A85A',
+        gradient: 'rgba(90, 155, 138, 0.28)'
       },
       {
-        primary: '#D4B45E',
-        light: '#E7C878',
+        primary: '#C9A85A',
+        light: '#D4B86A',
         gradient: 'rgba(212, 180, 94, 0.28)'
       },
       {
         primary: '#A67C3D',
-        light: '#C9A24A',
+        light: '#C5A05A',
         gradient: 'rgba(166, 124, 61, 0.28)'
       },
       {
-        primary: '#8B887E',
-        light: '#C9C7BF',
-        gradient: 'rgba(139, 136, 126, 0.28)'
+        primary: '#7A8A9A',
+        light: '#B8C5D0',
+        gradient: 'rgba(122, 138, 154, 0.28)'
       },
       {
         primary: '#B5502E',
@@ -332,24 +337,24 @@ export class CommonService {
         gradient: 'rgba(181, 80, 46, 0.28)'
       },
       {
-        primary: '#EFE7D6',
-        light: '#C9C7BF',
-        gradient: 'rgba(239, 231, 214, 0.22)'
+        primary: '#E8EEF4',
+        light: '#B8C5D0',
+        gradient: 'rgba(232, 238, 244, 0.22)'
       }
     ];
   }
 
   get kpiColors() {
     return [
-      "#E7C878",
-      "#C9A24A",
-      "#8A5A2B",
-      "#C9C7BF",
-      "#B7A25A",
-      "#D4B45E",
+      "#D4B86A",
+      "#C5A05A",
+      "#8B6B32",
+      "#B8C5D0",
+      "#5A9B8A",
+      "#C9A85A",
       "#A67C3D",
-      "#8B887E",
-      "#EFE7D6",
+      "#7A8A9A",
+      "#E8EEF4",
       "#B5502E",
     ];
   }

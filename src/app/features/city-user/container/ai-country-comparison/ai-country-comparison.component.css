@@ -20,7 +20,6 @@ app-ai-city-comparison app-ag-bar:nth-child(3) {
   overflow-x: auto;
 }
 
-
 .mb_15 {
   margin-bottom: 15px;
 }
@@ -30,28 +29,9 @@ app-ai-city-comparison app-ag-bar:nth-child(3) {
   font-weight: 700 !important;
 }
 
-.no_result_found {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 80px;
-  text-align: center;
-  color: #6c757d;
-  /* subtle grey */
-}
-
-.no_result_found h3 {
-  font-weight: 600;
-  /* semi-bold, cleaner */
-  font-size: 20px;
-  color: #495057;
-  /* darker grey for text */
-  letter-spacing: 0.5px;
-}
-
 .table_badge {
-  background: #C9A24A;
-  color: #EFE7D6;
+  background: #C5A05A;
+  color: #E8EEF4;
   padding: 2px 8px;
   border-radius: 0.5rem;
   display: inline-block;
@@ -141,7 +121,7 @@ app-ai-city-comparison app-ag-bar:nth-child(3) {
 .city_cards_p {
   font-size: 14px;
   background-color: #77bd3e;
-  color: #EFE7D6;
+  color: #E8EEF4;
   padding: 2px 10px;
   border-radius: 20px;
   width: max-content;
@@ -149,19 +129,19 @@ app-ai-city-comparison app-ag-bar:nth-child(3) {
 }
 
 ::ng-deep .analyst_multi_select .ng-option-selected {
-  background-color: rgba(201, 162, 74, 0.18) !important;
-  color: #C9A24A !important;
+  background-color: rgba(197, 160, 90, 0.18) !important;
+  color: #C5A05A !important;
   font-weight: 600;
 }
 
 /* Optional: hover style */
 ::ng-deep .analyst_multi_select .ng-option:hover {
-  background-color: rgba(201, 162, 74, 0.14) !important;
+  background-color: rgba(197, 160, 90, 0.14) !important;
 }
 
 ::ng-deep .compare_select .ng-select-container {
   border: none !important;
-  background-color: #1B1810 !important;
+  background-color: #123049 !important;
   min-height: auto !important;
   height: 100% !important;
 }
@@ -173,8 +153,6 @@ app-ai-city-comparison app-ag-bar:nth-child(3) {
 ::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
   box-shadow: none !important;
 }
-
-
 
 .table_custom_inner {
   overflow: auto;
@@ -194,8 +172,8 @@ span.selexted_piller {
   white-space: nowrap;
   padding: 2px 5px !important;
   border-radius: 5px !important;
-  background-color: #C9A24A !important;
-  color: #EFE7D6 !important;
+  background-color: #C5A05A !important;
+  color: #E8EEF4 !important;
 }
 
 .kpi_city.kpi_td_data {
@@ -219,7 +197,7 @@ span.selexted_piller {
   font-size: 11px;
   line-height: 1.2;
   font-weight: 500;
-  color: #EFE7D6;
+  color: #E8EEF4;
   background-color: #77bd3e;
   border-radius: 4px;
   white-space: nowrap;
@@ -273,11 +251,11 @@ span.selexted_piller {
 }
 
 .faq_sidebar_item.active .faq_sidebar_item_inner:after {
-  background-color: #C9A24A;
+  background-color: #C5A05A;
 }
 
 .faq_sidebar_item.active .faq_sidebar_item_inner svg>rect {
-  fill: #C9A24A;
+  fill: #C5A05A;
 }
 
 .faq_inner_svg {
@@ -322,12 +300,10 @@ span.selexted_piller {
 .faq_sidebar_item:nth-child(22) .faq_inner_svg { background-color: #C0392B; } /* Brick Red */
 .faq_sidebar_item:nth-child(23) .faq_inner_svg { background-color: #2E86C1; } /* Steel Blue */
 
-
 .faq_sidebar_item.active .current-active span.faq_inner_svg {
   background-color: var(--Secondary-Color) !important;
   border-color: var(--Secondary-Color) !important;
 }
-
 
 .faq_sidebar_item.active .current-active.faq_sidebar_item_inner p {
   color: var(--Dark-Bg-Color) !important;
@@ -350,7 +326,6 @@ tr.pillar_disabled {
   opacity: 0.4 !important;
 }
 
-
 /* Overall Layout */
 .comparison-wrapper {
   display: grid;
@@ -366,7 +341,7 @@ tr.pillar_disabled {
   align-items: center;
   padding: 12px;
   border-radius: 18px;
-  color: #EFE7D6;
+  color: #E8EEF4;
   min-height: 120px;
   position: relative;
   overflow: hidden;
@@ -401,7 +376,6 @@ tr.pillar_disabled {
 
 /* card css */
 
-
 .dashboard_card {
   padding: 15px;
 }
@@ -412,7 +386,7 @@ h6.city_pile {
   padding: 2px 10px;
   border-radius: 20px;
   font-weight: 400;
-  color: #EFE7D6;
+  color: #E8EEF4;
 }
 
 .dashboard_card_inner span {
@@ -475,7 +449,7 @@ h6.city_pile {
   position: sticky;
   left: 0;
   z-index: 1;
-  background-color: #1B1810;
+  background-color: #123049;
 }
 
 /* .dashboard_card_inner span img {
@@ -483,7 +457,6 @@ h6.city_pile {
   width: 44px;
   height: auto;
 } */
-
 
 @media only screen and (max-width:1540px) {
   .dashboard_number {
@@ -502,9 +475,8 @@ h6.city_pile {
   }
 }
 
-
 /* ==============================================================
-   AMI Cross-Country Comparison — dark chart + table shell
+   HS Cross-Country Comparison — dark chart + table shell
    ============================================================== */
 .comparison-wrapper {
   animation: amiCompareIn 0.45s ease both;
@@ -513,8 +485,8 @@ h6.city_pile {
 
 /* Single chart shell — avoid nested chart-section + chart-container boxes */
 .chart-section {
-  background: #141209 !important;
-  border: 1px solid rgba(201, 162, 74, 0.22);
+  background: #0C2238 !important;
+  border: 1px solid rgba(197, 160, 90, 0.22);
   border-radius: 16px;
   box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
   padding: 8px 8px 4px;
@@ -536,7 +508,7 @@ h6.city_pile {
 }
 
 ::ng-deep .apexcharts-legend-text {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
 }
 
 ::ng-deep .apexcharts-tooltip {
@@ -549,31 +521,31 @@ h6.city_pile {
 .compare_table.table .city_cards_h1,
 .compare_table.table .city_cards_disc,
 .pillar_confidence_outer > p {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
 }
 
 .header_score_chip {
-  background: linear-gradient(135deg, #E7C878, #C9A24A) !important;
-  color: #0A0906 !important;
+  background: linear-gradient(135deg, #D4B86A, #C5A05A) !important;
+  color: #061525 !important;
 }
 
 h6.city_pile,
 .city_cards_p {
-  background: rgba(201, 162, 74, 0.18) !important;
-  color: #E7C878 !important;
-  border: 1px solid rgba(201, 162, 74, 0.35);
+  background: rgba(197, 160, 90, 0.18) !important;
+  color: #D4B86A !important;
+  border: 1px solid rgba(197, 160, 90, 0.35);
 }
 
 .header_Score .research_date.fresh {
-  background: rgba(183, 162, 90, 0.2) !important;
-  color: #E7C878 !important;
-  border: 1px solid rgba(201, 162, 74, 0.35);
+  background: rgba(90, 155, 138, 0.2) !important;
+  color: #D4B86A !important;
+  border: 1px solid rgba(197, 160, 90, 0.35);
 }
 
 .header_Score .research_date.recent {
-  background: rgba(201, 162, 74, 0.16) !important;
-  color: #C9A24A !important;
-  border: 1px solid rgba(201, 162, 74, 0.3);
+  background: rgba(197, 160, 90, 0.16) !important;
+  color: #C5A05A !important;
+  border: 1px solid rgba(197, 160, 90, 0.3);
 }
 
 .header_Score .research_date.old {
@@ -583,22 +555,22 @@ h6.city_pile,
 }
 
 .header_Score .research_date.just-now {
-  background: rgba(231, 200, 120, 0.14) !important;
-  color: #EFE7D6 !important;
-  border: 1px solid rgba(201, 162, 74, 0.28);
+  background: rgba(212, 184, 106, 0.14) !important;
+  color: #E8EEF4 !important;
+  border: 1px solid rgba(197, 160, 90, 0.28);
 }
 
 .cross_city .compare_table thead th,
 .cross_city .compare_table tbody td {
-  background: #141209 !important;
-  border-color: #332C1D !important;
-  color: #EFE7D6 !important;
+  background: #0C2238 !important;
+  border-color: #1E3D5C !important;
+  color: #E8EEF4 !important;
   vertical-align: top;
 }
 
 .cross_city tr th:first-child,
 .cross_city tr td:first-child {
-  background-color: #1B1810 !important;
+  background-color: #123049 !important;
 }
 
 /* Flat domain table — no second outer box under the chart */
@@ -616,7 +588,7 @@ h6.city_pile,
   margin-bottom: 0;
   border-radius: 12px;
   overflow: hidden;
-  border: 1px solid #332C1D;
+  border: 1px solid #1E3D5C;
 }
 
 .kpi-card {
@@ -632,11 +604,6 @@ h6.city_pile,
   justify-content: center;
   min-height: 72px;
   padding: 8px 0;
-}
-
-.no_result_found,
-.no_result_found h3 {
-  color: #9C9484 !important;
 }
 
 @keyframes amiCompareIn {

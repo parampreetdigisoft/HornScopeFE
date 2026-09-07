@@ -9,11 +9,9 @@
     flex: 1;
 }
 
-
-
 .city_card_img .score {
     background-color: #77bd3e;
-    color: #EFE7D6;
+    color: #E8EEF4;
     display: inline-block;
     padding: 3px 10px;
     font-size: 13px;
@@ -68,20 +66,17 @@
     position: relative;
 }
 
-
-
 .cus_table .table th {
     background-color: #77BD3E;
     font-weight: 600;
-    color: #EFE7D6;
+    color: #E8EEF4;
     font-size: 14px;
     white-space: nowrap;
 }
 
-
 .cus_table .score_label_tab {
-    background: #C9A24A;
-    color: #EFE7D6;
+    background: #C5A05A;
+    color: #E8EEF4;
     padding: 0.3rem 0.5rem;
     border-radius: 0.5rem;
     display: inline-flex;
@@ -91,7 +86,7 @@
 
 .cus_table .table td {
     font-size: 1.3rem;
-    border-bottom: 1px solid #332C1D;
+    border-bottom: 1px solid #1E3D5C;
     vertical-align: middle;
 }
 .cus_table .table td:first-child {
@@ -139,7 +134,7 @@ span:empty, div:empty{
     flex: 1;
     border-radius: 15px;
     overflow: hidden;
-    border: 1px solid #1B1810;
+    border: 1px solid #123049;
     box-shadow: none !important;
 }
 .integrate_outter .outer_graph {
@@ -154,37 +149,35 @@ span:empty, div:empty{
     cursor: default !important;
 }
 
-
-
 .cross-pillar h5{
     font-weight: 700;
     color: #000000;
 }
 .city_pillar {
-    background-color: #1B1810;
+    background-color: #123049;
     padding: 20px;
     position: relative;
     border-radius: 15px;
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
 }
 .cross-pillar_outter{
-    border: 1px solid #332C1D;
+    border: 1px solid #1E3D5C;
     padding: 0px;
     border-radius: 15px;
 }
 .active_row td {
-    background-color: #C9A24A;
-    color: #EFE7D6;
+    background-color: #C5A05A;
+    color: #E8EEF4;
 }
 .active_row td .score_label_tab {
     background-color: rgba(255,255,255,0.08) !important;
 }
 .last_data td {
-    background-color: #C9A24A;
-    color: #EFE7D6;
+    background-color: #C5A05A;
+    color: #E8EEF4;
 }
 .last_data td span {
-    color: #EFE7D6;
+    color: #E8EEF4;
     background-color: #77BD3E;
     white-space: nowrap;
     padding: 5px 8px;

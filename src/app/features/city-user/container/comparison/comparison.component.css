@@ -38,7 +38,7 @@
 .kpi_compare_chart_panel::-webkit-scrollbar-thumb,
 #chart::-webkit-scrollbar-thumb,
 .table_outer.table-responsive::-webkit-scrollbar-thumb {
-  background: rgba(201, 162, 74, 0.4);
+  background: rgba(197, 160, 90, 0.4);
   border-radius: 8px;
 }
 
@@ -58,7 +58,6 @@
     width: 775px !important;
     /* set your desired width */
 }
-
 
 app-comparision {
     display: flex;
@@ -84,14 +83,13 @@ app-comparision app-ag-bar:nth-child(3) {
       background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
     background-repeat: no-repeat;
     background-position: center right 13px;
-    color: #EFE7D6;
+    color: #E8EEF4;
     /* font-family: 'Montserrat'; */
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
     line-height: normal;
 }
-
 
 .input_flex {
     display: flex;
@@ -134,12 +132,12 @@ app-comparision app-ag-bar:nth-child(3) {
     border-radius: 15px;
     overflow: hidden;
     padding-top: 30px;
-    background-color: #1B1810;
+    background-color: #123049;
 }
 
 .evaluater_design
 {
-  background-color: #1B1810;
+  background-color: #123049;
   border-radius: 15px;
     overflow: hidden;
     padding: 25px;
@@ -173,8 +171,8 @@ app-comparision app-ag-bar:nth-child(3) {
 .evaluater_design td, .evaluater_design th
 {
       padding: 10px 20px;
-    border-color: #332C1D;
-    background-color: #1B1810;
+    border-color: #1E3D5C;
+    background-color: #123049;
 }
 
 .evaluater_design .mat-mdc-row
@@ -190,7 +188,7 @@ app-comparision app-ag-bar:nth-child(3) {
 
 .evaluater_design .expanded + .detail-row td
 {
-    border-bottom: 1px solid #332C1D;
+    border-bottom: 1px solid #1E3D5C;
 }
 
 .evaluater_design .expanded .expand-toggle rect:last-child
@@ -238,7 +236,6 @@ width: 500px;
   
 }
 
-
 /* .evaluater_design .mat-elevation-z8 tr th:has(:nth-child(3)),
 .evaluater_design .mat-elevation-z8 tr td:has(:nth-child(3)),
 .evaluater_design .mat-elevation-z2 tr th:has(:nth-child(3)),
@@ -254,9 +251,8 @@ width: 500px;
 
 .evaluater_design .mat-elevation-z2 tr td .expand-toggle svg
 {
-  stroke: #141209;
+  stroke: #0C2238;
 }
-
 
 .table_responsive
 {
@@ -278,25 +274,9 @@ min-width: max-content;
     font-weight: 700 !important;
 }
 
-.no_result_found {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 80px;
-  text-align: center;
-  color: #6c757d; /* subtle grey */
-}
-
-.no_result_found h3 {    
-  font-weight: 600;        /* semi-bold, cleaner */
-  font-size: 20px;
-  color: #495057;          /* darker grey for text */
-  letter-spacing: 0.5px;
-}
-
 .table_badge{
-    background: #C9A24A;
-    color: #EFE7D6;
+    background: #C5A05A;
+    color: #E8EEF4;
     padding: 2px 8px;
     border-radius: 0.5rem;
     display: inline-block;
@@ -352,25 +332,25 @@ min-width: max-content;
 .city_cards_p{
     font-size: 14px;
     background-color: #4b6635;
-    color: #EFE7D6;
+    color: #E8EEF4;
     padding: 2px 10px;
     border-radius: 20px;
 }
 ::ng-deep .analyst_multi_select .ng-option-selected {
-  background-color: rgba(201, 162, 74, 0.18) !important;
-  color: #C9A24A !important;
+  background-color: rgba(197, 160, 90, 0.18) !important;
+  color: #C5A05A !important;
   font-weight: 600;
 }
 
 ::ng-deep .analyst_multi_select .ng-option:hover {
-  background-color: rgba(201, 162, 74, 0.16) !important;
-  color: #E7C878 !important;
+  background-color: rgba(197, 160, 90, 0.16) !important;
+  color: #D4B86A !important;
 }
 
 ::ng-deep #chart .apexcharts-menu,
 ::ng-deep .apexcharts-canvas .apexcharts-menu {
-  background: #1B1810 !important;
-  border: 1px solid #C9A24A !important;
+  background: #123049 !important;
+  border: 1px solid #C5A05A !important;
   border-radius: 10px !important;
   box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
   padding: 6px !important;
@@ -378,7 +358,7 @@ min-width: max-content;
 
 ::ng-deep #chart .apexcharts-menu-item,
 ::ng-deep .apexcharts-canvas .apexcharts-menu-item {
-  color: #EFE7D6 !important;
+  color: #E8EEF4 !important;
   background: transparent !important;
   border-radius: 8px !important;
   padding: 8px 12px !important;
@@ -386,8 +366,8 @@ min-width: max-content;
 
 ::ng-deep #chart .apexcharts-menu-item:hover,
 ::ng-deep .apexcharts-canvas .apexcharts-menu-item:hover {
-  background: rgba(201, 162, 74, 0.18) !important;
-  color: #E7C878 !important;
+  background: rgba(197, 160, 90, 0.18) !important;
+  color: #D4B86A !important;
 }
 
 ::ng-deep .compare_select .ng-select-container {
@@ -436,8 +416,8 @@ min-width: max-content;
   box-shadow: none;
 }
 .form-switch input:checked {
-    background-color: #C9A24A !important;
-    border-color: #C9A24A;
+    background-color: #C5A05A !important;
+    border-color: #C5A05A;
 }
 .table_outer .compare_table tbody td.action_td table .action_icons {
     justify-content: flex-start;
@@ -445,14 +425,14 @@ min-width: max-content;
 
 .table_outer .compare_table tbody td.action_td table .action_icons span {
     display: inline-block;
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #0a0906;
+    color: #061525;
     border-radius: 5px;
 }
 .action_icons a svg g path {
-    fill: #141209 !important;
+    fill: #0C2238 !important;
 }
 
 .table_outer .compare_table tbody td.action_td table .btn_spinner .spinner-border {
@@ -462,17 +442,17 @@ min-width: max-content;
 }
 p.btn_spinner {
     display: inline-block;
-    background-color: #C9A24A;
+    background-color: #C5A05A;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #EFE7D6;
+    color: #E8EEF4;
     border-radius: 5px;
 }
 
 p.btn_spinner_export {
     display: inline-block;
     white-space: nowrap;
-    color: #EFE7D6;
+    color: #E8EEF4;
     border-radius: 5px;
 }
 .mat-mdc-header-row {
