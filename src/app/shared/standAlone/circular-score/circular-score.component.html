@@ -1,15 +1,30 @@
-<div *ngIf="value !== null; else noData" class="circular-score" [matTooltip]="tooltipText==null ? '' : tooltipText" matTooltipPosition="above">
-  <svg width="50" height="50" viewBox="0 0 50 50">
-    <!-- Background circle -->
-    <circle cx="25" cy="25" r="20" fill="none" stroke="#e0e0e0" stroke-width="4" />
-    <!-- Score circle -->
-    <circle cx="25" cy="25" r="20" fill="none" [attr.stroke]="getColor(value)" stroke-width="4" stroke-linecap="round"
-      [style.stroke-dasharray]="circumference" [style.stroke-dashoffset]="dashOffset" transform="rotate(-90 25 25)"
+<div *ngIf="value !== null; else noData"
+  class="circular-score"
+  [matTooltip]="tooltipText==null ? '' : tooltipText"
+  matTooltipPosition="above">
+  <svg viewBox="0 0 50 50" aria-hidden="true">
+    <circle cx="25" cy="25" r="20" fill="none" stroke="#332C1D" stroke-width="4" />
+    <circle
+      cx="25"
+      cy="25"
+      r="20"
+      fill="none"
+      [attr.stroke]="getColor(value)"
+      stroke-width="4"
+      stroke-linecap="round"
+      [style.stroke-dasharray]="circumference"
+      [style.stroke-dashoffset]="dashOffset"
+      transform="rotate(-90 25 25)"
       class="progress-ring" />
   </svg>
 
-  <div class="score-text" [style.color]="getColorR(value)">
-    {{ formattedValue }} {{symbol}}
+  <div
+    class="score-text"
+    [class.is-short]="isShortValue || (!!centerText && centerText.length <= 3)"
+    [class.is-long]="isLongValue || (!!centerText && centerText.length >= 5)"
+    [class.is-negative]="isNegative"
+    [style.color]="getColorR(value)">
+    {{ centerText != null && centerText !== '' ? centerText : (formattedValue + symbol) }}
   </div>
 </div>
 

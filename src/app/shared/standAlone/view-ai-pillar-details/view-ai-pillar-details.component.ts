@@ -1,44 +1,45 @@
 import { Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { environment } from 'src/environments/environment';
-
 import { CommonModule } from '@angular/common';
+import { AiCountryPillarVM } from 'src/app/core/models/aiVm/AiCountryPillarResponseDto';
 import { CircularScoreComponent } from 'src/app/shared/standAlone/circular-score/circular-score.component';
 import { SparklineScoreComponent } from 'src/app/shared/standAlone/sparkline-score/sparkline-score.component';
-import { AiProgramPillarVM } from 'src/app/core/models/aiVm/AiProgramPillarResponseDto';
 import { AITrustLevelVM } from 'src/app/core/models/aiVm/AITrustLevelVM';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { AiEditableFieldComponent } from '../ai-editable-field/ai-editable-field.component';
-import { AiEditToolbarComponent } from '../ai-edit-toolbar/ai-edit-toolbar.component';
-import { AiComputationService } from 'src/app/core/services/ai-computation.service';
-import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { UserRole } from 'src/app/core/enums/UserRole';
+import { AiEditToolbarComponent } from 'src/app/shared/standAlone/ai-edit-toolbar/ai-edit-toolbar.component';
+import { AiEditableFieldComponent } from 'src/app/shared/standAlone/ai-editable-field/ai-editable-field.component';
 import {
   AiEditableFieldConfig,
   mapCitationsForUpdate,
-  UpdateAIDataSourceCitationDto,
   UpdateAIPillarScoreDto
 } from 'src/app/core/models/aiVm/UpdateAiScoreDtos';
+import { AiEditService } from 'src/app/core/services/ai-edit-audit.service';
+import { ToasterService } from 'src/app/core/services/toaster.service';
+import { FormsModule } from '@angular/forms';
+import { AIEditAccessDto } from 'src/app/core/models/aiVm/AiEditDtos';
 
-const PILLAR_EVIDENCE_FIELDS: AiEditableFieldConfig[] = [
-  { key: 'structuralEvidence', label: 'Structural Evidence', type: 'textarea', showInTable: true },
-  { key: 'operationalEvidence', label: 'Operational Evidence', type: 'textarea', showInTable: true },
-  { key: 'outcomeEvidence', label: 'Outcome Evidence', type: 'textarea', showInTable: true },
-  { key: 'perceptionEvidence', label: 'Perception Evidence', type: 'textarea', showInTable: true },
-  { key: 'temporalScope', label: 'Temporal Scope', type: 'textarea', showInTable: true },
-  { key: 'distortionScreening', label: 'Distortion Screening', type: 'textarea', showInTable: true },
-  { key: 'relationalIntegrity', label: 'Relational Integrity', type: 'textarea', showInTable: true },
-  { key: 'stressGeopoliticalShock', label: 'Geopolitical Shock', type: 'textarea', showInTable: true },
-  { key: 'stressFinanceShock', label: 'Finance Shock', type: 'textarea', showInTable: true },
-  { key: 'stressLegitimacyShock', label: 'Legitimacy Shock', type: 'textarea', showInTable: true },
-  { key: 'stressScoreAdjustment', label: 'Stress Score Adjustment', type: 'textarea', showInTable: true },
-  { key: 'inclusionEquityAdjustment', label: 'Inclusion & Equity Adjustment', type: 'textarea', showInTable: true },
-  { key: 'opacityRisk', label: 'Opacity Risk', type: 'textarea', showInTable: true },
-  { key: 'nonCompensationNote', label: 'Non-Compensation Note', type: 'textarea', showInTable: true },
-  { key: 'redFlag', label: 'Red Flags', type: 'textarea', showInTable: true },
-  { key: 'inclusionAccessNote', label: 'Inclusion & Access Note', type: 'textarea', showInTable: true },
-  { key: 'institutionalAssessment', label: 'Institutional Assessment', type: 'textarea', showInTable: true },
-  { key: 'dataGapAnalysis', label: 'Data Gap Analysis', type: 'textarea', showInTable: true },
+const PILLAR_TEXT_FIELDS: AiEditableFieldConfig[] = [
+  { key: 'evidenceSummary', label: 'Evidence Summary', type: 'textarea' },
+  { key: 'structuralEvidence', label: 'Structural Evidence', type: 'textarea' },
+  { key: 'operationalEvidence', label: 'Operational Evidence', type: 'textarea' },
+  { key: 'outcomeEvidence', label: 'Outcome Evidence', type: 'textarea' },
+  { key: 'perceptionEvidence', label: 'Perception Evidence', type: 'textarea' },
+  { key: 'temporalScope', label: 'Temporal Scope', type: 'textarea' },
+  { key: 'distortionScreening', label: 'Distortion Screening', type: 'textarea' },
+  { key: 'relationalIntegrity', label: 'Relational Integrity', type: 'textarea' },
+  { key: 'stressPoliticalShock', label: 'Political Shock', type: 'textarea' },
+  { key: 'stressEconomicShock', label: 'Economic Shock', type: 'textarea' },
+  { key: 'stressNarrativeShock', label: 'Narrative Shock', type: 'textarea' },
+  { key: 'stressScoreAdjustment', label: 'Stress Score Adjustment', type: 'textarea' },
+  { key: 'inequalityAdjustment', label: 'Inequality Adjustment', type: 'textarea' },
+  { key: 'opacityRisk', label: 'Opacity Risk', type: 'textarea' },
+  { key: 'nonCompensationNote', label: 'Non-Compensation Note', type: 'textarea' },
+  { key: 'redFlag', label: 'Red Flags', type: 'textarea' },
+  { key: 'geographicEquityNote', label: 'Geographic Equity Note', type: 'textarea' },
+  { key: 'institutionalAssessment', label: 'Institutional Assessment', type: 'textarea' },
+  { key: 'dataGapAnalysis', label: 'Data Gap Analysis', type: 'textarea' },
 ];
 
 @Component({
@@ -46,6 +47,7 @@ const PILLAR_EVIDENCE_FIELDS: AiEditableFieldConfig[] = [
   standalone: true,
   imports: [
     CommonModule,
+    FormsModule,
     CircularScoreComponent,
     SparklineScoreComponent,
     MatTooltipModule,
@@ -56,38 +58,46 @@ const PILLAR_EVIDENCE_FIELDS: AiEditableFieldConfig[] = [
   styleUrl: './view-ai-pillar-details.component.css'
 })
 export class ViewAiPillarDetailsComponent implements OnChanges {
-  @Input() pillar?: AiProgramPillarVM | null = null;
+  @Input() pillar?: AiCountryPillarVM | null = null;
   @Input() aiTrustLevels?: AITrustLevelVM[];
-  @Output() closeSidebar?: boolean | null = null;
   @Output() dataSaved = new EventEmitter<void>();
+  @Output() closeSidebar?: boolean | null = null;
+  
 
   urlBase = environment.apiUrl;
+  userService = inject(UserService);
+  aiEditService = inject(AiEditService);
+  currentYear = new Date().getFullYear();
+  toaster = inject(ToasterService);
+
   editMode = false;
   saving = false;
+  submitting = false;
+  editAccess: AIEditAccessDto | null = null;
   draft: Record<string, string | number | null> = {};
-  citationDraft: UpdateAIDataSourceCitationDto[] = [];
-  evidenceFields = PILLAR_EVIDENCE_FIELDS;
-
-  aiComputationService = inject(AiComputationService);
-  userService = inject(UserService);
-  toaster = inject(ToasterService);
+  citationDrafts: Record<number, Record<string, string | number | null>> = {};
+  textFields = PILLAR_TEXT_FIELDS;
 
   get canEdit(): boolean {
     const role = this.userService.userInfo?.role;
-    return role === UserRole.Admin || role === UserRole.Analyst;
+    if (role === UserRole.Admin) return true;
+    if (role === UserRole.Analyst) return !!this.editAccess?.canEdit;
+    return false;
   }
 
-  get hasPillarScoreRecord(): boolean {
-    return (this.pillar?.pillarScoreID ?? 0) > 0;
+  get isAnalyst(): boolean {
+    return this.userService.userInfo?.role === UserRole.Analyst;
   }
 
-  get averageProgress(): number {
-    return (((this.pillar?.aiProgress ?? 0) + (this.pillar?.evaluatorScore ?? 0)) / 2);
+  get averageScore(): number {
+    const ai = this.getDraftNumber('aiProgress') ?? this.pillar?.aiProgress ?? 0;
+    const evaluator = this.getDraftNumber('evaluatorScore') ?? this.pillar?.evaluatorScore ?? 0;
+    return (ai + evaluator) / 2;
   }
 
   get discrepancy(): number {
-    const ai = this.pillar?.aiProgress ?? 0;
-    const evaluator = this.pillar?.evaluatorScore ?? 0;
+    const ai = this.getDraftNumber('aiProgress') ?? this.pillar?.aiProgress ?? 0;
+    const evaluator = this.getDraftNumber('evaluatorScore') ?? this.pillar?.evaluatorScore ?? 0;
     return Math.abs(evaluator - ai);
   }
 
@@ -95,13 +105,62 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
     if (changes['pillar']) {
       this.editMode = false;
       this.resetDraft();
+      this.loadEditAccess();
     }
   }
 
-  startEdit() {
-    if (!this.hasPillarScoreRecord) {
+  loadEditAccess() {
+    if (!this.pillar?.countryID || !this.pillar?.aiDataYear) {
+      this.editAccess = null;
       return;
     }
+    const role = this.userService.userInfo?.role;
+    if (role !== UserRole.Admin && role !== UserRole.Analyst) {
+      this.editAccess = null;
+      return;
+    }
+    this.aiEditService.getEditAccess(this.pillar.countryID, this.pillar.aiDataYear).subscribe({
+      next: (res) => {
+        this.editAccess = res.succeeded ? (res.result ?? null) : null;
+      },
+      error: () => { this.editAccess = null; }
+    });
+  }
+
+  submitDraft() {
+    if (!this.editAccess?.sessionID) return;
+    this.submitting = true;
+    this.aiEditService.submitSession(this.editAccess.sessionID).subscribe({
+      next: (res) => {
+        this.submitting = false;
+        if (res.succeeded) {
+          this.toaster.showSuccess(res.messages?.join(', ') || 'Draft submitted for admin approval.');
+          this.loadEditAccess();
+        } else {
+          this.toaster.showError(res.errors?.join(', ') || 'Failed to submit draft.');
+        }
+      },
+      error: () => {
+        this.submitting = false;
+        this.toaster.showError('Failed to submit draft.');
+      }
+    });
+  }
+
+  onImgError(event: Event) {
+    (event.target as HTMLImageElement).src = 'assets/images/Frame 1321315029.png';
+  }
+
+  getLabelById(id: number) {
+    return this.aiTrustLevels?.find(x => x.trustValue == id)?.trustName ?? 'NA';
+  }
+
+  getLabelDesById(id: number) {
+    const tl = this.aiTrustLevels?.find(x => x.trustValue == id);
+    return (tl?.trustDescription ?? tl?.trustName) ?? 'NA';
+  }
+
+  startEdit() {
     this.resetDraft();
     this.editMode = true;
   }
@@ -112,7 +171,7 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
   }
 
   saveChanges() {
-    if (!this.pillar || !this.hasPillarScoreRecord) {
+    if (!this.pillar) {
       return;
     }
 
@@ -127,29 +186,46 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
       temporalScope: this.getDraftString('temporalScope'),
       distortionScreening: this.getDraftString('distortionScreening'),
       relationalIntegrity: this.getDraftString('relationalIntegrity'),
-      stressGeopoliticalShock: this.getDraftString('stressGeopoliticalShock'),
-      stressFinanceShock: this.getDraftString('stressFinanceShock'),
-      stressLegitimacyShock: this.getDraftString('stressLegitimacyShock'),
+      stressPoliticalShock: this.getDraftString('stressPoliticalShock'),
+      stressEconomicShock: this.getDraftString('stressEconomicShock'),
+      stressNarrativeShock: this.getDraftString('stressNarrativeShock'),
       stressScoreAdjustment: this.getDraftString('stressScoreAdjustment'),
-      inclusionEquityAdjustment: this.getDraftString('inclusionEquityAdjustment'),
+      inequalityAdjustment: this.getDraftString('inequalityAdjustment'),
       opacityRisk: this.getDraftString('opacityRisk'),
       nonCompensationNote: this.getDraftString('nonCompensationNote'),
-      inclusionAccessNote: this.getDraftString('inclusionAccessNote'),
+      geographicEquityNote: this.getDraftString('geographicEquityNote'),
       institutionalAssessment: this.getDraftString('institutionalAssessment'),
       dataGapAnalysis: this.getDraftString('dataGapAnalysis'),
       redFlag: this.getDraftString('redFlag'),
-      dataSourceCitations: this.citationDraft,
+      dataSourceCitations: mapCitationsForUpdate(this.pillar.dataSourceCitations).map(c => ({
+        ...c,
+        sourceType: this.getCitationDraftString(c.citationID, 'sourceType'),
+        sourceName: this.getCitationDraftString(c.citationID, 'sourceName'),
+        sourceURL: this.getCitationDraftString(c.citationID, 'sourceURL'),
+        dataYear: this.getCitationDraftNumber(c.citationID, 'dataYear'),
+        dataExtract: this.getCitationDraftString(c.citationID, 'dataExtract'),
+        trustLevel: this.getCitationDraftNumber(c.citationID, 'trustLevel'),
+      }))
     };
 
     this.saving = true;
-    this.aiComputationService.updateAIPillarScore(payload).subscribe({
+    this.aiEditService.updateAIPillarScore(payload).subscribe({
       next: (res) => {
         this.saving = false;
         if (res.succeeded) {
-          this.applyDraftToPillar();
-          this.editMode = false;
+          if (this.isAnalyst) {
+            // Show this analyst's draft values locally; live AI DB stays unchanged until admin approves.
+            this.applyDraftToPillar();
+            this.editMode = false;
+            this.resetDraft();
+            this.loadEditAccess();
+            this.dataSaved.emit();
+          } else {
+            this.applyDraftToPillar();
+            this.editMode = false;
+            this.dataSaved.emit();
+          }
           this.toaster.showSuccess(res.messages?.join(', ') || 'Changes saved successfully.');
-          this.dataSaved.emit();
         } else {
           this.toaster.showError(res.errors?.join(', ') || 'Failed to save changes.');
         }
@@ -172,27 +248,22 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
     this.draft[key] = value;
   }
 
-  getCitationValue(citationID: number, field: keyof UpdateAIDataSourceCitationDto): string | number | null {
-    const citation = this.citationDraft.find(c => c.citationID === citationID);
-    return citation?.[field] ?? null;
-  }
-
-  setCitationValue(citationID: number, field: keyof UpdateAIDataSourceCitationDto, value: string | number | null) {
-    const citation = this.citationDraft.find(c => c.citationID === citationID);
-    if (citation) {
-      (citation as any)[field] = value;
+  getCitationValue(citationId: number, key: string): string | number | null {
+    if (this.editMode && this.citationDrafts[citationId]?.[key] !== undefined) {
+      return this.citationDrafts[citationId][key];
     }
+    const citation = this.pillar?.dataSourceCitations?.find(x => x.citationID === citationId);
+    return (citation as any)?.[key] ?? null;
   }
 
-  shouldShowEvidenceSummary(): boolean {
-    if (this.editMode) {
-      return true;
+  setCitationValue(citationId: number, key: string, value: string | number | null) {
+    if (!this.citationDrafts[citationId]) {
+      this.citationDrafts[citationId] = {};
     }
-    const value = this.getFieldValue('evidenceSummary');
-    return value !== null && value !== undefined && String(value).trim() !== '';
+    this.citationDrafts[citationId][key] = value;
   }
 
-  shouldShowEvidenceRow(field: AiEditableFieldConfig): boolean {
+  shouldShowField(field: AiEditableFieldConfig): boolean {
     if (this.editMode) {
       return true;
     }
@@ -200,41 +271,34 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
     return value !== null && value !== undefined && String(value).trim() !== '';
   }
 
-  shouldShowStressOverallResilience(): boolean {
-    if (this.editMode) {
-      return false;
-    }
-    const value = this.pillar?.stressOverallResilience;
-    return value !== null && value !== undefined && String(value).trim() !== '';
-  }
-
-  getLabelById(id: number) {
-    const tl = this.aiTrustLevels?.find(x => x.trustValue == id);
-    return tl?.trustName ?? 'NA';
-  }
-
-  getLabelDesById(id: number) {
-    const tl = this.aiTrustLevels?.find(x => x.trustValue == id);
-    return (tl?.trustDescription ?? tl?.trustName) ?? 'NA';
-  }
-
   private resetDraft() {
     if (!this.pillar) {
       this.draft = {};
-      this.citationDraft = [];
+      this.citationDrafts = {};
       return;
     }
 
     this.draft = {
+      aiProgress: this.pillar.aiProgress ?? null,
+      evaluatorScore: this.pillar.evaluatorScore ?? null,
       confidenceLevel: this.pillar.confidenceLevel ?? null,
-      evidenceSummary: this.pillar.evidenceSummary ?? null,
     };
 
-    this.evidenceFields.forEach(field => {
+    this.textFields.forEach(field => {
       this.draft[field.key] = (this.pillar as any)?.[field.key] ?? null;
     });
 
-    this.citationDraft = mapCitationsForUpdate(this.pillar.dataSourceCitations);
+    this.citationDrafts = {};
+    (this.pillar.dataSourceCitations ?? []).forEach(citation => {
+      this.citationDrafts[citation.citationID] = {
+        sourceType: citation.sourceType ?? null,
+        sourceName: citation.sourceName ?? null,
+        sourceURL: citation.sourceURL ?? null,
+        dataYear: citation.dataYear ?? null,
+        dataExtract: citation.dataExtract ?? null,
+        trustLevel: citation.trustLevel ?? null,
+      };
+    });
   }
 
   private applyDraftToPillar() {
@@ -245,21 +309,17 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
     Object.keys(this.draft).forEach(key => {
       (this.pillar as any)[key] = this.draft[key];
     });
+    this.pillar.discrepancy = this.discrepancy;
 
-    if (this.pillar.dataSourceCitations) {
-      this.citationDraft.forEach(draftCitation => {
-        const citation = this.pillar!.dataSourceCitations!.find(c => c.citationID === draftCitation.citationID);
-        if (!citation) {
-          return;
-        }
-        citation.sourceType = draftCitation.sourceType ?? citation.sourceType;
-        citation.sourceName = draftCitation.sourceName ?? citation.sourceName;
-        citation.sourceURL = draftCitation.sourceURL ?? citation.sourceURL;
-        citation.dataYear = draftCitation.dataYear ?? citation.dataYear;
-        citation.dataExtract = draftCitation.dataExtract ?? citation.dataExtract;
-        citation.trustLevel = draftCitation.trustLevel ?? citation.trustLevel;
+    (this.pillar.dataSourceCitations ?? []).forEach(citation => {
+      const draft = this.citationDrafts[citation.citationID];
+      if (!draft) {
+        return;
+      }
+      Object.keys(draft).forEach(key => {
+        (citation as any)[key] = draft[key];
       });
-    }
+    });
   }
 
   private getDraftString(key: string): string | null {
@@ -268,5 +328,31 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
       return null;
     }
     return String(value);
+  }
+
+  private getDraftNumber(key: string): number | null {
+    const value = this.draft[key];
+    if (value === null || value === undefined || value === '') {
+      return null;
+    }
+    const parsed = Number(value);
+    return Number.isNaN(parsed) ? null : parsed;
+  }
+
+  private getCitationDraftString(citationId: number, key: string): string | null {
+    const value = this.citationDrafts[citationId]?.[key];
+    if (value === null || value === undefined || value === '') {
+      return null;
+    }
+    return String(value);
+  }
+
+  private getCitationDraftNumber(citationId: number, key: string): number | null {
+    const value = this.citationDrafts[citationId]?.[key];
+    if (value === null || value === undefined || value === '') {
+      return null;
+    }
+    const parsed = Number(value);
+    return Number.isNaN(parsed) ? null : parsed;
   }
 }

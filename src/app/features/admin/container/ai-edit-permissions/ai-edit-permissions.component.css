@@ -1,0 +1,131 @@
+.page_sub {
+  margin: 4px 0 0;
+  color: #9C9484;
+  font-size: 14px;
+  max-width: 900px;
+}
+
+.grant-panel {
+  overflow: visible;
+  z-index: 50;
+}
+
+.grant-panel:has(.ng-select-opened),
+.heading_area:has(.ng-select-opened) {
+  z-index: 60;
+}
+
+.grant-panel__title {
+  margin: 0 0 16px;
+  color: #C9A24A;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.grant-panel .kpi_compare_select {
+  max-width: none;
+  width: 100%;
+}
+
+.grant-panel__submit {
+  width: 100%;
+  min-height: 42px;
+}
+
+.field-label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  color: #9C9484;
+  padding-left: 10px !important;
+}
+
+.status-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-active {
+  background: rgba(119, 189, 62, 0.16);
+  color: #77BD3E;
+}
+
+.badge-pending {
+  background: rgba(201, 162, 74, 0.18);
+  color: #E7C878;
+}
+
+.badge-consumed {
+  background: rgba(156, 148, 132, 0.18);
+  color: #C4BBA8;
+}
+
+.badge-rejected {
+  background: rgba(232, 160, 144, 0.16);
+  color: #E8A090;
+}
+
+::ng-deep .analyst_multi_select .ng-option-selected {
+  background-color: rgba(201, 162, 74, 0.18) !important;
+  color: #C9A24A !important;
+  font-weight: 600;
+}
+
+::ng-deep .analyst_multi_select .ng-option:hover {
+  background-color: rgba(201, 162, 74, 0.14) !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+  border: none !important;
+  background-color: #1B1810 !important;
+  min-height: auto !important;
+  height: 100% !important;
+}
+
+::ng-deep .compare_select .ng-select-container:hover {
+  box-shadow: none !important;
+}
+
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+  box-shadow: none !important;
+}
+
+::ng-deep .compare_select .ng-value-container .ng-value {
+  white-space: nowrap;
+  padding: 2px 5px !important;
+  border-radius: 5px !important;
+  background-color: #C9A24A !important;
+  color: #EFE7D6 !important;
+}
+
+.notes-input {
+  width: 100%;
+  min-height: 42px !important;
+  outline: none;
+  box-shadow: none;
+  color: #EFE7D6 !important;
+  background-color: #1B1810 !important;
+  border: 1px solid #332C1D !important;
+}
+
+.notes-input::placeholder {
+  color: #8B887E;
+}
+
+.heading_area select.analyst_multi_select {
+  color: #EFE7D6;
+  background-color: #1B1810;
+}
+
+.selexted_piller {
+  display: inline-block;
+  padding: 2px 8px;
+  border-radius: 5px;
+  background-color: #C9A24A;
+  color: #EFE7D6;
+  font-size: 12px;
+}

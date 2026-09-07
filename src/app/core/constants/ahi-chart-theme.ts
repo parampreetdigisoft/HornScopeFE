@@ -1,121 +1,120 @@
 /**
- * VCP (Horn Scope) chart palette — logo green + console navy/blue.
- * Use hex values (ApexCharts does not resolve CSS variables reliably).
+ * AMI (Africa Market Intelligence) chart palette —
+ * gold / bronze command console (country_index_ami_theme.html).
  */
-export const VCP_CHART = {
-  primary: '#3B9EFF',
-  primaryMid: '#1D5D96',
-  primarySoft: '#5CB8FF',
-  secondary: '#A8E063',
-  accent: '#4CAF50',
-  discrepancy: '#FFB84D',
-  deep: '#0A2240',
-  text: '#E8EEF8',
-  textMuted: '#9AADC4',
-  grid: 'rgba(92, 140, 200, 0.18)',
-  border: 'rgba(92, 140, 200, 0.28)',
-  hollow: 'rgba(59, 158, 255, 0.08)',
-  tooltipShadow: '0 16px 40px rgba(0, 0, 0, 0.45)',
+export const AMI_CHART = {
+  primary: '#C9A24A',
+  primaryMid: '#E7C878',
+  primarySoft: '#8A5A2B',
+  secondary: '#C9C7BF',
+  accent: '#8B887E',
+  deep: '#0A0906',
+  text: '#EFE7D6',
+  textMuted: '#9C9484',
+  grid: '#241F14',
+  border: '#332C1D',
+  hollow: 'rgba(201, 162, 74, 0.08)',
+  tooltipShadow: '0 12px 32px rgba(0, 0, 0, 0.45)',
 
   /** Radial / multi-segment status charts */
   radialBar: [
-    '#3B9EFF',
-    '#5CB8FF',
-    '#4CAF50',
-    '#1D5D96',
-    '#A8E063',
-    '#2E7D32',
+    '#E7C878',
+    '#C9C7BF',
+    '#C9A24A',
+    '#8A5A2B',
+    '#8B887E',
+    '#B5502E',
   ],
 
   /** Evaluator radial (4 segments) */
-  radialBarShort: ['#3B9EFF', '#5CB8FF', '#A8E063', '#4CAF50'],
+  radialBarShort: ['#E7C878', '#C9C7BF', '#C9A24A', '#8A5A2B'],
 
   /** Line chart: manual / evaluation vs AI */
-  lineEvaluation: '#3B9EFF',
-  lineAi: '#A8E063',
+  lineEvaluation: '#C9C7BF',
+  lineAi: '#E7C878',
 
   /** Area comparison chart strokes */
-  areaEvaluator: '#5CB8FF',
-  areaAi: '#A8E063',
+  areaEvaluator: '#C9C7BF',
+  areaAi: '#E7C878',
 
   /** Early-warning & multi-series trends */
-  trendLines: ['#3B9EFF', '#A8E063', '#4CAF50', '#5CB8FF', '#1D5D96', '#c5e878'],
+  trendLines: ['#E7C878', '#C9C7BF', '#C9A24A', '#8A5A2B', '#8B887E', '#B7A25A'],
 
   /** Bar / score scale (low → high) */
   scoreScale: [
-    '#6b7c93',
-    '#5C9CC0',
-    '#3B9EFF',
-    '#2E7D32',
-    '#4CAF50',
-    '#77B44D',
-    '#A8E063',
-    '#B8F26A',
-    '#1D5D96',
-    '#4675af',
+    '#B5502E',
+    '#C46A3A',
+    '#8A5A2B',
+    '#A67C3D',
+    '#C9A24A',
+    '#D4B45E',
+    '#E7C878',
+    '#B7A25A',
+    '#C9C7BF',
+    '#EFE7D6',
   ],
 
-  /** Pillar bar chart (evaluator) — light to strong */
+  /** Domain bar chart (evaluator) — light to strong */
   pillarBar: [
-    '#6b7c93',
-    '#5C9CC0',
-    '#3B9EFF',
-    '#2E7D32',
-    '#4CAF50',
-    '#77B44D',
-    '#A8E063',
-    '#B8F26A',
-    '#1D5D96',
-    '#396397',
+    '#332C1D',
+    '#8A5A2B',
+    '#A67C3D',
+    '#C9A24A',
+    '#D4B45E',
+    '#E7C878',
+    '#B7A25A',
+    '#C9C7BF',
+    '#8B887E',
+    '#EFE7D6',
   ],
 
-  completionHigh: '#4CAF50',
-  completionMid: '#A8E063',
-  completionLow: '#ff8a65',
+  completionHigh: '#B7A25A',
+  completionMid: '#C9A24A',
+  completionLow: '#B5502E',
 } as const;
 
-export function ahiScoreColor(score: number | null | undefined): string {
+export function amiScoreColor(score: number | null | undefined): string {
   if (score === null || score === undefined || Number.isNaN(Number(score))) {
-    return '#6b7c93';
+    return '#8B887E';
   }
   const safe = Math.min(Math.max(Number(score), 0), 100);
   const index = Math.min(
     Math.floor(safe / 10),
-    VCP_CHART.scoreScale.length - 1
+    AMI_CHART.scoreScale.length - 1
   );
-  return VCP_CHART.scoreScale[index];
+  return AMI_CHART.scoreScale[index];
 }
 
-export function ahiCompletionColor(rate: number): string {
-  if (rate >= 80) return VCP_CHART.completionHigh;
-  if (rate >= 50) return VCP_CHART.completionMid;
-  return VCP_CHART.completionLow;
+export function amiCompletionColor(rate: number): string {
+  if (rate >= 80) return AMI_CHART.completionHigh;
+  if (rate >= 50) return AMI_CHART.completionMid;
+  return AMI_CHART.completionLow;
 }
 
 /** Shared ApexCharts axis / grid styling */
-export const VCP_AXIS_STYLE = {
+export const AMI_AXIS_STYLE = {
   grid: {
-    borderColor: VCP_CHART.grid,
+    borderColor: AMI_CHART.grid,
     strokeDashArray: 4,
   },
   xaxisLabels: {
     style: {
       fontSize: '11px',
       fontWeight: 500,
-      colors: VCP_CHART.textMuted,
+      colors: AMI_CHART.textMuted,
     },
   },
   yaxisTitle: {
     style: {
       fontSize: '13px',
       fontWeight: 600,
-      color: VCP_CHART.text,
+      color: AMI_CHART.text,
     },
   },
   yaxisLabels: {
     style: {
       fontSize: '12px',
-      colors: VCP_CHART.textMuted,
+      colors: AMI_CHART.textMuted,
     },
   },
 };

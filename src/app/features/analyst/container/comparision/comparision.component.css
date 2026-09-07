@@ -5,7 +5,7 @@ app-comparision {
 }
 
 /* Target first two bars */
-app-comparision .program_pillar {
+app-comparision .city_pillar {
     flex: 0 0 auto;
     width: calc(66.6% - 6px);
 }
@@ -19,12 +19,17 @@ app-comparision app-ag-bar:nth-child(3) {
     margin-bottom: 0;
 }
 .input_field .form-control {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
     background-repeat: no-repeat;
     background-position: center right 13px;
-    color: #7a7a7a;
-    height: auto;
-    background-color: var(--Surface-Elevated);
+    color: #EFE7D6;
+    /* font-family: 'Montserrat'; */
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+
+    background-color: #1B1810;
     min-height: 36px;
     align-items: center;
     font-family: "Poppins", sans-serif !important;
@@ -32,10 +37,10 @@ app-comparision app-ag-bar:nth-child(3) {
     font-style: normal;
     font-weight: 400;
     line-height: normal;
-    appearance: none !important;
+    appearance: none!important;
     border-radius: 12px !important;
-    padding: 10px 30px 10px 10px !important;
-    border: 1px solid var(--Border-Color) !important;
+    padding: 10px !important;
+    border: 1px solid #332C1D !important;
 }
 
 
@@ -48,6 +53,21 @@ app-comparision app-ag-bar:nth-child(3) {
 
 .input_flex select{
     flex: 1;
+}
+
+.heading_area {
+  width: 100%;
+  flex: 1 0 100%;
+}
+
+.heading_area .kpi_compare_toolbar {
+  width: 100%;
+}
+
+.heading_area .ng-select .ng-placeholder,
+.heading_area .analyst_multi_select .ng-placeholder {
+  color: #8B887E !important;
+  opacity: 1 !important;
 }
 
 /* Parent div acts like a button */
@@ -66,7 +86,7 @@ app-comparision app-ag-bar:nth-child(3) {
 }
 
 .expand-toggle:hover {
-  background: #1A7D5E;
+  background: var(--Hover-Primary-color);
 }
 
 /* SVG resize */
@@ -80,12 +100,12 @@ app-comparision app-ag-bar:nth-child(3) {
     border-radius: 15px;
     overflow: hidden;
     padding-top: 30px;
-    background-color: var(--Surface-Elevated);
+    background-color: #1B1810;
 }
 
 .evaluater_design
 {
-  background-color: var(--Surface-Elevated);
+  background-color: #1B1810;
   border-radius: 15px;
     overflow: hidden;
     padding: 25px;
@@ -119,8 +139,8 @@ app-comparision app-ag-bar:nth-child(3) {
 .evaluater_design td, .evaluater_design th
 {
       padding: 10px 20px;
-    border-color: #dee2e6;
-    background-color: var(--Surface-Elevated);
+    border-color: #332C1D;
+    background-color: #1B1810;
 }
 
 .evaluater_design .mat-mdc-row
@@ -136,7 +156,7 @@ app-comparision app-ag-bar:nth-child(3) {
 
 .evaluater_design .expanded + .detail-row td
 {
-    border-bottom: 1px solid #dee2e6;
+    border-bottom: 1px solid #332C1D;
 }
 
 .evaluater_design .expanded .expand-toggle rect:last-child
@@ -156,9 +176,7 @@ app-comparision app-ag-bar:nth-child(3) {
     font-weight: 400;
     line-height: 20px;
     display: block;
-    width: 100%;
-    text-align: left;
-    padding: 10px;
+    width: 300px;
 }
 
 .evaluater_design .mat-elevation-z8 > tbody tr td:first-child {
@@ -171,6 +189,7 @@ app-comparision app-ag-bar:nth-child(3) {
 .evaluater_design .mat-elevation-z8 tr td:not(:first-child)
 {
   text-align: center;
+   color: #bea236;
 }
 
 .evaluater_design .mat-elevation-z8 tr th:first-child,
@@ -192,7 +211,7 @@ width: 500px;
 
 .evaluater_design .mat-elevation-z2 tr td .expand-toggle svg
 {
-  stroke: #ffffff;
+  stroke: #141209;
 }
 
 
@@ -210,8 +229,9 @@ min-width: max-content;
 {
   margin-bottom: 15px;
 }
+
 .score_col {
-    color: #1A7D5E !important;
+    color: #77bd3e !important;
     font-weight: 700 !important;
 }
 
@@ -221,63 +241,20 @@ min-width: max-content;
   justify-content: center;
   margin-top: 80px;
   text-align: center;
-  color: #6c757d; /* subtle grey */
+  color: #c7a049; /* subtle grey */
 }
 
 .no_result_found h3 {    
   font-weight: 600;        /* semi-bold, cleaner */
   font-size: 20px;
-  color: #495057;          /* darker grey for text */
+  color: #c7a049;          /* darker grey for text */
   letter-spacing: 0.5px;
 }
 
-.input_flex ng-select {
-  flex: 1;
-  min-width: 0;
+::ng-deep .evaluater_design tbody tr td .question_name_single {
+    width: 100%;
 }
 
-/* Remove Bootstrap's form-control chrome from ng-select host */
-.input_flex ng-select.form-control {
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-/* Program dropdown style to visually match the native select */
-::ng-deep .input_flex ng-select .ng-select-container {
-  min-height: 36px !important;
-  border: 1px solid var(--Border-Color) !important;
-  border-radius: 12px !important;
-  background-color: var(--Surface-Elevated) !important;
-  box-shadow: none !important;
-  padding: 6px 2px 6px 10px !important;
-  font-family: "Poppins", sans-serif !important;
-  font-size: 13px !important;
-  font-weight: 400 !important;
-  color: var(--Text-Color) !important;
-}
-
-::ng-deep .input_flex ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container,
-::ng-deep .input_flex ng-select.ng-select-opened > .ng-select-container {
-  border-color: var(--Border-Color) !important;
-  box-shadow: none !important;
-}
-
-::ng-deep .input_flex ng-select .ng-value-container {
-  padding-left: 0 !important;
-}
-
-::ng-deep .input_flex ng-select .ng-placeholder,
-::ng-deep .input_flex ng-select .ng-value-label {
-  color: var(--Text-Color) !important;
-  font-size: 13px !important;
-}
-
-::ng-deep .input_flex ng-select .ng-arrow-wrapper {
-  padding-right: 0 !important;
-}
-
-::ng-deep .input_flex ng-select .ng-arrow {
-  border-color: #9AADC4 transparent transparent !important;
+.mat-mdc-header-row {
+    color: rgb(201 162 74);
 }

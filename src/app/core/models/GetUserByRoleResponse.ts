@@ -1,10 +1,10 @@
 import { UserRoleValue } from "src/app/core/enums/UserRole";
 import { PaginationRequest } from "src/app/core/models/PaginationRequest";
 import { PublicUserResponse } from "src/app/core/models/UserInfo";
-import { AddUpdateProgramDto } from "./ProgramVM";
+import { AddUpdateCountryDto } from "./CountryVM";
 
 export interface GetUserByRoleResponse  extends PublicUserResponse {
-  climatePrograms: AddUpdateProgramDto[];
+  countries: AddUpdateCountryDto[];
 }
 
 

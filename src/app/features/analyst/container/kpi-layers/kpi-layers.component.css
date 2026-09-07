@@ -1,8 +1,10 @@
 /* Default Bootstrap width is 400px */
 .custom-sidebar {
     width: 775px !important;
-    /* 👈 set your desired width */
+    /* set your desired width */
 }
+
+
 
 .action_td input[type="checkbox"] {
     width: 22px;
@@ -21,8 +23,8 @@
 
 .kpi_td_data .bold_num,
 ::ng-deep .kpi_sidebar app-view-kpi-layer .bold_num {
-    background: var(--Primary-Color);
-    color: #ffffff;
+    background: #463407;
+    color: #EFE7D6;
     padding: 2px 8px;
     border-radius: 0.5rem;
     display: inline-block;
@@ -30,21 +32,21 @@
     margin-top: 8px;
 }
 
-::ng-deep .kpi_sidebar app-view-kpi-layer .program_card_outter .program_card_img img {
+::ng-deep .kpi_sidebar app-view-kpi-layer .city_card_outter .city_card_img img {
     max-width: 300px;
 }
 
-::ng-deep .kpi_sidebar app-view-kpi-layer .program_card_outter .program_card_inner {
+::ng-deep .kpi_sidebar app-view-kpi-layer .city_card_outter .city_card_inner {
     padding: 10px 0px;
 }
 
-::ng-deep .kpi_sidebar app-view-kpi-layer .program_card_outter .program_card_inner .program_cards_h1 {
-    font-size: 24px;
+::ng-deep .kpi_sidebar app-view-kpi-layer .city_card_outter .city_card_inner .city_cards_h1 {
+    font-size: 18px;
 }
 
-::ng-deep .kpi_sidebar .program_cards_disc {
-    margin: 10px 0 0px !important;
-    font-size: 14px;
+::ng-deep .kpi_sidebar .city_cards_disc {
+    margin: 8px 0 0px !important;
+    font-size: 13px;
 }
 
 .compare_city_table .table thead tr {
@@ -71,15 +73,12 @@
 }
 
 .compare_city_table tbody td.action_td table .action_icons a.mat-mdc-tooltip-trigger span {
-    display: inline-block;   
-    background-color: #164074 !important;
+    display: inline-block;
+    background-color: #8f702b;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #ffffff;
+    color: #EFE7D6;
     border-radius: 5px;
-    color: rgb(59 158 255);
-    border: 1px solid rgba(59, 158, 255, 0.55);
-    background: rgba(59, 158, 255, 0.08);
 }
 
 .compare_city_table .action_td td {
@@ -91,15 +90,16 @@
     width: 280px;
 }
 
+
 @media only screen and (max-width:1550px) {
     .table_outer .table th {
-        padding: 11px 6px;
-        font-size: 15px;
+        padding: 8px 6px;
+        font-size: 12px;
     }
 
     .table_outer .table td {
-        font-size: 13px;
-        padding: 10px 6px;
+        font-size: 12px;
+        padding: 8px 6px;
     }
 
     .table_custom_inner {
@@ -107,10 +107,30 @@
     }
 }
 
-.compare_select .analyst_multi_select {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
+::ng-deep .analyst_multi_select .ng-option-selected {
+    background-color: rgba(201, 162, 74, 0.18) !important;
+    color: #C9A24A !important;
+    font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+    background-color: rgba(201, 162, 74, 0.14) !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+    min-height: 42px !important;
+}
+
+.compare_select ng-select.analyst_multi_select {
+    flex: 1;
+    width: 100%;
+    min-width: 0;
+    background: transparent;
+    border: none !important;
+    padding: 0 !important;
+    box-shadow: none !important;
+    font-size: 12px !important;
 }
 
 .table_custom_inner {
@@ -126,71 +146,31 @@
     flex-direction: column;
 }
 
+::ng-deep .compare_select .ng-value-container .ng-value {
+    white-space: nowrap;
+    padding: 2px 5px !important;
+    border-radius: 5px !important;
+    background-color: #C9A24A !important;
+    color: #EFE7D6 !important;
+}
+
 .kpi_cat05.kpi_td_data {
     display: flex;
 }
-.input_field {
+
+.compare_city_table .table th {
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+.compare_city_table .table td {
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+.compare_city_table .kpi_td_data,
+.compare_city_table .kpi_td_data p {
+    font-size: 12px;
+    line-height: 1.35;
     margin-bottom: 0;
 }
-
-.input_field .form-control {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
-    background-repeat: no-repeat;
-    background-position: center right 13px;
-    color: var(--Light-Text-Color);
-    /* font-family: 'Montserrat'; */
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    
-    height: auto;
-    background-color: var(--Surface-Elevated);
-    min-height: 36px;
-    align-items: center;
-    font-family: "Poppins", sans-serif !important;
-    font-size: 13px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: normal;
-    appearance: none!important;
-    border-radius: 12px !important;
-    padding: 10px !important;
-    border: 1px solid var(--Border-Color) !important;
-}
-
-.inner_div {
-    grid-gap: 20px;
-}
-.input_flex {
-    display: flex;
-    align-items: center;
-    flex-wrap: wrap;
-    grid-gap: 10px;
-}
-
-.input_flex select{
-    flex: 1;
-}
-.no_result_found {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 60px;
-}
-.no_result_found h3{    
-    font-weight: 700;
-}
-.input_flex ng-select {
-  flex: 1;
-  min-width: 0;
-}
-
-/* Remove Bootstrap's form-control chrome from ng-select host */
-.input_flex ng-select.form-control {
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-

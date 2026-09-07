@@ -1,5 +1,4 @@
 import { Component, Input, OnChanges, OnInit, SimpleChanges, ViewChild } from '@angular/core';
-import { ResultResponseDto } from 'src/app/core/models/ResultResponseDto';
 import { GetAnalyticalLayerResultDto } from 'src/app/core/models/GetAnalyticalLayerResultDto';
 import { environment } from 'src/environments/environment';
 import {
@@ -10,12 +9,13 @@ import {
   ChartComponent,
   ApexStroke
 } from "ng-apexcharts";
-import { ToasterService } from 'src/app/core/services/toaster.service';
-import { AiComputationService } from 'src/app/core/services/ai-computation.service';
 import { UserService } from 'src/app/core/services/user.service';
+import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserRole } from 'src/app/core/enums/UserRole';
+import { ResultResponseDto } from 'src/app/core/models/ResultResponseDto';
 import { SummarizeKpiRequestDto, SummarizeKpiResponseDto } from 'src/app/core/models/SummarizeKpiDto';
-import { VCP_CHART } from 'src/app/core/constants/ahi-chart-theme';
+import { AiComputationService } from 'src/app/core/services/ai-computation.service';
+import { AMI_CHART } from 'src/app/core/constants/ahi-chart-theme';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -24,6 +24,7 @@ export type ChartOptions = {
   plotOptions: ApexPlotOptions;
   fill: ApexFill;
   stroke: ApexStroke;
+  colors: string[];
 };
 
 @Component({
@@ -36,18 +37,18 @@ export class ViewKpiLayerComponent implements OnInit, OnChanges {
   @Input() selectedLayer?: GetAnalyticalLayerResultDto | null = null;
   @Input() listPage?: number;
   urlBase = environment.apiUrl;
-  get program() {
-    return this.selectedLayer?.program;
+  get country() {
+    return this.selectedLayer?.country;
   }
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
- canShowAiSummary = false;
+
+  canShowAiSummary = false;
   isSummarizing = false;
   aiSummary: SummarizeKpiResponseDto | null = null;
   aiSummaryError: string | null = null;
   private summaryCache = new Map<number, SummarizeKpiResponseDto>();
   private summarizingLayerId: number | null = null;
-
   constructor(
     private userService: UserService,
     private aiComputationService: AiComputationService,
@@ -77,7 +78,7 @@ export class ViewKpiLayerComponent implements OnInit, OnChanges {
     this.canShowAiSummary =
       role === UserRole.Admin ||
       role === UserRole.Analyst ||
-      role === UserRole.ProgramUser;
+      role === UserRole.CountryUser;
   }
 
   generateAiSummary(): void {
@@ -90,9 +91,8 @@ export class ViewKpiLayerComponent implements OnInit, OnChanges {
     }
 
     this.isSummarizing = true;
-    this.summarizingLayerId = layerResultID;
     this.aiSummaryError = null;
-
+    this.summarizingLayerId = layerResultID;
     const payload: SummarizeKpiRequestDto = { layerResultID };
     this.aiComputationService.summarizeKpiPerformance(payload).subscribe({
       next: (res) => {
@@ -105,14 +105,14 @@ export class ViewKpiLayerComponent implements OnInit, OnChanges {
           this.isSummarizing = false;
         }
         if (response?.succeeded && response.result?.summary) {
-          this.summaryCache.set(layerResultID, response.result);
+        this.summaryCache.set(layerResultID, response.result);
           if (isCurrentRow) {
             this.aiSummary = response.result;
             this.aiSummaryError = null;
           }
         } else {
           const message = response?.errors?.[0] || 'Failed to generate AI summary. Please try again.';
-          if (isCurrentRow) {
+         if (isCurrentRow) {
             this.aiSummary = this.summaryCache.get(layerResultID) ?? null;
             this.aiSummaryError = this.aiSummary ? null : message;
           }
@@ -140,7 +140,7 @@ export class ViewKpiLayerComponent implements OnInit, OnChanges {
     });
   }
 
-  private restoreCachedSummary(): void {
+    private restoreCachedSummary(): void {
     const layerResultID = this.selectedLayer?.layerResultID;
     this.aiSummaryError = null;
     this.aiSummary = layerResultID != null ? this.summaryCache.get(layerResultID) ?? null : null;
@@ -205,11 +205,13 @@ export class ViewKpiLayerComponent implements OnInit, OnChanges {
     const { manual, ai } = this.getCalculatedValues();
 
     this.chartOptions = {
-      series: [manual, ai],
+      series: [Math.min(Math.abs(manual), 100), Math.min(Math.abs(ai), 100)],
+      colors: [AMI_CHART.primary, AMI_CHART.primaryMid],
       chart: {
-        height: 360,
+        height: 240,
         type: "radialBar",
-        background: 'transparent',
+        background: "transparent",
+        foreColor: AMI_CHART.text,
         toolbar: {
           show: false
         }
@@ -220,28 +222,28 @@ export class ViewKpiLayerComponent implements OnInit, OnChanges {
           endAngle: 225,
           hollow: {
             size: "55%",
-            background: "transparent",
+            background: "transparent"
           },
           track: {
-            background: "rgba(92, 140, 200, 0.12)",
+            background: AMI_CHART.grid,
             strokeWidth: "100%"
           },
           dataLabels: {
             show: true,
             name: {
-              fontSize: "14px",
-              color: VCP_CHART.textMuted
+              fontSize: "12px",
+              color: AMI_CHART.primaryMid
             },
             value: {
-              fontSize: "22px",
+              fontSize: "16px",
               fontWeight: 600,
-              color: VCP_CHART.textMuted,
+              color: AMI_CHART.text,
               formatter: (val: number) => `${val}`
             },
             total: {
               show: true,
               label: "Manual vs AI",
-              color: VCP_CHART.textMuted,
+              color: AMI_CHART.primaryMid,
               formatter: () => `${manual} / ${ai}`
             }
           }
@@ -249,7 +251,7 @@ export class ViewKpiLayerComponent implements OnInit, OnChanges {
       },
       fill: {
         type: "solid",
-        colors: [VCP_CHART.primaryMid, VCP_CHART.primary]
+        colors: [AMI_CHART.primary, AMI_CHART.primaryMid]
       },
       stroke: {
         lineCap: "round"

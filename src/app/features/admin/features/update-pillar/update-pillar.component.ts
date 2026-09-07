@@ -62,8 +62,11 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
       this.quillEditorKey++;
     }
 
-    if (changes['kpis'] && this.pillarForm && this.kpis.length > 0) {
-      this.syncKpiControlValue();
+    if (changes['kpis'] && this.pillarForm) {
+      this.refreshFilteredKpis();
+      if (this.kpis.length > 0) {
+        this.syncKpiControlValue();
+      }
     }
   }
 
@@ -154,7 +157,7 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
         pillar?.displayOrder ?? this.nextDisplayOrder,
         [Validators.required, Validators.min(1)],
       ],
-      weight: [1, [Validators.required, Validators.min(0.01)]],
+      weight: [pillar?.weight ?? 1, [Validators.required, Validators.min(0.01)]],
       reliability: [pillar?.reliability ?? true, [Validators.required]],
       description: [this.decodeDescription(pillar?.description), Validators.required],
       imageFile: [null],
@@ -164,7 +167,7 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
     if (pillar?.pillarID) {
       this.loadPillarKpiMappings(pillar.pillarID);
     } else {
-      this.filteredKpis = [...this.kpis];
+      this.refreshFilteredKpis();
     }
   }
 
@@ -185,7 +188,7 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
       }).filter((id) => !Number.isNaN(id) && id > 0);
   }
 
-  normalizeKpiSelectionInput(ids: Array<number | string | { layerID?: number | string }> | null | undefined,): number[] {
+  normalizeKpiSelectionInput(ids: Array<number | string | { layerID?: number | string }> | null | undefined): number[] {
     if (!ids) {
       return [];
     }
@@ -198,9 +201,11 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
     control?.markAsDirty();
     control?.updateValueAndValidity();
   }
-  
-  getLockedKpiLayerIds(): number[] {
-    return this.hasLockedKpis ? [...this.initialKpiLayerIds] : [];
+
+  refreshFilteredKpis() {
+    this.filteredKpis = (this.kpis ?? []).filter(
+      (kpi) => !this.initialKpiLayerIds.includes(Number(kpi.layerID)),
+    );
   }
 
   syncKpiControlValue() {
@@ -242,11 +247,11 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
         if (res.succeeded) {
           const layerIds = (res.result ?? []).map((m) => Number(m.layerID));
           this.initialKpiLayerIds = this.normalizeKpiIds(layerIds);
-          this.filteredKpis = (this.kpis ?? []).filter((kpi) => !this.initialKpiLayerIds.includes(Number(kpi.layerID)));
         } else {
           this.initialKpiLayerIds = [];
           this.clearKpiDetails();
         }
+        this.refreshFilteredKpis();
         this.isLoadingMappings = false;
       },
       error: () => {
@@ -254,11 +259,12 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
         this.pillarForm.get('kpiLayerIds')?.setValue([]);
         this.setKpiLayerIds([]);
         this.clearKpiDetails();
+        this.refreshFilteredKpis();
         this.isLoadingMappings = false;
       },
     });
   }
-  
+
   loadKpiPillarDetails(layerIds: number[]) {
     const uniqueLayerIds = Array.from(new Set(this.normalizeKpiIds(layerIds)))
       .filter((layerID) => !this.kpiPillarDetails[layerID]);
@@ -320,7 +326,6 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
     this.replacementValidationMessage = '';
     this.setKpiLayerIds(currentIds);
 
-    // Clean up removed KPIs from cached details and selections
     const currentIdSet = new Set(currentIds);
     Object.keys(this.kpiPillarDetails).forEach((key) => {
       const layerId = Number(key);
@@ -331,7 +336,6 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
       }
     });
 
-    // Only load details for newly added KPIs that haven't been fetched yet
     const idsToFetch = currentIds.filter((id) => !this.kpiPillarDetails[id]);
     if (idsToFetch.length > 0) {
       this.loadKpiPillarDetails(idsToFetch);
@@ -415,7 +419,6 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   getMissingReplacementKpiIds(): number[] {
-
     return this.addedKpiLayerIds.filter((layerID) => {
       const options = this.getReplacementPillars(layerID);
       if (!options.length) {
@@ -428,7 +431,6 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
   }
 
   getSelectedPillarId(layerID: number): number | null {
-
     return this.selectedPillarByKpi[Number(layerID)] ?? null;
   }
 
@@ -444,42 +446,33 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
     return matchedPillar?.categoryNumber ?? null;
   }
 
-
   selectPillarForKpi(layerID: number, pillarID: number) {
-
     this.selectedPillarByKpi[Number(layerID)] = Number(pillarID);
+    this.replacementValidationMessage = '';
   }
 
   trackByLayerId(_: number, item: { kpi: AnalyticalLayerResponseDto }) {
     return item.kpi.layerID;
-
-  }
-
-  clearAllKpis() {
-    this.replacementValidationMessage = '';
-    this.pillarForm.get('kpiLayerIds')?.setValue([]);
-    this.setKpiLayerIds([]);
-    this.clearKpiDetails();
   }
 
   onSubmit() {
     this.isSubmitted = true;
     const missingReplacementKpiIds = this.getMissingReplacementKpiIds();
     if (missingReplacementKpiIds.length > 0) {
-      this.replacementValidationMessage = 'Please select replacement pillar for every newly selected KPI.';
+      this.replacementValidationMessage = 'Please select a replacement domain for every newly selected KPI.';
       return;
     }
-    
+
     if (this.pillarForm.valid) {
       const addedKpiLayerIds = this.addedKpiLayerIds;
       const currentPillarId = Number(this.pillar?.pillarID ?? 0);
       const kpiUpdates = addedKpiLayerIds.map((layerID) => ({
         layerID,
-        replacedPillarID: Number(this.getSelectedPillarId(layerID)), // old value being replaced
-        newPillarID: currentPillarId, 
-        categoryNumber: Number(this.getSelectedCategoryNumber(layerID)), // new value taking its place
+        replacedPillarID: Number(this.getSelectedPillarId(layerID)),
+        newPillarID: currentPillarId,
+        categoryNumber: Number(this.getSelectedCategoryNumber(layerID)),
       }));
-      
+
       const pillarData: PillarsVM = {
         ...this.pillarForm.value,
         pillarID: this.pillar?.pillarID ?? 0,
@@ -493,7 +486,7 @@ export class UpdatePillarComponent implements OnInit, OnChanges, AfterViewInit {
         })),
         kpiUpdates,
       };
-    
+
       if (this.imageFile) {
         pillarData.imageFile = this.imageFile;
       }

@@ -1,9 +1,23 @@
-.cus_pagination>li.active span {
-    background: var(--Accent-Blue, #3B9EFF);
-    color: #fff;
+:host {
+  display: block;
+}
+
+.loader_main {
+  position: relative;
+  inset: auto;
+  min-height: 360px;
+  width: 100%;
+}
+
+.cus_pagination > li.active span,
+.cus_pagination > li span.action {
+    background: linear-gradient(135deg, #E7C878, #C9A24A) !important;
+    color: #0A0906 !important;
+    border-color: #C9A24A !important;
+    font-weight: 600;
 }
 .pagi_label:hover {
-    color: var(--Accent-Lime, #A8E063);
+    color: #C9A24A;
 }
 .pagi_label {
     transition: 0.3s all;
@@ -15,12 +29,12 @@
   justify-content: center;
   margin-top: 80px;
   text-align: center;
-  color: var(--Light-Text-Color, #9AADC4);
+  color: #e3c576;
 }
 
-.no_result_found h3 {
+.no_result_found h3 {    
   font-weight: 600;
   font-size: 20px;
-  color: var(--Text-Color, #E8EEF8);
+  color: #e3c576;
   letter-spacing: 0.5px;
 }

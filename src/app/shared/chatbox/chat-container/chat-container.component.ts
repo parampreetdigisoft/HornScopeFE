@@ -20,24 +20,29 @@ import { ChatService } from 'src/app/core/services/chat.service';
 import { MatTooltip } from '@angular/material/tooltip';
 import { ChatMessage } from 'src/app/core/models/chat/ChatMessage';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgSelectDefaultsDirective } from '../../directives/ng-select-defaults.directive';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
-import { ProgramVM } from 'src/app/core/models/ProgramVM';
+import { CountryVM } from 'src/app/core/models/CountryVM';
 import { AIAssistantFAQDto } from 'src/app/core/models/chat/AIAssistantFAQDto';
 import {
-  ProgramExecutiveSlidesResult,
+  CountryExecutiveSlidesResult,
   PillarsUserHistroyResponseDto,
-} from 'src/app/core/models/chat/ChatProgramExecutiveSlidesResponse';
+} from 'src/app/core/models/chat/ChatCountryExecutiveSlidesResponse';
+import {
+  ChatEmergingTrendsResponse,
+  EmergingTrendCountryCard
+} from 'src/app/core/models/chat/EmergingTrendsResponse';
 import {
   PillarLiveSignalCard,
   PillarLiveSignalsResult,
 } from 'src/app/core/models/chat/PillarLiveSignalsResponse';
-import { CommonService } from 'src/app/core/services/common.service'; 
+import { CommonService } from 'src/app/core/services/common.service';
 import { environment } from 'src/environments/environment';
 
 @Component({
   selector: 'app-chat-container',
   standalone: true,
-  imports: [CommonModule, FormsModule, MarkdownPipe, MatTooltip, NgSelectModule],
+  imports: [CommonModule, FormsModule, MarkdownPipe, MatTooltip, NgSelectModule, NgSelectDefaultsDirective],
   templateUrl: './chat-container.component.html',
   styleUrls: ['./chat-container.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -59,10 +64,12 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   showSuggestions = signal(false);
   showContextPanel = signal(true);
   unreadCount = signal(0);
-  programSlide: ProgramExecutiveSlidesResult | null = null;
-  programSlidesLoading = signal(false);
-  programPillarScores = signal<PillarsUserHistroyResponseDto[]>([]);
-  programPillarsLoading = signal(false);
+  contrySlide: CountryExecutiveSlidesResult | null = null;
+  countrySlidesLoading = signal(false);
+  emergingTrends = signal<ChatEmergingTrendsResponse | null>(null);
+  emergingTrendsLoading = signal(false);
+  emergingTrendsError = signal<string | null>(null);
+  selectedTrendCode = signal<string | null>(null);
   pillarLiveSignals = signal<PillarLiveSignalsResult | null>(null);
   pillarLiveSignalsLoading = signal(false);
   pillarLiveSignalsError = signal<string | null>(null);
@@ -73,20 +80,20 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   protected isOpen = this.chatService.isOpen;
   protected isTyping = this.chatService.isTyping;
   protected messages = this.chatService.messages;
-  protected selectedProgram = this.chatService.selectedProgram;
+  protected selectedCountry = this.chatService.selectedCountry;
   protected selectedPillar = this.chatService.selectedPillar;
-  isExpanded = false;
+  isExpanded = true;
 
   // ─── Computed ─────────────────────────────────────────────────────────────
   protected hasContext = computed(() =>
-    !!this.chatService.selectedProgram() || !!this.chatService.selectedPillar()
+    !!this.chatService.selectedCountry() || !!this.chatService.selectedPillar()
   );
 
   protected contextLabel = computed<string | null>(() => {
-    const c = this.chatService.selectedProgram();
+    const c = this.chatService.selectedCountry();
     const p = this.chatService.selectedPillar();
-    if (c && p) return `${c.programName} · ${p.pillarName}`;
-    if (c) return c.programName;
+    if (c && p) return `${c.countryName} · ${p.pillarName}`;
+    if (c) return c.countryName;
     if (p) return p.pillarName;
     return null;
   });
@@ -104,20 +111,18 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   });
 
   readonly rotatingHeadlines = [
-    'Welcome to VCP',
-    'Surface stability signals across regions',
-    'Interrogate program risk with pillar context',
-    'Compare indices and emerging pressure points',
-    'Brief on conflict trajectories and early warnings',
-  ];
-
-  readonly rotatingPlaceholders = [
-    'Frame a program intelligence question…',
-    'Which stability indicators matter for your decision?',
-    'Ask about governance, security, or humanitarian drivers…',
-    'Request a cross-program or regional assessment…',
-  ];
-
+  'Welcome to the Africa Market Intelligence Engine',
+  'Monitor market system performance across Africa',
+  'Explore country market risks and resilience',
+  'Compare market indicators, pillars, and trends',
+  'Detect early market warnings and emerging risks',
+];
+readonly rotatingPlaceholders = [
+  'Ask about a country’s market system or current market status…',
+  'Explore market risks, trends, or early warning indicators…',
+  'Compare market performance across countries or regions…',
+  'Ask about market pillars, KPIs, or ROSEW operational status…',
+];
   rotatingIndex = signal(0);
   placeholderIndex = signal(0);
   promptAnimating = signal(false);
@@ -169,99 +174,73 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     this.clearHistory();
     this.closeChat();
     this.clearContext();
-    this.chatService.getAllPrograms();
+    this.chatService.getAllCountries();
     this.chatService.getPillars();
     this.chatService.getFAQDs();
-    this.loadProgramSlides(0);
+    this.loadEmergingTrends();
+    this.loadPillarLiveSignals();
     this.startSlider();
     this.startPromptRotation();
-    if (this.chatService.crossComparisionprogramIDs.value.length > 0) {
-      this.getProgramsCrossComparision()
+    if (this.chatService.crossComparisionCountryIDs.value.length > 0) {
+      this.getContriesCrossComparision()
     }
   }
 
-  onProgramChange(program: ProgramVM | null): void {
+  onCountryChange(city: CountryVM | null): void {
     this.analysisModalOpen.set(false);
     this.sliderItems = [];
     this.currentSlide = 0;
-    this.isExpanded = false;
-    this.programPillarScores.set([]);
     clearInterval(this.intervalId);
-    this.chatService.selectedProgram.set(program ?? null);
-    this.chatService.selectedPillar.set(null);
+    this.chatService.selectedCountry.set(city ?? null);
 
-    if (program?.climateProgramID == null) {
-      this.loadProgramSlides(0);
+    if (!city?.countryID) {
+      this.contrySlide = null;
+      this.countrySlidesLoading.set(false);
+      this.cdr.markForCheck();
       return;
     }
 
-    this.loadProgramSlides(program.climateProgramID, program);
-  }
-
-  private loadProgramSlides(climateProgramID: number, program?: ProgramVM | null): void {
-    this.programSlide = null;
-    this.programPillarScores.set([]);
-    if (climateProgramID === 0) {
-      this.sliderItems = [];
-      clearInterval(this.intervalId);
-    }
-    this.programSlidesLoading.set(true);
+    this.contrySlide = null;
+    this.countrySlidesLoading.set(true);
     this.cdr.markForCheck();
 
-    this.chatService.getProgramSlides(climateProgramID).pipe(
+    this.chatService.getCountrySlides(city.countryID).pipe(
       takeUntil(this.destroy$),
       finalize(() => {
-        this.programSlidesLoading.set(false);
+        this.countrySlidesLoading.set(false);
         this.cdr.markForCheck();
       })
     ).subscribe({
       next: res => {
-        const data = this.chatService.unwrapProgramSlides(res);
-        this.programSlide = data ?? null;
+        const data = res?.result?.result;
+        this.contrySlide = data ?? null;
 
         if (!data) return;
 
-        if (climateProgramID === 0) {
-          this.sliderItems = [];
-          this.cdr.markForCheck();
-          return;
-        }
+        const earlyWarnings = Array.isArray(data.earlyWarnings)
+          ? data.earlyWarnings
+          : [];
 
-        const pillars = data.program?.pillars ?? [];
-        const mapped = pillars
-          .map(p => ({
-            pillarID: p.pillarID,
-            pillarName: p.pillarName,
-            imagePath: p.imagePath ?? '',
-            pillarScore: p.pillarScore ?? 0,
-            displayOrder: p.displayOrder ?? 0,
-          }))
-          .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
-
-        this.programPillarScores.set(mapped);
-
-        const slidePillars = this.normalizeSlidePillars(data.program?.pillars);
-        if (slidePillars.length && this.programSlide?.program) {
-          this.programSlide = {
-            ...this.programSlide,
-            program: { ...this.programSlide.program, pillars: slidePillars },
-          };
-        }
-        this.cdr.markForCheck();
-
-        if (climateProgramID > 0) {
-         // this.loadProgramPillarScores(climateProgramID);
-        }
-
-        const headerProgramName = data.program?.programName ?? program?.programName ?? 'Program';
-        const headerLocation = data.program?.location ?? program?.location ?? '';
-        const headerYear = data.program?.dataYear ?? program?.year ?? null;
+        const combinedRisks = Array.isArray(data.combinedRisks)
+          ? data.combinedRisks
+          : [];
 
         this.sliderItems = [
           {
-            title: headerProgramName,
-            headerMeta: this.formatProgramHeaderMeta(headerLocation, headerYear),
-           }
+            title: `${data.country.countryName} recent performance`,
+            subtitle: data.recentPerformance?.summary,
+            trend: "Recent"
+          },
+          ...combinedRisks.map((x: any) => ({
+            title: 'Risk Overview',
+            subtitle: x.summary || x.description,
+            trend: "Risk"
+          })),
+          ...earlyWarnings.map((x: any) => ({
+            title: x.title || 'Early Warning',
+            subtitle: x.description || x.summary,
+            trend: "Early Warning"
+          })),
         ];
 
         this.currentSlide = 0;
@@ -269,71 +248,11 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         this.cdr.markForCheck();
       },
       error: () => {
-        this.programSlide = null;
-        this.programPillarScores.set([]);
+        this.contrySlide = null;
         this.sliderItems = [];
         this.cdr.markForCheck();
       },
     });
-  }
-
-  private loadProgramPillarScores(climateProgramID: number): void {
-    this.programPillarsLoading.set(true);
-    this.cdr.markForCheck();
-
-    this.chatService.getProgramPillarScores(climateProgramID).pipe(
-      takeUntil(this.destroy$),
-      finalize(() => {
-        this.programPillarsLoading.set(false);
-        this.cdr.markForCheck();
-      })
-    ).subscribe({
-      next: res => {
-        const pillars = res?.result?.pillars ?? [];
-        const mapped = pillars
-          .map(p => ({
-            pillarID: p.pillarID,
-            pillarName: p.pillarName,
-            imagePath: p.imagePath ?? '',
-            pillarScore: p.aiScore ?? 0,
-            displayOrder: p.displayOrder ?? 0,
-          }))
-          .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
-
-        this.programPillarScores.set(mapped);
-
-        const existing = this.normalizeSlidePillars(this.programSlide?.program?.pillars);
-        const merged = existing.length ? existing : mapped;
-
-        if (merged.length && this.programSlide?.program) {
-          this.programSlide = {
-            ...this.programSlide,
-            program: { ...this.programSlide.program, pillars: merged },
-          };
-        }
-        this.cdr.markForCheck();
-      },
-      error: () => {
-        this.programPillarScores.set([]);
-        this.cdr.markForCheck();
-      },
-    });
-  }
-
-  private normalizeSlidePillars(
-    pillars: PillarsUserHistroyResponseDto[] | null | undefined
-  ): PillarsUserHistroyResponseDto[] {
-    if (!Array.isArray(pillars) || !pillars.length) return [];
-    return [...pillars]
-      .map(p => ({
-        pillarID: p.pillarID ?? (p as any).PillarID,
-        pillarName: p.pillarName ?? (p as any).PillarName ?? '',
-        imagePath: p.imagePath ?? (p as any).ImagePath ?? '',
-        pillarScore: p.pillarScore ?? (p as any).PillarScore ?? null,
-        displayOrder: p.displayOrder ?? (p as any).DisplayOrder ?? 0,
-      }))
-      .filter(p => p.pillarID != null)
-      .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
   }
 
   ngOnDestroy(): void {
@@ -376,14 +295,14 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   }
 
   // ─── Send ─────────────────────────────────────────────────────────────────
-  getProgramsCrossComparision(): void {
+  getContriesCrossComparision(): void {
 
     this.inputText.set('');
     this.showSuggestions.set(false);
     this.suggestions.set([]);
 
     this.chatService
-      .getProgramsCrossComparision()
+      .getContriesCrossComparision()
       .pipe(takeUntil(this.destroy$))
       .subscribe({
         next: () => { this.scrollToBottom(); this.cdr.markForCheck(); },
@@ -456,7 +375,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   }
 
   clearContext(): void {
-    this.chatService.selectedProgram.set(null);
+    this.chatService.selectedCountry.set(null);
     this.chatService.selectedPillar.set(null);
     this.chatService.selectedfaq.set(null);
   }
@@ -480,49 +399,16 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     });
   }
 
-  /** Pillars from program slide, AI scores, or global pillar catalog. */
+  /** Domains from country slide, ordered for sidebar display. */
   get sidebarPillars(): PillarsUserHistroyResponseDto[] {
-    const fromSlide = this.normalizeSlidePillars(this.programSlide?.program?.pillars);
-    if (fromSlide.length) return fromSlide;
-
-    const fromScores = this.programPillarScores();
-    if (fromScores.length) return fromScores;
-
-    const global = this.chatService.pillars.value ?? [];
-    if (global.length) {
-      return global.map(p => ({
-        pillarID: p.pillarID,
-        pillarName: p.pillarName,
-        imagePath: p.imagePath ?? '',
-        pillarScore: 0,
-        displayOrder: p.displayOrder ?? 0,
-      }));
-    }
-    return [];
+    const pillars = this.contrySlide?.country?.pillars;
+    if (!pillars?.length) return [];
+    return [...pillars].sort(
+      (a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0)
+    );
   }
 
-  /** Pillar options for the header selector (program-scoped). */
-  get programPillarSelectOptions(): PillarsVM[] {
-    const pillars = this.sidebarPillars;
-    if (pillars.length) {
-      return pillars.map(p => ({
-        pillarID: p.pillarID,
-        pillarName: p.pillarName,
-        description: '',
-        displayOrder: p.displayOrder ?? 0,
-        weight: 0,
-        reliability: true,
-        imagePath: p.imagePath,
-      }));
-    }
-    return this.chatService.pillars.value ?? [];
-  }
-
-  protected pillarsPanelLoading(): boolean {
-    return this.programSlidesLoading() || this.programPillarsLoading();
-  }
-
-  /** 0–100 peace index → VCP pillar palette (higher = more peaceful). */
+  /** 0–100 peace index → PEM domain palette (higher = more peaceful). */
   scoreToColor(value: number | null | undefined): string {
     const colors = this.commonService.PillarColors;
     if (value == null || isNaN(Number(value))) return '#E0E0E0';
@@ -539,7 +425,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     return colors[9];
   }
 
-  /** Pillar score 0–100 → bar / image accent color. */
+  /** Domain score 0–100 → bar / image accent color. */
   pillarScoreColor(score: number | null | undefined): string {
     return this.scoreToColor(this.normalizePillarScore(score));
   }
@@ -555,18 +441,16 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     return Math.min(100, Math.max(0, Number(score)));
   }
 
-  /** Show tooltip when label is shortened by word limit or likely clipped in the sidebar. */
-  shouldShowPillarNameTooltip(name: string | null | undefined, maxWords = 3): boolean {
+  truncatePillarName(name: string | null | undefined, maxWords = 3): string {
+    if (!name?.trim()) return '—';
+    const words = name.trim().split(/\s+/);
+    if (words.length <= maxWords) return name.trim();
+    return words.slice(0, maxWords).join(' ') + '…';
+  }
+
+  isPillarNameTruncated(name: string | null | undefined, maxWords = 4): boolean {
     if (!name?.trim()) return false;
-    const trimmed = name.trim();
-    const words = trimmed.split(/\s+/).filter(Boolean);
-
-    if (words.length > maxWords) return true;
-
-    // Narrow KEY PILLARS column still clips multi-word names via line-clamp.
-    if (words.length >= 3) return true;
-
-    return trimmed.length > 24;
+    return name.trim().split(/\s+/).length > maxWords;
   }
 
   peaceLevelLabel(score: number | null | undefined): string {
@@ -600,17 +484,58 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     return p.pillarID;
   }
 
-  protected glanceScoreLabel(): string {
-    return this.selectedProgram() ? 'Health Score' : 'Average Score';
+  loadEmergingTrends(): void {
+    this.emergingTrendsLoading.set(true);
+    this.emergingTrendsError.set(null);
+    this.cdr.markForCheck();
+
+    this.chatService.getEmergingTrendsAndIssues(8).pipe(
+      takeUntil(this.destroy$),
+      finalize(() => {
+        this.emergingTrendsLoading.set(false);
+        this.cdr.markForCheck();
+      })
+    ).subscribe({
+      next: res => {
+        const payload = res?.succeeded ? res.result : null;
+        const countries = payload?.countries?.filter(c => c?.country && c?.sourceUrl) ?? [];
+
+        if (!payload || !countries.length) {
+          this.emergingTrends.set(null);
+          this.emergingTrendsError.set(
+            res?.errors?.[0] ?? res?.messages?.join(", ") ?? 'Unable to load global trends right now.'
+          );
+          return;
+        }
+
+        this.emergingTrends.set({ ...payload, countries });
+        this.selectedTrendCode.set(countries[0]?.countryCode ?? null);
+        this.emergingTrendsError.set(null);
+        this.cdr.markForCheck();
+      },
+      error: () => {
+        this.emergingTrends.set(null);
+        this.emergingTrendsError.set('Unable to load global trends. Please try again.');
+        this.cdr.markForCheck();
+      },
+    });
   }
 
-  protected glanceRankLabel(): string {
-    return 'Location Rank';
+  retryEmergingTrends(): void {
+    this.loadEmergingTrends();
   }
 
-  formatGlanceScore(score: number | null | undefined): string {
-    if (score == null || isNaN(Number(score))) return '—';
-    return Number(score).toFixed(1);
+  selectTrendCard(card: EmergingTrendCountryCard): void {
+    this.selectedTrendCode.set(card.countryCode);
+    this.cdr.markForCheck();
+  }
+
+  isTrendSelected(card: EmergingTrendCountryCard): boolean {
+    return this.selectedTrendCode() === card.countryCode;
+  }
+
+  trackTrendCard(_: number, card: EmergingTrendCountryCard): string {
+    return card.countryCode;
   }
 
   trendAccentColor(color: string | null | undefined): string {
@@ -621,7 +546,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       red: '#ef4444',
       blue: '#3b82f6',
     };
-    return map[(color ?? '').toLowerCase()] ?? '#A8E063';
+    return map[(color ?? '').toLowerCase()] ?? '#B8BCC4';
   }
 
   loadPillarLiveSignals(): void {
@@ -643,7 +568,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
         if (!payload || pillars.length < 1) {
           this.pillarLiveSignals.set(null);
           this.pillarLiveSignalsError.set(
-            res?.errors?.[0] ?? 'Unable to load pillar signals right now.'
+            res?.errors?.[0] ?? 'Unable to load domain signals right now.'
           );
           return;
         }
@@ -655,7 +580,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
       },
       error: () => {
         this.pillarLiveSignals.set(null);
-        this.pillarLiveSignalsError.set('Unable to load pillar signals. Please try again.');
+        this.pillarLiveSignalsError.set('Unable to load domain signals. Please try again.');
         this.cdr.markForCheck();
       },
     });
@@ -679,7 +604,7 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
   }
 
   pillarSignalLabel(card: PillarLiveSignalCard): string {
-    return card.pillarName ?? `Pillar ${card.pillarId}`;
+    return card.pillarName ?? `Domain ${card.pillarId}`;
   }
 
   formatTrendUpdatedAt(iso: string | null | undefined): string {
@@ -696,12 +621,12 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
     }
   }
 
-  /** Search both program name and alias (also used as a fallback for pillar name) */
+  /** Search both country name and alias (also used as a fallback for pillar name) */
   customSearchFn(term: string, item: any): boolean {
     const t = term.toLowerCase();
     return (
-      item.programName?.toLowerCase().includes(t) ||
-      item.programAliasName?.toLowerCase().includes(t) ||
+      item.countryName?.toLowerCase().includes(t) ||
+      item.countryAliasName?.toLowerCase().includes(t) ||
       item.region?.toLowerCase().includes(t) ||
       item.pillarName?.toLowerCase().includes(t) ||
       false
@@ -711,20 +636,6 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
 
   getTrendLabel(item: any): string {
     return item?.trend;
-  }
-
-  formatProgramHeaderMeta(
-    location: string | null | undefined,
-    year: number | string | null | undefined
-  ): string {
-    const segments: string[] = [];
-    const safeLocation = location?.toString().trim();
-    const safeYear = year?.toString().trim();
-
-    if (safeLocation) segments.push(safeLocation);
-    if (safeYear) segments.push(safeYear);
-
-    return segments.join(' • ');
   }
 
   get activeAnalysisSlide(): { title?: string; subtitle?: string; trend?: string } | null {

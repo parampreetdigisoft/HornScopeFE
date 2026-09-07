@@ -1,93 +1,29 @@
-:host {
-  display: flex;
-  flex-direction: column;
-  min-height: 100dvh;
-  height: 100dvh;
-  overflow: hidden;
-}
-
 .main_area
 {
     display: flex;
-    flex-wrap: nowrap;
-    background: var(--Page-Bg, #040A1D);
-    flex: 1 1 auto;
-    min-height: 0;
-    overflow: hidden;
-    padding-bottom: 0;
-    align-items: stretch;
+    flex-wrap: wrap;
 }
 
 .sidebar_area
 {
-    width: 380px;
-    padding: 0 12px 12px 5px;
-    flex-shrink: 0;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
+    width: 370px;
+    padding: 0 20px 20px 20px;
 }
 
 .content_area
 {
     flex: 1;
-    display: flex;
-    flex-direction: column;
-    min-height: 0;
-    min-width: 0;
-    overflow-x: hidden;
-    overflow-y: auto;
-    padding-bottom: 12px;
-    padding-right: 5px;
-    width: auto;
-    scrollbar-width: thin;
-    scrollbar-color: rgba(168, 224, 99, 0.22) transparent;
-    margin-bottom: 12px;
-}
-
-.content_area > :not(router-outlet) {
-    flex: 1 1 auto;
-    min-height: 0;
-    display: flex;
-    flex-direction: column;
-}
-
-.content_area:has(app-analyst-assessment),
-.content_area:has(app-make-assessment) {
-    padding-bottom: 0;
-    overflow: hidden;
-}
-
-/* Chat route: fill remaining column; scroll lives inside the chat, not this shell */
-.content_area:has(app-chat-container) {
-    overflow: hidden;
-    padding-top: 0;
-    padding-bottom: 12px;
-}
-
-.content_area::-webkit-scrollbar {
-    width: 6px;
-}
-
-.content_area::-webkit-scrollbar-thumb {
-    background: rgba(168, 224, 99, 0.18);
-    border-radius: 4px;
-}
-
-.content_area:hover::-webkit-scrollbar-thumb {
-    background: rgba(168, 224, 99, 0.32);
+    padding-bottom: 20px;
+    padding-right: 20px;
+    width: calc(100% - 370px);
 }
 
 @media only screen and (max-width:1540px) {
   .sidebar_area{
-      width: 330px;
-      padding: 0 5px 20px 12px;
+      width: 335px;
+      padding: 0 15px 20px 15px;
   }
-  .content_area {
-      padding-right: 12px;
-      width: calc(100% - 330px);
-  }
+ 
 }
 
 @media only screen and (max-width:1339px){
@@ -95,28 +31,26 @@
         font-size: 14px;
     }
     ::ng-deep .main_area .inner_sidebar {
-        padding: 10px 10px 14px;
-        border-radius: 14px;
+        padding: 22px 15px 22px;
+        border-radius: 20px;
     }
     ::ng-deep .main_area .nav_links svg {
         width: 22px;
         height: auto;
     }
     ::ng-deep .main_area .sub_menu .nav_links svg {
-        width: 11px !important;
-        height: 11px !important;
-        min-width: 11px !important;
-        max-width: 11px !important;
+        width: auto;
+        height: auto;
     }
     .main_area .sidebar_area{
-        width: 300px;
+        width: 330px;
     }
     ::ng-deep .dashboard_card_inner span {
         padding: 10px !important;
         width: 50px !important;
         height: 50px !important;
     }
-    ::ng-deep .program_pillar .input_field {
+    ::ng-deep .city_pillar .input_field {
         min-width: 100px !important;
     }
 }
@@ -124,6 +58,7 @@
 
 @media only screen and (max-width:767px){
     .sidebar_area {
+        /* transform: translateX(-100%); */
         width: 100%;
     }
 }

@@ -3,10 +3,10 @@
     <div class="modal-body">
       <button type="button" (click)="closeModel()" class="btn-close" data-bs-dismiss="modal"
         aria-label="Close"></button>
-      <div class="row">
+      <div class="row align-items-start profile-modal-header">
         <div class="col-md">
           <h4 class="modal_head">Update Profile</h4>
-          <p class="modal_sub_head mb-5">Enter The details and marked</p>
+          <p class="modal_sub_head">Enter the details and marked</p>
         </div>
         <div class="col-md-auto">
           <img
@@ -16,7 +16,6 @@
       </div>
       <div class="modal_tabs">
         <form [formGroup]="userForm" (ngSubmit)="onSubmit()">
-          <!-- Full Name -->
           <div class="input_field">
             <label>Full Name *</label>
             <input type="text" formControlName="fullName" appAlphaOnly placeholder="Enter Full Name"
@@ -29,21 +28,18 @@
             </div>
           </div>
           <div class="input_field">
-            <label>Email.*</label>
-            <input type="email"  formControlName="email" class="form-control" />
+            <label>Email *</label>
+            <input type="email" formControlName="email" class="form-control" />
             <div class="error-msg" *ngIf="userForm.get('email')?.touched || isSubmitted">
-                <span *ngIf="userForm.get('email')?.errors?.['required']">Email is
-                                        required.</span>
-                <span *ngIf="userForm.get('email')?.errors?.['email']">Invalid email
-                                        format.</span>
-                <span *ngIf="userForm.get('email')?.errors?.['emailExists']">Email is
-                                        already taken.</span>
+              <span *ngIf="userForm.get('email')?.errors?.['required']">Email is required.</span>
+              <span *ngIf="userForm.get('email')?.errors?.['email']">Invalid email format.</span>
+              <span *ngIf="userForm.get('email')?.errors?.['emailExists']">Email is already taken.</span>
             </div>
           </div>
           <div class="input_field">
-            <label>Phone No.*</label>
+            <label>Phone No. *</label>
             <input type="text" formControlName="phone" placeholder="Enter Phone Number"
-              class="form-control"  minlength="10" maxlength="15" (keypress)="numberOnly($event)" />
+              class="form-control" minlength="10" maxlength="15" (keypress)="numberOnly($event)" />
             <div class="error-msg" *ngIf="
                 userForm.get('phone')?.invalid &&
                 (userForm.get('phone')?.touched || isSubmitted)
@@ -52,37 +48,40 @@
             </div>
           </div>
 
-          <div class="row">
-            <div class="col-md-6">
-              <div class="input_field">
+          <div class="row g-3 image-row">
+            <div [class]="selectedImage ? 'col-md-8' : 'col-12'">
+              <div class="input_field mb-0">
                 <label>Choose Image</label>
-                <input type="file" (change)="onFileSelected($event)" formControlName="profileImage"
-                  placeholder="select profile image" class="form-control" accept="image/*" />
+                <label class="image-file-picker">
+                  <input #fileInput type="file" accept="image/*" (change)="onFileSelected($event)"
+                    class="image-file-input-hidden">
+                  <span class="image-file-trigger">Choose File</span>
+                  <span class="image-file-name">{{ selectedFileName }}</span>
+                </label>
               </div>
             </div>
-            <div class="col-md-6 d-flex align-items-center justify-content-center" *ngIf="selectedImage">
-              <div class="input_field">
+            <div class="col-md-4" *ngIf="selectedImage">
+              <div class="input_field text-center mb-0 preview-field">
                 <label>Preview Image</label>
-                <img
-                  [src]="selectedImage ? selectedImage : userinfo?.profileImagePath ? urlBase + userinfo?.profileImagePath : 'assets/images/default-profile.png'"
-                  class="pp_pic" (error)="onImgError($event)" [alt]="'Profile Image'" />
+                <div class="preview-wrap">
+                  <img [src]="selectedImage" class="pp_pic preview-pic" (error)="onImgError($event)"
+                    [alt]="'Preview Image'" />
+                </div>
               </div>
             </div>
           </div>
-          <div class="input_field">
-            <div class="form-check form-switch mt-3">
+
+          <div class="input_field twofa-field">
+            <div class="form-check form-switch">
               <input class="form-check-input" type="checkbox" id="is2FAEnabled" formControlName="is2FAEnabled" />
               <label class="form-check-label" for="is2FAEnabled">
                 Enable Two-Factor Authentication
               </label>
             </div>
-
-            <!-- Optional helper text -->
-            <small class="text-muted d-block mt-1 auth_text">
+            <small class="d-block auth_text">
               When enabled, you’ll receive an OTP on your registered email during login.
             </small>
           </div>
-          <!-- Submit -->
           <button type="submit" class="common_button w-100 mt-4" [disabled]="userForm.invalid">
             {{ "Update" }}
             <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>

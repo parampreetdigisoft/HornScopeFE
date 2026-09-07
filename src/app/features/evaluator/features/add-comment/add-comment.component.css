@@ -1,11 +1,14 @@
-/* Compact transfer/comment dialog — width from vcp-modal.shared.css */
+/* Modal width */
+.transfer_popup {
+  max-width: 560px;
+}
+
 /* Modal container */
 .modal-content {
-  border-radius: var(--Radius-Lg, 16px);
+  border-radius: 14px;
   padding: 0;
-  box-shadow: 0 24px 56px rgba(0, 0, 0, 0.48);
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22));
-  background: linear-gradient(180deg, var(--Surface-Color, #0B1633) 0%, var(--Dark-Bg-Color, #061228) 100%);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  border: none;
 }
 
 /* Body spacing */
@@ -20,7 +23,7 @@
   margin-bottom: 18px;
   text-align: center;
   font-size: 18px;
-  color: var(--Text-Color, #E8EEF8);
+  color: #1f2937;
 }
 
 /* Close button */
@@ -28,29 +31,27 @@
   position: absolute;
   right: 18px;
   top: 18px;
-  opacity: 0.75;
+  opacity: 0.8;
   transition: opacity 0.2s ease;
-  background-color: transparent;
-  filter: invert(1) grayscale(1);
 }
 
 .close-btn:hover {
   opacity: 1;
 }
 
-/* Program + Scores Card */
+/* Country + Scores Card */
 .details_list {
-  background: var(--Surface-Elevated, #102044);
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22));
+  background: #1B1810;
+  border: 1px solid #332C1D;
   padding: 14px 16px;
-  border-radius: 10px;
+  border-radius: 8px;
   font-size: 14px;
-  color: var(--Light-Text-Color, #9AADC4);
+  color: #374151;
 }
 
 .details_list strong {
   font-weight: 600;
-  color: var(--Text-Color, #E8EEF8);
+  color: #111827;
 }
 
 /* Spacing between rows */
@@ -70,33 +71,27 @@
   font-weight: 500;
   margin-bottom: 6px;
   font-size: 14px;
-  color: var(--Text-Color, #E8EEF8);
+  color: #374151;
 }
 
+/* Textarea */
 .form-control {
-  border-radius: 10px;
+  border-radius: 8px;
   resize: none;
   font-size: 14px;
   padding: 10px 12px;
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22));
-  background: var(--Surface-Elevated, #102044);
-  color: var(--Text-Color, #E8EEF8);
+  border: 1px solid #d1d5db;
   transition: border-color 0.2s ease, box-shadow 0.2s ease;
 }
 
-.form-control::placeholder {
-  color: var(--Light-Text-Color, #9AADC4);
+.form-control:focus {
+  border-color: var(--bs-body-color);
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.15);
 }
 
-.form-control:focus {
-  border-color: rgba(168, 224, 99, 0.45);
-  box-shadow: 0 0 0 3px rgba(168, 224, 99, 0.12);
-  background: var(--Surface-Elevated, #102044);
-  color: var(--Text-Color, #E8EEF8);
-}
 /* Validation error */
 .error {
-  color: #f87171;
+  color: #dc2626;
   margin-top: 6px;
   font-size: 12px;
 }

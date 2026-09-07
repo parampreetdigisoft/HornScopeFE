@@ -1,0 +1,346 @@
+<div class="heading_area">
+    <div class="kpi_compare_toolbar">
+        <h3 class="page_head">View Kpi Layers</h3>
+        <div class="kpi_compare_toolbar__actions">
+            <div class="kpi_compare_select kpi_compare_select--year">
+               <ng-select
+               [items]="commonService.applicateYears"
+               [(ngModel)]="selectedYear"
+               (change)="GetAnalyticalLayerResults()"
+               [clearable]="false"
+               [searchable]="false"
+               name="selectedYear"
+               class="form-control analyst_multi_select">
+               </ng-select>
+            </div>
+            <div class="kpi_compare_select">
+                <ng-select [items]="kpis" bindValue="layerID" bindLabel="layerNmme" [searchable]="true"
+                    class="form-control analyst_multi_select" [placeholder]="!selectedkpiLayerID ?'Search by Kpis':''"
+                    [(ngModel)]="selectedkpiLayerID" (change)="kpiChanged()" [searchFn]="customSearchFn"
+                    [dropdownPosition]="'bottom'">
+                    <ng-template ng-label-tmp let-item="item" class="select_item">
+                        {{ item.layerCode }}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        ({{ item.layerCode }}) {{ item.layerName }}
+                    </ng-template>
+                </ng-select>
+            </div>
+            <div class="kpi_compare_select">
+                <ng-select [items]="countryList" bindValue="countryID" bindLabel="countryName" [searchable]="true"
+                    class="form-control analyst_multi_select" [placeholder]="!selectedCountryID? 'Select Countries' :''"
+                    [(ngModel)]="selectedCountryID" (change)="GetAnalyticalLayerResults()"
+                    [dropdownPosition]="'bottom'">
+                    <ng-template ng-label-tmp let-item="item" class="select_item">
+                        {{ item.countryName }}
+                    </ng-template>
+                    <ng-template ng-option-tmp let-item="item">
+                        {{ item.countryName }}, ({{ item.score?.toFixed(1) || 'NA'}})
+                    </ng-template>
+                </ng-select>
+            </div>
+        </div>
+    </div>
+    </div>
+
+  <div class="table_outer compare_city_table">
+    <div class="table_custom_inner">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>S.No.</th>
+            <th>Country</th>
+            <th>Kpi Layer</th>
+            <th>Condition</th>
+            <th>KPI Achievement</th>
+            <th class="action_th">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let kpi of kpiLayersResponse?.data; let i = index">
+            <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+            <td>
+              <div class="kpi_city kpi_td_data">
+                <p>{{ kpi.country?.countryName }}</p>
+                ({{ kpi.country?.continent }})
+              </div>
+            </td>
+            <td>
+              <div class="kpi_layaer kpi_td_data">
+                <p>{{ kpi.layerName }}</p>
+                ({{ kpi.layerCode }})
+              </div>
+            </td>
+            <td>
+              <div class="kpi_layaer kpi_td_data">
+                <p>{{ getConditionByid(kpi) }}</p>
+              </div>
+            </td>
+            <td>
+              <div class="kpi_cat05 kpi_td_data">
+                <p>{{ kpi.calText5 || '' }}</p>
+                <div class="bold_num">{{ (kpi.aiCalValue5 ?? 0).toFixed(2) }}</div>
+              </div>
+            </td>
+            <td class="action_td">
+              <table>
+                <tbody>
+                  <tr>
+                    <td>
+                      <div class="action_icons">
+                        <a
+                          style="cursor: pointer"
+                          matTooltip="View"
+                          (click)="viewDetails(kpi); $event.preventDefault()"
+                        >
+                          <span style="display: inline-block">View Details</span>
+                        </a>
+                      </div>
+                    </td>
+                    <td>
+                      <div></div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <app-pagination
+      [selectedYear]="selectedYear"
+      [totalPage]="totalRecords"
+      [currentPage]="currentPage"
+      [pageSize]="pageSize"
+      [isLoader]="isLoader"
+      (pageChange)="GetAnalyticalLayerResults($event)"
+    ></app-pagination>
+  </div>
+
+<div class="offcanvas offcanvas-end custom-sidebar kpi_sidebar" tabindex="-1" id="kpiLayerSidebar">
+  <div class="offcanvas-body">
+    <app-view-country-user-kpi-layer [selectedLayer]="selectedKpi" [listPage]="currentPage"></app-view-country-user-kpi-layer>
+  </div>
+</div>
+
+<style>
+  .kpi-layers-page {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .kpi-layers-page .page_sub {
+    margin: 6px 0 0;
+    color: #5f6b6a;
+    font-size: 14px;
+  }
+
+  .kpi_filters_bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: flex-end;
+    background: #fff;
+    border: 1px solid #d7e3f0;
+    border-radius: 14px;
+    padding: 16px 18px;
+    box-shadow: 0 4px 18px rgba(0, 49, 96, 0.08);
+  }
+
+  .kpi_filter_field {
+    flex: 0 0 180px;
+    min-width: 160px;
+  }
+
+  .kpi_filter_field--wide {
+    flex: 1 1 240px;
+    min-width: 220px;
+  }
+
+  .kpi_filter_field label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-bottom: 6px;
+    font-size: 12px;
+    font-weight: 600;
+    color: #5a7394;
+    letter-spacing: 0.02em;
+  }
+
+  .kpi_filter_field label i {
+    color: #77bd3e;
+    font-size: 14px;
+  }
+
+  .kpi_select_shell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    min-height: 44px;
+    border: 1px solid #d7e3f0;
+    border-radius: 12px;
+    background: linear-gradient(180deg, #ffffff 0%, #f8faff 100%);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.2s ease;
+  }
+
+  .kpi_select_shell:hover {
+    border-color: #b3cce8;
+    box-shadow: 0 4px 14px rgba(0, 49, 96, 0.1);
+  }
+
+  .kpi_select_shell:focus-within {
+    border-color: #77bd3e;
+    box-shadow: 0 0 0 3px rgba(119, 189, 62, 0.18);
+  }
+
+  .kpi_select_icon {
+    position: absolute;
+    left: 12px;
+    z-index: 2;
+    color: #77bd3e;
+    font-size: 15px;
+    pointer-events: none;
+  }
+
+  .kpi_select_chevron {
+    position: absolute;
+    right: 12px;
+    z-index: 2;
+    color: #5a7394;
+    font-size: 12px;
+    pointer-events: none;
+  }
+
+  .kpi_select--native {
+    width: 100%;
+    height: 44px;
+    border: none;
+    background: transparent;
+    padding: 0 36px 0 38px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #006D77;
+    appearance: none;
+    outline: none;
+    cursor: pointer;
+  }
+
+  .kpi_select_shell--ng {
+    padding-left: 34px;
+  }
+
+  .kpi_select_shell--ng .kpi_ng_select {
+    width: 100%;
+    border: none;
+    background: transparent;
+  }
+
+  .kpi_select_shell--ng .ng-select-container {
+    min-height: 44px !important;
+    height: 44px !important;
+    border: none !important;
+    box-shadow: none !important;
+    background: transparent !important;
+    padding-left: 4px;
+  }
+
+  .kpi_select_shell--ng .ng-select.ng-select-focused .ng-select-container,
+  .kpi_select_shell--ng .ng-select.ng-select-opened .ng-select-container {
+    border: none !important;
+    box-shadow: none !important;
+  }
+
+  .kpi_select_shell--ng .ng-value-container {
+    padding-left: 0 !important;
+  }
+
+  .kpi_select_shell--ng .ng-placeholder {
+    color: #8a9894 !important;
+    font-size: 14px;
+  }
+
+  .kpi_select_shell--ng .ng-input > input {
+    font-size: 14px !important;
+    color: #12352f !important;
+  }
+
+  .kpi_select_shell--ng .ng-value {
+    background: transparent !important;
+    color: #12352f !important;
+    font-weight: 600;
+    padding: 0 !important;
+    border-radius: 0 !important;
+  }
+
+  .kpi_select_shell--ng .ng-arrow-wrapper {
+    padding-right: 10px;
+  }
+
+  .kpi_select_shell--ng .ng-arrow {
+    border-color: #56706a transparent transparent !important;
+  }
+
+  .kpi_ng_select .ng-dropdown-panel {
+    border: 1px solid #d7e3f0;
+    border-radius: 12px;
+    box-shadow: 0 12px 28px rgba(0, 49, 96, 0.12);
+    overflow: hidden;
+    margin-top: 6px;
+  }
+
+  .kpi_ng_select .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+    padding: 10px 14px;
+    font-size: 13px;
+    color: #006D77;
+    border-bottom: 1px solid #f0f5f3;
+    transition: background-color 0.15s ease, color 0.15s ease;
+  }
+
+  .kpi_ng_select .ng-dropdown-panel .ng-dropdown-panel-items .ng-option:last-child {
+    border-bottom: none;
+  }
+
+  .kpi_ng_select .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+    background: #e8f0ff !important;
+    color: #12352f !important;
+  }
+
+  .kpi_ng_select .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+    background: linear-gradient(90deg, #e8f0ff, #f4f8ff) !important;
+    color: #12352f !important;
+    font-weight: 600;
+  }
+
+  .kpi_option_code {
+    color: #77bd3e;
+    font-weight: 700;
+    margin-right: 4px;
+  }
+
+  .kpi_option_name {
+    color: #006D77;
+    font-weight: 500;
+  }
+
+  .kpi_option_meta {
+    color: #6d7c77;
+    font-size: 12px;
+  }
+
+  @media (max-width: 768px) {
+    .kpi_filters_bar {
+      flex-direction: column;
+      align-items: stretch;
+    }
+
+    .kpi_filter_field,
+    .kpi_filter_field--wide {
+      flex: 1 1 100%;
+      min-width: 0;
+      width: 100%;
+    }
+  }
+</style>

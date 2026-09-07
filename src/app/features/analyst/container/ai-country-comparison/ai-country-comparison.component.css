@@ -1,0 +1,629 @@
+app-ai-city-comparison {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  /* modern version of grid-gap */
+}
+
+/* Target first two bars */
+app-ai-city-comparison .city_pillar {
+  flex: 0 0 auto;
+  width: calc(66.6% - 6px);
+}
+
+/* Target third (or last) bar */
+app-ai-city-comparison app-ag-bar:nth-child(3) {
+  flex: 1;
+}
+
+.table_responsive {
+  overflow-x: auto;
+}
+
+
+.mb_15 {
+  margin-bottom: 15px;
+}
+
+.score_col {
+  color: #77bd3e !important;
+  font-weight: 700 !important;
+}
+
+.no_result_found {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 80px;
+  text-align: center;
+  color: #6c757d;
+  /* subtle grey */
+}
+
+.no_result_found h3 {
+  font-weight: 600;
+  /* semi-bold, cleaner */
+  font-size: 20px;
+  color: #495057;
+  /* darker grey for text */
+  letter-spacing: 0.5px;
+}
+
+.table_badge {
+  background: #C9A24A;
+  color: #EFE7D6;
+  padding: 2px 8px;
+  border-radius: 0.5rem;
+  display: inline-block;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.city_card_outter {
+  display: flex;
+  flex-direction: column;
+  grid-gap: 0px;
+  flex-wrap: inherit;
+}
+
+.compare_piller {
+  max-width: 400px;
+  min-width: 180px;
+  width: 100%;
+}
+
+.compare_piller .city_card_img img {
+  max-width: 100%;
+  display: block;
+  max-height: 320px;
+  min-height: 120px;
+  object-fit: cover;
+}
+
+.compare_piller .city_card {
+  padding: 0px;
+}
+
+.compare_piller .city_card .city_card_ul {
+  margin-top: 20px;
+}
+
+.compare_table.table tr th:first-child {
+  width: 350px;
+  min-width: 350px;
+  max-width: 100%;
+  font-size: 20px;
+}
+
+.compare_table.table .city_cards_disc {
+  font-weight: 400;
+  color: #212529;
+}
+
+.compare_table.table .city_cards_h1 {
+  font-size: 24px;
+  line-height: normal;
+  font-weight: 600;
+  color: #212529;
+}
+
+.cross_city .compare_table thead th:not(:first-child) {
+  padding: 8px 10px;
+  vertical-align: top;
+}
+
+.cross_city .card_title--compact {
+  gap: 4px;
+  align-items: flex-start;
+}
+
+.cross_city .country_header_name {
+  font-size: 15px;
+  line-height: 1.25;
+  font-weight: 600;
+  margin: 0;
+  color: #12352f;
+}
+
+.cross_city .compare_piller .city_card,
+.cross_city .compare_piller .city_card_inner,
+.cross_city .melbourne-card-text {
+  padding: 0;
+  margin: 0;
+}
+
+.table_outer .compare_table.table tr th:last-child {
+  min-width: 200px;
+  max-width: 200px;
+  font-size: 20px;
+}
+
+.city_cards_p {
+  font-size: 14px;
+  background-color: #77bd3e;
+  color: #EFE7D6;
+  padding: 2px 10px;
+  border-radius: 20px;
+  width: max-content;
+  margin-top: 5px;
+}
+
+::ng-deep .analyst_multi_select .ng-option-selected {
+  background-color: rgba(201, 162, 74, 0.18) !important;
+  color: #C9A24A !important;
+  font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+  background-color: rgba(201, 162, 74, 0.14) !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+  border: none !important;
+  background-color: #1B1810 !important;
+  min-height: auto !important;
+  height: 100% !important;
+}
+
+::ng-deep .compare_select .ng-select-container:hover {
+  box-shadow: none !important;
+}
+
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+  box-shadow: none !important;
+}
+
+
+.table_custom_inner {
+  overflow: auto;
+}
+
+.table_custom_inner::-webkit-scrollbar {
+  display: none;
+}
+
+.card_title {
+  align-items: flex-start;
+  flex-direction: column;
+}
+
+::ng-deep .compare_select .ng-value-container .ng-value, span.selexted_piller {
+  white-space: nowrap;
+  padding: 2px 5px !important;
+  border-radius: 5px !important;
+  background-color: #C9A24A !important;
+  color: #EFE7D6 !important;
+}
+
+.kpi_city.kpi_td_data {
+  display: flex;
+}
+
+.header_Score {
+  display: inline-flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 5px;
+  margin: 0;
+  width: 100%;
+}
+
+.header_score_chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 11px;
+  line-height: 1.2;
+  font-weight: 500;
+  color: #EFE7D6;
+  background-color: #77bd3e;
+  border-radius: 4px;
+  white-space: nowrap;
+}
+
+.header_score_chip strong {
+  font-weight: 700;
+  font-size: 11px;
+}
+
+.header_Score .research_date {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: auto;
+  padding: 2px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  letter-spacing: 0;
+  border-radius: 4px;
+  box-shadow: none;
+  backdrop-filter: none;
+  transition: opacity 0.15s ease;
+  cursor: default;
+  white-space: nowrap;
+}
+
+.header_Score .research_date.fresh {
+  background: linear-gradient(135deg, #e6fdf4, #d2f7eb);
+  color: #116c4a;
+}
+
+.header_Score .research_date.recent {
+  background: linear-gradient(135deg, #ffebba, #ffebba);
+  color: #8a6400;
+}
+
+.header_Score .research_date.old {
+  background: linear-gradient(135deg, #ffe9e6, #ffd1cb);
+  color: #912018;
+}
+
+.header_Score .research_date.just-now {
+  background: linear-gradient(135deg, #e8f0ff, #d9e6ff);
+  color: #204ecf;
+}
+
+.header_Score .research_date:hover {
+  opacity: 0.88;
+}
+
+.faq_sidebar_item.active .faq_sidebar_item_inner:after {
+  background-color: #C9A24A;
+}
+
+.faq_sidebar_item.active .faq_sidebar_item_inner svg>rect {
+  fill: #C9A24A;
+}
+
+.faq_inner_svg {
+  border-radius: 15px;
+  border: 1px solid rgba(0, 0, 0, .02);
+  background: #7ac2ae;
+  z-index: 2;
+  height: 50px;
+  width: 50px;
+  min-width: 50px;
+  max-width: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.faq_inner_svg img {
+width: 50px;
+}
+
+.faq_sidebar_item:nth-child(1) .faq_inner_svg { background-color: #584d00; } /* Soft Blue */
+.faq_sidebar_item:nth-child(2) .faq_inner_svg { background-color: #45B39D; } /* Sage Teal */
+.faq_sidebar_item:nth-child(3) .faq_inner_svg { background-color: #E67E22; } /* Soft Pumpkin */
+.faq_sidebar_item:nth-child(4) .faq_inner_svg { background-color: #A569BD; } /* Muted Amethyst */
+.faq_sidebar_item:nth-child(5) .faq_inner_svg { background-color: #52BE80; } /* Forest Mist */
+.faq_sidebar_item:nth-child(6) .faq_inner_svg { background-color: #85C1E9; } /* Pale Blue */
+.faq_sidebar_item:nth-child(7) .faq_inner_svg { background-color: #D98880; } /* Dusty Rose */
+.faq_sidebar_item:nth-child(8) .faq_inner_svg { background-color: #5499C7; } /* Ocean Blue */
+.faq_sidebar_item:nth-child(9) .faq_inner_svg { background-color: #AF7AC5; } /* Soft Lavender */
+.faq_sidebar_item:nth-child(10) .faq_inner_svg { background-color: #76D7C4; } /* Pale Aqua */
+.faq_sidebar_item:nth-child(11) .faq_inner_svg { background-color: #F5B041; } /* Golden Sand */
+.faq_sidebar_item:nth-child(12) .faq_inner_svg { background-color: #E59866; } /* Peach Clay */
+.faq_sidebar_item:nth-child(13) .faq_inner_svg { background-color: #1E8449; } /* Deep Moss */
+.faq_sidebar_item:nth-child(14) .faq_inner_svg { background-color: #566573; } /* Slate Grey */
+.faq_sidebar_item:nth-child(15) .faq_inner_svg { background-color: #808B96; } /* Blue Grey */
+.faq_sidebar_item:nth-child(16) .faq_inner_svg { background-color: #D35400; } /* Burnt Orange */
+.faq_sidebar_item:nth-child(17) .faq_inner_svg { background-color: #138D75; } /* Dark Teal */
+.faq_sidebar_item:nth-child(18) .faq_inner_svg { background-color: #AAB7B8; } /* Silver Mist */
+.faq_sidebar_item:nth-child(19) .faq_inner_svg { background-color: #935116; } /* Bronze Brown */
+.faq_sidebar_item:nth-child(20) .faq_inner_svg { background-color: #48C9B0; } /* Turquoise Tint */
+.faq_sidebar_item:nth-child(21) .faq_inner_svg { background-color: #F8C471; } /* Soft Mustard */
+.faq_sidebar_item:nth-child(22) .faq_inner_svg { background-color: #C0392B; } /* Brick Red */
+.faq_sidebar_item:nth-child(23) .faq_inner_svg { background-color: #2E86C1; } /* Steel Blue */
+
+
+.faq_sidebar_item.active .current-active span.faq_inner_svg {
+  background-color: var(--Secondary-Color) !important;
+  border-color: var(--Secondary-Color) !important;
+}
+
+
+.faq_sidebar_item.active .current-active.faq_sidebar_item_inner p {
+  color: var(--Dark-Bg-Color) !important;
+}
+
+.faq_sidebar_item.active {
+  cursor: pointer;
+}
+
+.faq_sidebar_item.active .faq_sidebar_item_inner p {
+  opacity: 1 !important;
+}
+
+.pillar_confidence_outer>p {
+  font-weight: 600;
+  color: #12352f;
+}
+
+tr.pillar_disabled {
+  opacity: 0.4 !important;
+}
+
+
+/* Overall Layout */
+.comparison-wrapper {
+  display: grid;
+  grid-template-columns: 1fr 2fr;
+  gap: 24px;
+  align-items: stretch;
+  margin-bottom: 24px;
+}
+
+
+
+/* KPI Card Base */
+.kpi-card {
+  display: flex;
+  align-items: center;
+  padding: 12px;
+  border-radius: 18px;
+  color: #EFE7D6;
+  min-height: 120px;
+  position: relative;
+  overflow: hidden;
+  cursor: pointer;
+  transition: transform 0.4s ease, box-shadow 0.4s ease;
+  animation: fadeSlideIn 0.6s ease forwards;
+}
+
+/* Hover Animation */
+/* .kpi-card:hover {
+  transform: translateY(-6px) scale(1.02);
+  box-shadow: 0 18px 45px rgba(0, 0, 0, 0.18);
+} */
+
+/* Decorative Glow */
+.kpi-card::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  right: -50%;
+  width: 200px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+}
+
+.faq_sidebar_item_inner {
+    display: flex;
+    align-items: center;
+    grid-gap: 10px;
+}
+
+/* card css */
+
+
+.dashboard_card {
+    padding: 15px;
+}
+h6.city_pile {
+    font-size: 13px;
+    background-color: #77bd3e;
+    padding: 2px 10px;
+    border-radius: 20px;
+    font-weight: 400;
+    color: #EFE7D6;
+}
+.dashboard_card_inner span {
+    width: 60px;
+    height: 60px;
+}
+.dashboard_card_inner span svg , .dashboard_card_inner span img{
+    width: 50px;
+    height: 50px;
+}
+.dashboard_number {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    flex: 1;
+    justify-content: space-between;
+    grid-gap: 20px;
+}
+.dashboard_card{
+    padding: 15px;
+    background-position: bottom left;
+    background-repeat: no-repeat;
+    background-size: 80%;
+    background-blend-mode: soft-light;
+    height: 100%;
+}
+.card_ttile {
+    flex: 1;
+}
+::ng-deep .inner_content_area .heading_area{
+  margin-bottom: 24px !important;
+}
+.kpi-card:first-child {
+    padding-top: 0;
+}
+.kpi-card:last-child {
+    padding-bottom: 0;
+}
+.dashboard_number h5{
+  font-size: 22px;
+}
+.dashboard_cards, .dashboard_cards .dashboard_cards_inner , .dashboard_cards_inner > .row {
+    height: 100%;
+}
+.cross_city tr th:first-child, .cross_city tr td:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    background-color: #1B1810;
+}
+/* .dashboard_card_inner span img {
+    filter: brightness(0) saturate(100%) invert(13%) sepia(8%) saturate(4078%) hue-rotate(120deg) brightness(97%) contrast(87%);
+} */
+
+@media only screen and (max-width:1540px){
+  .dashboard_number {
+      grid-gap: 0;
+      flex-direction: column-reverse;
+  }
+  .dashboard_number h4 , .dashboard_number h5{
+      line-height: 22px;
+      font-size: 17px;
+  }
+  h6.city_pile{
+      font-size: 12px;
+  }
+}
+
+
+/* ==============================================================
+   AMI Cross-Country Comparison — dark chart + table shell
+   ============================================================== */
+.comparison-wrapper {
+  animation: amiCompareIn 0.45s ease both;
+  margin-bottom: 12px;
+}
+
+/* Single chart shell — avoid nested chart-section + chart-container boxes */
+.chart-section {
+  background: #141209 !important;
+  border: 1px solid rgba(201, 162, 74, 0.22);
+  border-radius: 16px;
+  box-shadow: 0 14px 36px rgba(0, 0, 0, 0.28);
+  padding: 8px 8px 4px;
+}
+
+.chart-container,
+#chart {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  padding: 0 !important;
+}
+
+::ng-deep .chart-container .apexcharts-canvas,
+::ng-deep #chart .apexcharts-canvas,
+::ng-deep .apexcharts-svg {
+  background: transparent !important;
+}
+
+::ng-deep .apexcharts-legend-text {
+  color: #EFE7D6 !important;
+}
+
+::ng-deep .apexcharts-tooltip {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.cross_city .country_header_name,
+.compare_table.table .city_cards_h1,
+.compare_table.table .city_cards_disc,
+.pillar_confidence_outer > p {
+  color: #EFE7D6 !important;
+}
+
+.header_score_chip {
+  background: linear-gradient(135deg, #E7C878, #C9A24A) !important;
+  color: #0A0906 !important;
+}
+
+h6.city_pile,
+.city_cards_p {
+  background: rgba(201, 162, 74, 0.18) !important;
+  color: #E7C878 !important;
+  border: 1px solid rgba(201, 162, 74, 0.35);
+}
+
+.header_Score .research_date.fresh {
+  background: rgba(183, 162, 90, 0.2) !important;
+  color: #E7C878 !important;
+  border: 1px solid rgba(201, 162, 74, 0.35);
+}
+
+.header_Score .research_date.recent {
+  background: rgba(201, 162, 74, 0.16) !important;
+  color: #C9A24A !important;
+  border: 1px solid rgba(201, 162, 74, 0.3);
+}
+
+.header_Score .research_date.old {
+  background: rgba(181, 80, 46, 0.18) !important;
+  color: #E8A090 !important;
+  border: 1px solid rgba(181, 80, 46, 0.35);
+}
+
+.header_Score .research_date.just-now {
+  background: rgba(231, 200, 120, 0.14) !important;
+  color: #EFE7D6 !important;
+  border: 1px solid rgba(201, 162, 74, 0.28);
+}
+
+.cross_city .compare_table thead th,
+.cross_city .compare_table tbody td {
+  background: #141209 !important;
+  border-color: #332C1D !important;
+  color: #EFE7D6 !important;
+  vertical-align: top;
+}
+
+.cross_city tr th:first-child,
+.cross_city tr td:first-child {
+  background-color: #1B1810 !important;
+}
+
+/* Flat domain table — no second outer box under the chart */
+.table_outer.cross_city {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  margin-top: 8px;
+  overflow: visible;
+}
+
+.table_outer.cross_city .compare_table {
+  margin-bottom: 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #332C1D;
+}
+
+.kpi-card {
+  animation: amiCompareIn 0.5s ease both;
+}
+
+.kpi-card:nth-child(1) { animation-delay: 0.05s; }
+.kpi-card:nth-child(2) { animation-delay: 0.1s; }
+.kpi-card:nth-child(3) { animation-delay: 0.15s; }
+.kpi-card:nth-child(4) { animation-delay: 0.2s; }
+
+.kpi_td_data {
+  justify-content: center;
+  min-height: 72px;
+  padding: 8px 0;
+}
+
+.no_result_found,
+.no_result_found h3 {
+  color: #9C9484 !important;
+}
+
+@keyframes amiCompareIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .comparison-wrapper,
+  .kpi-card {
+    animation: none !important;
+  }
+}

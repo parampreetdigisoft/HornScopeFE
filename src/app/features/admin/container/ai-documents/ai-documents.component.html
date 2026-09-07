@@ -6,23 +6,23 @@
 
 		<div class="col-md-3 ">
 			<div class="compare_select input_field input_flex">
-				<ng-select [items]="programList"
+				<ng-select [items]="countryList"
 					[searchable]="true"
-					[placeholder]="!selectedclimateProgramID? 'Select Programs' :''"
-					[(ngModel)]="selectedclimateProgramID"
-					(change)="getAIProgramDocuments()"
-					bindValue="climateProgramID"
-					bindLabel="programName"
+					[placeholder]="!selectedCountryID? 'Select Countries' :''"
+					[(ngModel)]="selectedCountryID"
+					(change)="getAICountryDocuments()"
+					bindValue="countryID"
+					bindLabel="countryName"
 					class="form-control analyst_multi_select">
 					<ng-template ng-label-tmp
 						let-item="item"
 						class="select_item">
-						{{ item.programName }}
+						{{ item.countryName }}
 					</ng-template>
 
 					<ng-template ng-option-tmp
 						let-item="item">
-						{{ item.programName }}, {{ item.location }} ({{ item.aiScore?.toFixed(1) || 'NA'}})
+						{{ item.countryName }}, {{ item.continent }} ({{ item.score?.toFixed(1) || 'NA'}})
 					</ng-template>
 				</ng-select>
 			</div>
@@ -36,7 +36,7 @@
 			<thead>
 				<tr>
 					<th>S.No.</th>
-					<th>Program</th>
+					<th>Country</th>
 					<th>Files</th>
 					<th>Types</th>
 					<th>Size</th>
@@ -52,7 +52,7 @@
 					<td>
 						<div class="document_city document_td_data">
 							<p>
-								{{ document.programName || 'NA' }}
+								{{ document.countryName }}
 							</p>
 						</div>
 					</td>
@@ -99,7 +99,7 @@
 												</span>
 												<p *ngIf="sidebarLoader.index==i && sidebarLoader.loader"
 													class="btn_spinner">
-													<span class="spinner-border spinner-border-sm"></span>
+													<span class="spinner-border spinner-border-sm ms-2" style="background: none;"></span>
 												</p>
 											</a>
 										</div>
@@ -112,11 +112,11 @@
 			</tbody>
 		</table>
 	</div>
-	<app-pagination [totalPage]="totalRecords"
+	<app-pagination [totalPage]="totalRecords" [selectedYear]="selectedYear"
 		[currentPage]="currentPage"
 		[pageSize]="pageSize"
 		[isLoader]="isLoader"
-		(pageChange)="getAIProgramDocuments($event)"></app-pagination>
+		(pageChange)="getAICountryDocuments($event)"></app-pagination>
 </div>
 
 
@@ -124,8 +124,8 @@
 	tabindex="-1"
 	id="documentLayerSidebar">
 	<div class="offcanvas-body">
-		<app-ai-document-view-details [selectedProgram]="selectedProgram"
-			[documents]="programPillarDocuments"
+		<app-ai-document-view-details [selectedCountry]="selectedCountry"
+			[documents]="countryPillarDocuments"
             (uploadedDocuments)="uploadAiDocuments($event)"
             (deleteDocument)="onDeleteClick($event)"
 			[pillars]="pillars" [saveDocumentLoader]="saveDocumentLoader" (downloadDocument)="downloadDocument($event)"></app-ai-document-view-details>

@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "climate-pulse-frontend": {
+    "market-intelligence-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/climate-pulse-frontend",
+            "outputPath": "dist/market-intelligence-frontend",
             "allowedCommonJsDependencies": [
               "file-saver",
               "quill-delta"
@@ -69,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "climate-pulse-frontend:build"
+            "buildTarget": "market-intelligence-frontend:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "climate-pulse-frontend:build:production"
+              "buildTarget": "market-intelligence-frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "climate-pulse-frontend:build"
+            "buildTarget": "market-intelligence-frontend:build"
           }
         },
         "test": {

@@ -1,0 +1,553 @@
+/* ============================================================
+   AMI Shared UI — popups, sidebars, headers, score surfaces
+   Tokens from country_index_ami_theme.html + public landing
+   ============================================================ */
+
+::selection {
+  background: var(--ami-gold, #C9A24A);
+  color: #0A0906;
+}
+
+/* ── Motion primitives ──────────────────────────────────────── */
+@keyframes ami-fade-up {
+  from { opacity: 0; transform: translateY(14px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes ami-slide-in-right {
+  from { opacity: 0; transform: translateX(28px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes ami-score-glow {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(201, 162, 74, 0.25); }
+  50% { box-shadow: 0 0 0 6px rgba(201, 162, 74, 0); }
+}
+
+@keyframes ami-gold-shimmer {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 100% 50%; }
+}
+
+@keyframes ami-ring-draw {
+  from { stroke-dashoffset: 126; }
+}
+
+.ami-animate-in {
+  animation: ami-fade-up 0.45s ease both;
+}
+
+/* ── Dark data / score card (popups, side panels, hero chips) ── */
+.ami-score-card {
+  background: linear-gradient(160deg, #141517 0%, #1B1810 100%);
+  border: 1px solid rgba(201, 162, 74, 0.28);
+  border-radius: 12px;
+  padding: 18px 20px;
+  color: #fff;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.35);
+  animation: ami-fade-up 0.4s ease both;
+  transition: transform 0.22s ease, border-color 0.22s ease, box-shadow 0.22s ease;
+}
+
+.ami-score-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(231, 200, 120, 0.5);
+  box-shadow: 0 18px 44px rgba(201, 162, 74, 0.18);
+}
+
+.ami-score-card__label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ami-gold-bright, #E7C878);
+  margin-bottom: 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ami-score-card__label::before {
+  content: '';
+  width: 18px;
+  height: 1.5px;
+  background: var(--ami-gold, #C9A24A);
+  display: inline-block;
+}
+
+.ami-score-card__value,
+.ami-score-value {
+  font-family: var(--ami-font-mono, "JetBrains Mono", monospace);
+  font-size: clamp(1.5rem, 2.2vw, 2rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: #ffffff;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.35);
+}
+
+.ami-score-card__unit {
+  font-size: 0.55em;
+  font-weight: 500;
+  color: var(--ami-silver, #C9C7BF);
+  margin-left: 4px;
+}
+
+.ami-score-card__desc {
+  margin-top: 8px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* Inline score pill — tables, headers, list rows */
+.ami-score-pill,
+.score_label_tab,
+.city_card_img .score,
+.last_data td span {
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  min-width: 3.25rem;
+  padding: 0.35rem 0.75rem !important;
+  border-radius: 999px !important;
+  font-family: var(--ami-font-mono, "JetBrains Mono", monospace) !important;
+  font-size: 13px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.02em;
+  color: #0A0906 !important;
+  background: linear-gradient(135deg, #E7C878, #C9A24A) !important;
+  border: 1px solid rgba(201, 162, 74, 0.45);
+  box-shadow: 0 2px 10px rgba(201, 162, 74, 0.25);
+  white-space: nowrap;
+  transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+.ami-score-pill:hover,
+.score_label_tab:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 14px rgba(201, 162, 74, 0.35);
+}
+
+.bold_num {
+  font-family: var(--ami-font-mono, "JetBrains Mono", monospace);
+  font-weight: 700 !important;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: 0.01em;
+}
+
+/* ── Offcanvas / side panels ────────────────────────────────── */
+.offcanvas,
+.kpi_sidebar .offcanvas,
+.document_sidebar .offcanvas {
+  background:
+    radial-gradient(ellipse at top right, rgba(201, 162, 74, 0.07), transparent 55%),
+    linear-gradient(180deg, #141209 0%, #0A0906 100%) !important;
+  color: var(--ami-cream, #EFE7D6) !important;
+  border-left: 1px solid var(--ami-border-soft, #241F14) !important;
+  box-shadow: -18px 0 48px rgba(0, 0, 0, 0.45);
+}
+
+.offcanvas-header,
+.ai-detail-header {
+  border-bottom: 1px solid var(--ami-border-soft, #241F14) !important;
+  padding: 18px 22px !important;
+  background: linear-gradient(90deg, rgba(201, 162, 74, 0.1), transparent 70%);
+  animation: ami-slide-in-right 0.35s ease both;
+}
+
+.offcanvas-header h5,
+#offcanvasLabel,
+.offcanvas-title {
+  font-family: var(--ami-font-display, "Playfair Display", serif) !important;
+  font-size: 1.15rem !important;
+  font-weight: 700 !important;
+  color: var(--ami-cream, #EFE7D6) !important;
+  letter-spacing: 0.02em;
+  margin: 0;
+}
+
+.offcanvas-header .btn-close {
+  filter: invert(1) brightness(1.2);
+  opacity: 0.75;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+}
+
+.offcanvas-header .btn-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
+}
+
+.offcanvas-body {
+  padding: 20px 10px !important;
+  color: var(--ami-cream, #EFE7D6);
+  animation: ami-fade-up 0.4s ease 0.05s both;
+}
+
+.offcanvas-body .ai-edit-access-banner {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0 0 16px !important;
+  padding: 14px 16px !important;
+  background: linear-gradient(180deg, rgba(27, 24, 16, 0.98), rgba(20, 18, 9, 0.96)) !important;
+  border: 1px solid rgba(201, 162, 74, 0.35) !important;
+  border-radius: 12px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.28);
+}
+
+.offcanvas-body .ai-edit-access-banner p {
+  margin: 0 !important;
+  font-size: 13px !important;
+  line-height: 1.45;
+  color: var(--ami-cream, #EFE7D6) !important;
+}
+
+.offcanvas-body .city_pillar,
+.offcanvas-body .cross-pillar_outter,
+.offcanvas-body .integrate_list {
+  background: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  color: var(--ami-cream, #EFE7D6);
+  box-shadow: none !important;
+}
+
+/* Country / question details: restore Climate Pulse-style card sections. */
+.offcanvas-body .country-detail-layout .city_pillar,
+.offcanvas-body .country-detail-layout .cross-pillar_outter,
+.offcanvas-body .question-detail-layout .cross-pillar_outter {
+  background-color: rgba(27, 24, 16, 0.72) !important;
+  border: 1px solid rgba(201, 162, 74, 0.18) !important;
+  border-radius: 15px !important;
+  padding: 20px !important;
+  box-shadow: none !important;
+  margin-bottom: 20px;
+}
+
+.offcanvas-body .country-detail-layout .integrate_list,
+.offcanvas-body .question-detail-layout .integrate_list {
+  background: transparent !important;
+  border: 1px solid rgba(201, 162, 74, 0.18) !important;
+  border-radius: 15px !important;
+  box-shadow: none !important;
+  overflow: hidden !important;
+}
+
+.offcanvas-body .question-detail-layout .scores-section {
+  padding: 12px !important;
+}
+
+.offcanvas-body .question-detail-layout .kpi_custom_table {
+  table-layout: fixed !important;
+  width: 100% !important;
+  max-width: 100% !important;
+}
+
+.offcanvas-body .country-detail-layout .city_cards_h1 {
+  font-size: 30px !important;
+  line-height: normal !important;
+}
+
+.offcanvas-body .country-detail-layout .city_cards_disc {
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+}
+
+/* AI Domain / Question details: stack the metrics table (no chart sibling).
+   flex:1 + overflow:hidden collapses that row to 0 height in the offcanvas. */
+.offcanvas-body .integrate_outter:not(:has(.outer_graph)) {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  width: 100%;
+}
+
+.offcanvas-body .integrate_outter:not(:has(.outer_graph)) .integrate_list {
+  display: block !important;
+  flex: 0 0 auto !important;
+  width: 100% !important;
+  overflow: visible !important;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+/* KPI / country details: scores table beside the radial chart. */
+.offcanvas-body .integrate_outter:has(.outer_graph) {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 8px 12px;
+  width: 100%;
+}
+
+.offcanvas-body .country-detail-layout .integrate_outter:has(.outer_graph) {
+  grid-template-columns: minmax(0, 1fr) minmax(280px, 320px);
+  align-items: center;
+  gap: 16px 28px;
+}
+
+.offcanvas-body .integrate_outter:has(.outer_graph) .integrate_list {
+  display: block !important;
+  flex: none !important;
+  width: auto !important;
+  max-width: 100%;
+  overflow: hidden !important;
+  min-height: auto !important;
+  height: auto !important;
+}
+
+.offcanvas-body .integrate_outter:has(.outer_graph) .outer_graph {
+  width: 240px !important;
+  max-width: 240px;
+  padding: 0 !important;
+  margin: 0;
+}
+
+.offcanvas-body .country-detail-layout .integrate_outter:has(.outer_graph) .outer_graph {
+  width: 320px !important;
+  max-width: 100%;
+  min-height: 320px;
+  flex: 0 0 320px;
+}
+
+.offcanvas-body .country-detail-layout .integrate_outter:has(.outer_graph) .integrate_list {
+  overflow: visible !important;
+}
+
+.offcanvas-body .country-detail-layout .integrate_outter:has(.outer_graph) #card,
+.offcanvas-body .country-detail-layout .integrate_outter:has(.outer_graph) #chart {
+  width: 100%;
+  min-height: 320px;
+}
+
+.offcanvas-body .outer_graph,
+.offcanvas-body #card,
+.offcanvas-body #chart {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  border-radius: 0 !important;
+  animation: none !important;
+}
+
+.offcanvas-body .outer_graph .apexcharts-legend-series,
+.offcanvas-body .outer_graph .apexcharts-radialbar-area,
+.offcanvas-body .outer_graph .apexcharts-legend-text {
+  cursor: default !important;
+}
+
+.offcanvas-body .cross-pillar h5 {
+  font-size: 16px !important;
+  color: var(--ami-cream, #EFE7D6) !important;
+}
+
+.offcanvas-body .cross-pillar,
+.offcanvas-body .cross-pillar p,
+.offcanvas-body .cross-pillar div {
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+.offcanvas-body .city_cards_h1,
+.offcanvas-body h4.kpi_head_col,
+.offcanvas-body .cross-pillar h5,
+.offcanvas-body .kpi-ai-title {
+  color: var(--ami-cream, #EFE7D6) !important;
+}
+
+.offcanvas-body .city_cards_h1 {
+  font-size: 18px !important;
+  line-height: 1.25 !important;
+}
+
+.offcanvas-body .city_cards_disc {
+  font-size: 13px !important;
+  line-height: 1.5 !important;
+}
+
+.offcanvas-body .score_label_tab,
+.offcanvas-body .last_data td span,
+.offcanvas-body .city_card_img .score {
+  font-size: 13px !important;
+  padding: 0.2rem 0.5rem !important;
+}
+
+.offcanvas-body .kpi-ai-btn {
+  color: #0A0906 !important;
+}
+
+.offcanvas-body .kpi-ai-response {
+  background:
+    radial-gradient(ellipse at top right, rgba(201, 162, 74, 0.1), transparent 55%),
+    linear-gradient(180deg, #1B1810 0%, #141209 100%) !important;
+  border: 1px solid var(--ami-border, #332C1D) !important;
+  box-shadow: none !important;
+}
+
+.offcanvas-body .kpi-ai-badge {
+  color: #0A0906 !important;
+  background: linear-gradient(135deg, #E7C878, #C9A24A) !important;
+}
+
+.offcanvas-body .city_cards_disc,
+.offcanvas-body p,
+.offcanvas-body .kpi-ai-summary-text,
+.offcanvas-body .kpi-ai-score-context,
+.offcanvas-body .kpi-ai-outlook,
+.offcanvas-body .kpi-ai-loading,
+.offcanvas-body .kpi-ai-takeaways li {
+  color: var(--ami-cream, #EFE7D6) !important;
+}
+
+.offcanvas-body .kpi-ai-outlook strong {
+  color: var(--ami-gold-bright, #E7C878) !important;
+}
+
+/* Tables inside panels */
+.offcanvas-body .cus_table {
+  border-radius: 12px !important;
+  overflow: hidden;
+  box-shadow: none !important;
+  border: none;
+}
+
+.offcanvas-body .kpi_custom_table {
+  display: table !important;
+  width: 100% !important;
+  border-radius: 12px !important;
+  overflow: visible !important;
+  box-shadow: none !important;
+  border: none;
+  table-layout: auto;
+}
+
+.offcanvas-body .cus_table .table th,
+.offcanvas-body .kpi_custom_table th,
+.cus_table .table th,
+.kpi_custom_table th {
+  background: linear-gradient(135deg, #C9A24A, #8A5A2B) !important;
+  color: #0A0906 !important;
+  font-weight: 700 !important;
+  font-size: 11px !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border-color: transparent !important;
+}
+
+.offcanvas-body .cus_table .table td,
+.offcanvas-body .kpi_custom_table td {
+  color: var(--ami-cream, #EFE7D6) !important;
+  border-bottom-color: var(--ami-border-soft, #241F14) !important;
+  background: transparent;
+  font-size: 12px !important;
+}
+
+.offcanvas-body .kpi_custom_table tr:nth-child(even) {
+  background-color: rgba(201, 162, 74, 0.06) !important;
+}
+
+.offcanvas-body .active_row td,
+.offcanvas-body .last_data td {
+  background: linear-gradient(90deg, rgba(201, 162, 74, 0.22), rgba(138, 90, 43, 0.18)) !important;
+  color: var(--ami-cream, #EFE7D6) !important;
+}
+
+.offcanvas-body .city_card_ul li {
+  background: rgba(201, 162, 74, 0.18) !important;
+  color: var(--ami-gold-bright, #E7C878) !important;
+  border: 1px solid rgba(201, 162, 74, 0.35);
+}
+
+/* ── Modals ─────────────────────────────────────────────────── */
+.modal_design .modal-content {
+  background:
+    radial-gradient(ellipse at top left, rgba(201, 162, 74, 0.08), transparent 50%),
+    #141209;
+  border: 1px solid var(--ami-border, #332C1D);
+  border-radius: 14px;
+  color: var(--ami-cream, #EFE7D6);
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.5);
+  animation: ami-fade-up 0.35s ease both;
+}
+
+.modal_design .modal_head {
+  color: var(--ami-cream, #EFE7D6);
+  font-family: var(--ami-font-display, "Playfair Display", serif);
+}
+
+.modal_design .modal_sub_head {
+  color: var(--ami-muted, #9C9484);
+}
+
+.modal_design .btn-close {
+  filter: invert(1) brightness(1.15);
+}
+
+.modal_tabs .nav-pills {
+  border-bottom-color: var(--ami-border-soft, #241F14) !important;
+}
+
+.modal_tabs .nav-pills .nav-link.active,
+.modal_tabs .nav-pills .show > .nav-link {
+  color: var(--ami-gold-bright, #E7C878) !important;
+  border-color: var(--ami-gold, #C9A24A) !important;
+  background: transparent !important;
+  font-weight: 700;
+}
+
+.modal_design .modal-body .ng-value {
+  background: linear-gradient(135deg, #C9A24A, #8A5A2B) !important;
+  color: #0A0906 !important;
+}
+
+.modal_design .tab-pane label .text-primary {
+  color: var(--ami-gold, #C9A24A) !important;
+}
+
+/* ── Confidence badges ──────────────────────────────────────── */
+.confidence-badge.high {
+  background: rgba(183, 162, 90, 0.18);
+  color: #E7C878;
+  border: 1px solid rgba(183, 162, 90, 0.4);
+}
+
+.confidence-badge.medium {
+  background-color: #fff3cd !important;
+  color: #856404;
+  border: 1px solid #ffe69c !important;
+}
+
+.confidence-badge.low {
+  background: rgba(181, 80, 46, 0.15);
+  color: #E08A6A;
+  border: 1px solid rgba(181, 80, 46, 0.4);
+}
+
+/* ── Desktop responsive shell ───────────────────────────────── */
+@media (max-width: 1530px) {
+  .ami-score-card__value,
+  .ami-score-value {
+    font-size: 1.55rem;
+  }
+}
+
+@media (max-width: 1280px) {
+  .offcanvas {
+    width: min(100vw, 480px) !important;
+  }
+
+  .ami-score-card {
+    padding: 14px 16px;
+  }
+}
+
+@media (max-width: 991px) {
+  .offcanvas {
+    width: 100% !important;
+  }
+}

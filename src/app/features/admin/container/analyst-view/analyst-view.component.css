@@ -8,33 +8,6 @@
     font-weight: 700;
 }
 
-.program-list.desc {
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  position: relative;
-}
-
-.program-list.desc.collapsed {
-  -webkit-line-clamp: 2;
-}
-
-.program-list.desc:not(.collapsed) {
-  -webkit-line-clamp: unset;
-  overflow: visible;
-}
-
-.read-more {
-  color: #3b9eff;
-  font-weight: 600;
-  cursor: pointer;
-  font-size: 13px;
-  display: inline-block;
-  margin-top: 6px;
-  text-decoration: none;
-}
-
 /* Common button style */
 button {
   display: inline-flex;

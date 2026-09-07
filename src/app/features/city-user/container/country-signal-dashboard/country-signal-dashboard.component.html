@@ -1,0 +1,230 @@
+<div class="ami-dashboard country-user-dash" *ngIf="!isLoader">
+	<div class="ami-controls">
+		<div class="ami-controls-left">
+			<div class="ami-field">
+				<label>Select Country *</label>
+				<ng-select
+					[items]="countries"
+					[searchable]="true"
+					[placeholder]="selectedCountryID ? '' : 'Select Country'"
+					[(ngModel)]="selectedCountryID"
+					(change)="onCountryChanged()"
+					bindValue="countryID"
+					bindLabel="countryName"
+					class="form-control analyst_multi_select">
+					<ng-template ng-option-tmp let-item="item">
+						{{ item.countryName }}<span *ngIf="item.continent">, {{ item.continent }}</span>
+					</ng-template>
+				</ng-select>
+			</div>
+			<div class="ami-field">
+				<label>Select Year *</label>
+				<ng-select
+					[items]="commonService.applicateYears"
+					[(ngModel)]="selectedYear"
+					(change)="yearChanged()"
+					[clearable]="false"
+					[searchable]="false"
+					name="selectedYear"
+					class="form-control analyst_multi_select">
+				</ng-select>
+			</div>
+		</div>
+		<div class="ami-actions">
+			<button
+				type="button"
+				class="ami-btn ami-btn-outline"
+				matTooltip="Review detailed country insights"
+				(click)="goToCountryAnalysis()">
+				Country Insights
+				<i class="bi bi-box-arrow-up-right"></i>
+			</button>
+			<button
+				*ngIf="aiPillars.length"
+				type="button"
+				class="ami-btn ami-btn-solid"
+				matTooltip="Export pillar details"
+				(click)="exportAiScores()">
+				Export
+				<i class="bi bi-download"></i>
+			</button>
+		</div>
+	</div>
+
+	<div class="ami-grid-2">
+		<div class="ami-panel">
+			<div class="ami-panel-title">
+				<span><i class="bi bi-graph-up"></i> Country Performance</span>
+				<div class="ami-legend">
+					<span><span class="ami-dot ami-dot-gold"></span> Score</span>
+				</div>
+			</div>
+			<div class="ami-chart-host" *ngIf="pillarChartOptions?.series?.length; else emptyPillar">
+				<apx-chart
+					[series]="pillarChartOptions!.series!"
+					[chart]="pillarChartOptions!.chart!"
+					[xaxis]="pillarChartOptions!.xaxis!"
+					[yaxis]="pillarChartOptions!.yaxis!"
+					[colors]="pillarChartOptions!.colors!"
+					[tooltip]="pillarChartOptions!.tooltip!"
+					[plotOptions]="pillarChartOptions!.plotOptions || {}"
+					[legend]="pillarChartOptions!.legend!"
+					[fill]="pillarChartOptions!.fill || {}"
+					[dataLabels]="pillarChartOptions!.dataLabels!"
+					[stroke]="pillarChartOptions!.stroke!"
+					[markers]="pillarChartOptions!.markers!"
+					[grid]="pillarChartOptions!.grid!">
+				</apx-chart>
+			</div>
+			<ng-template #emptyPillar>
+				<div class="ami-empty">Select a country to view performance scores.</div>
+			</ng-template>
+		</div>
+
+		<div class="ami-panel">
+			<div class="ami-panel-title">
+				<span><i class="bi bi-pie-chart"></i> Country Overview</span>
+			</div>
+			<div class="ami-chart-host" *ngIf="radialChartOptions?.series?.length; else emptyRadial">
+				<apx-chart
+					[series]="radialChartOptions!.series!"
+					[chart]="radialChartOptions!.chart!"
+					[plotOptions]="radialChartOptions!.plotOptions!"
+					[labels]="radialChartOptions!.labels!"
+					[legend]="radialChartOptions!.legend!"
+					[colors]="radialChartOptions!.colors!">
+				</apx-chart>
+			</div>
+			<ng-template #emptyRadial>
+				<div class="ami-empty">Country overview will appear here.</div>
+			</ng-template>
+		</div>
+	</div>
+
+	<div class="ami-index-section" [class.is-loading]="isKpiLoader">
+		<div class="signal-dashboard-wrap embedded ami-themed">
+			<div class="dashboard_control_bar">
+				<nav class="tab_head" aria-label="Dashboard modes">
+					<button class="tab_btn" [class.active]="activeKpiTab === 'stress'" (click)="setKpiTab('stress')">
+						<i class="bi" [ngClass]="getTabIcon('stress')"></i>
+						<span>Market System Stress Test</span>
+					</button>
+					<button class="tab_btn" [class.active]="activeKpiTab === 'warning'" (click)="setKpiTab('warning')">
+						<i class="bi" [ngClass]="getTabIcon('warning')"></i>
+						<span>Strategic Early Warning</span>
+					</button>
+					<button class="tab_btn" [class.active]="activeKpiTab === 'resilience'" (click)="setKpiTab('resilience')">
+						<i class="bi" [ngClass]="getTabIcon('resilience')"></i>
+						<span>Market System Resilience Scorecard</span>
+					</button>
+				</nav>
+			</div>
+		</div>
+
+		<div class="ami-banner" *ngIf="indexHero">
+			<div class="ami-banner-left">
+				<div class="ami-banner-icon"><i class="bi bi-bullseye"></i></div>
+				<div>
+					<div class="ami-tag">{{ indexHero.modeName }}</div>
+					<div class="ami-banner-title">{{ indexHero.countryLabel }}</div>
+					<div class="ami-banner-sub">{{ indexHero.overallLabel }}</div>
+				</div>
+			</div>
+			<div class="ami-banner-metrics">
+				<div class="ami-metric-box" *ngFor="let stat of indexHero.stats">
+					<div class="v">{{ stat.value }}</div>
+					<div class="k">{{ stat.label }}</div>
+				</div>
+			</div>
+		</div>
+
+		<div class="ami-score-grid" *ngIf="kpiCards?.length">
+			<article
+				class="ami-score-card"
+				*ngFor="let kpi of kpiCards; trackBy: trackByKpi"
+				[class.is-alert]="kpi.isAlert"
+				(click)="openKpiDetails(kpi, $event)">
+				<div class="ami-score-top">
+					<div class="ami-kpi-icon"><i class="bi" [ngClass]="kpi.icon"></i></div>
+					<div class="ami-score-header-meta">
+						<h4 class="ami-score-name">{{ kpi.name }}</h4>
+					</div>
+					<div class="ami-score-card-meta">
+						<div class="ami-score-label">{{ kpi.code }}</div>
+						<span class="ami-badge" [ngClass]="conditionClass(kpi.condition)">
+							{{ kpi.condition || 'Stable' }}
+						</span>
+					</div>
+				</div>
+				<div class="ami-score-value-row">
+					<strong>{{ formatScore(kpi.aiScore) }}</strong>
+					<span>/ 100</span>
+					<em>Score</em>
+				</div>
+				<div class="ami-score-track" *ngIf="kpi.aiScore != null">
+					<span [style.width.%]="scoreProgress(kpi.aiScore)"></span>
+				</div>
+				<p class="ami-score-preview">{{ kpi.interpretation || kpi.description || 'No interpretation available.' }}</p>
+				<button type="button" class="ami-score-view" (click)="openKpiDetails(kpi, $event)">
+					<i class="bi bi-eye"></i> View details
+				</button>
+			</article>
+		</div>
+
+		<div class="ami-empty" *ngIf="!kpiCards?.length && !isKpiLoader">
+			No KPI signals available for this mode yet.
+		</div>
+
+		<div *ngIf="isKpiLoader" class="ami-kpi-section-loader">
+			<div class="loader"></div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="isLoader" class="loader_main">
+	<div class="loader"></div>
+</div>
+
+<div class="modal fade modal_design ami-kpi-modal" id="countryUserKpiDetailModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered">
+		<div class="modal-content ami-kpi-modal-content" *ngIf="selectedKpi as kpi">
+			<div class="modal-header ami-kpi-modal-header">
+				<div class="ami-kpi-modal-title">
+					<div class="ami-kpi-modal-icon"><i class="bi" [ngClass]="kpi.icon"></i></div>
+					<div>
+						<span class="ami-kpi-code-pill">{{ kpi.code }}</span>
+						<h5 class="modal-title mb-0">{{ kpi.name }}</h5>
+					</div>
+				</div>
+				<button type="button" class="btn-close btn-close-white" (click)="closeKpiDetails()"></button>
+			</div>
+			<div class="modal-body ami-kpi-modal-body">
+				<div class="ami-kpi-detail-stats">
+					<div class="ami-kpi-detail-stat">
+						<span>Score</span>
+						<strong class="score-ai">{{ formatScore(kpi.aiScore) }}</strong>
+					</div>
+					<div class="ami-kpi-detail-stat">
+						<span>Condition</span>
+						<strong [ngClass]="conditionClass(kpi.condition)">{{ kpi.condition || 'Stable' }}</strong>
+					</div>
+				</div>
+				<div class="ami-kpi-detail-block">
+					<h6><i class="bi bi-info-circle"></i> Interpretation Condition</h6>
+					<p>{{ kpi.interpretation || 'No interpretation available.' }}</p>
+				</div>
+				<div class="ami-kpi-detail-block">
+					<h6><i class="bi bi-card-text"></i> KPI Description</h6>
+					<p>{{ kpi.description || 'No description available.' }}</p>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="chooseKpisLayers">
+	<div class="modal fade modal_design" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden>
+		<app-choose-kpis [pillars]="pillars" [loading]="loading" (kpiChange)="selectedKpisLayers($event)">
+		</app-choose-kpis>
+	</div>
+</div>

@@ -1,13 +1,24 @@
 <div class="heading_area">
-    <div class="row justify-content-between align-items-center">
-        <div class="col-md-auto">
-            <h3 class="page_head">View Kpi Layers</h3>
-        </div>
-        <div class="col-md-6">
-            <div class="input_field input_flex">
+    <div class="kpi_compare_toolbar">
+        <h3 class="page_head">View Kpi Layers</h3>
+        <div class="kpi_compare_toolbar__actions">
+            <div class="compare_select kpi_compare_select kpi_compare_select--year">
+                <ng-select
+					[items]="commonService.applicateYears"
+					[(ngModel)]="selectedYear"
+					(change)="getAnalyticalLayerResults()"
+					[clearable]="false"
+					[searchable]="false"
+					name="selectedYear"
+					class="form-control analyst_multi_select">
+				</ng-select>
+            </div>
+            <div class="compare_select kpi_compare_select">
                 <ng-select [items]="kpis" [searchable]="true" [placeholder]="!selectedkpiLayerID ?'Search by Kpis':''"
-                   [dropdownPosition]="'bottom'" [(ngModel)]="selectedkpiLayerID" [searchFn]="kpiSearchFn" (change)="kpiChanged()"
-                    bindValue="layerID" bindLabel="layerName" class="form-control analyst_multi_select">
+                    [(ngModel)]="selectedkpiLayerID" (change)="kpiChanged()"
+                    [searchFn]="kpiSearchFn"
+                    [dropdownPosition]="'bottom'"
+                    bindValue="layerID" bindLabel="layerNmme" class="form-control analyst_multi_select">
                     <ng-template ng-label-tmp let-item="item" class="select_item">
                         {{ item.layerCode }}
                     </ng-template>
@@ -15,23 +26,23 @@
                         ({{ item.layerCode }}) {{ item.layerName }}
                     </ng-template>
                 </ng-select>
-                 <ng-select [items]="programList" [searchable]="true" [placeholder]="!selectedclimateProgramID? 'Select Programs' :''"
-                    [(ngModel)]="selectedclimateProgramID" [dropdownPosition]="'bottom'" [searchFn]="programSearchFn"
-                     (change)="getAnalyticalLayerResults()" bindValue="climateProgramID"
-                    bindLabel="programName" class="form-control analyst_multi_select">
+            </div>
+            <div class="compare_select kpi_compare_select">
+                <ng-select [items]="countryList" [searchable]="true" [placeholder]="!selectedCountryID? 'Select Countries' :''"
+                    [(ngModel)]="selectedCountryID" [searchFn]="countrySearchFn" (change)="getAnalyticalLayerResults()" bindValue="countryID"
+                    [dropdownPosition]="'bottom'"
+                    bindLabel="countryName" class="form-control analyst_multi_select">
                     <ng-template ng-label-tmp let-item="item" class="select_item">
-                        {{ item.programName }}
+                        {{ item.countryName }}
                     </ng-template>
                     <ng-template ng-option-tmp let-item="item">
-                        {{ item.programName }}, {{ item.location }} ({{ item.score?.toFixed(1) || 'NA'}})
+                        {{ item.countryName }}, {{ item.continent }} ({{ item.score?.toFixed(1) || 'NA'}})
                     </ng-template>
                 </ng-select>
             </div>
         </div>
-
     </div>
 </div>
-
 
 <div class="table_outer compare_city_table">
     <div class="table_custom_inner">
@@ -39,7 +50,7 @@
             <thead>
                 <tr>
                     <th>S.No.</th>
-                    <th>Program</th>
+                    <th>Country</th>
                     <th>Kpi Layer</th>
                     <th>Condition</th>                    
                     <th>KPI Achievement</th>
@@ -56,9 +67,9 @@
                     <td>
                         <div class="kpi_city kpi_td_data">
                             <p>
-                                {{ kpi.program?.programName }}
+                                {{ kpi.country?.countryName }}
                             </p>
-                            <!-- ({{ kpi.program?.location }}) -->
+                            ({{ kpi.country?.continent }})
                         </div>
                     </td>
                     <td>
@@ -77,9 +88,9 @@
                     <td>
                         <div class="kpi_cat05 kpi_td_data">
                             <app-circular-score [value]="kpi.calValue5  ?? 0"
-                                [tooltipText]="'Evaluation' + (kpi.calText5 || '')"></app-circular-score>
+                                [tooltipText]="'Evaluation ' + (kpi.calText5 || '')"></app-circular-score>
                             <app-circular-score [value]="kpi.aiCalValue5  ?? 0"
-                                [tooltipText]="'Ai' + (kpi.calText5 || '')"></app-circular-score>
+                                [tooltipText]="'Ai  ' + (kpi.calText5 || '')"></app-circular-score>
                         </div>
                     </td>
                     <td class="action_td">
@@ -102,7 +113,7 @@
             </tbody>
         </table>
     </div>
-    <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
+    <app-pagination [selectedYear]="selectedYear" [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
         (pageChange)="getAnalyticalLayerResults($event)"></app-pagination>
 </div>
 

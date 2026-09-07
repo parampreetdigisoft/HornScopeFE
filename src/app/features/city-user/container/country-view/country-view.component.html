@@ -1,0 +1,96 @@
+<div class="heading_area">
+    <div class="row justify-content-between align-items-center gap-2">
+        <div class="col-md-auto">
+            <h3 class="page_head">{{tier>1 ? 'Compare':'View'}} Country</h3>
+        </div>
+        <div class="col-md-3">
+            <div class="input_field justify-content-end input_flex"
+                [matTooltip]="tier>1 ? '':'Upgrade your plan to access this feature'">
+                <button class="common_button compare_btn" [disabled]="selectedCountries.length < 2"
+                    (click)="gotoComparision()"> <svg width="50" height="42.87" viewBox="0 0 421 361" fill="none"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <mask id="mask0_1864_1903" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="0"
+                            width="421" height="361">
+                            <rect width="421" height="361" fill="url(#pattern0_1864_1903)" />
+                        </mask>
+                        <g mask="url(#mask0_1864_1903)">
+                            <rect width="421" height="361" fill="white" />
+                        </g>
+                        <defs>
+                            <pattern id="pattern0_1864_1903" patternContentUnits="objectBoundingBox" width="1"
+                                height="1">
+                                <use xlink:href="#image0_1864_1903"
+                                    transform="matrix(0.0023753 0 0 0.00277008 -0.109264 -0.180055)" />
+                            </pattern>
+                            <image id="image0_1864_1903" width="512" height="512" preserveAspectRatio="none"
+                                xlink:href="data:image/png;base64,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" />
+                        </defs>
+                    </svg>
+                    Compare
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="table_outer compare_tbl">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>S.No.</th>
+                <th>Country</th>
+                <th>Continent</th>                
+                <th>Score</th>
+                <th class="action_th">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let country of countriesResponse?.data; let i = index">
+                <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+
+                <td>{{ country.countryName }}</td>
+                <td>{{ country.continent }}</td>                
+                <td><span class="bold_num">{{ country.score?.toFixed(2) || 'NA' }}</span></td>
+                <td class="action_td">
+                    <table>
+                        <tbody>
+                            <tr>
+                                <!-- <td>
+                                    <div class="action_icons">
+                                        <a style="cursor: pointer" matTooltip="View"
+                                            (click)="viewDetails(country); $event.preventDefault()">
+                                            <span style="display: inline-block">
+                                                <svg width="21" height="20" viewBox="0 0 21 20" fill="none"
+                                                    xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_1444_1025)">
+                                                        <path
+                                                            d="M20.3195 9.61953C20.2906 9.55625 19.6062 8.03672 18.0945 6.525C16.0719 4.50547 13.5226 3.4375 10.7101 3.4375C7.89765 3.4375 5.34843 4.50547 3.32811 6.525C1.8164 8.03672 1.13202 9.55625 1.10077 9.61953C1.04784 9.73953 1.02051 9.86924 1.02051 10.0004C1.02051 10.1315 1.04784 10.2613 1.10077 10.3813C1.12968 10.4453 1.81405 11.9641 3.32655 13.4758C5.34843 15.4953 7.89765 16.5625 10.7101 16.5625C13.5226 16.5625 16.0719 15.4953 18.0914 13.4758C19.6039 11.9641 20.2883 10.4453 20.3172 10.3813C20.3705 10.2614 20.3982 10.1318 20.3986 10.0006C20.399 9.86949 20.3721 9.73969 20.3195 9.61953ZM16.7211 12.1977C15.0437 13.8492 13.0219 14.6875 10.7101 14.6875C8.39843 14.6875 6.37655 13.8492 4.70155 12.1969C4.04245 11.5447 3.47549 10.8056 3.0164 10C3.47562 9.19473 4.04257 8.45589 4.70155 7.80391C6.37733 6.15078 8.39843 5.3125 10.7101 5.3125C13.0219 5.3125 15.043 6.15078 16.7187 7.80391C17.3778 8.45583 17.9447 9.19469 18.4039 10C17.9447 10.8055 17.3778 11.5447 16.7187 12.1969L16.7211 12.1977ZM10.7101 6.5625C10.0303 6.5625 9.36567 6.76411 8.80037 7.14182C8.23508 7.51954 7.79449 8.0564 7.53431 8.68453C7.27413 9.31265 7.20606 10.0038 7.3387 10.6706C7.47133 11.3374 7.79872 11.9499 8.27947 12.4307C8.76021 12.9114 9.37271 13.2388 10.0395 13.3714C10.7063 13.5041 11.3975 13.436 12.0256 13.1758C12.6537 12.9157 13.1906 12.4751 13.5683 11.9098C13.946 11.3445 14.1476 10.6799 14.1476 10C14.1466 9.08864 13.7841 8.21489 13.1397 7.57046C12.4953 6.92603 11.6215 6.56353 10.7101 6.5625ZM10.7101 11.5625C10.4011 11.5625 10.099 11.4709 9.84207 11.2992C9.58512 11.1275 9.38485 10.8835 9.26658 10.5979C9.14832 10.3124 9.11738 9.99827 9.17767 9.69517C9.23796 9.39208 9.38677 9.11367 9.60529 8.89515C9.82381 8.67663 10.1022 8.52781 10.4053 8.46752C10.7084 8.40723 11.0226 8.43818 11.3081 8.55644C11.5936 8.6747 11.8376 8.87497 12.0093 9.13192C12.181 9.38887 12.2726 9.69097 12.2726 10C12.2726 10.4144 12.108 10.8118 11.815 11.1049C11.522 11.3979 11.1245 11.5625 10.7101 11.5625Z"
+                                                            fill="#77bd3e" />
+                                                    </g>
+                                                    <defs>
+                                                        <clipPath id="clip0_1444_1025">
+                                                            <rect width="20" height="20" fill="white"
+                                                                transform="translate(0.710144)" />
+                                                        </clipPath>
+                                                    </defs>
+                                                </svg>
+                                            </span>
+                                        </a>
+                                    </div>
+                                </td> -->
+                                <td>
+                                    <div [matTooltip]="tier>1 ? '':'Upgrade your plan to access this feature'">
+                                        <input [disabled]="tier<=1" (change)="countrySelected($event, country)"
+                                            type="checkbox" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
+        (pageChange)="getCountries($event)"></app-pagination>
+</div>

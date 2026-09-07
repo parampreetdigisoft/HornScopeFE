@@ -11,4 +11,12 @@ export interface PillarsVM {
   showToggle?: boolean;
   imageFile?: File | null;
   kpiLayerIds?: number[];
+  addedKpiLayerIds?: number[];
+  replacementPillarByKpi?: Array<{ layerID: number; replacePillarID: number }>;
+  kpiUpdates?: Array<{
+    layerID: number;
+    replacedPillarID: number;
+    newPillarID: number;
+    categoryNumber: number;
+  }>;
 }

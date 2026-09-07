@@ -1,0 +1,201 @@
+<div class="heading_area">
+  <div class="kpi_compare_toolbar">
+    <h3 class="page_head">AI Edit Changes</h3>
+    <div class="kpi_compare_toolbar__actions">
+      <div class="compare_select kpi_compare_select">
+      <ng-select
+        [items]="countryList"
+        bindValue="countryID"
+        bindLabel="countryName"
+        [(ngModel)]="filterCountryID"
+        [searchable]="true"
+        [clearable]="true"
+        [dropdownPosition]="'bottom'"
+        [placeholder]="filterCountryID ? '' : 'All countries'"
+        class="form-control analyst_multi_select"
+        (change)="loadSessions()">
+      </ng-select>
+      </div>
+      <div class="compare_select kpi_compare_select kpi_compare_select--year">
+        <ng-select
+          [items]="commonService.applicateYears"
+          [(ngModel)]="filterYear"
+          (change)="loadSessions()"
+          [clearable]="false"
+          [searchable]="false"
+          [dropdownPosition]="'bottom'"
+          name="filterYear"
+          class="form-control analyst_multi_select year_select">
+        </ng-select>
+      </div>
+      <div class="compare_select kpi_compare_select">
+        <ng-select
+        [items]="statusOptions"
+        bindValue="value"
+        bindLabel="label"
+        [(ngModel)]="filterStatus"
+        [searchable]="true"
+        [clearable]="true"
+        [dropdownPosition]="'bottom'"
+        [placeholder]="filterStatus ? '' : 'All statuses'"
+        class="form-control analyst_multi_select"
+        (change)="loadSessions()">
+      </ng-select>
+      </div>
+      <button type="button" class="common_button" (click)="loadSessions()">Refresh</button>
+    </div>
+  </div>
+</div>
+
+<div class="table_outer" *ngIf="!selectedDetail">
+  <div class="table_custom_inner">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Analyst</th>
+          <th>Country</th>
+          <th>Year</th>
+          <th>Status</th>
+          <th>Fields Changed</th>
+          <th>Saves</th>
+          <th>Created</th>
+          <th>Submitted</th>
+          <th class="action_th">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoader">
+          <td colspan="10" class="text-center">Loading...</td>
+        </tr>
+        <tr *ngFor="let item of sessions; let i = index">
+          <td>{{ i + 1 }}</td>
+          <td>{{ item.userName }}</td>
+          <td>{{ item.countryName }}</td>
+          <td>{{ item.year }}</td>
+          <td><span class="status-badge" [ngClass]="statusClass(item.status)">{{ item.statusName }}</span></td>
+          <td>{{ item.fieldCount }}</td>
+          <td>{{ item.changeCount }}</td>
+          <td>{{ item.createdAt | date: 'medium' }}</td>
+          <td>{{ item.submittedAt ? (item.submittedAt | date: 'medium') : '—' }}</td>
+          <td class="action_td">
+            <a href="javascript:void(0)" (click)="openCompare(item)">Compare changes</a>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+    <app-pagination
+      [selectedYear]="filterYear"
+      [totalPage]="totalRecords"
+      [currentPage]="currentPage"
+      [pageSize]="pageSize"
+      [isLoader]="isLoader"
+      (pageChange)="loadSessions($event)">
+    </app-pagination>
+</div>
+
+<div *ngIf="detailLoader" class="table_outer text-center p-4">Loading compare view...</div>
+
+<div class="compare-wrap" *ngIf="selectedDetail && !detailLoader">
+  <div class="compare-header">
+    <div>
+      <h4>
+        {{ selectedDetail.session.countryName }} ({{ selectedDetail.session.year }}) —
+        {{ selectedDetail.session.userName }}
+      </h4>
+      <p>
+        Status: <strong>{{ selectedDetail.session.statusName }}</strong>
+        · {{ selectedDetail.changes.length }} fields
+        <span *ngIf="selectedDetail.session.reviewComment"> · Review: {{ selectedDetail.session.reviewComment }}</span>
+      </p>
+    </div>
+    <button type="button" class="common_button common_button_cancel" (click)="closeDetail()">Back to list</button>
+  </div>
+
+  <div class="table_outer">
+    <div class="table_custom_inner">
+      <table class="table table-striped compare-table">
+        <thead>
+          <tr>
+            <th>Entity</th>
+            <th>Field</th>
+            <th>Live / Baseline</th>
+            <th>Proposed</th>
+            <th>Edits</th>
+            <th>Last changed</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngIf="selectedDetail.changes.length === 0">
+            <td colspan="7" class="text-center">No field changes in this session.</td>
+          </tr>
+          <ng-container *ngFor="let change of selectedDetail.changes">
+            <tr [class.changed-row]="change.baselineValue !== change.proposedValue">
+              <td>{{ entityLabel(change) }}</td>
+              <td>{{ change.fieldName }}</td>              
+              <td class="value-cell old">
+                   <div [class.collapsed]="!change.showComment"
+                    class="desc">
+                    {{ change.baselineValue || '—' }}
+                  </div>
+                  <a *ngIf="(change?.baselineValue?.length ?? 0) > 50" (click)="change.showComment = !change.showComment"
+                    class="read-more">
+                    {{ change.showComment ? 'Read Less' : 'Read More' }}
+                  </a>              
+              </td>
+              <td class="value-cell new">
+                   <div [class.collapsed]="!change.showComment"
+                    class="desc">
+                    {{ change.proposedValue || '—' }}
+                  </div>
+                  <a *ngIf="(change?.proposedValue?.length ?? 0) > 50" (click)="change.showComment = !change.showComment"
+                    class="read-more">
+                    {{ change.showComment ? 'Read Less' : 'Read More' }}
+                  </a>              
+              </td>
+              <td>{{ change.editCount }}</td>
+              <td>{{ change.lastChangedAt | date: 'medium' }}</td>
+              <td>
+                <a href="javascript:void(0)" (click)="toggleTrail(change)">
+                  {{ isExpanded(change) ? 'Hide trail' : 'View trail' }}
+                </a>
+              </td>
+            </tr>
+            <tr *ngIf="isExpanded(change)" class="trail-row">
+              <td colspan="7">
+                <div class="trail-list">
+                  <div class="trail-item" *ngFor="let t of change.trail">
+                    <div class="trail-meta">
+                      {{ t.changedAt | date: 'medium' }} · {{ t.changedByName }} · batch {{ t.saveBatchID | slice:0:8 }}
+                    </div>
+                    <div class="trail-diff">
+                      <span class="old">{{ t.oldValue || '—' }}</span>
+                      <span class="arrow">→</span>
+                      <span class="new">{{ t.newValue || '—' }}</span>
+                    </div>
+                  </div>
+                </div>
+              </td>
+            </tr>
+          </ng-container>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="review-box" *ngIf="canReview(selectedDetail.session)">
+    <label>Review comment</label>
+    <textarea class="form-control" rows="3" [(ngModel)]="reviewComment" placeholder="Optional note for the analyst / audit trail"></textarea>
+    <div class="review-actions">
+      <button type="button" class="common_button" [disabled]="reviewing" (click)="review(true)">
+        Approve &amp; publish to live
+        <span *ngIf="reviewing" class="spinner-border spinner-border-sm ms-1"></span>
+      </button>
+      <button type="button" class="common_button common_button_cancel" [disabled]="reviewing" (click)="review(false)">
+        Reject draft
+      </button>
+    </div>
+  </div>
+</div>

@@ -3,22 +3,21 @@ import { Observable, interval, Subject, takeUntil, BehaviorSubject, map, Subscri
 import {
   ChatMessage,
   ChatResponseDto,
-  ProgramChatRequestDto,
+  CountryChatRequestDto,
   CrossComparisionChatRequestDto,
   GlobalChatRequestDto
 } from '../models/chat/ChatMessage';
 import { UserService } from './user.service';
-import { ProgramVM } from '../models/ProgramVM';
+import { CountryVM } from '../models/CountryVM';
 import { PillarsVM } from '../models/PillersVM';
 import { HttpService } from '../http/http.service';
 import { ToasterService } from './toaster.service';
 import { ResultResponseDto } from '../models/ResultResponseDto';
 import { AIAssistantFAQDto } from '../models/chat/AIAssistantFAQDto';
 import { UserRole } from '../enums/UserRole';
-import { ChatProgramExecutiveSlidesResponse, ProgramExecutiveSlidesResult } from '../models/chat/ChatProgramExecutiveSlidesResponse';
+import { ChatCountryExecutiveSlidesResponse } from '../models/chat/ChatCountryExecutiveSlidesResponse';
 import { ChatEmergingTrendsResponse } from '../models/chat/EmergingTrendsResponse';
 import { PillarLiveSignalsResult } from '../models/chat/PillarLiveSignalsResponse';
-import { AiProgramPillarResponseDto } from '../models/aiVm/AiProgramPillarResponseDto';
 
 @Injectable({ providedIn: 'root' })
 export class ChatService {
@@ -26,15 +25,18 @@ export class ChatService {
   // ─── State ────────────────────────────────────────────────────────────────
   isOpen = signal(false);
   isTyping = signal(false);
-  selectedProgram = signal<ProgramVM | null>(null);
+  selectedCountry = signal<CountryVM | null>(null);
   selectedPillar = signal<PillarsVM | null>(null);
   selectedfaq = signal<AIAssistantFAQDto | null>(null);
   messages = signal<ChatMessage[]>([]);
-  programs = new BehaviorSubject<ProgramVM[]>([]);
+
+  countries = new BehaviorSubject<CountryVM[]>([]);
   pillars = new BehaviorSubject<PillarsVM[]>([]);
   faqs = new BehaviorSubject<AIAssistantFAQDto[]>([]);
-  crossComparisionprogramIDs = new BehaviorSubject<number[]>([]);
-  quickQuestions = computed(() => this.selectedProgram() ? this.ProgramQuickQuestions : this.globalQuickQuestions)
+
+  crossComparisionCountryIDs = new BehaviorSubject<number[]>([]);
+
+  quickQuestions = computed(() => this.selectedCountry() ? this.countryQuickQuestions : this.globalQuickQuestions)
 
   // ─── Cancellation tokens ──────────────────────────────────────────────────
   /**
@@ -73,8 +75,8 @@ export class ChatService {
 
   // ─── Public API ───────────────────────────────────────────────────────────
 
-  openWithContext(program?: ProgramVM, pillar?: PillarsVM): void {
-    if (program) this.selectedProgram.set(program);
+  openWithContext(country?: CountryVM, pillar?: PillarsVM): void {
+    if (country) this.selectedCountry.set(country);
     if (pillar) this.selectedPillar.set(pillar);
     this.isOpen.set(true);
   }
@@ -128,7 +130,7 @@ export class ChatService {
   filterQuestions(query: string): AIAssistantFAQDto[] {
     if (!query || query.trim().length < 2) return [];
     const q = query.toLowerCase();
-    if (this.selectedProgram()) {
+    if (this.selectedCountry()) {
       return this.faqs.value
         .filter(pq => pq.questionText.toLowerCase().includes(q) && !pq.related.includes('global'))
       //.slice(0, 4);
@@ -154,7 +156,7 @@ export class ChatService {
     // New cancel token per message
     this.cancelStream$ = new Subject<void>();
 
-    const program = this.selectedProgram();
+    const country = this.selectedCountry();
     const pillar = this.selectedPillar();
 
     const histories = this.messages()
@@ -192,16 +194,16 @@ export class ChatService {
       };
       this.messages.update(msgs => [...msgs, placeholder]);
 
-      if (program) {
-        const payload: ProgramChatRequestDto = {
-          climateProgramID: program.climateProgramID,
+      if (country) {
+        const payload: CountryChatRequestDto = {
+          countryID: country.countryID,
           pillarID: pillar?.pillarID ?? 0,
           questionText: userText,
           fAQID: this.selectedfaq()?.faqid,
           historyText: histories,
         };
 
-        this.activeRequest$ = this.askAboutProgram(payload).subscribe({
+        this.activeRequest$ = this.askAboutCountry(payload).subscribe({
           next: res => {
             this.activeRequest$ = null; // HTTP done; typewriter phase begins
 
@@ -255,10 +257,10 @@ export class ChatService {
     });
   }
 
-  getAllPrograms(): void {
-    if (this.programs.value.length > 0) return;
-    this.getAllProgramsByUserId(this.userService?.userInfo?.userID).subscribe({
-      next: res => this.programs.next(res.result ?? []),
+  getAllCountries(): void {
+    if (this.countries.value.length > 0) return;
+    this.getAllCountriesByUserId(this.userService?.userInfo?.userID).subscribe({
+      next: res => this.countries.next(res.result ?? []),
     });
   }
 
@@ -269,8 +271,8 @@ export class ChatService {
     });
   }
 
-  getProgramsCrossComparision() {
-    let userText = "Provide a detailed comparative analysis of the selected programs across all VCP pillars, including key risks, opportunities, structural vulnerabilities, resilience indicators, emerging trends, and strategic observations for each pillar."
+  getContriesCrossComparision() {
+    let userText = "Provide a comprehensive comparative analysis of the selected countries across all AMI pillars, highlighting healthcare performance, key market challenges, strengths, structural vulnerabilities, resilience indicators, emerging public market trends, and strategic recommendations for each pillar."
 
     if (this.isTyping()) {
       this.stopGeneration();
@@ -314,9 +316,9 @@ export class ChatService {
 
       this.messages.update(msgs => [...msgs, placeholder]);
 
-      if (this.crossComparisionprogramIDs.value.length > 0) {
+      if (this.crossComparisionCountryIDs.value.length > 0) {
         const payload: CrossComparisionChatRequestDto = {
-          climateProgramIDs: this.crossComparisionprogramIDs.value,
+          countryIDs: this.crossComparisionCountryIDs.value,
           questionText: userText,
           historyText: histories,
         };
@@ -329,7 +331,7 @@ export class ChatService {
               const fullText = res.result?.responseText ?? '';
               this.pendingFullText = fullText;
               this.typewriterStream(fullText, assistantId, observer);
-              this.crossComparisionprogramIDs.next([]);
+              this.crossComparisionCountryIDs.next([]);
             } else {
               this.handleError(assistantId, observer, res.errors?.join(', ') ?? 'Unknown error');
             }
@@ -408,39 +410,17 @@ export class ChatService {
 
   // ─── HTTP ─────────────────────────────────────────────────────────────────
 
-  getProgramSlides(climateProgramID: number): Observable<ResultResponseDto<ChatProgramExecutiveSlidesResponse>> {
+  getCountrySlides(countryId: number): Observable<ResultResponseDto<ChatCountryExecutiveSlidesResponse>> {
 
-    return this.http.post<ResultResponseDto<ChatProgramExecutiveSlidesResponse>>(
-      `Chat/ProgramSlides`,
-      climateProgramID as any
+    return this.http.post<ResultResponseDto<ChatCountryExecutiveSlidesResponse>>(
+      `Chat/countrySlides`,
+      countryId as any
     );
   }
 
-  getProgramPillarScores(climateProgramID: number): Observable<ResultResponseDto<AiProgramPillarResponseDto>> {
-    const payload = { climateProgramID };
-    const url = this.userService.userInfo.role === UserRole.ProgramUser
-      ? 'Client/getAIProgramPillars'
-      : 'AiComputation/getAIProgramPillars';
+  getEmergingTrendsAndIssues(countryCount = 6): Observable<ResultResponseDto<ChatEmergingTrendsResponse>> {
     return this.http
-      .getWithQueryParams(url, payload)
-      .pipe(map(x => x as ResultResponseDto<AiProgramPillarResponseDto>));
-  }
-
-  /** Normalize ProgramSlides API payloads (direct or nested result). */
-  unwrapProgramSlides(
-    res: ResultResponseDto<ChatProgramExecutiveSlidesResponse> | null | undefined
-  ): ProgramExecutiveSlidesResult | null {
-    const outer = res?.result;
-    if (!outer) return null;
-    if ('program' in outer && outer.program) {
-      return outer as unknown as ProgramExecutiveSlidesResult;
-    }
-    return (outer as ChatProgramExecutiveSlidesResponse)?.result ?? null;
-  }
-
-  getEmergingTrendsAndIssues(ProgramCount = 6): Observable<ResultResponseDto<ChatEmergingTrendsResponse>> {
-    return this.http
-      .getWithQueryParams('Public/emergingTrendsAndIssues', { ProgramCount })
+      .getWithQueryParams('Public/emergingTrendsAndIssues', { countryCount })
       .pipe(map(x => x as ResultResponseDto<ChatEmergingTrendsResponse>));
   }
 
@@ -450,16 +430,16 @@ export class ChatService {
       .pipe(map(x => x as ResultResponseDto<PillarLiveSignalsResult>));
   }
 
-  private getAllProgramsByUserId(userId: number) {
-    let url = this.userService.userInfo.role == UserRole.ProgramUser ? 'Client/getClientPrograms' : `Program/getAllProgramsByUserId/${userId}`;
+  private getAllCountriesByUserId(userId: number) {
+    let url = this.userService.userInfo.role == UserRole.CountryUser ? 'CountryUser/getCountryUserCountries' : `Country/getAllCountryByUserId/${userId}`;
 
     return this.http
       .get(url)
-      .pipe(map(x => x as ResultResponseDto<ProgramVM[]>));
+      .pipe(map(x => x as ResultResponseDto<CountryVM[]>));
   }
 
   private getAllPillars() {
-    let url = this.userService.userInfo.role == UserRole.ProgramUser ? 'Client/Pillars' : `Pillar/Pillars`;
+    let url = this.userService.userInfo.role == UserRole.CountryUser ? 'CountryUser/Pillars' : `Pillar/Pillars`;
     return this.http
       .get(url)
       .pipe(map(x => x as PillarsVM[]));
@@ -471,9 +451,9 @@ export class ChatService {
       .pipe(map(x => x as ResultResponseDto<AIAssistantFAQDto[]>));
   }
 
-  private askAboutProgram(request: ProgramChatRequestDto) {
+  private askAboutCountry(request: CountryChatRequestDto) {
     return this.http
-      .post('chat/askAboutProgram', request)
+      .post('chat/askAboutCountry', request)
       .pipe(map(x => x as ResultResponseDto<ChatResponseDto>));
   }
 
@@ -488,63 +468,68 @@ export class ChatService {
       .pipe(map(x => x as ResultResponseDto<ChatResponseDto>));
   }
 
-  // Questions for a single climate program
-  ProgramQuickQuestions = [
+  // Questions for a single country
+  countryQuickQuestions = [
     {
-      label: 'Program summary',
-      question: 'Summarize this climate program\'s overall score, confidence level, and recent performance trends.'
+      label: 'Market Summary',
+      question: 'Summarize the current market situation, key challenges, and recent developments in this country.'
     },
     {
-      label: 'Pillar performance',
-      question: 'How are the VCP pillars performing for this program, and which pillars show the strongest or weakest scores?'
+      label: 'Market Priorities',
+      question: 'What are the major market priorities, economic initiatives, and development programs currently underway in this country?'
     },
     {
-      label: 'Evidence gaps',
-      question: 'What evidence gaps, data transparency issues, or assessment limitations exist for this program?'
-    },
-    {
-      label: 'Red flags',
-      question: 'What red flags, stress-test vulnerabilities, or governance risks are identified for this climate program?'
-    },
-    {
-      label: 'Mitigation & adaptation',
-      question: 'What does the assessment of this program reveal about its mitigation ambition and adaptation readiness?'
+      label: 'Market Risks',
+      question: 'What are the most significant market risks, economic challenges, supply disruptions, or other market concerns affecting this country?'
     },
     {
       label: 'Recommendations',
-      question: 'What strategic recommendations would improve this program\'s climate governance and pillar outcomes?'
+      question: 'What recommendations can strengthen market performance, economic resilience, investment opportunities, and overall market stability in this country?'
     },
     {
-      label: 'Cross-pillar patterns',
-      question: 'What cross-pillar patterns, dependencies, or discrepancies stand out in this program\'s assessment?'
+      label: 'Recent Improvements',
+      question: 'What recent improvements have been observed in this country’s market performance, economic conditions, investment environment, or business climate?'
+    },
+    {
+      label: 'Risk Factors',
+      question: 'What are the key factors affecting market outcomes in this country, including infrastructure, investment, trade, funding, governance, or environmental challenges?'
+    },
+    {
+      label: 'Market Trends',
+      question: 'What are the latest market trends, emerging opportunities, economic developments, trade activities, and investment trends in this country?'
     }
   ];
 
-  // Questions for all programs globally
+  // Questions for all African countries
+
   globalQuickQuestions = [
     {
-      label: 'Portfolio overview',
-      question: 'Provide an overview of climate program performance and scores across all programs in the portfolio.'
+      label: 'Market Summary',
+      question: 'Summarize the overall market situation across African countries over the past few days.'
     },
     {
-      label: 'Top performers',
-      question: 'Which climate programs show the strongest overall scores and pillar performance recently?'
+      label: 'Market Leaders',
+      question: 'Which African countries are demonstrating the strongest market performance, economic growth, investment activity, and business environment recently?'
     },
     {
-      label: 'At-risk programs',
-      question: 'Which programs face the highest climate governance, resilience, or implementation risks?'
+      label: 'Market Risks',
+      question: 'What are the major market risks, economic challenges, supply disruptions, and financial concerns currently affecting African countries?'
     },
     {
-      label: 'Compare programs',
-      question: 'Compare key pillar scores and risk indicators across the leading climate programs in the portfolio.'
+      label: 'Recommendations',
+      question: 'What are the key recommendations for strengthening market performance, economic resilience, investment, trade, and business environments across Africa?'
     },
     {
-      label: 'Mitigation leaders',
-      question: 'Which programs demonstrate the strongest mitigation ambition and delivery progress?'
+      label: 'Improved Countries',
+      question: 'Which African countries have shown the most significant improvements in market performance, economic conditions, investment, and business activity recently?'
     },
     {
-      label: 'Adaptation gaps',
-      question: 'Where are the largest adaptation and resilience gaps across programs globally?'
+      label: 'High-Risk Countries',
+      question: 'Which African countries are currently facing the highest market risks due to economic instability, political uncertainty, weak infrastructure, supply disruptions, or other market challenges?'
+    },
+    {
+      label: 'Market Trends',
+      question: 'What are the latest market trends, emerging investment opportunities, economic developments, trade activities, and regional market developments across Africa?'
     }
   ];
 }

@@ -1,9 +1,9 @@
-﻿import { Component, OnInit } from "@angular/core";
+import { Component, OnInit } from "@angular/core";
 import { ToasterService } from "src/app/core/services/toaster.service";
 import { UserService } from "src/app/core/services/user.service";
-import { ProgramVM } from "src/app/core/models/ProgramVM";
+import { CountryVM } from "src/app/core/models/CountryVM";
 import { CommonService } from "src/app/core/services/common.service";
-import { GetProgramPillarHistoryRequestDto, GetProgramPillarHistoryRequestNewDto } from "src/app/core/models/AssessmentRequest";
+import { GetCountryPillarHistoryRequestDto, GetCountryPillarHistoryRequestNewDto } from "src/app/core/models/AssessmentRequest";
 import { PillarsVM } from "src/app/core/models/PillersVM";
 import { MatTableDataSource } from "@angular/material/table";
 import {
@@ -35,17 +35,19 @@ export type ChartOptions = {
 @Component({
   selector: "app-comparision",
   templateUrl: "./comparision.component.html",
-  styleUrls: ["../../../../shared/styles/assessment-comparison.shared.css"],
+  styleUrl: "./comparision.component.css",
 })
 
 export class ComparisionComponent implements OnInit {
+  selectedYear = new Date().getFullYear();
   pillers: PillarsVM[] = [];
-  filterProgram!: number;
   pillersHistory: PillarsHistoryResponse[] = [];
   questionsByUserPillars: QuestionsByUserPillarsResponsetDto[] = [];
-  programs: ProgramVM[] | null = [];
-  selectedPrograms: number | any = "";
-  selectedPillarID: number | any = "";
+  countries: CountryVM[] | null = [];
+  selectedCountries: number | null = null;
+  selectedPillarID: number | 'all' = 'all';
+  readonly allDomainsOption = { pillarID: 'all' as const, pillarName: 'All Domains' };
+  domainOptions: Array<{ pillarID: number | 'all'; pillarName: string }> = [this.allDomainsOption];
   isLoader: boolean = false;
   isPillarHistoryDownloading: boolean = false;
   dataSource = new MatTableDataSource<PillarsTableRow>([]);
@@ -70,45 +72,43 @@ export class ComparisionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.isLoader = true;
-    this.GetAllPillars();
-    this.getAllProgramsByUserId();
-    //this.initializeChart();
-    this.route.queryParams.subscribe((params) => {
-      if (params["climateProgramID"]) {
-        this.filterProgram = +params["climateProgramID"];
+      this.route.queryParams.subscribe((params) => {
+      if (params["countryID"]) {
+        this.selectedCountries = +params["countryID"];
       }
     });
+    this.isLoader = true;
+    this.GetAllPillars();
+    this.getAllCountriesByUserId();
   }
-
   GetAllPillars() {
     this.analystService.getAllPillars().subscribe((p) => {
       this.pillers = p;
+       this.domainOptions = [this.allDomainsOption, ...p];
     });
   }
 
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();
     return (
-      item.programName?.toLowerCase().includes(term) ||
-      item.location?.toLowerCase().includes(term) ||
-      item.year?.toString().toLowerCase().includes(term)
+      item.countryName?.toLowerCase().includes(term) ||
+      item.countryAliasName?.toLowerCase().includes(term)
     );
   }
 
-  getAllProgramsByUserId() {
+
+  getAllCountriesByUserId() {
     this.analystService
-      .getAllProgramsByUserId(this.userService?.userInfo?.userID)
+      .getAllCountriesByUserId(this.userService?.userInfo?.userID)
       .subscribe({
         next: (res) => {
           setTimeout(() => {
             this.isLoader = false;
           }, 1000);
 
-          this.programs = res.result;
-          if (this.programs && this.programs.length > 0) {
-            this.selectedPrograms = this.programs[0].climateProgramID;
-            this.filterProgram = this.programs[0].climateProgramID;
+          this.countries = res.result;
+          if (this.countries && this.countries.length > 0) {
+            this.selectedCountries = this.countries[0].countryID;
             this.getResponsesByUserId();
           }
         },
@@ -119,27 +119,21 @@ export class ComparisionComponent implements OnInit {
   }
 
   getResponsesByUserId() {
-    if (
-      this.userService?.userInfo?.userID == null ||
-      !this.selectedPrograms ||
-      this.selectedPrograms === "" ||
-      this.selectedPrograms == null
-    ) {
+     const userId = this.userService?.userInfo?.userID;
+    const countryID = this.selectedCountries;
+    if (userId == null || countryID == null) {
       return;
     }
-
     this.isLoader = true;
-    let payload: GetProgramPillarHistoryRequestNewDto = {
-      userId: this.userService?.userInfo?.userID,
-      pillarID:
-        this.selectedPillarID && this.selectedPillarID > 0
-          ? this.selectedPillarID
-          : null,
+    const payload: GetCountryPillarHistoryRequestNewDto = {
+      userId,
+      countryID,
+      pillarID: typeof this.selectedPillarID === 'number' && this.selectedPillarID > 0
+        ? this.selectedPillarID
+        : null,
+      updatedAt: this.commonService.getStartOfYearLocal(Number(this.selectedYear)),
       pageNumber: this.currentPage,
       pageSize: this.pageSize
-    }
-    if (this.userService?.userInfo?.userID == null || this.filterProgram > 0) {
-      payload.climateProgramID = this.filterProgram;
     };
     this.questionsByUserPillars = [];
     this.loadPillarQuestion();
@@ -158,12 +152,12 @@ export class ComparisionComponent implements OnInit {
     });
   }
 
-  comparePrograms(event: any) {
+  compareCountries(event: any) {
     this.currentPage = event;
     this.getResponsesByUserId();
   }
-
-    GetPillarBarOptions() {
+  
+GetPillarBarOptions() {
   const hasData = this.pillersHistory.length > 0 && this.totalRecords > 0;
   const pillarMap = new Map<number, {
     pillarName: string;
@@ -192,7 +186,7 @@ export class ComparisionComponent implements OnInit {
       });
     });
   } else {
-    // No history â€” fall back to the full pillar list so the axis
+    // No history — fall back to the full pillar list so the axis
     // still shows pillar names, just with no bars/values.
     (this.pillers ?? []).forEach(p => {
       pillarMap.set(p.pillarID, {
@@ -208,7 +202,7 @@ export class ComparisionComponent implements OnInit {
 
   const categories = Array.from(pillarMap.values()).map(p => p.pillarName);
 
-  // Empty series when there's no data â€” keeps the chart rendered but blank
+  // Empty series when there's no data — keeps the chart rendered but blank
   const series: ApexAxisChartSeries = hasData
     ? uniqueEvaluators.map(evaluator => ({
         name: evaluator,
@@ -236,6 +230,7 @@ export class ComparisionComponent implements OnInit {
     colors: (this.commonService.PillarColors ?? []).slice(0, Math.max(uniqueEvaluators.length, 1)),
   });
 }
+
 
   loadPillars() {
     this.userMap = new Map<number, string>();
@@ -303,17 +298,17 @@ export class ComparisionComponent implements OnInit {
   getQuestionsHistoryByPillar(pillarID: number) {
     if (
       this.userService?.userInfo?.userID == null ||
-      !this.selectedPrograms ||
-      this.selectedPrograms === "" ||
-      this.selectedPrograms == null
+      !this.selectedCountries ||
+      this.selectedCountries == null
     ) {
       return;
     }
 
-    let payload: GetProgramPillarHistoryRequestDto = {
+    let payload: GetCountryPillarHistoryRequestDto = {
       userID: this.userService?.userInfo?.userID,
       pillarID: pillarID,
-      climateProgramID: this.selectedPrograms,
+      countryID: this.selectedCountries,
+      updatedAt: this.commonService.getStartOfYearLocal(this.selectedYear),
       exportType:ExportType.Excel
     };
     this.questionsByUserPillars = [];
@@ -336,19 +331,19 @@ export class ComparisionComponent implements OnInit {
   exportPillarsHistoryByUserId() {
     if (
       this.userService?.userInfo?.userID == null ||
-      !this.selectedPrograms ||
-      this.selectedPrograms === "" ||
-      this.selectedPrograms == null || this.pillarColumns?.length == 0
+      !this.selectedCountries ||
+      this.selectedCountries == null || this.pillarColumns?.length == 0
     ) {
       return;
     }
     this.isPillarHistoryDownloading = true;
-    let payload: GetProgramPillarHistoryRequestDto = {
+    let payload: GetCountryPillarHistoryRequestDto = {
       userID: this.userService?.userInfo?.userID,
-      climateProgramID: this.selectedPrograms,
+      countryID: this.selectedCountries,
+      updatedAt: this.commonService.getStartOfYearLocal(this.selectedYear),
       exportType:ExportType.Excel
     };
-    if (this.selectedPillarID) {
+   if (typeof this.selectedPillarID === 'number' && this.selectedPillarID > 0) {
       payload.pillarID = this.selectedPillarID;
     }
     this.analystService.exportPillarsHistoryByUserId(payload).subscribe({
@@ -359,7 +354,7 @@ export class ComparisionComponent implements OnInit {
         a.download = "PillarQuestionHistory.xlsx";
         a.click();
         this.isPillarHistoryDownloading = false;
-        this.toaster.showSuccess("Pillars History downloaded successfully");
+        this.toaster.showSuccess("Domains History downloaded successfully");
       },
       error: () => {
         this.isPillarHistoryDownloading = false;
@@ -367,7 +362,6 @@ export class ComparisionComponent implements OnInit {
       },
     });
   }
-
   toggleRow(element: any) {
     this.expandedElement = this.expandedElement === element ? null : element;
     if (this.expandedElement) {

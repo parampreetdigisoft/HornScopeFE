@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { ChangeDetectorRef, Component, OnChanges, OnInit, ViewChild } from '@angular/core';
 
-declare var bootstrap: any; // 👈 use Bootstrap JS API
+declare var bootstrap: any; // use Bootstrap JS API
 
 import {
   ApexAxisChartSeries,
@@ -15,12 +15,13 @@ import {
   ApexStates,
   ChartComponent,
   ApexDataLabels,
-  ApexGrid
+  ApexGrid,
+  ApexStroke
 } from 'ng-apexcharts';
 import { ActivatedRoute, Router } from '@angular/router';
-import { AiProgramPillarResponseDto, AiProgramPillarVM } from 'src/app/core/models/aiVm/AiProgramPillarResponseDto';
-import { ProgramVM } from 'src/app/core/models/ProgramVM';
-import { ChartTableRowDto } from 'src/app/core/models/CompareProgramResponseDto';
+import { AiCountryPillarResponseDto, AiCountryPillarVM } from 'src/app/core/models/aiVm/AiCountryPillarResponseDto';
+import { CountryVM } from 'src/app/core/models/CountryVM';
+import { ChartTableRowDto } from 'src/app/core/models/CompareCountryResponseDto';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
 import { AiComputationService } from 'src/app/core/services/ai-computation.service';
 import { ToasterService } from 'src/app/core/services/toaster.service';
@@ -36,9 +37,9 @@ import { CommonService } from 'src/app/core/services/common.service';
 import { RegeneratePilalrAiSearchDto } from 'src/app/core/models/aiVm/RegenerateAiSearchDto';
 import { RegenerateAiScoreAndAddViewerComponent } from 'src/app/shared/standAlone/regenerate-ai-score-and-add-viewer/regenerate-ai-score-and-add-viewer.component';
 import { UtcToLocalTooltipDirective } from 'src/app/shared/directives/utc-to-local-tooltip.directive';
-import { AiProgramSummeryRequestPdfDto } from 'src/app/core/models/aiVm/AiProgramSummeryRequestPdfDto';
+import { AiCountrySummeryRequestPdfDto } from 'src/app/core/models/aiVm/AiCountrySummeryRequestPdfDto';
 import { DocumentFormat } from 'src/app/core/enums/documentFormat';
-import { buildAiKpiPillarTooltipHtml } from 'src/app/core/constants/ai-kpi-pillar-tooltip.util';
+import { buildAiKpiGroupedBarChartOptions } from 'src/app/core/constants/ai-kpi-analysis-chart.util';
 
 export type ChartOptions = {
   series: ApexAxisChartSeries;
@@ -52,7 +53,8 @@ export type ChartOptions = {
   fill: ApexFill;
   states: ApexStates;
   dataLabels: ApexDataLabels;
-  grid: ApexGrid;
+  grid?: ApexGrid;
+  stroke?: ApexStroke;
 };
 
 @Component({
@@ -64,14 +66,16 @@ export type ChartOptions = {
 })
 export class KPIAnalysisComponent implements OnInit {
   urlBase = environment.apiUrl;
+  currentYear = new Date().getFullYear();
+  selectedYear = this.currentYear;
   pillers: PillarsVM[] = [];
-  selectedProgram?: number;
-  programs: ProgramVM[] | null = [];
+  selectedCountry!: number;
+  countries: CountryVM[] | null = [];
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions: Partial<ChartOptions> = {};
   aiTrustLevels: AITrustLevelVM[] = [];
-  aiProgramPillarResponseDto: AiProgramPillarResponseDto | null = null;
-  selectedAiProgramPillar: AiProgramPillarVM | null = null;
+  aiCountryPillarResponseDto: AiCountryPillarResponseDto | null = null;
+  selectedAiCountryPillar: AiCountryPillarVM | null = null;
   isLoader: boolean = false;
   chartTableData: ChartTableRowDto[] = [];
   selectedIndex: number = -1;
@@ -92,22 +96,24 @@ export class KPIAnalysisComponent implements OnInit {
   ngOnInit(): void {
     this.isLoader = true;
     this.route.queryParams.subscribe(params => {
-      let cid = +params['climateProgramID'] || null;
+      let cid = +params['countryID'] || null;
+      let sYear = +params['year'] || this.selectedYear;
 
       if (cid) {
-        this.selectedProgram = Number(cid);
+        this.selectedCountry = Number(cid);
+        this.selectedYear = Number(sYear);
       }
     });
-    this.getProgramUserPrograms();
+    this.getCountryUserCountries();
     this.getAITrustLevels();
   }
+  getSelectedCountry() {
+    let country  = this.countries?.find(x => x.countryID == this.selectedCountry);
+    if(!country) return;
 
-  getSelectedProgram() {
-    let program  = this.programs?.find(x => x.climateProgramID == this.selectedProgram);
-    if(!program) return;
-    program.aiScore = this.selectedAiProgramPillar?.aiScore ?? 0;
-    program.aiCompletionRate = this.selectedAiProgramPillar?.aiCompletionRate ?? 0;
-    return  program;
+    country.aiScore = this.selectedAiCountryPillar?.aiScore ?? 0;
+    country.aiCompletionRate = this.selectedAiCountryPillar?.aiCompletionRate ?? 0;
+    return  country;
   }
 
   getAITrustLevels() {
@@ -115,43 +121,53 @@ export class KPIAnalysisComponent implements OnInit {
       this.aiTrustLevels = p.result || [];
     });
   }
-  getProgramUserPrograms() {
-    this.adminService.getAllProgramsByUserId(this.userService.userInfo?.userID ?? 0).subscribe({
+  getCountryUserCountries() {
+    this.adminService.getAllCountriesByUserId(this.userService.userInfo?.userID ?? 0).subscribe({
       next: (p) => {
 
-        this.programs = p.result || [];
-        if (this.programs?.length && !this.selectedProgram) {
-          this.selectedProgram = this.programs[0].climateProgramID;
+        this.countries = p.result || [];
+        if (this.countries?.length && !this.selectedCountry) {
+          this.selectedCountry = this.countries[0].countryID;
         }
-        this.getAIProgramPillars();
+        this.getAICountryPillars();
       },
       error: () => {
         this.toaster.showError("There is an error please Try again");
-        this.getAIProgramPillars();
+        this.getAICountryPillars();
       }
     });
   }
 
-  getAIProgramPillars() {
-    if (!this.selectedProgram) {
-      this.toaster.showWarning("Please select at least one program to view data.");
+  customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.countryName?.toLowerCase().includes(term) ||
+      item.countryAliasName?.toLowerCase().includes(term)
+    );
+  }
+  getAICountryPillars() {
+    this.closeSidebar();
+
+    if (!this.selectedCountry) {
+      this.toaster.showWarning("Please select at least one country to view data.");
       return;
     }
     this.isLoader = true;
 
-    let payload: AiProgramSummeryRequestPdfDto = {
-      climateProgramID: this.selectedProgram,
+    let payload: AiCountrySummeryRequestPdfDto = {
+      countryID: this.selectedCountry,
+      year: this.selectedYear
     }
-    this.aiComputationService.getAIProgramPillars(payload).subscribe({
+    this.aiComputationService.getAICountryPillars(payload).subscribe({
       next: (res) => {
         this.isLoader = false;
         if (res.succeeded && res.result != null) {
-          this.aiProgramPillarResponseDto = res.result;
+          this.aiCountryPillarResponseDto = res.result;
 
-          this.buildPillarComparisonChart();
+          this.buildPillarComparisonChart();          
         }
         else {
-          this.toaster.showInfo("No comparison data available for the selected programs.");
+          this.toaster.showInfo("No comparison data available for the selected countries.");
         }
       },
       error: (err) => {
@@ -168,14 +184,10 @@ export class KPIAnalysisComponent implements OnInit {
     };
 
     // 1️⃣ Reorder: accessible first, locked last
-    const data = [...(this.aiProgramPillarResponseDto?.pillars ?? [])].sort(
+    const data = [...(this.aiCountryPillarResponseDto?.pillars ?? [])].sort(
       (a, b) => Number(b.isAccess) - Number(a.isAccess)
     );
 
-    // 2️⃣ Generate categories (pillar names)
-    const categories = this.buildUniqueCategories(data);
-
-    // 3️⃣ Series (real data for access, placeholder for locked)
     const aiSeries = data.map(x =>
       x.isAccess ? (x.aiProgress ?? 0) : getLockedScore(x.pillarID)
     );
@@ -188,250 +200,63 @@ export class KPIAnalysisComponent implements OnInit {
       x.isAccess ? (x.discrepancy ?? 0) : getLockedScore(x.pillarID)
     );
 
-    const colors = [
-      '#3b9eff',
-      '#A8E063',
-      '#FFB84D',
-    ];
-
-    const allValues = [
-      ...aiSeries,
-      ...evaluatorSeries,
-      ...discrepancySeries
-    ].filter(v => v !== null && v !== undefined && !isNaN(Number(v))).map(v => Number(v));
-    const dataMin = allValues.length ? Math.min(...allValues) : 0;
-    const dataMax = allValues.length ? Math.max(...allValues) : 100;
-    const yMin = dataMin < 0 ? Math.floor(dataMin / 10) * 10 : 0;
-    const yMax = Math.max(100, Math.ceil(dataMax / 10) * 10);
-
-    this.chartOptions = {
-      series: [
-        { name: 'AI Score', data: aiSeries },
-        { name: 'Evaluation Score', data: evaluatorSeries },
-        { name: 'Discrepancy', data: discrepancySeries }
-      ],
-
-      chart: {
-        type: 'bar',
-        height: 420,
-        toolbar: { show: false },
-        zoom: {
-          enabled: false
-        },
-        animations: {
-          enabled: true,
-          dynamicAnimation: {
-            enabled: true,
-            speed: 350
-          }
-        }
-      },
-
-      plotOptions: {
-        bar: {
-          horizontal: false,
-          columnWidth: '55%',
-          borderRadius: 5,
-          borderRadiusApplication: "end",
-          distributed: false,
-          dataLabels: {
-            position: 'top' // Force labels to top of bars
-          }
-        }
-      },
-
-      dataLabels: {
-        enabled: false,
-        formatter: (val: number, opts) => {
-          const pillar = data[opts.dataPointIndex];
-
-          // 🔒 Hide label for locked pillars
-          if (!pillar.isAccess) {
-            return '';
-          }
-
-          return `${Math.round(val)}`;
-        },
-        offsetY: -10, // Position above bar
-        style: {
-          fontSize: '10px',
-          fontWeight: 200,
-          colors: ['#faf8d1ff']
-        },
-        background: {
-          enabled: true,
-          foreColor: '#0906aaff',
-          padding: 4,
-          borderRadius: 2,
-          borderWidth: 0,
-          opacity: 0.9
-        }
-      },
-      xaxis: {
-        categories: categories,
-        labels: {
-          rotate: -45,
-          rotateAlways: false,
-          style: {
-            fontSize: '11px',
-            colors: '#C9D6EA'
-          }
-        },
-        axisBorder: {
-          color: 'rgba(92, 140, 200, 0.35)'
-        },
-        axisTicks: {
-          color: 'rgba(92, 140, 200, 0.35)'
-        }
-      },
-
-      yaxis: {
-        title: {
-          text: 'Score',
-          style: {
-            color: '#C9D6EA',
-            fontWeight: 600
-          }
-        },
-        min: yMin,
-        max: yMax,
-        forceNiceScale: true,
-        labels: {
-          style: {
-            colors: '#C9D6EA'
-          },
-          formatter: (val) => {
-            return val !== null && val !== undefined && !isNaN(val) ? `${Math.round(val)}` : '';
-          }
-        }
-      },
-
-      grid: {
-        borderColor: 'rgba(92, 140, 200, 0.22)',
-        strokeDashArray: 4,
-        xaxis: {
-          lines: { show: false }
-        }
-      },
-
-      fill: {
-        type: 'gradient',
-        gradient: {
-          shade: 'dark',
-          type: 'vertical',
-          shadeIntensity: 0.15,
-          gradientToColors: [
-            '#6CB8FF',
-            '#C5F066',
-            '#FFD080',
-          ],
-          inverseColors: false,
-          opacityFrom: 1,
-          opacityTo: 0.85,
-          stops: [0, 100]
-        }
-      },
-      colors: colors,
-
-      states: {
-        hover: {
-          filter: { type: 'none' }
-        },
-        active: {
-          filter: { type: 'none' }
-        }
-      },
-      tooltip: {
-        shared: true,
-        intersect: false,
-        theme: 'dark',
-        custom: ({ dataPointIndex }) => buildAiKpiPillarTooltipHtml(data[dataPointIndex]),
-      },
-      legend: {
-        position: 'bottom',
-        horizontalAlign: 'center',
-        offsetY: 0,
-        labels: {
-          colors: '#E8EEF8'
-        },
-        markers: {
-          strokeWidth: 0
-        }
-      }
-    };
-  }
-
-   customSearchFn(term: string, item: any) {
-    term = term.toLowerCase();
-    return (
-      item.programName?.toLowerCase().includes(term) ||
-      item.location?.toLowerCase().includes(term) ||
-      item.year?.toString().includes(term)
-    );
+    this.chartOptions = buildAiKpiGroupedBarChartOptions({
+      pillars: data,
+      aiSeries,
+      evaluatorSeries,
+      discrepancySeries,
+    });
   }
 
   onImgError(event: Event) {
     (event.target as HTMLImageElement).src = 'assets/images/Frame 1321315029.png';
   }
 
-  viewDetails(pillar: AiProgramPillarVM) {
-    this.selectedAiProgramPillar = pillar;
+  viewDetails(pillar: AiCountryPillarVM) {
+    this.selectedAiCountryPillar = pillar;
     const sidebarEl = document.getElementById('kpiLayerSidebar');
     const offcanvas = new bootstrap.Offcanvas(sidebarEl);
 
     // Clear selection when sidebar closes
     sidebarEl?.addEventListener('hidden.bs.offcanvas', () => {
-      this.selectedAiProgramPillar = null;
+      this.selectedAiCountryPillar = null;
       this.cdr.detectChanges();
     }, { once: true });
 
     offcanvas.show();
   }
 
-  viewQuestions(pillar: AiProgramPillarVM) {
+  closeSidebar(): void {
+    const sidebarEl = document.getElementById('kpiLayerSidebar');
+
+    if (!sidebarEl) {
+      return;
+    }
+
+    const offcanvas = bootstrap.Offcanvas.getInstance(sidebarEl);
+
+    if (offcanvas) {
+      offcanvas.hide();
+    }
+  }
+
+  viewQuestions(pillar: AiCountryPillarVM) {
     this.router.navigate(['/admin/ai/questions-analysis'], {
       queryParams: {
-        climateProgramID: this.selectedProgram,
-        pillarID: pillar.pillarID
+        countryID: this.selectedCountry,
+        pillarID: pillar.pillarID,
+        year:this.selectedYear
       }
     });
   }
-  buildUniqueCategories(data: { pillarName: string }[]): string[] {
-    const used = new Set<string>();
-    return data.map(item => {
-      if (!item.pillarName) return '';
 
-      const words = item.pillarName.trim().split(/\s+/);
-      let label = '';
-
-      for (let i = 1; i <= words.length; i++) {
-        const candidate =
-          i < words.length
-            ? words.slice(0, i).join(' ')
-            : words.join(' ');
-
-        if (!used.has(candidate)) {
-          label = candidate + (i < words.length ? '...' : '');
-          used.add(candidate);
-          break;
-        }
-      }
-
-      // absolute fallback (should not happen)
-      if (!label) {
-        label = words[0] + '...';
-      }
-
-      return label;
-    });
-  }
-
-  aiPillarDetailsReport(program: AiProgramPillarVM, selectedIndex: number, format: string) {
+  aiPillarDetailsReport(country: AiCountryPillarVM, selectedIndex: number, format: string) {
     if (this.selectedIndex != -1) return;
     this.selectedIndex = selectedIndex;
-    let payload: AiProgramSummeryRequestPdfDto = {
-      climateProgramID: program.climateProgramID,
-      pillarID: program.pillarID,
+    let payload: AiCountrySummeryRequestPdfDto = {
+      countryID: country.countryID,
+      year: this.selectedYear,
+      pillarID: country.pillarID,
       format:format
     }
     this.aiComputationService.aiPillarDetailsReport(payload).subscribe({
@@ -444,7 +269,7 @@ export class KPIAnalysisComponent implements OnInit {
           const link = document.createElement('a');
           link.href = url;
 
-          link.download = `${program.pillarName}_Details_${new Date().toISOString().split('T')[0]}..${ext}`;
+          link.download = `${country.pillarName}_Details_${new Date().toISOString().split('T')[0]}..${ext}`;
 
           // Trigger download
           document.body.appendChild(link);
@@ -462,9 +287,9 @@ export class KPIAnalysisComponent implements OnInit {
       }
     });
   }
-  opendialog(pillar: AiProgramPillarVM) {
+  opendialog(pillar: AiCountryPillarVM) {
     this.isOpenResearchBox = true;
-    this.selectedAiProgramPillar = pillar;
+    this.selectedAiCountryPillar = pillar;
     setTimeout(() => {
       const modalEl = document.getElementById("RegenerateAIScoreModal");
       if (modalEl) {
@@ -485,14 +310,14 @@ export class KPIAnalysisComponent implements OnInit {
   }
 
   regenerateAiSearch(payload: RegeneratePilalrAiSearchDto) {
-    if (this.selectedAiProgramPillar) {
+    if (this.selectedAiCountryPillar) {
       this.loading = true;
-      payload.pillarID = this.selectedAiProgramPillar.pillarID;
+      payload.pillarID = this.selectedAiCountryPillar.pillarID;
 
       this.aiComputationService.regenerateSinglePillarAiSearch(payload).subscribe({
         next: (res) => {
           this.loading = false;
-          this.getAIProgramPillars();
+          this.getAICountryPillars();
           this.selectedChangedStatusIndex = -1;
           if (res.succeeded) {
             this.toaster.showSuccess(res.messages.join(", "));

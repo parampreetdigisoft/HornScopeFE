@@ -1,15 +1,25 @@
-import { Component, ElementRef, EventEmitter, Output, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, EventEmitter, OnDestroy, Output, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-file-upload-modal',
   templateUrl: './file-upload-modal.component.html',
   styleUrl: './file-upload-modal.component.css'
 })
-export class FileUploadModalComponent {
+export class FileUploadModalComponent implements AfterViewInit, OnDestroy {
   selectedFile: File | null = null;
   @Output() fileUploaded = new EventEmitter<File>();
   @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  // Capture file selection
+
+  constructor(private host: ElementRef<HTMLElement>) {}
+
+  ngAfterViewInit(): void {
+    document.body.appendChild(this.host.nativeElement);
+  }
+
+  ngOnDestroy(): void {
+    this.host.nativeElement.remove();
+  }
+
   onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
@@ -17,7 +27,10 @@ export class FileUploadModalComponent {
     }
   }
 
-  // Emit file back to parent
+  get selectedFileName(): string {
+    return this.selectedFile?.name || 'No file chosen';
+  }
+
   saveFile() {
     if (this.selectedFile) {
       this.fileUploaded.emit(this.selectedFile);
@@ -25,18 +38,18 @@ export class FileUploadModalComponent {
     }
   }
 
-  // Reset file after closing
   closeModal() {
-    this.fileInput.nativeElement.value = "";
+    if (this.fileInput?.nativeElement) {
+      this.fileInput.nativeElement.value = '';
+    }
     this.selectedFile = null;
     const modal = document.getElementById('exampleModal');
     if (modal) {
-      (modal as any).classList.remove('show');
+      modal.classList.remove('show');
       modal.setAttribute('aria-hidden', 'true');
-      (modal as any).style.display = 'none';
+      modal.style.display = 'none';
       document.body.classList.remove('modal-open');
-      const backdrop = document.querySelector('.modal-backdrop');
-      if (backdrop) backdrop.remove();
+      document.querySelectorAll('.modal-backdrop').forEach((backdrop) => backdrop.remove());
     }
   }
 }

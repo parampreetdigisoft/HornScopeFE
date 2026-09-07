@@ -24,7 +24,7 @@
                             <!-- Question -->
                             <div class="input_field">
                                 <label>Question *</label>
-                                <input type="text" formControlName="questionText" placeholder="Enter Question Text"
+                                <input type="text" formControlName="questionText" placeholder="Enter question text"
                                     class="form-control" />
                                 <div class="error-msg"
                                     *ngIf="questionForm.get('questionText')?.invalid && (questionForm.get('questionText')?.touched || isSubmitted)">
@@ -32,42 +32,32 @@
                                 </div>
                             </div>
 
-                            <!-- Pillar -->
-                            <div class="row">
-                                <div class="col-md-6">
-                                    <div class="input_field">
-                                        <label>Pillar *</label>
-                                        <select formControlName="pillarID" class="form-control">
-                                            <option [ngValue]="null">Select Pillar</option>
-                                            <option *ngFor="let pillar of pillars" [ngValue]="pillar.pillarID">
-                                                 {{ pillar.pillarName }}
-                                                </option>
-                                            </select>
-                                            <div class="error-msg" *ngIf="questionForm.get('pillarID')?.invalid && (questionForm.get('pillarID')?.touched || isSubmitted)">
-                                                 Pillar is required.
-                                                </div>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-md-6">
-                                            <div class="input_field">
-                                                <label>Weight *</label>
-                                                <div class="weight-select-wrapper">
-                                                    <select formControlName="weightID" class="form-control weight-select" [ngClass]="getWeightTierClass()">
-                                                        <option [ngValue]="null">Select Weight</option>
-                                                        <option *ngFor="let w of weightOptions" [ngValue]="w.id">
-                                                             {{ w.value }}
-                                                            </option>
-                                                         </select>
-                                                         <span class="tier-dot" [ngClass]="getWeightTierClass()" *ngIf="getSelectedWeight()">
-                                                             {{ getSelectedWeight()?.stars }}
-                                                             </span>
-                                                            </div>
-                                                            <div class="error-msg" *ngIf="questionForm.get('weightID')?.invalid && (questionForm.get('weightID')?.touched || isSubmitted)">
-                                                                Weight is required.
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                            <!-- Domain -->
+                            <div class="input_field">
+                                <label>Domain *</label>
+                                <div class="compare_select kpi_compare_select">
+                                    <ng-select [items]="pillers"
+                                        bindValue="pillarID"
+                                        bindLabel="pillarName"
+                                        [searchable]="true"
+                                        [searchFn]="customSearchFn"
+                                        [clearable]="true"
+                                        formControlName="pillarID"
+                                        [placeholder]="questionForm.get('pillarID')?.value ? '' : 'Select Domain'"
+                                        appendTo="body"
+                                        class="form-control analyst_multi_select">
+                                        <ng-template ng-label-tmp let-item="item">
+                                            {{ item.pillarName }}
+                                        </ng-template>
+                                        <ng-template ng-option-tmp let-item="item">
+                                            {{ item.pillarName }} ({{ item.score?.toFixed(1) || "NA" }})
+                                        </ng-template>
+                                    </ng-select>
+                                </div>
+                                <div class="error-msg"
+                                    *ngIf="questionForm.get('pillarID')?.invalid && (questionForm.get('pillarID')?.touched || isSubmitted)">
+                                    Domain is required.
+                                </div>
                             </div>
                             <div formArrayName="questionOptions" class="input_field mt-3">
                                 <label>Options *</label>
@@ -79,12 +69,18 @@
 
                                         <!-- Score Dropdown -->
                                         <div class="col-4">
-                                            <select formControlName="scoreValue" class="form-control">
-                                                <option value="">Select Score</option>
-                                                <option *ngFor="let score of scoreOptions" [value]="score.scoreValue">
-                                                    {{ score.scoreValue }}
-                                                </option>
-                                            </select>
+                                            <div class="compare_select kpi_compare_select">
+                                                <ng-select [items]="scoreOptions"
+                                                    bindValue="scoreValue"
+                                                    bindLabel="scoreValue"
+                                                    [searchable]="false"
+                                                    [clearable]="false"
+                                                    formControlName="scoreValue"
+                                                    [placeholder]="option.get('scoreValue')?.value === '' || option.get('scoreValue')?.value == null ? 'Select Score' : ''"
+                                                    appendTo="body"
+                                                    class="form-control analyst_multi_select">
+                                                </ng-select>
+                                            </div>
                                             <!-- Validation message -->
                                             <div class="error-msg"
                                                 *ngIf="(option.get('scoreValue')?.touched ||isSubmitted) && option.get('scoreValue')?.hasError('required')">
@@ -112,7 +108,7 @@
                                                     <g _ngcontent-ng-c94318325="" clip-path="url(#clip0_167_1414)">
                                                         <path _ngcontent-ng-c94318325=""
                                                             d="M16.7098 3.9985H3.5078C3.26907 3.9985 3.04012 4.09334 2.87131 4.26214C2.7025 4.43095 2.60767 4.6599 2.60767 4.89864C2.60767 5.13737 2.7025 5.36632 2.87131 5.53513C3.04012 5.70394 3.26907 5.79877 3.5078 5.79877H3.80785V16.0003C3.80785 16.3982 3.96591 16.7798 4.24725 17.0611C4.5286 17.3425 4.91019 17.5005 5.30807 17.5005H14.9095C15.3074 17.5005 15.689 17.3425 15.9703 17.0611C16.2517 16.7798 16.4097 16.3982 16.4097 16.0003V5.79877H16.7098C16.9485 5.79877 17.1775 5.70394 17.3463 5.53513C17.5151 5.36632 17.6099 5.13737 17.6099 4.89864C17.6099 4.6599 17.5151 4.43095 17.3463 4.26214C17.1775 4.09334 16.9485 3.9985 16.7098 3.9985ZM14.6095 15.7003H5.60812V5.79877H14.6095V15.7003ZM6.20821 1.89818C6.20821 1.65945 6.30304 1.4305 6.47185 1.26169C6.64066 1.09288 6.86961 0.998047 7.10835 0.998047H13.1093C13.348 0.998047 13.5769 1.09288 13.7457 1.26169C13.9146 1.4305 14.0094 1.65945 14.0094 1.89818C14.0094 2.13691 13.9146 2.36587 13.7457 2.53467C13.5769 2.70348 13.348 2.79832 13.1093 2.79832H7.10835C6.86961 2.79832 6.64066 2.70348 6.47185 2.53467C6.30304 2.36587 6.20821 2.13691 6.20821 1.89818Z"
-                                                            fill="#7AC2AE"></path>
+                                                            fill="#c5b538"></path>
                                                     </g>
                                                     <defs _ngcontent-ng-c94318325="">
                                                         <clipPath _ngcontent-ng-c94318325="" id="clip0_167_1414">
@@ -127,7 +123,8 @@
 
                                     </div>
                                 </div>
-                                <button type="button" class="btn add_btn btn-primary mt-2" [disabled]="this.questionOptions.length >= 12" (click)="addOption()">Add</button>
+                                <button type="button" class="btn add_btn btn-primary mt-2" (click)="addOption()"
+                                    [disabled]="this.questionOptions.length>=5">Add</button>
                             </div>
 
                             <!-- Submit -->
@@ -147,8 +144,12 @@
                                     Download Template
                                 </a>
                             </label>
+                              <label class="image-file-picker"> 
                             <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileChange($event)"
-                                class="form-control">
+                               class="image-file-input-hidden" >
+                            <span class="image-file-trigger">Choose File</span>
+                            <span class="image-file-name">{{ selectedFileName }}</span>
+                        </label>
                         </div>
                         <div class="wrong_upload_alert">
                             <p>{{this.alertMsg}}</p>

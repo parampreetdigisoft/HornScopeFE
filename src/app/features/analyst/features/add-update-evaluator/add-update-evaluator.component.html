@@ -57,27 +57,27 @@
                                     Phone number is required.
                                 </div>
                             </div>
-                            <!-- program Multi-Select -->
+                            <!-- country Multi-Select -->
                             <div class="input_field">
-                                <label>Assign program *</label>
-                                <ng-select [items]="programs" bindValue="climateProgramID" bindLabel="programName"
-                                    formControlName="program" [multiple]="true" class="form-control analyst_multi_select"
+                                <label>Assign country *</label>
+                                <ng-select [items]="countries" bindValue="countryID" bindLabel="countryName"
+                                    formControlName="country" [multiple]="true" class="form-control analyst_multi_select"
                                     [searchable]="true"
-                                    [placeholder]="evaluatorForm.get('program')?.invalid ? 'Assign Program' : ''">
+                                    [placeholder]="evaluatorForm.get('country')?.invalid ? 'Assign country' : ''" appendTo="body">
 
                                     <ng-template ng-label-tmp let-item="item">
-                                        {{ item.programName}}
+                                        {{ item.countryName +', '}}
                                     </ng-template>
 
                                     <ng-template ng-option-tmp let-item="item">
-                                        {{ item.programName }} {{ item.location }}
+                                        {{ item.countryName }} {{ item.continent }}
                                     </ng-template>
                                 </ng-select>
 
 
                                 <div class="error-msg"
-                                    *ngIf="evaluatorForm.get('program')?.invalid && (isSubmitted || evaluatorForm.get('program')?.touched)">
-                                    Please select at least one program.
+                                    *ngIf="evaluatorForm.get('country')?.invalid && (isSubmitted || evaluatorForm.get('country')?.touched)">
+                                    Please select at least one country.
                                 </div>
                             </div>
 
@@ -97,8 +97,12 @@
                                     Download Template
                                 </a>
                             </label>
+                              <label class="image-file-picker"> 
                             <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileChange($event)"
-                                class="form-control">
+                               class="image-file-input-hidden" >
+                            <span class="image-file-trigger">Choose File</span>
+                            <span class="image-file-name">{{ selectedFileName }}</span>
+                        </label>
                         </div>
                         <div class="wrong_upload_alert">
                             <p>{{this.alertMsg}}</p>

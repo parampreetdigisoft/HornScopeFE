@@ -1,9 +1,9 @@
 import { Component, OnInit } from "@angular/core";
 import { ToasterService } from "src/app/core/services/toaster.service";
 import { UserService } from "src/app/core/services/user.service";
-import { ProgramVM } from "src/app/core/models/ProgramVM";
+import { CountryVM } from "src/app/core/models/CountryVM";
 import { CommonService } from "src/app/core/services/common.service";
-import { GetProgramPillarHistoryRequestDto, GetProgramPillarHistoryRequestNewDto } from "src/app/core/models/AssessmentRequest";
+import { GetCountryPillarHistoryRequestDto, GetCountryPillarHistoryRequestNewDto } from "src/app/core/models/AssessmentRequest";
 import { PillarsVM } from "src/app/core/models/PillersVM";
 import { MatTableDataSource } from "@angular/material/table";
 import {
@@ -36,17 +36,20 @@ export type ChartOptions = {
 @Component({
   selector: "app-comparision",
   templateUrl: "./comparision.component.html",
-  styleUrls: ["../../../../shared/styles/assessment-comparison.shared.css"],
+  styleUrl: "./comparision.component.css",
 })
 
 export class ComparisionComponent implements OnInit {
+  currentYear = new Date().getFullYear();
+  selectedYear = new Date().getFullYear();
   pillers: PillarsVM[] = [];
-  filterProgram!: number;
   pillersHistory: PillarsHistoryResponse[] = [];
   questionsByUserPillars: QuestionsByUserPillarsResponsetDto[] = [];
-  programs: ProgramVM[] | null = [];
-  selectedPrograms: number | any = "";
-  selectedPillarID: number | any = "";
+  countries: CountryVM[] | null = [];
+  selectedCountries: number | null = null;
+  selectedPillarID: number | 'all' = 'all';
+  readonly allDomainsOption = { pillarID: 'all' as const, pillarName: 'All Domains' };
+  domainOptions: Array<{ pillarID: number | 'all'; pillarName: string }> = [this.allDomainsOption];
   isLoader: boolean = false;
   isPillarHistoryDownloading: boolean = false;
   dataSource = new MatTableDataSource<PillarsTableRow>([]);
@@ -59,7 +62,6 @@ export class ComparisionComponent implements OnInit {
   pageSize: number = 28;
   currentPage: number = 1;
   totalRecords: number = 0;
-  // Columns for mat-table
   pillarColumns: string[] = []; // dynamic user columns
   
   constructor(
@@ -71,33 +73,34 @@ export class ComparisionComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      if (params["climateProgramID"]) {
-        this.filterProgram = +params["climateProgramID"];
+     this.route.queryParams.subscribe((params) => {
+      if (params["countryID"]) {
+        this.selectedCountries = +params["countryID"];
       }
     });
     this.isLoader = true;
     this.GetAllPillars();
-    this.getAllProgramsByUserId();
+    this.getAllCountriesByUserId();
   }
+
   GetAllPillars() {
     this.adminService.getAllPillars().subscribe((p) => {
       this.pillers = p;
+      this.domainOptions = [this.allDomainsOption, ...p];
     });
   }
-  getAllProgramsByUserId() {
+  getAllCountriesByUserId() {
     this.adminService
-      .getAllProgramsByUserId(this.userService?.userInfo?.userID)
+      .getAllCountriesByUserId(this.userService?.userInfo?.userID)
       .subscribe({
         next: (res) => {
           setTimeout(() => {
             this.isLoader = false;
           }, 1000);
 
-          this.programs = res.result;
-          if (this.programs && this.programs.length > 0) {
-            this.selectedPrograms = this.programs[0].climateProgramID;
-            this.filterProgram = this.programs[0].climateProgramID;
+          this.countries = res.result;
+          if (this.countries && this.countries.length > 0) {
+            this.selectedCountries = this.countries[0].countryID;
             this.getResponsesByUserId();
           }
         },
@@ -110,34 +113,30 @@ export class ComparisionComponent implements OnInit {
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();
     return (
-      item.programName?.toLowerCase().includes(term) ||
-      item.location?.toLowerCase().includes(term) ||
-      item.year?.toString().toLowerCase().includes(term)
+      item.countryName?.toLowerCase().includes(term) ||
+      item.countryAliasName?.toLowerCase().includes(term)
     );
   }
 
   getResponsesByUserId() {
-    if (
-      this.userService?.userInfo?.userID == null ||
-      !this.selectedPrograms ||
-      this.selectedPrograms === "" ||
-      this.selectedPrograms == null
-    ) {
+    const userId = this.userService?.userInfo?.userID;
+    const countryID = this.selectedCountries;
+    if (userId == null || countryID == null) {
       return;
     }
+
     this.isLoader = true;
-    let payload: GetProgramPillarHistoryRequestNewDto = {
-      userId: this.userService?.userInfo?.userID,
-      pillarID:
-        this.selectedPillarID && this.selectedPillarID > 0
-          ? this.selectedPillarID
-          : null,
+    const payload: GetCountryPillarHistoryRequestNewDto = {
+      userId,
+      countryID,
+      pillarID: typeof this.selectedPillarID === 'number' && this.selectedPillarID > 0
+        ? this.selectedPillarID
+        : null,
+      updatedAt: this.commonService.getStartOfYearLocal(Number(this.selectedYear)),
       pageNumber: this.currentPage,
-      pageSize:this.pageSize
-    }
-    if (this.userService?.userInfo?.userID == null || this.filterProgram > 0) {
-      payload.climateProgramID = this.filterProgram;
-    }
+      pageSize: this.pageSize,
+    };
+
     this.questionsByUserPillars = [];
     this.loadPillarQuestion();
     this.adminService.getResponsesByUserId(payload).subscribe({
@@ -155,11 +154,11 @@ export class ComparisionComponent implements OnInit {
     });
   }
 
-  comparePrograms(event: any) {
+  compareCountries(event: any) {
     this.currentPage = event;
     this.getResponsesByUserId();
   }
-
+  
   GetPillarBarOptions() {
   const hasData = this.pillersHistory.length > 0 && this.totalRecords > 0;
   const pillarMap = new Map<number, {
@@ -300,17 +299,17 @@ export class ComparisionComponent implements OnInit {
   getQuestionsHistoryByPillar(pillarID: number) {
     if (
       this.userService?.userInfo?.userID == null ||
-      !this.selectedPrograms ||
-      this.selectedPrograms === "" ||
-      this.selectedPrograms == null
+      !this.selectedCountries ||
+      this.selectedCountries == null
     ) {
       return;
     }
 
-    let payload: GetProgramPillarHistoryRequestDto = {
+    let payload: GetCountryPillarHistoryRequestDto = {
       userID: this.userService?.userInfo?.userID,
       pillarID: pillarID,
-      climateProgramID: this.selectedPrograms,
+      countryID: this.selectedCountries,
+      updatedAt: this.commonService.getStartOfYearLocal(this.selectedYear),
       exportType:ExportType.Excel
     };
     this.questionsByUserPillars = [];
@@ -333,19 +332,19 @@ export class ComparisionComponent implements OnInit {
   exportPillarsHistoryByUserId() {
     if (
       this.userService?.userInfo?.userID == null ||
-      !this.selectedPrograms ||
-      this.selectedPrograms === "" ||
-      this.selectedPrograms == null || this.pillarColumns?.length == 0
+      !this.selectedCountries ||
+      this.selectedCountries == null || this.pillarColumns?.length == 0
     ) {
       return;
     }
     this.isPillarHistoryDownloading = true;
-    let payload: GetProgramPillarHistoryRequestDto = {
+    let payload: GetCountryPillarHistoryRequestDto = {
       userID: this.userService?.userInfo?.userID,
-      climateProgramID: this.selectedPrograms,
+      countryID: this.selectedCountries,
+      updatedAt: this.commonService.getStartOfYearLocal(this.selectedYear),
       exportType:ExportType.Excel
     };
-    if (this.selectedPillarID) {
+    if (typeof this.selectedPillarID === 'number' && this.selectedPillarID > 0) {
       payload.pillarID = this.selectedPillarID;
     }
     this.adminService.exportPillarsHistoryByUserId(payload).subscribe({
@@ -356,7 +355,7 @@ export class ComparisionComponent implements OnInit {
         a.download = "PillarQuestionHistory.xlsx";
         a.click();
         this.isPillarHistoryDownloading = false;
-        this.toaster.showSuccess("Pillars History downloaded successfully");
+        this.toaster.showSuccess("Domains History downloaded successfully");
       },
       error: () => {
         this.isPillarHistoryDownloading = false;

@@ -1,0 +1,408 @@
+<div class="ami-dashboard" *ngIf="!isLoader">
+	<!-- KPI strip -->
+	<div class="ami-kpi-strip">
+		<div class="ami-kpi-card">
+			<div class="ami-kpi-icon"><i class="bi bi-globe2"></i></div>
+			<div>
+				<div class="ami-kpi-label">Total Countries</div>
+				<div class="ami-kpi-value">{{ countryHistory?.totalCountry ?? 0 }}</div>
+				<div class="ami-kpi-sub">Active Countries</div>
+			</div>
+		</div>
+		<div class="ami-kpi-card">
+			<div class="ami-kpi-icon"><i class="bi bi-person-workspace"></i></div>
+			<div>
+				<div class="ami-kpi-label">Analyst</div>
+				<div class="ami-kpi-value">{{ countryHistory?.totalAnalyst ?? 0 }}</div>
+				<div class="ami-kpi-sub">Active Analyst</div>
+			</div>
+		</div>
+		<div class="ami-kpi-card">
+			<div class="ami-kpi-icon"><i class="bi bi-people"></i></div>
+			<div>
+				<div class="ami-kpi-label">Evaluator</div>
+				<div class="ami-kpi-value">{{ countryHistory?.totalEvaluator ?? 0 }}</div>
+				<div class="ami-kpi-sub">Active Evaluator</div>
+			</div>
+		</div>
+		<div class="ami-kpi-card">
+			<div class="ami-kpi-icon"><i class="bi bi-clipboard2-check"></i></div>
+			<div>
+				<div class="ami-kpi-label">Assessed Countries</div>
+				<div class="ami-kpi-value">{{ countryHistory?.totalAccessCountry ?? 0 }}</div>
+				<div class="ami-kpi-sub">Countries with access</div>
+			</div>
+		</div>
+	</div>
+
+	<!-- Filters + actions -->
+	<div class="ami-controls">
+		<div class="ami-controls-left">
+			<div class="ami-field">
+				<label>Select Country *</label>
+				<ng-select [items]="countries"
+					[searchable]="true"
+					[placeholder]="selectedCountries == '' ? 'Select Country' : ''"
+					[(ngModel)]="selectedCountries"
+					(change)="onCountrySelected()"
+					bindValue="countryID"
+					bindLabel="countryName"
+					class="form-control analyst_multi_select">
+					<ng-template ng-label-tmp let-item="item">
+						{{ item.countryName }}
+					</ng-template>
+					<ng-template ng-option-tmp let-item="item">
+						{{ item.countryName }}, {{ item.continent }}
+					</ng-template>
+				</ng-select>
+			</div>
+			<div class="ami-field">
+				<label>Select Year *</label>
+				<ng-select
+					[items]="commonService.applicateYears"
+					[(ngModel)]="selectedYear"
+					(change)="yearChanged()"
+					[clearable]="false"
+					[searchable]="false"
+					name="selectedYear"
+					class="form-control analyst_multi_select">
+				</ng-select>
+			</div>
+		</div>
+		<div class="ami-actions">
+			<button *ngIf="countryQuestionHistoryResponse?.pillars?.length"
+				type="button"
+				class="ami-btn ami-btn-outline"
+				[matTooltip]="'Go to the AI analysis page to review detailed country insights and scores'"
+				(click)="goToCountryAnalysis()">
+				AI Country Insights
+				<i class="bi bi-box-arrow-up-right"></i>
+			</button>
+			<button *ngIf="countryQuestionHistoryResponse?.pillars?.length"
+				type="button"
+				class="ami-btn ami-btn-solid"
+				[matTooltip]="'Export domain details'"
+				(click)="ExportCountryPillar()">
+				Export
+				<i class="bi bi-download"></i>
+			</button>
+		</div>
+	</div>
+
+	<!-- Performance overview + Country overview -->
+	<div class="ami-grid-2">
+		<div class="ami-panel" *ngIf="chartPillarOptions?.series">
+			<div class="ami-panel-title">
+				<span><i class="bi bi-graph-up"></i> Country Performance Overview</span>
+				<div class="ami-legend">
+					<span><span class="ami-dot ami-dot-silver"></span> Manual Score</span>
+					<span><span class="ami-dot ami-dot-gold"></span> AI Score</span>
+				</div>
+			</div>
+			<div class="ami-chart-host">
+				<apx-chart [series]="chartPillarOptions.series!"
+					[chart]="chartPillarOptions.chart!"
+					[xaxis]="chartPillarOptions.xaxis!"
+					[yaxis]="chartPillarOptions.yaxis!"
+					[colors]="chartPillarOptions.colors!"
+					[tooltip]="chartPillarOptions.tooltip!"
+					[plotOptions]="chartPillarOptions.plotOptions!"
+					[legend]="chartPillarOptions.legend!"
+					[fill]="chartPillarOptions.fill!"
+					[states]="chartPillarOptions.states!"
+					[dataLabels]="chartPillarOptions.dataLabels!"
+					[stroke]="chartPillarOptions.stroke!"
+					[markers]="chartPillarOptions.markers!"
+					[grid]="chartPillarOptions.grid!"
+					class="cus_chart_right"></apx-chart>
+			</div>
+		</div>
+
+		<div class="ami-panel" *ngIf="chartOptions?.series">
+			<div class="ami-panel-title">
+				<span><i class="bi bi-pie-chart"></i> Country Overview</span>
+			</div>
+			<div class="ami-overview-stats">
+				<span><i class="ami-ov-dot ami-ov-dot-1"></i> Total: <b>{{ countryHistory?.totalCountry ?? 0 }}</b></span>
+				<span><i class="ami-ov-dot ami-ov-dot-2"></i> Manual Active: <b class="g">{{ countryHistory?.activeCountry ?? 0 }}</b></span>
+				<span><i class="ami-ov-dot ami-ov-dot-3"></i> Manual InProgress: <b class="g">{{ countryHistory?.inprocessCountry ?? 0 }}</b></span>
+				<span><i class="ami-ov-dot ami-ov-dot-4"></i> Manual Completed: <b>{{ countryHistory?.compeleteCountry ?? 0 }}</b></span>
+				<span><i class="ami-ov-dot ami-ov-dot-5"></i> AI Finalized: <b class="g">{{ countryHistory?.finalizeCountry ?? 0 }}</b></span>
+				<span><i class="ami-ov-dot ami-ov-dot-6"></i> AI Pending Review: <b>{{ countryHistory?.unFinalize ?? 0 }}</b></span>
+			</div>
+			<div class="ami-chart-host">
+				<apx-chart [series]="chartOptions.series!"
+					[chart]="chartOptions.chart!"
+					[plotOptions]="chartOptions.plotOptions!"
+					[labels]="chartOptions.labels!"
+					[legend]="chartOptions.legend!"
+					[colors]="chartOptions.colors!">
+				</apx-chart>
+			</div>
+		</div>
+	</div>
+
+	<div class="ami-index-section" *ngIf="selectedCountries">
+		<div class="signal-dashboard-wrap embedded ami-themed">
+			<div class="dashboard_control_bar">
+				<nav class="tab_head" aria-label="Dashboard modes">
+					<button class="tab_btn" [class.active]="activeTab === 'stress'" (click)="setActiveTab('stress')">
+						<i class="bi" [ngClass]="getTabIcon('stress')"></i>
+						<span>Market System Stress Test</span>
+					</button>
+					<button class="tab_btn" [class.active]="activeTab === 'warning'" (click)="setActiveTab('warning')">
+						<i class="bi" [ngClass]="getTabIcon('warning')"></i>
+						<span>Strategic Early Warning</span>
+					</button>
+					<button class="tab_btn" [class.active]="activeTab === 'resilience'" (click)="setActiveTab('resilience')">
+						<i class="bi" [ngClass]="getTabIcon('resilience')"></i>
+						<span>Market System Resilience Scorecard</span>
+					</button>
+				</nav>
+			</div>
+
+			<ng-container *ngIf="!signalLoading">
+				<section class="tab_body" *ngIf="getActiveDashboard() as dashboard">
+					<div class="pem_hero" [class.pem_hero--warning]="activeTab === 'warning'" [class.pem_hero--resilience]="activeTab === 'resilience'">
+						<div class="pem_hero_icon">
+							<i class="bi" [ngClass]="getTabIcon(activeTab)"></i>
+						</div>
+						<div class="pem_hero_content">
+							<span class="pem_hero_label">{{ dashboard.modeName }}</span>
+							<h3>{{ getSignalCountryName() }}</h3>
+							<p *ngIf="dashboard.description">{{ dashboard.description }}</p>
+							<p *ngIf="hasScore(getAverageScore(dashboard)); else noAvgHeroAdmin">
+								Average score {{ formatScore(getAverageScore(dashboard)) }}/100 ·
+								{{ getReportingCount(dashboard) }} of {{ getTotalQuestionCount(dashboard) }} indicators reporting
+							</p>
+							<ng-template #noAvgHeroAdmin>
+								<p>{{ getReportingCount(dashboard) }} of {{ getTotalQuestionCount(dashboard) }} indicators mapped · awaiting scores</p>
+							</ng-template>
+						</div>
+						<div class="pem_hero_stats">
+							<div class="pem_stat">
+								<span>Reporting</span>
+								<strong>{{ getReportingCount(dashboard) }}/{{ getTotalQuestionCount(dashboard) }}</strong>
+							</div>
+							<div class="pem_stat" *ngIf="getQuestions(dashboard)[0] as firstQuestion">
+								<span>{{ getQuestionName(firstQuestion) }}</span>
+								<strong>{{ formatScore(firstQuestion.aiScore) }}</strong>
+							</div>
+							<div class="pem_stat" *ngIf="getQuestions(dashboard)[1] as secondQuestion">
+								<span>{{ getQuestionName(secondQuestion) }}</span>
+								<strong>{{ formatScore(secondQuestion.aiScore) }}</strong>
+							</div>
+						</div>
+					</div>
+					<div class="section_header">
+						<h4 class="section_title">
+							<i class="bi bi-grid-3x3-gap-fill"></i>
+							Indicator Cards
+						</h4>
+						<span class="section_hint">One card per mapped indicator</span>
+					</div>
+
+					<div class="card_grid">
+						<div class="signal_card signal_card--clickable" *ngFor="let question of getQuestions(dashboard)"
+							[ngClass]="[getQuestionAccentClass(question), isAlertQuestion(question) ? 'signal_card--alert' : '', !hasScore(question.aiScore) ? 'signal_card--no-data' : '']"
+							(click)="openQuestionDetails(question)">
+							<div class="signal_card_orb" aria-hidden="true"></div>
+							<div class="live_tag" *ngIf="activeTab === 'warning' && isAlertQuestion(question)">
+								<i class="bi bi-exclamation-triangle-fill"></i> Alert
+							</div>
+							<div class="signal_card_header">
+								<div class="signal_icon_ring" [ngClass]="getDisplayConditionClass(question.aiScore, question.aiUpdatedAt, question)"
+									[style.--ring-value]="getSignalProgress(question.aiScore) + '%'">
+									<div class="signal_icon_well">
+										<i class="bi" [ngClass]="getQuestionIconClass(question)"></i>
+									</div>
+								</div>
+								<div class="signal_header_meta">
+									<h4>{{ getQuestionName(question) }}</h4>
+								</div>
+							</div>
+							<div class="signal_value_row">
+								<span class="signal_label" matTooltip="AI">🤖: </span>
+								<div class="score_value">
+									<span class="signal_value">{{ formatScore(question.aiScore) }}</span>
+									<span class="signal_value_unit" *ngIf="hasScore(question.aiScore)">/ 100</span>
+								</div>
+								<span class="condition_badge"
+									[ngClass]="getDisplayConditionClass(question.aiScore, question.aiUpdatedAt, question)">
+									{{ getDisplayCondition(question.aiScore, question.aiUpdatedAt, question).condition || 'No Data' }}
+								</span>
+							</div>
+							<div class="signal_freshness_row" *ngIf="hasScore(question.aiScore)">
+								<span class="signal_verified_meta">{{ getLastVerifiedLabel(question.aiUpdatedAt) }}</span>
+							</div>
+							<div class="progress_track" *ngIf="hasScore(question.aiScore)"
+								[class.progress_track--carried]="isCarriedForward(question.aiUpdatedAt)">
+								<div class="progress_fill animated shimmer" [style.width.%]="getSignalProgress(question.aiScore)"></div>
+							</div>
+							<p class="signal_no_data" *ngIf="!hasScore(question.aiScore)">Score not available for this indicator yet.</p>
+
+							<div class="signal_value_row">
+								<span class="signal_label" matTooltip="Manual">👤: </span>
+								<div class="score_value">
+									<span class="signal_value">{{ formatScore(question.evaluationScore) }}</span>
+									<span class="signal_value_unit" *ngIf="hasScore(question.evaluationScore)">/ 100</span>
+								</div>
+								<span class="condition_badge"
+									[ngClass]="getDisplayConditionClass(question.evaluationScore, question.manualUpdatedAt, question, 'manual')">
+									{{ getDisplayCondition(question.evaluationScore, question.manualUpdatedAt, question, 'manual').condition || 'No Data' }}
+								</span>
+							</div>
+							<div class="signal_freshness_row" *ngIf="hasScore(question.evaluationScore)">
+								<span class="signal_verified_meta">{{ getLastVerifiedLabel(question.manualUpdatedAt) }}</span>
+							</div>
+							<div class="progress_track" *ngIf="hasScore(question.evaluationScore)"
+								[class.progress_track--carried]="isCarriedForward(question.manualUpdatedAt)">
+								<div class="progress_fill animated shimmer" [style.width.%]="getSignalProgress(question.evaluationScore)"></div>
+							</div>
+							<p class="signal_no_data" *ngIf="!hasScore(question.evaluationScore)">Score not available for this indicator yet.</p>
+
+							<span class="signal_view_hint"><i class="bi bi-box-arrow-up-right"></i> View details</span>
+						</div>
+					</div>
+
+					<div class="glance_charts_section">
+						<div class="section_header">
+							<h4 class="section_title">
+								<i class="bi bi-bar-chart-line"></i>
+								At a Glance
+							</h4>
+							<span class="section_hint">Compare all indicator scores and status distribution</span>
+						</div>
+
+						<div class="glance_charts_grid">
+							<div class="glance_chart_card">
+								<h5><i class="bi bi-bar-chart-steps"></i> Score Comparison</h5>
+								<apx-chart
+									*ngIf="glanceBarChartOptions.series"
+									[series]="glanceBarChartOptions.series!"
+									[chart]="glanceBarChartOptions.chart!"
+									[plotOptions]="glanceBarChartOptions.plotOptions!"
+									[xaxis]="glanceBarChartOptions.xaxis!"
+									[yaxis]="glanceBarChartOptions.yaxis!"
+									[dataLabels]="glanceBarChartOptions.dataLabels!"
+									[grid]="glanceBarChartOptions.grid!"
+									[colors]="glanceBarChartOptions.colors!"
+									[tooltip]="glanceBarChartOptions.tooltip!"
+									[legend]="glanceBarChartOptions.legend!"
+									[stroke]="glanceBarChartOptions.stroke!">
+								</apx-chart>
+							</div>
+
+							<div class="glance_chart_card">
+								<h5><i class="bi bi-pie-chart"></i> Status Distribution</h5>
+								<apx-chart
+									*ngIf="glanceDonutChartOptions.series"
+									[series]="glanceDonutChartOptions.series!"
+									[chart]="glanceDonutChartOptions.chart!"
+									[labels]="glanceDonutChartOptions.labels!"
+									[colors]="glanceDonutChartOptions.colors!"
+									[legend]="glanceDonutChartOptions.legend!"
+									[dataLabels]="glanceDonutChartOptions.dataLabels!"
+									[plotOptions]="glanceDonutChartOptions.plotOptions!"
+									[tooltip]="glanceDonutChartOptions.tooltip!">
+								</apx-chart>
+							</div>
+						</div>
+					</div>
+				</section>
+			</ng-container>
+
+			<div *ngIf="signalLoading" class="loader_main">
+				<div class="loader"></div>
+			</div>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="isLoader" class="loader_main">
+	<div class="loader"></div>
+</div>
+
+<div class="modal fade modal_design signal_detail_modal" id="adminSignalDetailModal" tabindex="-1" aria-hidden="true">
+	<div class="modal-dialog modal-xl modal-dialog-centered">
+		<div class="modal-content signal_detail_content" *ngIf="selectedQuestion">
+			<div class="modal-header signal_detail_header">
+				<div class="signal_detail_title_wrap">
+					<div class="signal_detail_icon">
+						<i class="bi" [ngClass]="getQuestionIconClass(selectedQuestion)"></i>
+					</div>
+					<h5 class="modal-title mb-0">
+						{{ getQuestionName(selectedQuestion) }}
+					</h5>
+				</div>
+				<button type="button" class="btn-close" (click)="closeQuestionDetails()"> </button>
+			</div>
+			<div class="modal-body">
+				<div class="ai_manual_split">
+					<div class="split_card ai_card">
+						<div class="meta_row">
+							<strong class="meta_label">🤖 AI Details :</strong>
+							<span class="meta_value">{{ formatDate(selectedQuestion.aiUpdatedAt) }}</span>
+						</div>
+						<div class="detail_item">
+							<span>Score</span>
+							<strong>{{ formatScore(selectedQuestion.aiScore) }}/100</strong>
+						</div>
+						<div class="detail_item">
+							<span>Condition</span>
+							<strong>{{ getDisplayCondition(selectedQuestion.aiScore, selectedQuestion.aiUpdatedAt, selectedQuestion).condition || 'No Data' }}</strong>
+						</div>
+						<div class="detail_item">
+							<span>Updated</span>
+							<strong>{{ getLastVerifiedShort(selectedQuestion.aiUpdatedAt) }}</strong>
+						</div>
+						<div class="detail_item">
+							<span>Indicator</span>
+							<strong>{{ selectedQuestion.questionDescription }}</strong>
+						</div>
+						<div class="detail_item">
+							<span>Interpretation</span>
+							<strong>{{ selectedQuestion.condition || 'No Data' }}</strong>
+							<!-- <p>{{ getDisplayCondition(selectedQuestion.aiScore, selectedQuestion.aiUpdatedAt, selectedQuestion).description }}</p> -->
+						</div>
+						<div class="detail_item">
+							<span>Interpretation Description</span>
+							<strong>{{ selectedQuestion.conditionDescription }}</strong>
+						</div>
+					</div>
+					<div class="split_divider">||</div>
+					<div class="split_card manual_card">
+						<div class="meta_row">
+							<strong class="meta_label">👤 Manual Details :</strong>
+							<span class="meta_value">{{ formatDate(selectedQuestion.manualUpdatedAt) }}</span>
+						</div>
+						<div class="detail_item">
+							<span>Score</span>
+							<strong>{{ formatScore(selectedQuestion.evaluationScore) }}/100</strong>
+						</div>
+						<div class="detail_item">
+							<span>Condition</span>
+							<strong>{{ getDisplayCondition(selectedQuestion.evaluationScore, selectedQuestion.manualUpdatedAt, selectedQuestion, 'manual').condition || 'No Data' }}</strong>
+						</div>
+						<div class="detail_item">
+							<span>Updated</span>
+							<strong>{{ getLastVerifiedShort(selectedQuestion.manualUpdatedAt) }}</strong>
+						</div>
+						<div class="detail_item">
+							<span>Indicator</span>
+							<strong>{{ selectedQuestion.questionDescription }}</strong>
+						</div>
+						<div class="detail_item">
+							<span>Interpretation</span>
+							<strong>{{ selectedQuestion.manualCondition }}</strong>
+						</div>
+						<div class="detail_item">
+							<span>Interpretation Description</span>
+							<strong>{{ selectedQuestion.manualDescriptor }}</strong>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

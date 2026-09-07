@@ -1,21 +1,21 @@
 import { AssessmentPhase } from "../enums/AssessmentPhase";
 
 export interface GetAssessmentResponse {
-  assessmentID: number;
-  staffProgramMappingID: number;
-  createdAt: Date | string;
-  climateProgramID: number;
-  programName: string;
+  assessmentID:number;
+  userCountryMappingID:number
+  createdAt:Date | string;
+  countryID: number;
+  continent: string;
+  countryName: string;
   isActive: boolean;
   userID: number;
   userName: string;
-  userRole: string;
-  score?: number | null; // float in C# maps to number in TS
+  score?: number |null;   // float in C# maps to number in TS
   assignedByUser: string;
   assignedByUserId: number;
-  assessmentPhase?: AssessmentPhase;
+  assessmentPhase?:AssessmentPhase;
   assessmentYear: number;
-  totalIndeterminate?: number;
+  totalUnknown?: number;
   totalNA?: number;
 }
 
@@ -44,8 +44,8 @@ export interface AssessmentWithProgressVM {
   currentProgress:number
 }
 
-export interface GetProgramSubmitionHistoryResponseDto {
-  climateProgramID: number;
+export interface GetCountrySubmitionHistoryResponseDto {
+  countryID: number;
   totalAssessment: number;
   score: number;
   aiScore: number;

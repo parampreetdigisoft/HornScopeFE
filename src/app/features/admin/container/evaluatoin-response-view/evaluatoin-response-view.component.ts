@@ -4,7 +4,7 @@ import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { ActivatedRoute } from '@angular/router';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
-import { GetAssessmentQuestionRequestDto, GetProgramProgressHistoryRequestDto } from 'src/app/core/models/AssessmentRequest';
+import { GetAssessmentQuestionRequestDto } from 'src/app/core/models/AssessmentRequest';
 import { GetAssessmentQuestionResponseDto } from 'src/app/core/models/AssessmentResponse';
 import { SortDirection } from 'src/app/core/enums/SortDirection';
 import { AdminService } from '../../admin.service';
@@ -17,7 +17,7 @@ import { AdminService } from '../../admin.service';
 export class EvaluatoinResponseViewComponent implements OnInit {
   selectedPiller: PillarsVM | null = null;
   pillers: PillarsVM[] = [];
-  selectedPillarId: number | any = '';
+  selectedPillarId: number | null = null;
   userName: string | any = "";
   assessmentID: number | any = 0;
   questionResponse: PaginationResponse<GetAssessmentQuestionResponseDto> | undefined;
@@ -38,14 +38,10 @@ export class EvaluatoinResponseViewComponent implements OnInit {
     this.getAssessmentQuestions();
     this.GetAllPillars();
     this.getAssessmentProgressHistory();
-  }
 
-  getAssessmentProgressHistory(){
-    var payload: GetProgramProgressHistoryRequestDto = {
-      staffProgramMappingID: 0,
-      assessmentID: this.assessmentID ?? 0
-    }
-    this.adminService.getAssessmentProgressHistory(payload).subscribe(res=>{
+  }
+    getAssessmentProgressHistory(){
+    this.adminService.getAssessmentProgressHistory(this.assessmentID).subscribe(res=>{
      if(res.succeeded){
        this.userService.assessmentProgress.next(res.result);
      }
@@ -71,13 +67,13 @@ export class EvaluatoinResponseViewComponent implements OnInit {
       pageSize: this.pageSize,
       userId: this.userService?.userInfo?.userID,
       assessmentID:this.assessmentID,
-      pillarID:this.selectedPillarId
+      pillarID: this.selectedPillarId || null,
     }
-    this.adminService.getAssessmentQuestions(payload).subscribe(programs => {
-      this.questionResponse = programs;
-      this.totalRecords = programs.totalRecords;
+    this.adminService.getAssessmentQuestoins(payload).subscribe(countries => {
+      this.questionResponse = countries;
+      this.totalRecords = countries.totalRecords;
       this.currentPage = currentPage;
-      this.pageSize = programs.pageSize;
+      this.pageSize = countries.pageSize;
       this.isLoader = false;
     });
   }

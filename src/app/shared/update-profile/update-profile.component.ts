@@ -1,15 +1,16 @@
 import {
   Component,
+  ElementRef,
   EventEmitter,
   Input,
   OnChanges,
   OnInit,
   Output,
   SimpleChanges,
+  ViewChild,
 } from "@angular/core";
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import { catchError, debounceTime, map, Observable, of, switchMap } from "rxjs";
-import { ElementRef, ViewChild } from "@angular/core";
 import { UserInfo } from "src/app/core/models/UserInfo";
 import { AdminService } from "src/app/features/admin/admin.service";
 import { environment } from "src/environments/environment";
@@ -20,28 +21,27 @@ import { environment } from "src/environments/environment";
   styleUrl: "./update-profile.component.css",
 })
 export class UpdateProfileComponent implements OnInit, OnChanges {
-  selectedFile: any;
+  selectedFile: File | null = null;
+  selectedImage: string | ArrayBuffer | null = null;
   @Input() loading: boolean = false;
   isSubmitted = false;
   @Input() userinfo: UserInfo | undefined | null = null;
-  @ViewChild('fileInput') fileInput!: ElementRef<HTMLInputElement>;
-  @ViewChild('imageInput') imageInput!: ElementRef;
+  @ViewChild("fileInput") fileInput!: ElementRef<HTMLInputElement>;
   @Output() updateUserEvent: any = new EventEmitter();
   @Output() closeModelEvent: any = new EventEmitter();
-  
-  selectedImage: string | ArrayBuffer | null = null;
   userForm: FormGroup<any> = this.fb.group({});
   urlBase = environment.apiUrl;
   constructor(private fb: FormBuilder, private adminService:AdminService) {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (this.fileInput) {
-      this.fileInput.nativeElement.value = '';
+    if (changes["userinfo"]) {
+      this.resetImageSelection();
     }
-    this.selectedImage = null;
-    //this.initializeForm();
   }
 
+  get selectedFileName(): string {
+    return this.selectedFile?.name || "No file chosen";
+  }
   ngOnInit(): void {
     this.initializeForm();
   }
@@ -53,41 +53,40 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
       this.userForm = this.fb.group({
         fullName: [this.userinfo.fullName, [Validators.required]],
         phone: [this.userinfo.phone, [Validators.required]],
-        email: this.fb.control(
-        this.userinfo?.email,
-        {
-          validators: [Validators.required, Validators.email],
-          asyncValidators: [this.emailExistsValidator()],
+        email: [this.userinfo.email, {
+          validators: [
+            Validators.required,
+            Validators.email
+          ],
+          asyncValidators: [
+            this.emailExistsValidator()
+          ],
           updateOn: 'blur'
-        }
-      ),
+        }],
         profileImage: [],
         is2FAEnabled:[this.userinfo.is2FAEnabled]
       });
     }
   }
+
   emailExistsValidator(): AsyncValidatorFn {
-      return (control: AbstractControl): Observable<ValidationErrors | null> => {
-    
-        if (!control.value) {
-          return of(null);
-        }
-    
-        return of(control.value).pipe(
-          debounceTime(500),
-          switchMap(email =>
-            this.adminService.checkEmailExist({
-              email: email,
-              userId: this.userinfo?.userID ?? 0
-            })
-          ),
-          map((exists: boolean) => {      
-            return exists ? { emailExists: true } : null;
-          }),
-          catchError(() => of(null))
-        );
-      };
-    }
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+
+      if (!control.value || !control.dirty) {
+        return of(null);
+      }
+
+      return this.adminService.checkEmailExist({
+        email: control.value,
+        userId: this.userinfo?.userID ?? 0
+      }).pipe(
+        map((exists: boolean) =>
+          exists ? { emailExists: true } : null
+        ),
+        catchError(() => of(null))
+      );
+    };
+  }
   updateUser(fullName: string, email: string, phone:string,is2FAEnabled:boolean, profileImage?: File) {  
     const formData = new FormData();
     formData.append("FullName", fullName);
@@ -95,7 +94,7 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     formData.append("Phone", phone);
     formData.append("UserID", `${this.userinfo?.userID ?? 0}`);
     formData.append("Is2FAEnabled", `${is2FAEnabled ?? 0}`);
-    if (profileImage) {
+    if (this.selectedFile) {
       formData.append("ProfileImage", this.selectedFile);
     }
     this.updateUserEvent.emit(formData);
@@ -109,18 +108,21 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     }
   }
 
-  onFileSelected(event: any) {
+  onFileSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     if (!input.files || input.files.length === 0) {
+      this.resetImageSelection();
       return;
     }
 
     const file = input.files[0];
-    if (!file.type.startsWith('image/')) {
+    if (!file.type.startsWith("image/")) {
+      this.resetImageSelection();
       return;
     }
 
     this.selectedFile = file;
+    this.userForm.patchValue({ profileImage: file });
 
     const reader = new FileReader();
     reader.onload = () => {
@@ -129,7 +131,16 @@ export class UpdateProfileComponent implements OnInit, OnChanges {
     reader.readAsDataURL(file);
   }
 
+  resetImageSelection(): void {
+    this.selectedFile = null;
+    this.selectedImage = null;
+    if (this.fileInput?.nativeElement) {
+      this.fileInput.nativeElement.value = "";
+    }
+  }
+
   closeModel() {
+    this.resetImageSelection();
     this.closeModelEvent.emit();
   }
     numberOnly(event: KeyboardEvent): void {

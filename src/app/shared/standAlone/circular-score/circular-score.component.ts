@@ -15,49 +15,59 @@ export class CircularScoreComponent implements OnInit, OnChanges {
   commonService = inject(CommonService);
   @Input() value: number | null = null;
   @Input() tooltipText: string = '';
+  /** Optional center label (e.g. absolute count) while `value` drives the ring 0–100. */
+  @Input() centerText: string | null = null;
 
   formattedValue: string = '';
   symbol: string = '';
   circumference: number = 2 * Math.PI * 20;
   dashOffset: number = 0;
+  isShortValue = false;
+  isLongValue = false;
+  isNegative = false;
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
 
-  }
   ngOnChanges(changes: SimpleChanges): void {
     if (this.value === null || isNaN(this.value)) {
       this.formattedValue = 'NA';
+      this.isShortValue = true;
+      this.isLongValue = false;
+      this.isNegative = false;
+      this.dashOffset = this.circumference;
       return;
     }
 
     const val = Number(this.value);
+    this.isNegative = val < 0;
     this.formattedValue = val == 100 || val == 0 ? val.toFixed(0) : val.toFixed(2);
+    this.isShortValue = this.formattedValue.length <= 3;
+    this.isLongValue = this.formattedValue.length >= 5;
 
-    // Calculate dash offset for animation
-    const progress = val / 100;
+    const progress = Math.min(Math.abs(val) / 100, 1);
     this.dashOffset = this.circumference * (1 - progress);
   }
 
+  /** Ring stroke — high scores gold, low scores bronze/danger, negatives alert */
   getColor(value: number): string {
-    const colors = this.commonService.PillarColors;
-
-    if (value >= 90) return colors[0];
-    else if (value >= 80) return colors[1];
-    else if (value >= 70) return colors[2];
-    else if (value >= 60) return colors[3];
-    else if (value >= 50) return colors[4];
-    else if (value >= 40) return colors[5];
-    else if (value >= 30) return colors[6];
-    else if (value >= 20) return colors[7];
-    else if (value >= 10) return colors[8];
-    else return colors[9];
+    if (value < 0) return '#B5502E';
+    if (value >= 90) return '#E7C878';
+    if (value >= 80) return '#D4B45E';
+    if (value >= 70) return '#C9A24A';
+    if (value >= 60) return '#B7A25A';
+    if (value >= 50) return '#A67C3D';
+    if (value >= 40) return '#8A5A2B';
+    if (value >= 30) return '#C46A3A';
+    if (value >= 20) return '#B5502E';
+    if (value >= 10) return '#8B887E';
+    return '#8B887E';
   }
-  getColorR(value: number): string {
-    const colors = this.commonService.PillarColors;
 
-    if (value >= 80) return colors[5];
-    else if (value >= 60) return colors[4];
-    else if (value >= 40) return colors[9];
-    else return colors[1];
+  /** Center label — high contrast on dark tables */
+  getColorR(value: number): string {
+    if (value < 0) return '#E08A6A';
+    if (value >= 70) return '#EFE7D6';
+    if (value >= 40) return '#E7C878';
+    return '#E08A6A';
   }
 }

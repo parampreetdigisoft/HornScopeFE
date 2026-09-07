@@ -7,6 +7,7 @@ import { SidebarComponent } from "./sidebar/sidebar.component";
 import { PaginationComponent } from "./pagination/pagination.component";
 import { PromptComponent } from "./prompt/prompt.component";
 import { NgSelectModule } from "@ng-select/ng-select";
+import { NgSelectDefaultsDirective } from "./directives/ng-select-defaults.directive";
 import { AlphaOnlyDirective } from "./directives/alpha-only.directive";
 import { NumberOnlyDirective } from "./directives/number-only.directive";
 import { AlphSomeSepecialDirective } from "./directives/alph-some-sepecial.directive";
@@ -45,6 +46,7 @@ import { ChatContainerComponent } from "./chatbox/chat-container/chat-container.
     ReactiveFormsModule,
     FormsModule,
     NgSelectModule,
+    NgSelectDefaultsDirective,
     AgCharts,
     MatTableModule,
     MatButtonModule,
@@ -66,6 +68,7 @@ import { ChatContainerComponent } from "./chatbox/chat-container/chat-container.
     FormsModule,
     PromptComponent,
     NgSelectModule,
+    NgSelectDefaultsDirective,
     AlphaOnlyDirective,
     NumberOnlyDirective,
     AlphSomeSepecialDirective,

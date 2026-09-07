@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { ProgramVM } from 'src/app/core/models/ProgramVM';
+import { CountryVM } from 'src/app/core/models/CountryVM';
 import { PaginationUserRequest } from 'src/app/core/models/PaginationRequest';
 import { PaginationResponse } from 'src/app/core/models/PaginationResponse';
 import { ToasterService } from 'src/app/core/services/toaster.service';
@@ -8,7 +8,7 @@ import { UserService } from 'src/app/core/services/user.service';
 import { EvaluatorService } from '../../evaluator.service';
 import { ActivatedRoute } from '@angular/router';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
-import { GetAssessmentQuestionRequestDto, GetProgramProgressHistoryRequestDto } from 'src/app/core/models/AssessmentRequest';
+import { GetAssessmentQuestionRequestDto } from 'src/app/core/models/AssessmentRequest';
 import { GetAssessmentQuestionResponseDto } from 'src/app/core/models/AssessmentResponse';
 import { SortDirection } from 'src/app/core/enums/SortDirection';
 
@@ -37,7 +37,7 @@ export class AssessmentViewResultComponent implements OnInit {
       this.assessmentID = params.get('assessmentID');
       this.userName = params.get('userName');
     });
-    this.getAssessmentQuestions();
+    this.getAssessmentQuestoins();
     this.GetAllPillars();
     this.getAssessmentProgressHistory();
   }
@@ -48,11 +48,7 @@ export class AssessmentViewResultComponent implements OnInit {
     });
   }
   getAssessmentProgressHistory() {
-    var payload: GetProgramProgressHistoryRequestDto = {
-      staffProgramMappingID: 0,
-      assessmentID: this.assessmentID ?? 0
-    };
-    this.evaluatorService.getAssessmentProgressHistory(payload).subscribe(res => {
+    this.evaluatorService.getAssessmentProgressHistory(this.assessmentID).subscribe(res => {
       if (res.succeeded) {
         this.userService.assessmentProgress.next(res.result);
       }
@@ -62,7 +58,7 @@ export class AssessmentViewResultComponent implements OnInit {
     });
   }
 
-  getAssessmentQuestions(currentPage: number = 1) {
+  getAssessmentQuestoins(currentPage: number = 1) {
     this.questionResponse = undefined;
     this.isLoader = true;
     let payload: GetAssessmentQuestionRequestDto = {
@@ -74,11 +70,11 @@ export class AssessmentViewResultComponent implements OnInit {
       assessmentID: this.assessmentID,
       pillarID: this.selectedPillarId
     }
-    this.evaluatorService.getAssessmentQuestions(payload).subscribe(programs => {
-      this.questionResponse = programs;
-      this.totalRecords = programs.totalRecords;
+    this.evaluatorService.getAssessmentQuestoins(payload).subscribe(countries => {
+      this.questionResponse = countries;
+      this.totalRecords = countries.totalRecords;
       this.currentPage = currentPage;
-      this.pageSize = programs.pageSize;
+      this.pageSize = countries.pageSize;
       this.isLoader = false;
     });
   }

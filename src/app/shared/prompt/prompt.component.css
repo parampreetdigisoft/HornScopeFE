@@ -1,124 +1,235 @@
+/* ============================================================
+   AMI Prompt Modal — used across admin / analyst / evaluator
+   Gold / bronze / cream dark console language
+   ============================================================ */
+
 :host {
   display: contents;
 }
 
-.modal.prompt_modal .modal-content {
-  background: linear-gradient(180deg, #0B1633 0%, #09122A 100%);
-  color: var(--Text-Color, #E8EEF8);
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22));
-  border-radius: 16px;
-  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.5);
+.ami-prompt-modal .modal-dialog {
+  max-width: 440px;
+  margin: 1.25rem auto;
+  animation: amiPromptRise 0.34s cubic-bezier(0.2, 0.8, 0.3, 1) both;
+}
+
+@keyframes amiPromptRise {
+  from {
+    opacity: 0;
+    transform: translateY(18px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.ami-prompt-card {
+  position: relative;
   overflow: hidden;
+  border-radius: 16px !important;
+  border: 1px solid rgba(201, 162, 74, 0.35) !important;
+  background:
+    radial-gradient(ellipse at top, rgba(201, 162, 74, 0.12), transparent 55%),
+    linear-gradient(165deg, #1B1810 0%, #141209 48%, #0A0906 100%) !important;
+  box-shadow:
+    0 24px 64px rgba(0, 0, 0, 0.55),
+    0 0 0 1px rgba(231, 200, 120, 0.08) inset !important;
+  color: #EFE7D6;
 }
 
-h5.modal-title {
-  color: var(--Text-Color, #E8EEF8);
-  font-size: 20px;
-  font-style: normal;
-  font-weight: 600;
-  text-align: center;
-  line-height: normal;
-  text-transform: capitalize;
-  width: 100%;
-  margin-bottom: 10px;
-}
-
-.modal-body {
-  color: var(--Light-Text-Color, #9AADC4);
-  font-size: 14px;
-  font-style: normal;
-  font-weight: 400;
-  text-align: center;
-  line-height: 1.5;
-  text-transform: none;
-  padding: 8px 28px 20px;
-}
-
-.modal-body,
-.modal-header,
-.modal-footer {
-  border: none !important;
-  background: transparent;
-}
-
-button.btn {
-  border-radius: 10px;
-  display: flex;
-  height: 46px;
-  padding: 13px 15px;
-  justify-content: center;
-  align-items: center;
-}
-
-button.btn-close {
+.ami-prompt-card::before {
+  content: '';
   position: absolute;
-  top: 12px;
-  right: 12px;
-  filter: invert(1) grayscale(1);
-  opacity: 0.7;
+  left: 24px;
+  right: 24px;
+  top: 0;
+  height: 2px;
+  border-radius: 0 0 2px 2px;
+  background: linear-gradient(90deg, transparent, #E7C878, #C9A24A, transparent);
+  animation: amiPromptShimmer 2.8s ease-in-out infinite;
 }
 
-button.btn-close:hover {
-  opacity: 1;
+@keyframes amiPromptShimmer {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 1; }
 }
 
-.modal-header {
-  padding-top: 28px;
+.ami-prompt-header,
+.ami-prompt-body,
+.ami-prompt-footer {
+  border: none !important;
+}
+
+.ami-prompt-header {
+  padding: 28px 28px 8px !important;
+  display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  background: transparent !important;
 }
 
-.modal-header svg {
-  width: 48px;
-  height: 48px;
-}
-
-.modal-footer {
+.ami-prompt-icon {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
   justify-content: center;
-  gap: 10px;
-  padding-bottom: 24px;
+  background: rgba(201, 162, 74, 0.12);
+  border: 1px solid rgba(201, 162, 74, 0.4);
+  box-shadow: 0 0 0 6px rgba(201, 162, 74, 0.06);
+  animation: amiPromptPulse 2.4s ease-in-out infinite;
 }
 
-.modal-footer button {
-  width: 34%;
-  min-width: 110px;
-  color: #fff;
-  font-size: 15px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: normal;
+.ami-prompt-icon svg {
+  width: 28px;
+  height: 28px;
 }
 
-button.btn.btn_cancel {
-  border-radius: 10px;
-  color: var(--Accent-Lime, #A8E063) !important;
-  border: 1px solid rgba(92, 140, 200, 0.35);
-  background: transparent;
-  transition: 0.25s all;
+@keyframes amiPromptPulse {
+  0%, 100% { box-shadow: 0 0 0 6px rgba(201, 162, 74, 0.06); }
+  50% { box-shadow: 0 0 0 10px rgba(201, 162, 74, 0.12); }
 }
 
-button.btn.btn_cancel:hover {
-  background-color: rgba(59, 158, 255, 0.16) !important;
-  color: #ffffff !important;
-  border: 1px solid var(--Accent-Blue, #3B9EFF);
+.ami-prompt-close {
+  position: absolute !important;
+  top: 14px !important;
+  right: 14px !important;
+  filter: invert(1) brightness(1.2);
+  opacity: 0.7;
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 
-button.btn.btn_confirm,
-button.btn.btn-danger {
-  border-radius: 10px;
-  background: linear-gradient(135deg, #4CAF50 0%, #3d9c40 100%) !important;
-  border: 1px solid rgba(168, 224, 99, 0.35) !important;
-  color: #fff !important;
-  box-shadow: 0 6px 16px rgba(76, 175, 80, 0.28);
+.ami-prompt-close:hover {
+  opacity: 1;
+  transform: rotate(90deg);
 }
 
-button.btn.btn_confirm:hover,
-button.btn.btn-danger:hover {
-  background: linear-gradient(135deg, #57c25b 0%, #449e48 100%) !important;
-  color: #fff !important;
-}
-
-button.btn-close:focus,
-button.btn-close:focus-visible {
+.ami-prompt-close:focus,
+.ami-prompt-close:focus-visible {
   box-shadow: none !important;
+}
+
+.ami-prompt-body {
+  padding: 8px 32px 8px !important;
+  text-align: center;
+  color: #EFE7D6 !important;
+  background: transparent !important;
+}
+
+.ami-prompt-title {
+  width: 100%;
+  margin: 0 0 10px;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.35rem;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: #EFE7D6 !important;
+  text-transform: none;
+  animation: amiPromptFade 0.4s ease 0.05s both;
+}
+
+.ami-prompt-message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 400;
+  color: #9C9484 !important;
+  text-transform: none;
+  animation: amiPromptFade 0.4s ease 0.1s both;
+}
+
+@keyframes amiPromptFade {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.ami-prompt-footer {
+  padding: 20px 28px 28px !important;
+  display: flex !important;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+  background: transparent !important;
+}
+
+.ami-prompt-btn {
+  min-width: 118px;
+  height: 44px;
+  padding: 10px 20px !important;
+  border-radius: 10px !important;
+  font-size: 14px !important;
+  font-weight: 600 !important;
+  line-height: 1.2 !important;
+  display: inline-flex !important;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease, color 0.2s ease !important;
+}
+
+.ami-prompt-btn--ghost {
+  color: #E7C878 !important;
+  background: rgba(201, 162, 74, 0.08) !important;
+  border: 1px solid rgba(201, 162, 74, 0.45) !important;
+}
+
+.ami-prompt-btn--ghost:hover {
+  background: rgba(201, 162, 74, 0.18) !important;
+  border-color: #E7C878 !important;
+  color: #EFE7D6 !important;
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(201, 162, 74, 0.16);
+}
+
+.ami-prompt-btn--solid {
+  color: #0A0906 !important;
+  border: 1px solid transparent !important;
+  background: linear-gradient(135deg, #E7C878 0%, #C9A24A 48%, #8A5A2B 100%) !important;
+  box-shadow: 0 6px 18px rgba(201, 162, 74, 0.32);
+}
+
+.ami-prompt-btn--solid:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 26px rgba(201, 162, 74, 0.42);
+  filter: brightness(1.05);
+}
+
+/* Legacy class hooks scoped to this prompt only */
+.ami-prompt-modal h5.modal-title {
+  color: #EFE7D6;
+  text-align: center;
+}
+
+.ami-prompt-modal .modal-body {
+  color: #9C9484;
+  text-align: center;
+}
+
+.ami-prompt-modal button.btn.btn_cancel {
+  border-radius: 10px;
+  color: #E7C878 !important;
+  border: 1px solid rgba(201, 162, 74, 0.45);
+  background: rgba(201, 162, 74, 0.08);
+}
+
+.ami-prompt-modal button.btn.btn_cancel:hover {
+  background: rgba(201, 162, 74, 0.18) !important;
+  color: #EFE7D6 !important;
+}
+
+.ami-prompt-modal button.btn-close:focus,
+.ami-prompt-modal button.btn-close:focus-visible {
+  box-shadow: none !important;
+}
+
+@media (max-width: 575px) {
+  .ami-prompt-footer {
+    flex-direction: column;
+  }
+
+  .ami-prompt-btn {
+    width: 100%;
+  }
 }

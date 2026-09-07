@@ -1,36 +1,35 @@
 <section class="vui_before_login vui_before_signup">
-  <div class="ahi_auth_shell ahi_auth_shell--signup">
+  <div class="ami_auth_shell ami_auth_shell--signup">
 
-    <aside class="ahi_auth_brand">
-      <div class="ahi_auth_brand_inner">
-        <figure class="vui_logo">
-          <a><img src="assets/images/Logo-climate-pulse.png" alt="Horn Scope"></a>
+    <aside class="ami_auth_brand">
+      <div class="ami_auth_brand_inner">
+        <figure class="vui_logo ami_auth_logo_plate">
+          <a><img src="assets/images/Logo-market-large.png" alt="Africa Market Intelligence"></a>
         </figure>
 
-        <span class="ahi_signup_brand_name">Horn Scope</span>
-        <span class="ahi_auth_badge"><i class="bi bi-globe-africa"></i> Client Account Portal</span>
+        <span class="ami_auth_badge"><i class="bi bi-globe-africa"></i> Client Portal</span>
 
-        <div class="ahi_aevum_chip">
+        <div class="ami_aevum_chip">
           <i class="bi bi-stars"></i>
           <div>
-            <strong>VCP Aevum</strong>
-            <span>Your AI climate pulse copilot</span>
+            <strong>AMI Market</strong>
+            <span>Your AI market intelligence copilot</span>
           </div>
         </div>
 
-        <h2 class="ahi_auth_brand_title">Join the climate pulse platform</h2>
-        <p class="ahi_auth_brand_desc">
-          Create your account to unlock climate program dashboards, AI-powered analysis with Aevum, and real-time health signals for national teams.
+        <h2 class="ami_auth_brand_title">Join the intelligence platform built for Africa</h2>
+        <p class="ami_auth_brand_desc">
+          Unlock country dashboards, AMI Aevum analysis, and real-time market signals for national teams.
         </p>
 
-        <ul class="ahi_auth_features">
+        <ul class="ami_auth_features">
           <li>
             <i class="bi bi-graph-up-arrow"></i>
             <span>Interactive dashboards with pillar scores and trend analytics</span>
           </li>
           <li>
             <i class="bi bi-robot"></i>
-            <span>Talk to VCP Aevum — your AI copilot for climate program insights</span>
+            <span>Talk to AMI Aevum — your AI copilot for country insights</span>
           </li>
           <li>
             <i class="bi bi-shield-check"></i>
@@ -44,17 +43,17 @@
       </div>
     </aside>
 
-    <div class="vui_before_login_cards ahi_auth_card ahi_auth_card--signup">
+    <div class="vui_before_login_cards ami_auth_card ami_auth_card--signup">
       <form [formGroup]="signupForm" (ngSubmit)="submit()">
 
-        <div class="ahi_signup_form_head">
-          <div class="ahi_signup_form_head_icon">
+        <div class="ami_signup_form_head">
+          <div class="ami_signup_form_head_icon">
             <i class="bi bi-person-plus"></i>
           </div>
           <div>
-            <h4 class="before_login_card_head ahi_auth_card_head">Create your account</h4>
-            <p class="before_login_card_desc mb-0">Sign up for the Horn Scope System (VCP).</p>
-            <span class="ahi_aevum_tag"><i class="bi bi-stars"></i> Powered by VCP Aevum AI Copilot</span>
+            <h4 class="before_login_card_head ami_auth_card_head">Create your account</h4>
+            <p class="before_login_card_desc mb-0">Sign up for the Africa Market Intelligence System (AMI).</p>
+            <span class="ami_aevum_tag"><i class="bi bi-stars"></i> Powered by AMI Market AI Copilot</span>
           </div>
         </div>
 
@@ -62,8 +61,8 @@
         <div class="row g-2">
           <div class="col-md-6">
             <div class="input_field">
-              <label class="form-label ahi_form_label"><i class="bi bi-person"></i><span>Full name</span></label>
-              <input type="text" formControlName="fullName" appAlphaOnly placeholder="Enter full name" class="form-control" />
+              <label class="form-label ami_form_label"><i class="bi bi-person"></i><span>Full name</span></label>
+              <input type="text" formControlName="fullName" appAlphaOnly placeholder="Your full name" class="form-control" />
               @if(f['fullName'] !=null && f['fullName'].touched && f['fullName'].errors){
               @if(f['fullName'].errors['required']){<div class="error-msg">Full name is required.</div>}
               @else if(f['fullName'].errors['minlength']){<div class="error-msg">Minimum 3 characters required.</div>}
@@ -72,7 +71,7 @@
           </div>
           <div class="col-md-6">
             <div class="input_field">
-              <label class="form-label ahi_form_label"><i class="bi bi-envelope"></i><span>Email</span></label>
+              <label class="form-label ami_form_label"><i class="bi bi-envelope"></i><span>Email</span></label>
               <input type="email" formControlName="email" placeholder="name@example.com" class="form-control" />
               @if(f['email'] !=null && f['email'].touched && f['email'].errors){
               @if(f['email'].errors['required']){<div class="error-msg">Email is required.</div>}
@@ -86,7 +85,7 @@
         <div class="row g-2">
           <div class="col-md-6">
             <div class="input_field">
-              <label class="form-label ahi_form_label"><i class="bi bi-telephone"></i><span>Phone</span></label>
+              <label class="form-label ami_form_label"><i class="bi bi-telephone"></i><span>Phone</span></label>
               <input type="tel" formControlName="phone" appNumberOnly placeholder="e.g. +919900112233" class="form-control" />
               @if(f['phone'] !=null && f['phone'].touched && f['phone'].errors){
               @if(f['phone'].errors['required']){<div class="error-msg">Phone is required.</div>}
@@ -97,7 +96,7 @@
 
           <div class="col-md-6">
             <div class="input_field password_eye">
-              <label class="form-label ahi_form_label"><i class="bi bi-lock"></i><span>Password *</span></label>
+              <label class="form-label ami_form_label"><i class="bi bi-lock"></i><span>Password *</span></label>
               <div class="position-relative">
                 <input type="password" formControlName="password" placeholder="Enter password" class="form-control"
                   #password style="appearance: none !important;">
@@ -118,7 +117,7 @@
 
           <div class="col-md-6">
             <div class="input_field password_eye">
-              <label class="form-label ahi_form_label"><i class="bi bi-lock-fill"></i><span>Confirm password *</span></label>
+              <label class="form-label ami_form_label"><i class="bi bi-lock-fill"></i><span>Confirm password *</span></label>
               <div class="position-relative">
                 <input class="form-control" [type]="confirmPasswordVisible ? 'text' : 'password'"
                   placeholder="Confirm password" formControlName="confirmPassword" #ConfirmPasswordField
@@ -136,44 +135,45 @@
             </div>
           </div>
 
-          <div class="col-12">
-            <div class="ahi_security_row">
-              <div class="ahi_2fa_inline">
-                <div class="form-check form-switch ps-0">
-                  <input class="form-check-input" type="checkbox" id="is2FAEnabled" style="cursor: pointer;"
-                    formControlName="is2FAEnabled" />
-                  <label class="form-check-label" for="is2FAEnabled" title="Receive an OTP on your email during login">
-                    <i class="bi bi-shield-lock"></i>
-                    <span>Enable Two-Factor Authentication</span>
-                  </label>
-                </div>
-                <small class="text-muted d-block mt-1 auth_text">
-                  <i class="bi bi-info-circle"></i>
-                  OTP sent to your email during login when enabled.
-                </small>
-              </div>
-              <div class="ahi_captcha_inline">
-                <label class="form-label ahi_form_label ahi_form_label--compact">
-                  <i class="bi bi-patch-check"></i><span>Verification</span>
+          <div class="col-md-6">
+            <div class="ami_2fa_inline">
+              <div class="form-check form-switch ps-0">
+                <input class="form-check-input" type="checkbox" id="is2FAEnabled" style="cursor: pointer;"
+                  formControlName="is2FAEnabled" />
+                <label class="form-check-label" for="is2FAEnabled" title="Receive an OTP on your email during login">
+                  <i class="bi bi-shield-lock"></i>
+                  <span>Enable 2FA</span>
                 </label>
-                <div class="ahi_captcha_box">
-                  <re-captcha (resolved)="resolved($event)" class="cus_capcha"></re-captcha>
-                </div>
-                <div class="text-danger mt-1" *ngIf="signupForm.get('recaptcha')?.touched && signupForm.get('recaptcha')?.invalid">
-                  Please verify that you are not a robot.
-                </div>
+              </div>
+              <small class="text-muted d-block auth_text">
+                <i class="bi bi-info-circle"></i>
+                OTP sent to your email at login.
+              </small>
+            </div>
+          </div>
+
+          <div class="col-12">
+            <div class="ami_captcha_inline">
+              <label class="form-label ami_form_label ami_form_label--compact">
+                <i class="bi bi-patch-check"></i><span>Verification</span>
+              </label>
+              <div class="ami_captcha_box">
+                <re-captcha (resolved)="resolved($event)" class="cus_capcha"></re-captcha>
+              </div>
+              <div class="text-danger mt-1" *ngIf="signupForm.get('recaptcha')?.touched && signupForm.get('recaptcha')?.invalid">
+                Please verify that you are not a robot.
               </div>
             </div>
           </div>
         </div>
 
-        <button type="submit" class="common_button w-100 mt-3" [disabled]="signupForm.invalid">
+        <button type="submit" class="common_button w-100 mt-2" [disabled]="signupForm.invalid">
           <i class="bi bi-person-check me-1"></i> Create Account
           @if(loading()){<span class="spinner-border spinner-border-sm ms-2"></span>}
         </button>
 
         <div class="text-center mt-2">
-          <span class="text-muted ahi_signup_footer_hint">Already have an account?</span>
+          <span class="text-muted" style="font-size: 13px;">Already have an account?</span>
           <a [routerLink]="['/auth/clientPortalLogin']" class="vui_reset_pass_link d-inline-block ms-1">
             <i class="bi bi-box-arrow-in-right"></i> Log In
           </a>
@@ -184,7 +184,7 @@
       <div class="or">
         <span>or sign up with</span>
       </div>
-      <div class="row g-2 ahi_signup_social">
+      <div class="row g-2 ami_signup_social">
         <div class="col-md-6">
           <div id="googleBtn"></div>
         </div>

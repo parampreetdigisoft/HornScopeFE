@@ -1,33 +1,66 @@
 <ng-container *ngIf="!isLoader">
-  <div class="heading_area">
-    <div class="row justify-content-between align-items-center gap-2">
-      <div class="col-md-auto">
-        <h3 class="page_head">Assessment Comparison</h3>
-      </div>
-      <div class="col-md-6">
-        <div class="input_field input_flex">
-          <select [(ngModel)]="selectedPillarID" name="piller" class="form-control" (change)="getResponsesByUserId()">
-            <option value="">All Pillars</option>
-            <option *ngFor="let piller of pillers" [value]="piller.pillarID">
-              {{ piller.pillarName }}
-            </option>
-          </select>
-          <ng-select [items]="programs" [searchable]="true" [searchFn]="customSearchFn"
-          [placeholder]="filterProgram > 0 ? '' : 'Search Program..'" [(ngModel)]="filterProgram" (change)="getResponsesByUserId()"
-          bindValue="climateProgramID" bindLabel="programName" class="form-control">
+<div class="heading_area">
+  <div class="kpi_compare_toolbar">
+    <h3 class="page_head">Assessment Comparison</h3>
+    <div class="kpi_compare_toolbar__actions">
+      <div class="compare_select kpi_compare_select">
+        <ng-select [items]="domainOptions"
+          bindValue="pillarID"
+          bindLabel="pillarName"
+          [(ngModel)]="selectedPillarID"
+          (change)="getResponsesByUserId()"
+          [clearable]="false"
+          [searchable]="true"
+          [dropdownPosition]="'bottom'"
+          name="selectedPillarID"
+          placeholder="All Domains"
+          class="form-control analyst_multi_select">
           <ng-template ng-label-tmp let-item="item" class="select_item">
-            {{ item.programName }} {{ item.location }}
+            {{ item.pillarName }}
           </ng-template>
-
           <ng-template ng-option-tmp let-item="item">
-            {{ item.programName }}, {{ item.location }}
+            {{ item.pillarName }}
           </ng-template>
         </ng-select>
-        </div>
+      </div>
+      <div class="compare_select kpi_compare_select kpi_compare_select--year">
+        <ng-select
+          [items]="commonService.applicateYears"
+          [(ngModel)]="selectedYear"
+          (change)="getResponsesByUserId()"
+          [clearable]="false"
+          [searchable]="false"
+          [dropdownPosition]="'bottom'"
+          name="selectedYear"
+          class="form-control analyst_multi_select year_select">
+        </ng-select>
+      </div>
+      <div class="compare_select kpi_compare_select">
+        <ng-select [items]="countries"
+          [searchable]="true"
+          [searchFn]="customSearchFn"
+          [clearable]="false"
+          [placeholder]="selectedCountries ? '' : 'Search Country..'"
+          [(ngModel)]="selectedCountries"
+          (change)="getResponsesByUserId()"
+          bindValue="countryID"
+          bindLabel="countryName"
+          [dropdownPosition]="'bottom'"
+          name="selectedCountries"
+          class="form-control analyst_multi_select">
+          <ng-template ng-label-tmp let-item="item" class="select_item">
+            {{ item.countryName }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.countryName }}, {{ item.continent }} ({{ item.score?.toFixed(1) || "NA" }})
+          </ng-template>
+        </ng-select>
       </div>
     </div>
   </div>
- <div class="pillar-comparison-container">
+</div>
+
+  <div class="pillar-comparison-container">
     <div class="outer_graph">
       <apx-chart [series]="chartOptions.series!" [chart]="chartOptions.chart!" [xaxis]="chartOptions.xaxis!"
         [yaxis]="chartOptions.yaxis!" [dataLabels]="chartOptions.dataLabels!" [tooltip]="chartOptions.tooltip!"
@@ -38,18 +71,21 @@
     <!-- Pagination -->
     <ng-container *ngIf="totalRecords > pageSize">
       <div class="pagination-wrapper">
-        <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize"
-          [isLoader]="isLoader" (pageChange)="comparePrograms($event)">
+        <app-pagination [selectedYear]="selectedYear" [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize"
+          [isLoader]="isLoader" (pageChange)="compareCountries($event)">
         </app-pagination>
       </div>
     </ng-container>
   </div>
+
+
   <div class="row justify-content-between align-items-end mb-4">
     <div class="col-md-auto">
-      <h3 class="page_head mt-5 mb-3">Assessment Details</h3>
+      <h3 class="page_head mt-5 mb-3">Evaluator Details</h3>
     </div>
-    <div class="col-md-auto" >
-      <button class="common_button mb_15" [disabled]="isPillarHistoryDownloading" (click)="exportPillarsHistoryByUserId()">
+    <div class="col-md-auto">
+      <button [disabled]="isPillarHistoryDownloading" (click)="exportPillarsHistoryByUserId()"
+        class="common_button mb_15">
         Export
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="#ffffff" viewBox="0 0 256 256">
           <path
@@ -66,17 +102,17 @@
         <table [dataSource]="dataSource" mat-table multiTemplateDataRows class="mat-elevation-z8">
           <!-- Dynamic Columns -->
           <ng-container *ngFor="let column of displayedColumns" [matColumnDef]="column">
-            <th mat-header-cell *matHeaderCellDef>
-              {{ column == "pillarName" ? "Pillar Name" : userMap.get(+column) }}
+            <th *matHeaderCellDef mat-header-cell>
+              {{ column == "pillarName" ? "Domain Name" : userMap.get(+column) }}
             </th>
-            <td mat-cell *matCellDef="let element">
+            <td *matCellDef="let element" mat-cell>
               <div class="single_pillar">
                 <ng-container *ngIf="column === 'pillarName'">
-                  <div class="expand-toggle" (click)="toggleRow(element)">
+                  <div (click)="toggleRow(element)" class="expand-toggle">
                     <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect y="10.4961" width="24" height="3" rx="1.5" fill="white" />
+                      <rect y="10.4961" width="24" height="3" rx="1.5" fill="white"></rect>
                       <rect x="10.5" y="23.9961" width="24" height="3" rx="1.5" transform="rotate(-90 10.5 23.9961)"
-                        fill="white" />
+                        fill="white"></rect>
                     </svg>
                   </div>
                   <span class="pillar_name">
@@ -85,93 +121,117 @@
                 </ng-container>
                 <ng-container *ngIf="column !== 'pillarName'">
                   <span class="pillar_name">
-                    <span class="score_label">Total Score :</span>
-                    <span class="score_col">{{ element[column] ?? "-" }}</span>
+                    Total Score :
+                    <span class="score_col">
+                      {{ element[column] ?? "-" }}
+                    </span>
                   </span>
                 </ng-container>
               </div>
             </td>
           </ng-container>
 
+
+
           <!-- Header Row -->
-          <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+          <tbody>
+            <tr *matHeaderRowDef="displayedColumns" mat-header-row></tr>
 
-          <!-- Data Row -->
-          <tr mat-row *matRowDef="let row; columns: displayedColumns" class="row-element"
-            [class.expanded]="expandedElement === row"></tr>
 
-          <!-- Expanded Detail Row -->
-          <tr mat-row *matRowDef="let row; columns: ['detail']" class="detail-row"></tr>
 
-          <!-- Detail Column -->
-          <ng-container matColumnDef="detail">
-            <td mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
-              <!-- Sub-table only for expanded row -->
-              <div *ngIf="expandedElement === element" class="question_detail_panel">
-                <table mat-table [dataSource]="questionsPillars" class="mat-elevation-z2 w-full">
-                  <!-- Dynamic Question Columns -->
-                  <ng-container *ngFor="let col of displayedQuestionColumns" [matColumnDef]="col">
-                    <th mat-header-cell *matHeaderCellDef>
-                      {{ col == "question" ? "Questions" : userMap.get(+col) }}
-                    </th>
-                    <td mat-cell *matCellDef="let row; let i = index">
-                      <!-- Question Column -->
-                      <span *ngIf="col === 'question'" class="question_name_single">
-                        {{ i + 1 }} - {{ row.question }}
-                      </span>
+            <!-- Data Row -->
+            <tr *matRowDef="let row; columns: displayedColumns" [class.expanded]="expandedElement === row" mat-row
+              class="row-element"></tr>
 
-                      <!-- User Columns -->
-                      <ng-container *ngIf="col !== 'question'">
-                        <ng-container *ngIf="
+
+
+            <!-- Expanded Detail Row -->
+            <tr *matRowDef="let row; columns: ['detail']" mat-row class="detail-row"></tr>
+
+
+
+            <!-- Detail Column -->
+            <ng-container matColumnDef="detail">
+              <td *matCellDef="let element" [attr.colspan]="displayedColumns.length" mat-cell>
+                <!-- Sub-table only for expanded row -->
+                <div *ngIf="expandedElement === element" class="bg-gray-50 rounded">
+                  <table [dataSource]="questionsPillars" mat-table class="mat-elevation-z2 w-full">
+                    <!-- Dynamic Question Columns -->
+                    <ng-container *ngFor="let col of displayedQuestionColumns" [matColumnDef]="col">
+                      <th *matHeaderCellDef mat-header-cell>
+                        {{ col == "question" ? "Questions" : userMap.get(+col) }}
+                      </th>
+                      <td *matCellDef="let row; let i = index" mat-cell>
+                        <!-- Question Column -->
+                        <span *ngIf="col === 'question'" class="question_name_single">
+                          {{ i + 1 }} - {{ row.question }}
+                        </span>
+
+
+
+                        <!-- User Columns -->
+                        <ng-container *ngIf="col !== 'question'">
+                          <ng-container *ngIf="
                             row[col]?.optionText && row[col]?.justification;
                             else noData
                           ">
-                          <span class="question_score_wrap" [matTooltip]="row[col]?.optionText">
-                            <b>Score:</b> {{ row[col]?.score ?? "-" }}
-                          </span>
-                          <div class="expand-toggle">
-                            <span [matTooltip]="row[col]?.justification">
-                              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5"
-                                stroke="currentColor" class="size-6">
-                                <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 
+                            <span [matTooltip]="row[col]?.optionText">
+                              <b>Score:</b>
+                              {{ row[col]?.score ?? "-" }}
+                            </span>
+                            <div class="expand-toggle">
+                              <span [matTooltip]="row[col]?.justification">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
+                                  stroke-width="1.5" stroke="currentColor" class="size-6">
+                                  <path stroke-linecap="round" stroke-linejoin="round" d="M7.5 8.25h9m-9 3H12m-9.75 1.51c0 1.6 
                                   1.123 2.994 2.707 3.227 1.129.166 2.27.293 
                                   3.423.379.35.026.67.21.865.501L12 21l2.755-4.133a1.14 
                                   1.14 0 0 1 .865-.501 48.172 48.172 0 0 0 
                                   3.423-.379c1.584-.233 2.707-1.626 
                                   2.707-3.228V6.741c0-1.602-1.123-2.995-2.707-3.228A48.394 
                                   48.394 0 0 0 12 3c-2.392 0-4.744.175-7.043.513C3.373 
-                                  3.746 2.25 5.14 2.25 6.741v6.018Z" />
-                              </svg>
-                            </span>
-                          </div>
+                                  3.746 2.25 5.14 2.25 6.741v6.018Z"></path>
+                                </svg>
+                              </span>
+                            </div>
+                          </ng-container>
+                          <ng-template #noData>-</ng-template>
                         </ng-container>
-                        <ng-template #noData>
-                          <span class="question_cell_empty">—</span>
-                        </ng-template>
-                      </ng-container>
-                    </td>
-                  </ng-container>
+                      </td>
+                    </ng-container>
 
-                  <!-- Sub-table header & rows -->
-                  <tr mat-header-row *matHeaderRowDef="displayedQuestionColumns"></tr>
-                  <tr mat-row *matRowDef="let row; columns: displayedQuestionColumns"></tr>
-                </table>
-              </div>
-            </td>
-          </ng-container>
+
+
+                    <!-- Sub-table header & rows -->
+                    <tbody>
+                      <tr *matHeaderRowDef="displayedQuestionColumns" mat-header-row></tr>
+                      <tr *matRowDef="let row; columns: displayedQuestionColumns" mat-row></tr>
+                    </tbody>
+                  </table>
+                </div>
+              </td>
+            </ng-container>
+          </tbody>
         </table>
       </ng-container>
+
+
 
       <ng-container *ngIf="pillarColumns?.length == 0 && !isLoader">
         <div class="no_result_found">
           <div class="no_result_found_inner">
-            <h3><i class="fas fa-search"></i> No Result Found</h3>
+            <h3>
+              <i class="fas fa-search"></i>
+              No Result Found
+            </h3>
           </div>
         </div>
       </ng-container>
     </div>
   </div>
 </ng-container>
+
+
 
 <div *ngIf="isLoader" class="loader_main">
   <div class="loader"></div>

@@ -3,46 +3,49 @@ import { CommonModule } from '@angular/common';
 import { AdminComponent } from './component/admin.component';
 import { AdminRoutingModule } from './admin-routing.module';
 import { SharedModule } from 'src/app/shared/share.module';
+import { CountryComponent } from './container/country/country.component';
 import { PillarComponent } from './container/pillar/pillar.component';
 import { QuestionComponent } from './container/question/question.component';
 import { AssesmentComponent } from './container/assesment/assesment.component';
 import { AddUpdateAnalystComponent } from './features/add-update-analyst/add-update-analyst.component';
+
 import { AnalystViewComponent } from './container/analyst-view/analyst-view.component';
 import { AddUpdateQuestionComponent } from './features/add-update-question/add-update-question.component';
 import { EvaluatoinResponseViewComponent } from './container/evaluatoin-response-view/evaluatoin-response-view.component';
 import { UpdatePillarComponent } from './features/update-pillar/update-pillar.component';
 import { QuillModule } from 'ngx-quill';
-import { AdminPulseDashboardComponent } from './container/admin-pulse-dashboard/admin-pulse-dashboard.component';
+import { AdminDashboardComponent } from './container/admin-dashboard/admin-dashboard.component';
 import { ComparisionComponent } from './container/comparision/comparision.component';
 import { TransterAssessmentComponent } from './features/transter-assessment/transter-assessment.component';
-import { AddUpdateProgramComponent } from './features/add-update-program/add-update-program.component';
-import { ClientViewComponent } from './container/client-view/client-view.component';
-import { AddUpdateClientComponent } from './features/add-update-client/add-update-client.component';
-import { ProgramsComponent } from './container/programs/programs.component';
+import { KpiComparisionComponent } from './container/kpi-comparision/kpi-comparision.component';
+import { KpiLayersComponent } from './container/kpi-layers/kpi-layers.component';
+import { AddUpdateCountryComponent } from './features/add-update-country/add-update-country.component';
+import { CountryUserViewComponent } from './container/country-user-view/country-user-view.component';
+import { AddUpdateCountryUserComponent } from './features/add-update-country-user/add-update-country-user.component';
 
 @NgModule({
   declarations: [
     AdminComponent,
-    ProgramsComponent,
+    CountryComponent,
     PillarComponent,
     QuestionComponent,
     AssesmentComponent,
     AddUpdateAnalystComponent,
-    AddUpdateProgramComponent,
+    AddUpdateCountryComponent,
     AnalystViewComponent,
     AddUpdateQuestionComponent,
     EvaluatoinResponseViewComponent,
     UpdatePillarComponent,
+    AdminDashboardComponent,
     ComparisionComponent,
     TransterAssessmentComponent,
-    ClientViewComponent,
-    AddUpdateClientComponent,
+    CountryUserViewComponent,
+    AddUpdateCountryUserComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
     AdminRoutingModule,
-    AdminPulseDashboardComponent,
     QuillModule.forRoot({
       theme: 'snow',
       format: 'html' ,

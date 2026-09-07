@@ -1,0 +1,106 @@
+.no_result_found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+.no_result_found h3{    
+    font-weight: 700;
+}
+
+.bold_num {
+    color: #c5b538;
+    font-weight: 800;
+}
+
+.export-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+.export-count {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: #ffffff;
+    color: #463a0c;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 50%;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    box-shadow: 0 0 0 2px #5c530e;
+}
+
+.action-header {
+  color: var(--Light-Text-Color);
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 20px;
+  padding: 12px 15px;
+  border-bottom: 0;
+}
+
+.action-header-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.global_Checkbox {
+  width: 16px;
+  height: 16px;
+  cursor: pointer;
+  accent-color: #3e7b69; 
+}
+
+
+
+::ng-deep .analyst_multi_select .ng-option-selected {
+  background-color: rgba(201, 162, 74, 0.18) !important;
+  color: #C9A24A !important;
+  font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+  background-color: rgba(201, 162, 74, 0.14) !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+    border: none !important;
+    background-color: #1B1810 !important;
+    min-height: auto !important;
+    height: 100% !important;
+}
+::ng-deep .compare_select  .ng-select-container:hover {
+    box-shadow: none !important;
+}
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    box-shadow: none !important;
+}
+
+/* ::ng-deep .ng-select .ng-select-container .ng-value-container .ng-placeholder{
+    padding-left: 10px;
+} */
+
+::ng-deep .compare_select .ng-value-container .ng-value {
+    white-space: nowrap;
+    padding: 2px 5px !important;
+    border-radius: 5px !important;
+    background-color: #C9A24A !important;
+    color: #EFE7D6 !important;
+}
+::ng-deep .analyst_multi_select .ng-clear-wrapper {
+    width: auto !important;
+    height: 100%;
+    order: 3;
+}
+::ng-deep .analyst_multi_select .ng-arrow-wrapper{
+    padding-right: 0 !important;
+}

@@ -1,5 +1,5 @@
 {
-  "name": "climate-pulse-frontend",
+  "name": "health-intelligence-frontend",
   "version": "0.0.1",
   "scripts": {
     "ng": "ng",
@@ -31,7 +31,7 @@
     "file-saver": "^2.0.5",
     "jwt-decode": "^4.0.0",
     "marked": "^12.0.2",
-    "ng-apexcharts": "1.8.0",
+    "ng-apexcharts": "^1.8.0",
     "ng-recaptcha": "^13.2.1",
     "ngx-quill": "^25.1.2",
     "ngx-stripe": "^17.2.0",

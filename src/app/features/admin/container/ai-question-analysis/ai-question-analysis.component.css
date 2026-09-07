@@ -3,6 +3,7 @@
     /* set your desired width */
 }
 
+
 .input_flex {
     display: flex;
     align-items: center;
@@ -16,7 +17,7 @@
 }
 
 .medium {
-    background-color: #fff3cd;
+    background-color: #443616;
     color: #856404;
     border: 1px solid #ffe69c !important;
 }
@@ -27,29 +28,14 @@
     border: 1px solid #75d69c !important;
 }
 
-.indeterminate {
-    background-color: #e0e0e0 !important;
-    color: #6c757d !important;
-    border: 1px solid #d6d6d6 !important;
-}
-
-.action_icons_view_details{
-    display: inline-block;
-    background-color: #164074 !important;
-    padding: 8px 10px;
-    white-space: nowrap;
-    color: #ffffff;
-    border-radius: 5px;
-}
-
 .input_flex select {
     flex: 1;
     background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
     background-repeat: no-repeat;
     background-position: center right 13px;
-    color: #7a7a7a;
+    color: #EFE7D6;
     height: auto;
-    background-color: var(--Surface-Elevated);
+    background-color: #1B1810;
     min-height: 36px;
     align-items: center;
     font-family: "Poppins", sans-serif !important;
@@ -60,7 +46,7 @@
     appearance: none !important;
     border-radius: 12px !important;
     padding: 10px 30px 10px 10px !important;
-    border: 1px solid var(--Border-Color) !important;
+    border: 1px solid #332C1D !important;
 }
 
 .action_td input[type="checkbox"] {
@@ -80,8 +66,8 @@
 
 .kpi_td_data .bold_num,
 ::ng-deep .kpi_sidebar app-view-city-detail .bold_num {
-    background: var(--Primary-Color);
-    color: #ffffff;
+    background: #463407;
+    color: #EFE7D6;
     padding: 2px 8px;
     border-radius: 0.5rem;
     display: inline-block;
@@ -89,19 +75,19 @@
     margin-top: 8px;
 }
 
-::ng-deep .kpi_sidebar app-view-city-detail .program_card_outter .program_card_img img {
+::ng-deep .kpi_sidebar app-view-city-detail .city_card_outter .city_card_img img {
     max-width: 300px;
 }
 
-::ng-deep .kpi_sidebar app-view-city-detail .program_card_outter .program_card_inner {
+::ng-deep .kpi_sidebar app-view-city-detail .city_card_outter .city_card_inner {
     padding: 10px 0px;
 }
 
-::ng-deep .kpi_sidebar app-view-city-detail .program_card_outter .program_card_inner .program_cards_h1 {
+::ng-deep .kpi_sidebar app-view-city-detail .city_card_outter .city_card_inner .city_cards_h1 {
     font-size: 24px;
 }
 
-::ng-deep .kpi_sidebar .program_cards_disc {
+::ng-deep .kpi_sidebar .city_cards_disc {
     margin: 10px 0 0px !important;
     font-size: 14px;
 }
@@ -131,10 +117,10 @@
 
 .compare_city_table tbody td.action_td table .action_icons span {
     display: inline-block;
-    background-color: var(--Primary-Color);
+    background-color: #8f702b;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #ffffff;
+    color: #fff3da;
     border-radius: 5px;
 }
 
@@ -142,23 +128,61 @@
     padding: 0 !important;
 }
 
-.compare_select .analyst_multi_select {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
+::ng-deep .analyst_multi_select .ng-option-selected {
+  background-color: rgba(201, 162, 74, 0.18) !important;
+  color: #C9A24A !important;
+  font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+  background-color: rgba(201, 162, 74, 0.14) !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+    border: none !important;
+    background-color: #1B1810 !important;
+    min-height: auto !important;
+    height: 100% !important;
+}
+::ng-deep .compare_select  .ng-select-container:hover {
+    box-shadow: none !important;
+}
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    box-shadow: none !important;
+}
+
+
+::ng-deep .compare_select .ng-value-container .ng-value {
+    white-space: nowrap;
+    padding: 2px 5px !important;
+    border-radius: 5px !important;
+    background-color: #C9A24A !important;
+    color: #EFE7D6 !important;
 }
 
 .compare_city_table table {
   table-layout: auto; /* keep responsive behavior */
   width: 100%;
 }
+
+:host .kpi_compare_toolbar .page_head {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+:host ::ng-deep .kpi_compare_toolbar .page_head app-typing-text,
+:host ::ng-deep .kpi_compare_toolbar .page_head .typing-text {
+  display: block;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
 .compare_city_table .city-col {
   min-width: 500px;      /* adjust as needed */
   white-space: normal;   /* allow wrapping */
   word-break: break-word;
-}
-.compare_city_table table tr {
-    border-color: rgb(255 255 255 / 22%);
 }
 
 @media only screen and (max-width:1550px) {
@@ -212,6 +236,9 @@
         padding-left: 10px;
         padding-right: 30px;
     }
+    ::ng-deep .compare_select .ng-value-container .ng-value {
+        font-size: 11px;
+    }
     .compare_select .analyst_multi_select .ng-input {
         padding-right: 30px;
     }
@@ -224,12 +251,13 @@
     }
 }
 
+
 /* Ai date css start */
 .research_date {
   display: inline-flex;
   align-items: center;
-  justify-content: center; /* 👈 center text */
-  min-width: 120px;         /* 👈 adjust as needed */
+  justify-content: center; /* center text */
+  min-width: 120px;         /* adjust as needed */
 
   gap: 6px;
   padding: 6px 14px;
@@ -248,23 +276,20 @@
 }
 
 .research_date.fresh {
-  background: linear-gradient(135deg, #e6fdf4, #d2f7eb);
-  color: #116c4a;
+  background: linear-gradient(135deg, #E8F0DC, #D5E4C4);
+  color: #1F3D2A;
 }
 .research_date.recent {
-  background: linear-gradient(135deg, #fff7df, #ffebba);
-  color: #8a6400;
+  background: linear-gradient(135deg, #FBF7F0, #d3a510);
+  color: #6c5201;
 }
 .research_date.old {
-  background: linear-gradient(135deg, #ffe9e6, #ffd1cb);
-  color: #912018;
-      margin: 0 auto;
-    display: block;
-    width: max-content;
+  background: linear-gradient(135deg, #F6E0DA, #E8C2B8);
+  color: #6B1F12;
 }
 .research_date.just-now {
-  background: linear-gradient(135deg, #e8f0ff, #d9e6ff);
-  color: #204ecf;
+  background: linear-gradient(135deg, #EFE7D6, #C9A24A);
+  color: #6c5201;
   animation: glow 1.8s ease-in-out infinite;
 }
 

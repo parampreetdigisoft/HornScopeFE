@@ -8,12 +8,12 @@ export interface ChatMessage {
 }
 
 export interface ChatContext {
-  program?: string;
+  country?: string;
   pillar?: string;
 }
 
-export interface ProgramChatRequestDto extends GlobalChatRequestDto {
-  climateProgramID: number;
+export interface CountryChatRequestDto extends GlobalChatRequestDto {
+  countryID: number;
   pillarID?: number | null;
 }
 
@@ -25,12 +25,12 @@ export interface GlobalChatRequestDto {
 
 export interface CrossComparisionChatRequestDto {
   questionText: string;
-  climateProgramIDs: number[];
+  countryIDs: number[];
   historyText: string | null;
 }
 
 export interface ChatResponseDto {
-  climateProgramID: number;
+  countryID: number;
   pillarID?: number | null;
   questionText: string;
   fAQID?: number | null;

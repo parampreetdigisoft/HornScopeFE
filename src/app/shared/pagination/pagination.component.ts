@@ -15,10 +15,12 @@ export class PaginationComponent implements OnChanges {
   {
     this.ctx.detectChanges();
   }
+  currentYear = new Date().getFullYear();
   @Input() isLoader: boolean = false;
   @Input() currentPage: number = 1;
   @Input() totalPage: number = 0; // total items
   @Input() pageSize: number = 10;
+  @Input() selectedYear: number = new Date().getFullYear();
 
   @Output() pageChange = new EventEmitter<number>();
 
@@ -28,9 +30,14 @@ export class PaginationComponent implements OnChanges {
   get minValue(): number {
     return Math.min(this.pageSize * this.currentPage, this.totalPage);
   }
+  /** Coerce so string inputs from parents still mark the active page. */
+  isCurrentPage(page: number | string): boolean {
+    return typeof page === 'number' && Number(this.currentPage) === page;
+  }
+
   changePage(page: number | string): void {
     if (typeof page === 'string') return;
-    if (page < 1 || page > this.totalPages || page === this.currentPage) return;
+    if (page < 1 || page > this.totalPages || this.isCurrentPage(page)) return;
     this.pageChange.emit(page);
   }
 

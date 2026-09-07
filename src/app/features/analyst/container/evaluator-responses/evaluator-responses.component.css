@@ -1,191 +1,122 @@
+.kpi_compare_toolbar__actions--end {
+  justify-content: flex-end;
+  margin-left: auto;
+}
+
+.kpi_compare_toolbar__actions--end .kpi_compare_select {
+  flex: 0 0 auto;
+  width: 240px;
+}
+
+.kpi_compare_toolbar__actions--end .kpi_compare_select--year {
+  width: 120px;
+}
+
 .see_response {
-  border-radius: 50px;
-  border: 1px solid #7AC2AE;
-  padding: 5px 15px;
-  color: #7AC2AE;
-  font-size: 12px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 20px;
-  transition: 0.3s all;
+    border-radius: 50px;
+    border: 1px solid #7AC2AE;
+    padding: 5px 15px;
+    color: #7AC2AE;
+    /* font-family: 'Montserrat'; */
+    font-size: 12px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 20px;
+    transition: 0.3s all;
 }
-
 .see_response:hover {
-  border: 1px solid #304A43;
-  color: #304A43;
+    border: 1px solid #304A43;
+    color: #304A43;
 }
-
 .input_field {
-  margin-bottom: 0;
+    margin-bottom: 0;
+}
+.input_field .form-control {
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+    background-repeat: no-repeat;
+    background-position: center right 13px;
+    color: #EFE7D6;
+    height: auto;
+    background-color: #1B1810;
+    min-height: 36px;
+    align-items: center;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none !important;
+    border-radius: 12px !important;
+    padding: 10px 30px 10px 10px !important;
+    border: 1px solid #332C1D !important;
 }
 
 .inner_div {
-  gap: 20px;
+    grid-gap: 20px;
 }
 
 .input_flex {
-  display: flex;
-  align-items: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  justify-content: flex-end;
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    grid-gap: 10px;
+    justify-content: flex-end;
 }
 
-.heading_area .input_field {
-  flex: 1;
-  justify-content: flex-end;
-  display: flex;
-  margin: 0;
-  padding: 0;
-  min-width: 0;
-}
-
-.heading_area .input_field .vcp-filter-select {
-  flex: 0 1 280px;
-  min-width: 240px;
-  max-width: 280px;
-  width: 100%;
-}
-
-.heading_area .input_field ng-select.form-control {
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-select-container {
-  min-height: 44px !important;
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
-  border-radius: 12px !important;
-  background: var(--Surface-Elevated, #102044) !important;
-  box-shadow: none !important;
-  padding: 4px 8px 4px 12px !important;
-  color: var(--Text-Color, #E8EEF8) !important;
-  font-size: 13px !important;
-  font-weight: 400 !important;
-  transition:
-    border-color 0.22s ease,
-    box-shadow 0.22s ease,
-    background-color 0.22s ease,
-    transform 0.18s ease;
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-select-container:hover {
-  border-color: rgba(92, 140, 200, 0.42) !important;
-  background: #132a52 !important;
-  transform: translateY(-1px);
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-value-container {
-  padding-left: 0 !important;
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-placeholder,
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-value-label,
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-value,
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-input > input {
-  color: var(--Text-Color, #E8EEF8) !important;
-  font-size: 13px !important;
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-placeholder {
-  color: var(--Light-Text-Color, #9AADC4) !important;
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-arrow-wrapper {
-  padding-right: 4px !important;
-  transition: transform 0.22s ease;
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-arrow {
-  border-color: #9AADC4 transparent transparent !important;
-  transition: border-color 0.22s ease;
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select.ng-select-opened .ng-arrow-wrapper {
-  transform: rotate(180deg);
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container,
-:host ::ng-deep .heading_area .input_field .vcp-filter-select.ng-select-opened > .ng-select-container {
-  border-color: var(--Accent-Blue, #3B9EFF) !important;
-  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.18) !important;
-  transform: translateY(0);
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-clear-wrapper {
-  color: #9AADC4 !important;
-  transition: color 0.2s ease, transform 0.2s ease;
-}
-
-:host ::ng-deep .heading_area .input_field .vcp-filter-select .ng-clear-wrapper:hover {
-  color: #fff !important;
-  transform: scale(1.08);
+.input_flex select{
+    max-width: 234px;
+    width: 100%;
 }
 
 .no_result_found {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  margin-top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+.no_result_found h3{    
+    font-weight: 700;
 }
 
-.no_result_found h3 {
-  font-weight: 700;
+
+
+@media only screen and (max-width:1550px){
+    .heading_area .input_field .form-control {
+    width: 180px !important;
+}
+ .common_button {
+        font-size: 12px;
+    }
 }
 
-@media only screen and (max-width: 1550px) {
-  .heading_area .input_field .vcp-filter-select {
-    flex-basis: 220px;
-    min-width: 200px;
-    max-width: 220px;
-  }
+@media only screen and (max-width:1440px){
+    ::ng-deep .inner_content_area {
+        padding: 30px 20px !important;
+    }
+    .page_head {
+        font-size: 22px;
+    }
+    .heading_area .input_field {
+        flex: unset;
+    }
+    .common_button{
+        font-size: 12px;
+        padding: 9px 14px;
+    }
+    .heading_area .input_field .form-control{
+        width: 160px !important;
+        padding-right: 30px;
+    }
+    .header_btns{
+        justify-content: flex-end;
+    }
 }
 
-@media only screen and (max-width: 1440px) {
-  .page_head {
-    font-size: 22px;
-  }
-
-  .heading_area .input_field {
-    flex: unset;
-  }
-
-  .heading_area .input_field .vcp-filter-select {
-    flex-basis: 200px;
-    min-width: 180px;
-    max-width: 200px;
-  }
-}
-
-@media only screen and (max-width: 1339px) {
-  .custom_gap {
-    gap: 20px !important;
-  }
-
-  .input_flex {
-    justify-content: flex-start;
-  }
-}
-
-@media only screen and (max-width: 991px) {
-  .heading_area .input_field .vcp-filter-select {
-    flex: 1 1 calc(50% - 6px);
-    min-width: 160px;
-    max-width: 100%;
-  }
-}
-
-@media only screen and (max-width: 767px) {
-  .input_flex {
-    flex-direction: column;
-    align-items: stretch;
-  }
-
-  .heading_area .input_field .vcp-filter-select {
-    flex: 1 1 100%;
-    min-width: 0;
-    max-width: 100%;
-  }
+@media only screen and (max-width:1339px){
+    .header_btns{
+        justify-content: flex-start;
+    }
+    .custom_gap {
+        grid-gap: 20px !important;
+    }
 }

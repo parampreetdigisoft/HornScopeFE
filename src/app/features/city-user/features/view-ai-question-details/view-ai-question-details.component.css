@@ -1,0 +1,216 @@
+.cus_table .table th {
+    background-color: #77BD3E;
+    font-weight: 600;
+    color: #EFE7D6;
+    font-size: 14px;
+    white-space: nowrap;
+}
+
+.cus_table .score_label_tab {
+    background: #C9A24A;
+    color: #EFE7D6;
+    padding: 0.3rem 0.5rem;
+    border-radius: 0.5rem;
+    display: inline-flex;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.cus_table .table td {
+    font-size: 1.3rem;
+    border-bottom: 1px solid #332C1D;
+    vertical-align: middle;
+}
+
+.cus_table .table td:first-child {
+    width: 200px;
+    max-width: 100%;
+}
+
+.cus_table .table {
+    margin: 0;
+}
+
+.cus_table {
+    border-radius: 1rem;
+    overflow: hidden;
+    box-shadow: 0 0 2rem #00000021;
+    /* height: 100%; */
+}
+
+.cus_table .table tr:last-child td {
+    border: 0;
+}
+
+h4.kpi_head_col {
+    font-size: 2.2rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    color: #304a43;
+}
+
+
+.city_pillar+app-ag-bar {
+    border-radius: 15px;
+    background-color: #1B1810;
+    overflow: hidden;
+    display: flex;
+}
+
+::ng-deep .city_pillar + app-ag-bar > div {
+    width: 100%;
+}
+
+span:empty, div:empty{
+    display: none;
+}
+.integrate_outter {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.kpi_table tr td {
+    font-size: 13px !important;
+}
+.kpi_table tr td {
+    font-size: 13px !important;
+}
+.integrate_list {
+    flex: 1;
+    border-radius: 15px;
+    overflow: hidden;
+    border: 1px solid #1B1810;
+    box-shadow: none !important;
+    margin-bottom: 20px;
+}
+.integrate_outter .outer_graph {
+    width: 300px;
+    max-width: 100%;
+}
+::ng-deep .integrate_outter .outer_graph ag-charts{
+    height: 270px !important;
+}
+
+::ng-deep .ag-charts-wrapper {
+    /* transform: scale(0.8); */
+    max-width: 100%;
+}
+
+.kpi_score_list {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+}
+.kpi_cat_name{
+    flex: 1;    
+}
+
+.kpi_custom_table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 0;
+  font-family: "Montserrat", sans-serif;
+}
+
+.kpi_custom_table th {
+  background-color: #77BD3E;
+  color: #EFE7D6;
+  font-weight: 600;
+  padding: 8px;
+  border: 1px solid #332C1D;
+  font-size: 13px;
+}
+
+.kpi_custom_table td {
+  padding: 8px;
+  border: 1px solid #332C1D;
+  transition: background-color 0.2s;
+  font-size: 14px;    
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+}
+
+.kpi_custom_table tr:nth-child(even) {
+  background-color: #1B1810;
+}
+
+/* .kpi_custom_table tr:hover td {
+  background-color: #1B1810;
+} */
+ /* .cross-pillar {
+    background-color: #1B1810;
+    padding: 30px;
+    border-radius: 30px;
+    border: 1px solid #332C1D;
+} */
+.cross-pillar h5{
+    font-weight: 700;
+    color: #000000;
+}
+.city_pillar {
+    background-color: #1B1810;
+    padding: 20px;
+    position: relative;
+    border-radius: 15px;
+    border: 1px solid #332C1D;
+}
+.cross-pillar_outter{
+    border: 1px solid #332C1D;
+    padding: 20px;
+    border-radius: 15px;
+}
+.active_row td {
+    background-color: #C9A24A;
+    color: #EFE7D6;
+}
+.active_row td .score_label_tab {
+    background-color: rgba(255,255,255,0.08) !important;
+}
+.last_data td {
+    background-color: #C9A24A;
+    color: #EFE7D6;
+    text-align: center;
+}
+.last_data td span {
+    color: #EFE7D6;
+    background-color: #77BD3E;
+    white-space: nowrap;
+    padding: 5px 8px;
+    border-radius: 30px;
+    border: none;
+}
+
+button.btn-close:focus,
+button.btn-close:focus-visible {
+    box-shadow: 0 0 0 3px rgb(48 74 67); /* greenish glow */
+    outline: none; /* remove default outline */
+}
+
+
+.integrate_outter .cross-pillar {
+    width: 100%;
+    margin-bottom: 20px;
+}
+.offcanvas-header .typing-text {
+    font-size: 16px;
+}
+#offcanvasLabel {
+    font-size: 20px;
+}
+
+::ng-deep .cus_table .table td a:hover {
+    color: var(--Accent-Lime, #87ad58) !important;
+    text-decoration: underline;
+}
+
+::ng-deep .cross-pillar_outter .typing-text {
+    font-size: 14px;
+}
+
+::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track {
+    border: 1px solid #141209;
+}
+::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track .score-dot, ::ng-deep .kpi_custom_table app-sparkline-score .sparkline-track .segment {
+    border: 1px solid #141209 !important;
+}

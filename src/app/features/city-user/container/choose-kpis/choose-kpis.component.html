@@ -1,0 +1,108 @@
+<div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+        <div class="modal-body">
+            <div class="alert alert-info text-center mb-4 rounded-3 shadow-sm">
+                <h4>Customize Your Access</h4><br />
+                <ng-container *ngIf="!isPremium">
+                    Select the <b>Domains</b>, and <b>Countries</b> you want to work with.
+                    You’ll only be able to view and manage data for the items you choose here.
+                </ng-container>
+                <ng-container *ngIf="isPremium">
+                    Premium includes <b>all pillars</b>. Choose countries by selection or assign <b>All Countries</b>.
+                </ng-container>
+            </div>
+
+
+            <div class="modal_tabs multi_select">
+
+
+                <div class="tab-content" id="pills-tabContent">
+                    <div class="tab-pane fade show active" id="pills-home">
+                        <form [formGroup]="kpiForm" (ngSubmit)="onSubmit()">
+                            <div class="input_field" *ngIf="!isPremium">
+                                <label>Select Domains *</label>
+                                <ng-select [items]="pillars" bindValue="pillarID" bindLabel="pillarName"
+                                    formControlName="pillars" [multiple]="true" [closeOnSelect]="false"
+                                    [searchable]="true"
+                                    class="form-control analyst_multi_select"
+                                    [placeholder]="kpiForm.get('pillars')?.invalid ? 'Select Domains' : ''"
+                                    (change)="checkSelectionLimit('pillars')" [trackByFn]="trackByFn" appendTo="body">
+                                    <ng-template ng-label-tmp let-item="item">
+                                        {{ item.pillarName }}
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.pillarName }}
+                                    </ng-template>
+                                </ng-select>
+
+
+                                <div class="error-msg"
+                                    *ngIf="kpiForm.get('pillars')?.invalid && (isSubmitted || kpiForm.get('pillars')?.touched)">
+                                    Please select at least one pillar.
+                                </div>
+                                <div *ngIf="limitMessages['pillars']" class="text-danger small mt-1">
+                                    {{ limitMessages['pillars'] }}
+                                </div>
+                            </div>
+                            <div class="input_field" *ngIf="isPremium">
+                                <label>Domains</label>
+                                <p class="mb-0">Premium includes access to all domains automatically.</p>
+                            </div>
+
+                            <div class="input_field" *ngIf="isPremium">
+                                <label>Geographic Access *</label>
+                                <div class="d-flex flex-wrap gap-3 mt-1">
+                                    <label class="d-flex align-items-center gap-2 mb-0">
+                                        <input type="radio" name="premiumGeoModeKpi" [checked]="premiumGeoMode === 'select'"
+                                            (change)="onPremiumGeoModeChange('select')">
+                                        <span>Select Countries</span>
+                                    </label>
+                                    <label class="d-flex align-items-center gap-2 mb-0">
+                                        <input type="radio" name="premiumGeoModeKpi" [checked]="premiumGeoMode === 'all'"
+                                            (change)="onPremiumGeoModeChange('all')">
+                                        <span>All Countries</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="input_field" *ngIf="!isPremium || premiumGeoMode === 'select'">
+                                <label>Assign Country *</label>
+                                <ng-select [items]="countryList" bindValue="countryID" bindLabel="countryName"
+                                    formControlName="countries" [multiple]="true" [closeOnSelect]="false"
+                                    class="form-control analyst_multi_select"
+                                    [searchable]="true"
+                                    [placeholder]="kpiForm.get('countries')?.invalid ? 'Assign Country' : ''"
+                                    (change)="checkSelectionLimit('countries')" appendTo="body">
+                                    <ng-template ng-label-tmp let-item="item">
+                                        {{ item.countryName }},
+                                    </ng-template>
+
+                                    <ng-template ng-option-tmp let-item="item">
+                                        {{ item.countryName }}, {{ item.continent }}
+                                    </ng-template>
+                                </ng-select>
+                                <div class="error-msg"
+                                    *ngIf="kpiForm.get('countries')?.invalid && (isSubmitted || kpiForm.get('countries')?.touched)">
+                                    Please select at least one country.
+                                </div>
+                                <div *ngIf="limitMessages['countries']" class="text-danger small mt-1">
+                                    {{ limitMessages['countries'] }}
+                                </div>
+                            </div>
+                            <div class="input_field" *ngIf="isPremium && premiumGeoMode === 'all'">
+                                <label>Assign Country *</label>
+                                <p class="mb-0">All countries will be assigned by the server.</p>
+                            </div>
+
+                            <button type="submit" class="common_button w-100 mt-4">
+                                {{'Save' }}
+                                <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

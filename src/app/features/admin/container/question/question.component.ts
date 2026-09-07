@@ -15,14 +15,14 @@ declare var bootstrap: any;
 export class QuestionComponent implements OnInit, OnDestroy {
   selectedQuestion: GetQuestionResponse | null = null;
   selectedPiller: PillarsVM | null = null;
-  pillars: PillarsVM[] = [];
+  pillers: PillarsVM[] = [];
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1
   questions: GetQuestionResponse[] = [];
-  selectedPillarId: number | any = "";
+  selectedPillarId: number | null = null;
   loading: boolean = false;
-  isLoader: boolean = false;
+  isLoader: boolean = true;
   isOpendialog: boolean = false;
 
   constructor(private adminService: AdminService, private toaster: ToasterService, private userService: UserService) { }
@@ -34,9 +34,15 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   GetAllPillars() {
     this.adminService.getAllPillars().subscribe(p => {
-      this.pillars = p;
+      this.pillers = p;
     });
   }
+
+    customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return item.pillarName?.toLowerCase().includes(term);
+  }
+  
   GetQuestions(currentPage: number = 1) {
     this.questions= [];
     this.isLoader = true;
@@ -46,7 +52,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       pageNumber: currentPage,
       pageSize: this.pageSize
     }
-    if (this.selectedPillarId != "") {
+    if (this.selectedPillarId) {
       payload.pillarID = this.selectedPillarId;
     }
 

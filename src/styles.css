@@ -1,44 +1,85 @@
-/* You can add global styles to this file, and also import other style files */ 
+/* You can add global styles to this file, and also import other style files */
 
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap'); */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@600;700&family=JetBrains+Mono:wght@400;500;600&family=Poppins:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
 @import "~@ng-select/ng-select/themes/default.theme.css";
-@import "./app/shared/styles/detail-offcanvas.shared.css";
-@import "./app/shared/styles/ai-analysis-page.shared.css";
-@import "./app/shared/styles/vcp-dropdown.shared.css";
-@import "./app/shared/styles/vcp-modal.shared.css";
+@import "./app/core/styles/ami-dashboard-theme.css";
+@import "./app/core/styles/ami-shared-ui.css";
+@import "./app/core/styles/ami-features-theme.css";
+
+/* Force dark ng-select after default theme import */
+.ng-dropdown-panel .ng-option-selected,
+.ng-dropdown-panel .ng-option-selected.ng-option-marked,
+.ng-select .ng-option.ng-option-selected,
+.ami-dashboard .ng-dropdown-panel .ng-option-selected,
+.ami-dashboard .ng-dropdown-panel .ng-option-selected.ng-option-marked,
+.ami-dashboard .ng-select .ng-option.ng-option-selected,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option-selected,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option-selected.ng-option-marked,
+body > .ng-dropdown-panel .ng-option.ng-option-selected,
+body > .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
+  background-color: transparent !important;
+  background: transparent !important;
+  color: #e7c878 !important;
+  border: 1px solid #c9a24a !important;
+}
+
+.ami-dashboard .ng-dropdown-panel .ng-option:hover,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option:hover,
+body > .ng-dropdown-panel .ng-option:hover {
+  background-color: transparent !important;
+  background: rgba(201, 162, 74, 0.16) !important;
+  color: #e7c878 !important;
+}
+
+.ami-dashboard .ng-dropdown-panel,
+.ami-dashboard .ng-dropdown-panel .ng-dropdown-panel-items .ng-option,
+.signal-dashboard-wrap .ng-dropdown-panel,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background: #1a1610 !important;
+  color: #efe7d6 !important;
+  border-color: #3a3224 !important;
+}
 
 
 :root
 {
-	/* Horn Scope Ã¢ÂÂ logo + command-console palette */
-	--Primary-Color: #0A2240;
-	--Secondary-Color: #3F8F46;
-	--Hover-Primary-color: #4CAF50;
-	--Accent-Green: #4CAF50;
-	--Accent-Lime: #A8E063;
-	--Accent-Blue: #3B9EFF;
-	--VCP-Gradient: linear-gradient(135deg, #1B5E3B 0%, #2E7D32 48%, #4CAF50 100%);
-	--VCP-Gradient-Hover: linear-gradient(135deg, #4CAF50 0%, #2E7D32 52%, #1B5E3B 100%);
+	/* AMI brand — gold / bronze / cream (country_index_ami_theme + public site) */
+	--ami-bg: #0A0906;
+	--ami-panel: #141209;
+	--ami-panel-2: #1B1810;
+	--ami-border: #332C1D;
+	--ami-border-soft: #241F14;
+	--ami-gold: #C9A24A;
+	--ami-gold-bright: #E7C878;
+	--ami-bronze: #8A5A2B;
+	--ami-silver: #C9C7BF;
+	--ami-silver-dim: #8B887E;
+	--ami-cream: #EFE7D6;
+	--ami-muted: #9C9484;
+	--ami-danger: #B5502E;
+	--ami-success: #B7A25A;
+	--ami-radius: 10px;
+	--ami-font: "Inter", "Poppins", system-ui, sans-serif;
+	--ami-font-display: "Playfair Display", Georgia, serif;
+	--ami-font-mono: "JetBrains Mono", Consolas, monospace;
+
+	--Primary-Color: #C9A24A;
+	--Secondary-Color: #E7C878;
+	--Hover-Primary-color: #8A5A2B;
+	--Accent-Green: #B7A25A;
+	--AMI-Gradient: linear-gradient(135deg, #E7C878 0%, #C9A24A 48%, #8A5A2B 100%);
+	--AMI-Gradient-Hover: linear-gradient(135deg, #F0D78A 0%, #D4B45E 48%, #A06735 100%);
 	--White-Color: #ffffff;
-	--Text-Color: #E8EEF8;
-	--Border-Color: rgba(92, 140, 200, 0.22);
-	--background-Color: #050C20;
-	--Page-Bg: #040A1D;
-	--Surface-Color: #0B1633;
-	--Surface-Elevated: #102044;
-	--Light-Text-Color: #9AADC4;
-	--Light-Bg-Color: #5CD6C8;
-	--Dark-Bg-Color: #061228;
-	--Light-Border-Color: rgba(92, 140, 200, 0.12);
-	--Green-text-Color: #A8E063;
-	--Chart-Manual: #3B9EFF;
-	--Chart-AI: #A8E063;
-	--Page-Pad-X: 20px;
-	--Page-Pad-Y: 16px;
-	--Content-Gap: 16px;
-	--Radius-Md: 12px;
-	--Radius-Lg: 16px;
+	--Text-Color: #1A1510;
+	--Border-Color: #E6DDD0;
+	--background-Color: #F2EBE1;
+	--Light-Text-Color: #6B6358;
+	--Light-Bg-Color: #C9A24A;
+	--Dark-Bg-Color: #0A0906;
+	--Light-Border-Color: rgba(10, 9, 6, 0.04);
+	--Green-text-Color: #1A1510;
+	--Hero-Cream: #F2EBE1;
+	--Hero-Cream-Deep: #E6D9C9;
 }
 
 html, body, div, span, applet, object, iframe,
@@ -64,16 +105,11 @@ footer, header, hgroup, menu, nav, section {
 	display: block;
 }
 
-/* body {
-    font-family: "Montserrat", sans-serif;
-    position: relative;
-} */
 body {
-    font-family: "Poppins", sans-serif !important;
+    font-family: var(--ami-font), "Poppins", sans-serif !important;
     position: relative;
-    background-color: var(--Page-Bg);
+    background-color: #0A0906;
     color: var(--Text-Color);
-    min-height: 100vh;
 }
 ol, ul {
 	list-style: none;
@@ -92,10 +128,28 @@ table {
 }
 
 a, a:hover
-
 {
+    color: rgb(199 180 133) !important;
     text-decoration: none;
 }
+
+.ai-analysis-toolbar__refresh {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 36px;
+  border-radius: 12px;
+  border: 1px solid #3c2d16;
+  background: var(--Surface-Elevated);
+  flex-shrink: 0;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+
+.ai-analysis-toolbar__refresh:hover {
+  border-color: rgba(179, 166, 57, 0.45);
+}
+
 
 img, svg
 {
@@ -104,35 +158,37 @@ img, svg
 
 .common_button{
     border-radius: 8px !important;
-    background: var(--VCP-Gradient);
+    background: var(--AMI-Gradient);
     padding: 9px 20px;
     text-align: center;
     border: none;
-    color: var(--White-Color);
+    color: #1a1503 !important;
     font-size: 14px;
     font-style: normal;
     font-weight: 600;
     line-height: 20px;
-    transition: 0.3s;
+    transition: transform 0.22s ease, box-shadow 0.22s ease, background 0.22s ease;
     display: flex;
     grid-gap: 8px;
 	justify-content: center;
     cursor: pointer;
     align-items: center;
-    box-shadow: 0 4px 14px rgba(46, 125, 50, 0.28);
+    box-shadow: 0 4px 16px rgba(201, 162, 74, 0.28);
     white-space: nowrap;
 }
 
 .common_button:hover
 {
-  background: var(--VCP-Gradient-Hover);
+  background: var(--AMI-Gradient-Hover);
   border-color: transparent;
-  box-shadow: 0 6px 18px rgba(76, 175, 80, 0.32);
+  transform: translateY(-2px);
+  color: #68561d !important;
+  box-shadow: 0 8px 22px rgba(201, 162, 74, 0.38);
 }
 
 .page_head
 {
-	color: var(--Text-Color);
+	color: var(--ami-cream, #EFE7D6);
 font-size: 25px;
 font-style: normal;
 font-weight: 600;
@@ -163,20 +219,19 @@ padding: 12px 15px;
 
 .table_outer .table td
 {
-color: #ffffff !important;
+	color: var(--Light-Text-Color);
 font-size: 14px;
 font-style: normal;
 font-weight: 400;
 line-height: 20px;
 padding: 12px 15px;
 border-bottom:0;
-border-color: rgb(255 255 255 / 22%) !important;
 }
 
 .action_icons {
     display: flex;
     align-items: center;
-    grid-gap: 10px;
+    grid-gap: 15px;
 }
 
 .table_outer .table tr th:first-child {
@@ -220,8 +275,8 @@ border-color: rgb(255 255 255 / 22%) !important;
     align-items: center;
     justify-content: center;
     border-radius: 6px;
-    background: var(--background-Color);
-    color: var(--Text-Color);
+    background: #1B1810;
+    color: #EFE7D6;
     font-size: 13px;
     font-style: normal;
     font-weight: 400;
@@ -229,18 +284,18 @@ border-color: rgb(255 255 255 / 22%) !important;
     text-transform: capitalize;
     cursor: pointer;
     transition: 0.3s;
-	border: 1px solid var(--Border-Color);
+	border: 1px solid #332C1D;
 }
 
 .cus_pagination > li:not(:first-child, :last-child) span.action {
     background-color: var(--Primary-Color);
-    color: var(--White-Color);
+    color: #0A0906;
 	border-color: var(--Primary-Color);
 }
 
 .cus_pagination > li:not(:first-child, :last-child) span:hover {
     background-color: var(--Primary-Color);
-    color: var(--White-Color);
+    color: #0A0906;
 	border-color: var(--Primary-Color);
 }
 .pointer_none {
@@ -251,11 +306,10 @@ border-color: rgb(255 255 255 / 22%) !important;
     align-items: center;
     justify-content: space-between;
     flex-wrap: wrap;
-	background-color: var(--Surface-Color);
+	background-color: #141209;
 	padding: 16px;
-	border-radius: var(--Radius-Md);
-    border: 1px solid var(--Border-Color);
-    margin: 0px 0;
+	border-radius: 12px;
+    border: 1px solid rgba(201, 162, 74, 0.18);
 }
 
 .showing_data
@@ -289,7 +343,7 @@ border-color: rgb(255 255 255 / 22%) !important;
 
 .modal_design .modal-body
 {
-    padding: 32px 36px 36px;
+    padding: 40px 40px 40px 40px;
 }
 
 .modal_head
@@ -342,7 +396,7 @@ margin-left: 5px;
 .input_field .form-control,
 .input_field .form-select
 {
-  border-radius: 8px;
+  border-radius: 50px;
 border: 1px solid var(--Border-Color);
 color: var(--Text-Color);
 font-size: 13px;
@@ -353,7 +407,6 @@ height: auto;
 min-height: 40px;
 font-weight: 600;
     padding-left: 16px;
-  background-color: var(--Surface-Elevated);
 }
 .input_field select.form-control
 {
@@ -384,63 +437,72 @@ padding-right: 40px;
 }
 
 .main_area .input_field .form-control:focus {
-    box-shadow: none;
+    box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.2);
     outline: 0;
-    background-color: var(--Surface-Elevated);
-    border-color: rgba(59, 158, 255, 0.55);
-    color: var(--Text-Color);
+    background-color: #141209;
+    border-color: rgba(201, 162, 74, 0.55);
+    color: #EFE7D6;
 }
 
 .modal_tabs .nav-pills .nav-link.active, .modal_tabs  .nav-pills .show>.nav-link
 {
-    color: var(--Accent-Lime, #A8E063);
-    border-color: var(--Accent-Lime, #A8E063);
+    color: var(--Primary-Color);
+    border-color: var(--Primary-Color);
     background-color: transparent;
     font-weight: 700;
 }
 
 .modal_tabs  .nav-pills
 {
-    margin: 24px 0;
+    margin: 30px 0;
     border-bottom: 1px solid var(--Border-Color);
 }
-/* Modal widths — see vcp-modal.shared.css */
+.modal_design .modal-dialog {
+    margin-left: auto;
+    margin-right: auto;
+    max-width: calc(100% - 20px);
+    width: 800px;
+    margin-top: 1.75rem;
+}
 
 .outline_btn {
-    border-radius: 50px;
-    border: 1px solid var(--Primary-Color);
+    border-radius: 8px;
+    border: 1px solid var(--ami-gold, #C9A24A);
     padding: 5px 15px;
-    color: var(--Primary-Color);
-    /* font-family: Montserrat; */
+    color: var(--ami-bronze, #8A5A2B);
     font-size: 12px;
     font-style: normal;
     font-weight: 600;
     line-height: 20px;
     transition: .3s all;
+    background: rgba(201, 162, 74, 0.06);
 }
 
-.inner_content_area .program_pillar .input_field select.form-control{
-    background: var(--Surface-Elevated);
+.outline_btn:hover {
+    background: rgba(201, 162, 74, 0.14);
+    color: #0A0906;
+    border-color: var(--ami-gold-bright, #E7C878);
+}
+
+.inner_content_area .city_pillar .input_field select.form-control{
+    background: #1B1810;
     border-radius: 12px !important;
     padding: 10px 16px !important;
-    border: 1px solid var(--Border-Color) !important;
-    color: var(--Text-Color) !important;
+    border: 1px solid #332C1D !important;
+    color: #EFE7D6 !important;
     cursor: pointer;
 }
 
 .table_outer .table thead th {
-    background-color: var(--Surface-Elevated);
-    color: var(--Text-Color);
+    background-color: #1B1810;
+    color: #E7C878;
     font-size: 16px;
 }
 .table_outer tbody tr:hover td {
-    /* background-color: rgba(59, 158, 255, 0.08); */
-    background-color: rgb(59 158 255 / 31%) !important;
-    /* border-color: rgba(92, 140, 200, 0.25); */
+    background-color: rgba(201, 162, 74, 0.08);
+    border-color: #E6DDD0;
 }
-.table_outer tbody tr:hover td td {
-    background: transparent !important;
-}
+
 .compare_btn svg {
     width: 22px;
     height: auto;
@@ -450,17 +512,13 @@ padding-right: 40px;
 }
 
 .loader {
-  width: 72px;
-  height: 72px;
-  padding: 11px;
+  width: 50px;
+  height: 50px;
+  padding: 8px;
   aspect-ratio: 1;
   border-radius: 50%;
-  background: var(--Accent-Lime, #a8e063);
-  box-shadow:
-    0 0 0 8px rgba(168, 224, 99, 0.12),
-    0 0 32px rgba(168, 224, 99, 0.45),
-    0 0 64px rgba(59, 158, 255, 0.2);
-  --_m:
+  background: var(--Primary-Color);
+  --_m: 
     conic-gradient(#0000 10%,#000),
     linear-gradient(#000 0 0) content-box;
   -webkit-mask: var(--_m);
@@ -472,111 +530,88 @@ padding-right: 40px;
 .loader_main {
     display: flex;
     justify-content: center;
-    align-items: center;
     position: absolute;
     inset: 0;
-    z-index: 120;
-    min-height: calc(100vh - 160px);
-    background: rgba(5, 12, 32, 0.78);
-    backdrop-filter: blur(5px);
-    -webkit-backdrop-filter: blur(5px);
-    border-radius: 18px;
+    align-items: center;
+    z-index: 5;
+    background:
+      radial-gradient(ellipse at center, rgba(201, 162, 74, 0.08), transparent 55%),
+      rgba(10, 9, 6, 0.92);
+    backdrop-filter: blur(4px);
+    border-radius: 12px;
+    min-height: 280px;
 }
 
 @keyframes l3 {to{transform: rotate(1turn)}}
-.bold_num {
-    color: var(--Secondary-Color);
-    font-weight: 700 !important;
+/* .bold_num styled in ami-shared-ui.css */
+
+.cdk-overlay-container {
+  position: fixed !important;
+  z-index: 10000 !important;
+  pointer-events: none;
 }
 
-.cdk-overlay-container, .cdk-overlay-pane {
+.cdk-overlay-container .cdk-overlay-pane {
   position: fixed !important;
-  z-index: 10000 !important; /* float above app */
-  pointer-events: none; /* so overlay doesn't push scroll */
+  z-index: 10000 !important;
+  pointer-events: auto;
+}
+
+/* Bootstrap modals must sit above backdrop (fixes "disabled" popups) */
+.modal-backdrop {
+  z-index: 1050 !important;
+}
+
+.modal,
+.modal.show {
+  z-index: 1055 !important;
+  pointer-events: none;
+}
+
+.modal .modal-dialog,
+.modal.show .modal-dialog {
+  pointer-events: auto;
 }
 .vui_before_signup .vui_before_login_cards {
-    width: 700px;
+    width: auto;
+    max-width: none;
 }
 
 .modal_design .modal_tabs .input_field input[type="file"] {
     line-height: 200%;
 }
 .inner_content_area{
+    /*background-color: #ffffff;
+     background-color: var(--background-Color); 
+    border: 1px solid var(--Light-Border-Color);*/
     height: 100%;
+    /* border-radius: 10px; */
+    /* padding: 24px; */
     position: relative;
-    min-height: calc(100vh - 140px);
 }
-
-/* Chat page: fill the column under the header on every desktop size.
-   Global (unencapsulated) so router-outlet hosts actually stretch. */
-.content_area:has(app-chat-container) {
-    display: flex;
-    flex-direction: column;
-    overflow: hidden;
-    padding-top: 0;
-    padding-bottom: 12px;
-}
-
-.content_area:has(app-chat-container) > router-outlet,
-.inner_content_area:has(app-chat-container) > router-outlet {
-    display: none !important;
-    flex: 0 0 0 !important;
-    width: 0 !important;
-    height: 0 !important;
-    margin: 0 !important;
-    padding: 0 !important;
-    overflow: hidden !important;
-}
-
-.content_area:has(app-chat-container) > :not(router-outlet),
-.inner_content_area:has(app-chat-container) {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0%;
-    min-height: 0;
-    height: 100%;
-    max-height: 100%;
-    margin: 0;
-    overflow: visible;
-}
-
-.inner_content_area:has(app-chat-container) app-chat-container {
-    display: flex;
-    flex-direction: column;
-    flex: 1 1 0%;
-    min-height: 0;
-    height: 100%;
-    max-height: 100%;
-    margin: 0;
-    overflow: visible;
-}
-
-.inner_content_area:has(app-chat-container) {
-    padding: 0 !important;
-}
-.program_card_outter {
+.city_card_outter {
     display: flex;
     flex-wrap: wrap;
     grid-gap: 20px;
     height: 100%;
 }
-.program_card {
+.city_card {
     flex: 1;
 }
-.program_card_ul {
+.city_card_ul {
     display: flex;
     flex-wrap: wrap;
     grid-gap: 5px;
 }
-.program_card_ul li {
+.city_card_ul li {
     background-color: var(--Primary-Color);
     padding: 3px 10px;
     border-radius: 5px;
     color: #fff;
     font-size: 14px;
 }
-.program_card_img .score {
-    background: var(--VCP-Gradient);
+.city_card_img .score {
+    background: var(--AMI-Gradient);
     color: #ffffff;
     display: inline-block;
     padding: 3px 10px;
@@ -586,30 +621,30 @@ padding-right: 40px;
     left: 10px;
     top: 10px;
 }
-.program_cards_p {
+.city_cards_p {
     display: flex;
     align-items: center;
     font-weight: 600;
     grid-gap: 3px;
 }
-.program_cards_p path {
+.city_cards_p path {
     fill: var(--Primary-Color);
 }
-.program_cards_disc {
+.city_cards_disc {
     margin: 10px 0 15px;
 }
-.program_card_outter img {
+.city_card_outter img {
     max-width: 400px;
     width: 100%;
     border-radius: 18px;
     height: 100%;
     object-fit: cover;
 }
-.program_card_inner {
+.city_card_inner {
     padding:0px;
 }
 
-.program_cards_h1 {
+.city_cards_h1 {
     font-size: 30px;
     line-height: normal;
     font-weight: 600;
@@ -621,7 +656,7 @@ padding-right: 40px;
     grid-gap: 10px;
     flex-wrap: wrap;
 }
-.program_card_img , .table_col_one{
+.city_card_img , .table_col_one{
     position: relative;
 }
 
@@ -652,21 +687,24 @@ padding-right: 40px;
     display: block;
     position: relative;
     z-index: 5;
-    padding: 22px;
-    border-radius: var(--Radius-Lg);
+    padding: 24px;
+    border-radius: 14px;
     overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
-    background-color: var(--Surface-Color) !important;
+    background:
+      linear-gradient(145deg, #1B1810 0%, #141209 100%) !important;
     background-position: bottom left;
     background-repeat: no-repeat;
     background-size: 80%;
-    background-blend-mode: soft-light;
     box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
-    border: 1px solid var(--Border-Color);
+    border: 1px solid rgba(201, 162, 74, 0.22);
+    animation: ami-fade-up 0.45s ease both;
+    color: #EFE7D6;
 }
 .dashboard_card:hover {
-    border-color: rgba(59, 158, 255, 0.45);
-    box-shadow: 0 10px 32px rgba(59, 158, 255, 0.12);
+    transform: translateY(-3px);
+    border-color: rgba(201, 162, 74, 0.4);
+    box-shadow: 0 12px 32px rgba(201, 162, 74, 0.16);
 }
 .dashboard_card_inner{
     display: flex;
@@ -676,53 +714,63 @@ padding-right: 40px;
 }
 .dashboard_card_inner span {
     display: flex;
-    background-color: rgba(59, 158, 255, 0.14);
+    background: rgba(201, 162, 74, 0.12);
+    border: 1px solid rgba(201, 162, 74, 0.28);
     padding: 10px;
-    border-radius: 100px;
+    border-radius: 12px;
     width: 90px;
     height: 90px;
     align-items: center;
     justify-content: center;
+    transition: transform 0.22s ease, background 0.22s ease;
+}
+.dashboard_card:hover .dashboard_card_inner span {
+    transform: scale(1.05);
+    background: rgba(201, 162, 74, 0.2);
 }
 .dashboard_card_inner span svg {
     width: 40px;
     height: 40px;
 }
 .dashboard_card_inner span svg path{
-    fill: var(--Accent-Blue);
+    fill: var(--ami-bronze, #8A5A2B);
 }
 .dashboard_number h4 {
-    color: var(--Light-Text-Color);
+    color: #9C9484;
     line-height: 30px;
     margin: 5px 0;
     font-weight: 500;
-    font-size: 20px;
+    font-size: 13px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
 }
 .dashboard_number h5 {
-    color: var(--Accent-Lime);
+    color: #EFE7D6;
     font-size: 28px;
     line-height: normal;
     font-weight: 700;
+    font-family: var(--ami-font-mono);
+    font-variant-numeric: tabular-nums;
 }
-.program_pillar > .align-items-end {
-    /* background-color: rgba(0, 109, 119, 0.05); */
+.city_pillar > .align-items-end {
+    background-color: rgba(201, 162, 74, 0.08);
     border-radius: 10px;
     padding: 10px 6px 10px 0;
     margin-bottom: 20px;
     margin: 0;
 }
-.program_pillar .input_field {
+.city_pillar .input_field {
     min-width: 150px;
     margin-bottom: 0 !important;
     position: relative;
 }
-.program_pillar{
-    background-color: var(--Surface-Color);
-    padding: 22px 28px;
+.city_pillar{
+    background-color: #141209;
+    padding: 24px 34px;
     position: relative;
-    border-radius: var(--Radius-Md);
-    border: 1px solid var(--Border-Color);
-    color: var(--Text-Color);
+    border-radius: 12px;
+    box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28);
+    color: #EFE7D6;
 }
 .calender_icon {
     position: absolute;
@@ -732,25 +780,25 @@ padding-right: 40px;
 }
 .inner_content_area .heading_area {
     margin-bottom: 0;
-    background-color: var(--Surface-Color);
-    padding: 16px 18px;
-    border: 1px solid var(--Border-Color);
-    border-radius: var(--Radius-Md);
-    margin-bottom: var(--Content-Gap);
+    background-color: #141209;
+    padding: 16px;
+    border: 1px solid rgba(201, 162, 74, 0.22);
+    border-radius:12px;
+    margin-bottom: 10px;
+    color: #EFE7D6;
 }
 .inner_content_area .heading_area .page_head {
     font-size: 20px;
-    color: var(--Text-Color);
 }
 
 .table_outer .table tr th{
-    border-bottom: 1px solid rgb(255 255 255 / 22%);
+    border-bottom: 1px solid rgb(222, 226, 230);
 }
 .vui_header:after {
     content: "";
     width: 100%;
-    height: calc(100% - 12px);
-    background: var(--Page-Bg);
+    height: calc(100% - 8px);
+    background: #0A0906;
     display: block;
     position: absolute;
     top: 0;
@@ -759,15 +807,14 @@ padding-right: 40px;
     bottom: 0;
     z-index: -1;
     padding-bottom: 0;
+    border-radius: 12px;
 }
 .table_outer {
-    border: 1px solid var(--Border-Color);
-    border-radius: var(--Radius-Md);
-    background: var(--Surface-Color);
-    position: relative;
+    border: 1px solid #dddddd;
+    border-radius: 10px;
 }
 .table_outer > .table > tbody > tr {
-    border-bottom: 1px solid var(--Border-Color);
+    border-bottom: 1px solid #dddddd;
     border-radius: 10px;
 }
 .action_td input[type="checkbox"] {
@@ -784,10 +831,10 @@ padding-right: 40px;
     padding: 2px 5px !important;
     border-radius: 5px !important;
     background-color: var(--Primary-Color) !important;
-    color: #ffffff !important;
+    color: #0a0906 !important;
 }
 .modal_design .tab-pane label .text-primary {
-    color: #94b3d9 !important;
+    color: var(--Primary-Color) !important;
 }
 
 
@@ -841,8 +888,8 @@ body .content_area .inner_content_area {
 }
 
 .confidence-badge {
-    padding: 2px 8px;
-    border-radius: 50px;
+    padding: 4px 12px;
+    border-radius: 14px;
     font-size: 12px;
     font-weight: 600;
     text-transform: capitalize;
@@ -851,347 +898,141 @@ body .content_area .inner_content_area {
     text-align: center;
 }
 
-/* High = Green */
-.confidence-badge.high {
-  background-color: #d4edda;
-  color: #155724;
-  border: 1px solid #75d69c !important;
-}
+/* Confidence badge colors overridden in ami-shared-ui.css */
 
-/* Medium = Yellow/Orange */
-.confidence-badge.medium {
-  background-color: #fff3cd;
-  color: #856404;
-  border: 1px solid #ffe69c !important;
-}
-
-/* Low = Red */
-.confidence-badge.low {
-  background-color: #ffcccc;
-  color: #b30000;
-  border: 1px solid #ff4d4d !important;
-}
-.program_img {
-    background-color: var(--Primary-Color) !important;
-    border-radius: 8px !important;
+.city_img {
+    background: linear-gradient(135deg, #C9A24A, #8A5A2B);
+    border-radius: 15px !important;
 }
 
 .last_data td .sparkline-container .score-label {
-    color: #ffffff !important;
+    color: #0A0906 !important;
 }
 
-@media only screen and (max-width: 1401.5px) {
-    .heading_area .input_field.input_flex {
-      margin-bottom: 0;
-      min-width: 100px;
-  }
-}
-/* ============================================================
-   Veridian global shell Ã¢ÂÂ desktop spacing, dark surfaces, ng-select
-   ============================================================ */
-
+/* App shell — dark canvas so header radius never flashes white/cream */
 .main_area {
-  background: var(--Page-Bg);
-  min-height: 100vh;
+  background: #0A0906;
+  min-height: calc(100vh - 72px);
 }
 
-.content_area .inner_content_area:not(:has(app-chat-container)) {
-  padding:  0px;
+.content_area,
+.inner_content_area {
+  background: transparent;
+  position: relative;
+}
+
+.main_area .heading_area,
+.inner_content_area .heading_area {
+  border: 1px solid rgba(201, 162, 74, 0.14);
+  box-shadow: 0 2px 12px rgba(10, 9, 6, 0.04);
 }
 
 .page_head {
-  color: var(--Text-Color);
+  letter-spacing: 0.01em;
 }
 
-.table_outer .table th {
-  color: var(--Text-Color);
-  background: var(--Surface-Elevated);
+.table_outer {
+  border-color: #332C1D !important;
+  background: #141209;
+  overflow: hidden;
 }
 
-.table_outer .table td {
-  color: var(--Light-Text-Color);
-  background: transparent;
+.table_outer.table-responsive {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
 }
 
-.table_outer .table {
-  --bs-table-bg: transparent;
-  --bs-table-color: var(--Text-Color);
-  color: var(--Text-Color);
+.pagination_outer {
+  border: 1px solid rgba(201, 162, 74, 0.12);
 }
 
-.modal_head,
-.modal_design .modal-title {
-  color: var(--Text-Color);
+/* ============================================================
+   Global dark ng-select — AMI dashboard dropdowns
+   (covers panels appended near body / default theme overrides)
+   ============================================================ */
+.ami-dashboard .ng-dropdown-panel,
+.ami-dashboard .ng-dropdown-panel .scroll-host,
+.signal-dashboard-wrap .ng-dropdown-panel,
+.signal-dashboard-wrap .ng-dropdown-panel .scroll-host {
+  background: #1a1610 !important;
+  color: #efe7d6 !important;
 }
 
-.modal_sub_head {
-  color: var(--Light-Text-Color);
+.ami-dashboard .ng-dropdown-panel .ng-option,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option {
+  background: #1a1610 !important;
+  color: #efe7d6 !important;
 }
 
-.outline_btn {
-  border-color: var(--Accent-Blue);
-  color: var(--Accent-Blue);
+.ami-dashboard .ng-dropdown-panel .ng-option:hover,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option:hover {
+  background: rgba(201, 162, 74, 0.16) !important;
+  color: #e7c878 !important;
 }
 
-.outline_btn:hover {
-  background: rgba(59, 158, 255, 0.12);
-  color: #fff;
-}
-
-.cus_pagination > li:not(:first-child, :last-child) span {
-  background: var(--Surface-Elevated);
-  color: var(--Text-Color);
-  border: 1px solid var(--Border-Color);
-}
-
-.cus_pagination > li:not(:first-child, :last-child) span.action,
-.cus_pagination > li:not(:first-child, :last-child) span:hover {
-  background-color: var(--Accent-Blue);
-  color: #fff;
-  border-color: var(--Accent-Blue);
-}
-
-.pagi_label {
-  color: var(--Light-Text-Color);
-}
-
-.showing_data {
-  color: var(--Light-Text-Color);
-}
-
-/* ---- Global ng-select (visible text: default / hover / selected / search) ---- */
-.ng-select {
-  font-family: "Poppins", sans-serif;
-}
-
-.ng-select .ng-select-container {
-  min-height: 42px !important;
-  background: var(--Surface-Elevated) !important;
-  border: 1px solid var(--Border-Color) !important;
-  border-radius: 10px !important;
-  color: var(--Text-Color) !important;
-  box-shadow: none !important;
-}
-
-.ng-select.ng-select-focused .ng-select-container,
-.ng-select.ng-select-opened .ng-select-container {
-  border-color: var(--Accent-Blue) !important;
-  box-shadow: 0 0 0 3px rgba(59, 158, 255, 0.18) !important;
-}
-
-.ng-select .ng-value,
-.ng-select .ng-value-label,
-.ng-select .ng-placeholder,
-.ng-select .ng-input > input {
-  color: var(--Text-Color) !important;
-}
-
-.ng-select .ng-placeholder {
-  color: var(--Light-Text-Color, #9AADC4) !important;
-}
-
-.ng-select .ng-input > input {
-  color: #ffffff !important;
-  caret-color: var(--Accent-Lime);
-}
-
-.ng-select .ng-arrow-wrapper .ng-arrow {
-  border-color: var(--Light-Text-Color) transparent transparent !important;
-}
-
-.ng-select .ng-clear-wrapper {
-  color: var(--Light-Text-Color) !important;
-}
-
-.ng-select .ng-value .ng-value-icon {
-  color: #fff !important;
-  border-color: rgba(255, 255, 255, 0.25) !important;
-}
-
-.ng-dropdown-panel {
-  background: var(--Surface-Color) !important;
-  border: 1px solid var(--Border-Color) !important;
-  border-radius: 10px !important;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5) !important;
-  z-index: 3000 !important;
-  color: var(--Text-Color) !important;
-}
-
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+.ami-dashboard .ng-dropdown-panel .ng-option.ng-option-selected,
+.ami-dashboard .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-selected,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
   background: transparent !important;
-  color: #E8EEF8 !important;
-  padding: 10px 14px !important;
-  font-size: 13px !important;
-  line-height: 1.4 !important;
+  color: #e7c878 !important;
+  border: 1px solid #c9a24a !important;
 }
 
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
-  background: rgba(59, 158, 255, 0.2) !important;
-  color: #ffffff !important;
+/* Override ng-select default.theme.css light highlights inside dashboards */
+.ami-dashboard .ng-dropdown-panel .ng-option-selected,
+.ami-dashboard .ng-dropdown-panel .ng-option-selected.ng-option-marked,
+.ami-dashboard .ng-select .ng-option-selected,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option-selected {
+  background-color: transparent !important;
 }
 
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
-  background: rgba(76, 175, 80, 0.22) !important;
-  color: #ffffff !important;
-  font-weight: 600 !important;
+.form-check input{
+    background-color: #524121 !important;
+    border: var(--bs-border-width) solid #332c1d !important;
 }
 
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-disabled {
-  color: #6b7c93 !important;
+.ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-placeholder{
+    top: 10px !important;
 }
 
-.ng-dropdown-panel .ng-optgroup {
-  color: var(--Accent-Lime) !important;
-  background: transparent !important;
+::ng-deep .compare_select .ng-select-container {
+    border: none !important;
+    background-color: #1B1810 !important;
+    min-height: auto !important;
+    height: 100% !important;
 }
 
-body > .ng-dropdown-panel {
-  z-index: 4000 !important;
+::ng-deep .compare_select .ng-select-container:hover {
+    box-shadow: none !important;
 }
 
-body > .ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
-  background: var(--Surface-Color) !important;
-  color: #E8EEF8 !important;
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    box-shadow: none !important;
 }
 
-body > .ng-dropdown-panel .ng-dropdown-panel-items .ng-option-marked {
-  background: rgba(59, 158, 255, 0.22) !important;
-  color: #fff !important;
+.compare_select .analyst_multi_select {
+    flex: 1;
+    height: auto;
+    background-color: #1B1810;
+    min-height: 36px;
+    align-items: center;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 12px !important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none !important;
+    border-radius: 12px !important;
+    border: 1px solid #332C1D !important;
 }
 
-body > .ng-dropdown-panel .ng-dropdown-panel-items .ng-option-selected {
-  background: rgba(76, 175, 80, 0.24) !important;
-  color: #fff !important;
-}
-
-body > .ng-dropdown-panel.vcp-context-select {
-  background: var(--Surface-Elevated, #102044) !important;
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
-  color: var(--Text-Color, #E8EEF8) !important;
-  z-index: 10050 !important;
-}
-
-body > .ng-dropdown-panel.vcp-context-select .ng-dropdown-panel-items .ng-option {
-  background: transparent !important;
-  color: var(--Text-Color, #E8EEF8) !important;
-}
-
-body > .ng-dropdown-panel.vcp-context-select .ng-dropdown-panel-items .ng-option-marked {
-  background: rgba(168, 224, 99, 0.14) !important;
-  color: var(--Accent-Lime, #A8E063) !important;
-}
-
-body > .ng-dropdown-panel.vcp-context-select .ng-dropdown-panel-items .ng-option-selected {
-  background: rgba(76, 175, 80, 0.22) !important;
-  color: #ffffff !important;
-}
-
-body > .ng-dropdown-panel.vcp-context-select .option-main {
-  color: var(--Text-Color, #E8EEF8) !important;
-}
-
-body > .ng-dropdown-panel.vcp-context-select .option-sub {
-  color: var(--Light-Text-Color, #9AADC4) !important;
-}
-
-@keyframes vcpFilterDropdownIn {
-  from {
-    opacity: 0;
-    transform: translateY(-8px) scale(0.98);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-body > .ng-dropdown-panel.vcp-filter-dropdown {
-  animation: vcpFilterDropdownIn 0.2s ease;
-  transform-origin: top center;
-}
-
-body > .ng-dropdown-panel.vcp-filter-dropdown .ng-dropdown-panel-items .ng-option {
-  transition: background-color 0.16s ease, color 0.16s ease;
-}
-
-/* Multi-select final overrides — loaded at end of global bundle */
-.compare_select ng-select.analyst_multi_select,
-.input_flex ng-select.analyst_multi_select {
-  background: transparent !important;
+html body .ng-dropdown-panel .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover),
+html body .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover) {
+  background: #1A1610 !important;
+  background-color: #1A1610 !important;
+  color: #EFE7D6 !important;
   border: none !important;
-  padding: 0 !important;
-}
-
-ng-select.analyst_multi_select.ng-select-multiple .ng-select-container {
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
-  background: var(--Surface-Elevated, #102044) !important;
-}
-
-@media (min-width: 1400px) {
-  :root {
-    --Page-Pad-X: 12px;
-    --Page-Pad-Y: 18px;
-    --Content-Gap: 18px;
-  }
-}
-
-@media (min-width: 1600px) {
-  :root {
-    --Page-Pad-X: 28px;
-    --Page-Pad-Y: 20px;
-  }
-}
-
-.icon-refresh svg path {
-  fill: var(--Accent-Lime, #A8E063) !important;
-  transition: fill 0.2s ease;
-}
-
-.icon-refresh:hover svg path {
-  fill: #C5F066 !important;
-}
-
-.apexcharts-menu.apexcharts-menu-open {
-  background: var(--Surface-Elevated, #102044) !important;
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22)) !important;
-  color: var(--Text-Color, #E8EEF8) !important;
-}
-.apexcharts-menu-item:hover {
-    background: rgba(59, 158, 255, 0.2) !important;
-    border-radius: 2px;
-}
-
-body .action_td tr td {
-    background: #8d141400 !important;
-}
-
-.ng-select.ng-select-opened>.ng-select-container .ng-arrow {
-    top: 2px;
-    border-color: transparent transparent #999;
-    border-width: 5px 5px 2.5px;
-}
-
-body .cb__selector-inner .ng-select .ng-select-container .ng-arrow-wrapper {
-    padding-right: 5px !important;
-}
-
-
-input:-webkit-autofill,
-input:-webkit-autofill:hover,
-input:-webkit-autofill:focus,
-input:-webkit-autofill:active,
-input:-internal-autofill-selected {
-  -webkit-text-fill-color: #ffffff !important;
-  color: #ffffff !important;
- 
-  background-color: var(--Primary-Color) !important;
-  background-image: none !important;
- 
-  -webkit-box-shadow: 0 0 0 1000px var(--Primary-Color) inset !important;
-  box-shadow: 0 0 0 1000px var(--Primary-Color) inset !important;
- 
-  caret-color: #ffffff !important;
- 
-  transition: background-color 99999s ease-in-out 0s !important;
+  box-shadow: none !important;
+  font-weight: 400 !important;
 }

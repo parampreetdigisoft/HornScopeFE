@@ -1,0 +1,255 @@
+<div class="modal-dialog modal-dialog-centered">
+  <div class="modal-content">
+    <div class="modal-body">
+      <button type="button" (click)="closeModel()" class="btn-close" data-bs-dismiss="modal"
+        aria-label="Close"></button>
+      <div class="row">
+        <div class="col-md">
+          <h4 class="modal_head">{{ country ? "Update" : "Add" }} Country</h4>
+          <p class="modal_sub_head">Enter The details and marked</p>
+        </div>
+      </div>
+      <div class="modal_tabs">
+        <ul class="nav nav-pills" id="pills-tab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <button class="nav-link active" id="pills-home-tab" data-bs-toggle="pill" data-bs-target="#pills-home"
+              type="button" role="tab" aria-controls="pills-home" aria-selected="true">
+              {{ country ? "Update" : "Add" }} Single
+            </button>
+          </li>
+          <li class="nav-item" role="presentation" *ngIf="!country">
+            <button class="nav-link" id="pills-profile-tab" data-bs-toggle="pill" data-bs-target="#pills-profile"
+              type="button" role="tab" aria-controls="pills-profile" aria-selected="false">
+              Bulk Import
+            </button>
+          </li>
+        </ul>
+
+        <div class="tab-content" id="pills-tabContent">
+          <!-- Single Add / Update -->
+          <div class="tab-pane fade show active" id="pills-home">
+            <form [formGroup]="countryForm" (ngSubmit)="onSubmit()">
+              <div class="row">
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Country *</label>
+                    <input type="text" formControlName="countryName" appAlphaOnly placeholder="Enter Country Name"
+                      class="form-control" maxlength="256" />
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('countryName')?.invalid &&
+                        (countryForm.get('countryName')?.touched || isSubmitted)
+                      ">
+                      Country name is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Country Alias Name</label>
+                    <input type="text" formControlName="countryAliasName" appAlphaOnly
+                      placeholder="Enter Country Alias Name" class="form-control" maxlength="256" />
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Continent *</label>
+                    <input type="text" appAlphaOnly formControlName="continent" placeholder="Enter Continent"
+                      class="form-control" maxlength="256" />
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('continent')?.invalid &&
+                        (countryForm.get('continent')?.touched || isSubmitted)
+                      ">
+                      Continent is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Region *</label>
+                    <input type="text" formControlName="region" placeholder="Enter Region" class="form-control"
+                      maxlength="256" />
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('region')?.invalid &&
+                        (countryForm.get('region')?.touched || isSubmitted)
+                      ">
+                      Region is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col">
+                  <div class="input_field">
+                    <label>Select Category *</label>
+
+                    <select formControlName="category" class="form-control">
+                      <option [ngValue]="null">Select Category</option>
+                      
+                      <option *ngFor="let category of categories" [value]="category">
+                        {{ category }}
+                      </option>
+                    </select>
+
+                    <div class="error-msg" *ngIf="
+                      countryForm.get('category')?.invalid &&
+                      (countryForm.get('category')?.touched || isSubmitted)
+                    ">
+                      Category is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Country Code *</label>
+                    <input type="text" formControlName="countryCode" placeholder="Enter Country Code"
+                      class="form-control" />
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('countryCode')?.invalid &&
+                        (countryForm.get('countryCode')?.touched || isSubmitted)
+                      ">
+                      Country Code is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Latitude *</label>
+                    <input type="text" formControlName="latitude" placeholder="Enter latitude" class="form-control" />
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('latitude')?.invalid &&
+                        (countryForm.get('latitude')?.touched || isSubmitted)
+                      ">
+                      Latitude is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Longitude *</label>
+                    <input type="text" formControlName="longitude" placeholder="Enter longitude" class="form-control" />
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('longitude')?.invalid &&
+                        (countryForm.get('longitude')?.touched || isSubmitted)
+                      ">
+                      Longitude is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Population *</label>
+                    <input type="number" formControlName="population" placeholder="Enter Population"
+                      class="form-control" />
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('population')?.invalid &&
+                        (countryForm.get('population')?.touched || isSubmitted)
+                      ">
+                      Population is required.
+                    </div>
+                  </div>
+                </div>
+                <div class="col">
+                  <div class="input_field">
+                    <label>Enter Income (USD) *</label>
+                    <input type="number" formControlName="income" placeholder="Enter Income" class="form-control" />
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('income')?.invalid &&
+                        (countryForm.get('income')?.touched || isSubmitted)
+                      ">
+                      Income is required.
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">                
+                <div class="col-6">
+                  <div class="input_field">
+                    <label>Upload Image</label>
+                    <label class="image-file-picker">
+                      <input #imageInput type="file" (change)="onFileChange($event)" accept="image/*"
+                        class="image-file-input-hidden" />
+                      <span class="image-file-trigger">Choose File</span>
+                      <span class="image-file-name">{{ selectedFileName }}</span>
+                    </label>
+                    <div class="error-msg" *ngIf="imageError">{{ imageError }}</div>
+                    <div class="error-msg" *ngIf="
+                        countryForm.get('imageFile')?.invalid &&
+                        (countryForm.get('imageFile')?.touched || isSubmitted)
+                      ">
+                      Image is required.
+                    </div>
+                  </div>
+                </div>                
+                <div class="col-6">
+                  <div class="input_field">
+                    <label>Preview Image </label>
+                    <img [src]="
+                    selectedImage ? selectedImage : country?.image ? urlBase + country?.image: 'assets/images/noImageAvailable.png'
+                    "class="pp_pic" (error)="onImgError($event)" [alt]="'Profile Image'" />
+                </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="input_field">
+                  <label>Select peer countries</label>
+                  <ng-select [items]="countryList" bindValue="countryID" bindLabel="countryName"
+                    formControlName="countries" [multiple]="true" class="form-control analyst_multi_select"
+                    [searchable]="true" placeholder=" Select peer countries" appendTo="body">
+                    <ng-template ng-label-tmp let-item="item">
+                      {{ item.countryName }},
+                    </ng-template>
+
+                    <ng-template ng-option-tmp let-item="item">
+                      {{ item.countryName }}, {{ item.continent }}
+                    </ng-template>
+                  </ng-select>
+                </div>
+              </div>
+
+              <button type="submit" class="common_button w-100 mt-4">
+                {{ country ? "Update" : "Save" }}
+                <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Bulk Import -->
+          <div class="tab-pane fade" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab" tabindex="0"
+            *ngIf="!country">
+            <div class="input_field">
+              <label>
+                Upload Excel File *
+                <a href="javascript:void(0)" (click)="downloadTemplate()" class="ms-2 text-primary"
+                  style="text-decoration: underline; cursor: pointer">
+                  Download Template
+                </a>
+              </label>
+              <label class="image-file-picker">   
+              <input #fileInput type="file" accept=".xlsx, .xls" class="image-file-input-hidden" (change)="handleFileImport($event)" />
+               <span class="image-file-trigger">Choose File</span>
+               <span class="image-file-name">{{ selectedFileName }}</span>
+              </label>
+            </div>
+            <div class="wrong_upload_alert">
+              <p>{{ this.alertMsg }}</p>
+            </div>
+            <div class="d-flex justify-content-end mt-3">
+              <button type="button" class="common_button" [disabled]="!this.bulkImportData?.length"
+                (click)="bulkImportCountry()">
+                Import
+                <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

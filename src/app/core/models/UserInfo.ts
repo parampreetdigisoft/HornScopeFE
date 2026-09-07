@@ -21,7 +21,6 @@ export interface PublicUserResponse {
   is2FAEnabled?: boolean;
   pillars?:number[]|[];
 }
-
 export interface PublicUserLocalStorageResponse {
   isActive: boolean;
   profileImagePath: string;
@@ -53,9 +52,8 @@ export interface LoginResponse {
 export interface GetAssignUserDto {
   userID: number;
   searchUserID?: number;
-  climateProgramID?: number;
+  countryID?: number;
 }
-
 export interface UpdateUserResponseDto {
   userID: number;
   fullName: string;

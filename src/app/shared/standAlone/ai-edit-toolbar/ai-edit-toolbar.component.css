@@ -4,12 +4,22 @@
   justify-content: space-between;
   gap: 1rem;
   width: 100%;
-  padding-right: 2rem;
+  padding: 0;
+  animation: amiToolbarIn 0.35s ease both;
+}
+
+@keyframes amiToolbarIn {
+  from { opacity: 0; transform: translateY(-6px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .ai-edit-title {
   margin: 0;
-  font-weight: 600;
+  font-family: var(--ami-font-display, "Playfair Display", serif);
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: var(--ami-cream, #EFE7D6);
+  letter-spacing: 0.02em;
 }
 
 .ai-edit-actions {
@@ -18,15 +28,26 @@
   gap: 0.5rem;
 }
 
-.common_button_cancel  {
+.common_button_cancel {
   display: inline-flex;
   align-items: center;
   gap: 0.35rem;
   white-space: nowrap;
-  background: #f73939;
-  
+  background: linear-gradient(135deg, #B5502E, #8A3A22);
+  color: #EFE7D6 !important;
+  border: 1px solid rgba(181, 80, 46, 0.45);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
-.common_button_cancel:hover  {
-  background: #d40202;
-  
+
+.common_button_cancel:hover {
+  background: linear-gradient(135deg, #C46A3A, #B5502E);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 16px rgba(181, 80, 46, 0.28);
+}
+
+.ai-edit-actions .common_button:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }

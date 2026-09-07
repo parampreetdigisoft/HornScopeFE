@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { ProgramVM } from "src/app/core/models/ProgramVM";
+import { CountryVM } from "src/app/core/models/CountryVM";
 import { PaginationResponse } from "src/app/core/models/PaginationResponse";
 import { ToasterService } from "src/app/core/services/toaster.service";
 import { UserService } from "src/app/core/services/user.service";
@@ -23,21 +23,21 @@ declare var bootstrap: any;
   styleUrl: "./assesment.component.css",
 })
 export class AssesmentComponent implements OnInit {
-  isLoader: boolean = false;
+  selectedYear = new Date().getFullYear();
+  isLoader: boolean = true;
   isOpendialog = false;
-  selectedclimateProgramID: number | any = "";
-  selectedRoleID: UserRoleValue | any = "";
+  selectedCountryID?: number | null;
+  selectedRoleID?: UserRoleValue | null;
   selectedAssessment: GetAssessmentResponse | any = "";
   changeAssessment: ChangeAssessmentStatusRequestDto | any = "";
   assessmentsResponse: PaginationResponse<GetAssessmentResponse> | undefined;
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1;
-  programs: ProgramVM[] | null = [];
-  filterProgram!: number;
+  countries: CountryVM[] | null = [];
   loading: boolean = false;
   evaluators: PublicUserResponse[] | null = [];
-  userofSelectedProgramResponse: GetAssessmentResponse[] = [];
+  userofSelectedCountryResponse: GetAssessmentResponse[] = [];
 
   rolesList = [
     { name: "Analyst", role: UserRoleValue.Analyst },
@@ -54,18 +54,13 @@ export class AssesmentComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllProgramsByUserId();
+    this.getAllCountriesByUserId();
     this.route.paramMap.subscribe((params) => {
       let rid = params.get("roleID");
-      let cid = params.get("climateProgramID");
+      let cid = params.get("countryID");
       if (rid && cid) {
-        this.selectedRoleID = rid;
-        this.selectedclimateProgramID = cid;
-      }
-    });
-    this.route.queryParams.subscribe((params) => {
-      if (params["climateProgramID"]) {
-        this.filterProgram = +params["climateProgramID"];
+        this.selectedRoleID = Number(rid) as UserRoleValue;
+        this.selectedCountryID = Number(cid);
       }
     });
     this.getAssessments();
@@ -81,6 +76,13 @@ export class AssesmentComponent implements OnInit {
 
   ngOnDestroy(): void {}
 
+  customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.countryName?.toLowerCase().includes(term) ||
+      item.countryAliasName?.toLowerCase().includes(term)
+    );
+  }
   getAssessments(currentPage: number = 1) {
     this.assessmentsResponse = undefined;
     this.isLoader = true;
@@ -90,11 +92,10 @@ export class AssesmentComponent implements OnInit {
       pageNumber: currentPage,
       pageSize: this.pageSize,
       userId: this.userService?.userInfo?.userID,
-      role: this.selectedRoleID
+      countryID: this.selectedCountryID || null,
+      role: this.selectedRoleID || null,
+      updatedAt: this.commonService.getStartOfYearLocal(this.selectedYear),
     };
-    if (this.userService?.userInfo?.userID == null || this.filterProgram > 0) {
-      payload.climateProgramID = this.filterProgram;
-    }
     this.adminService.getAssessmentResults(payload).subscribe((assessments) => {
       this.assessmentsResponse = assessments;
       this.totalRecords = assessments.totalRecords;
@@ -103,28 +104,19 @@ export class AssesmentComponent implements OnInit {
       this.isLoader = false;
     });
   }
-  getAllProgramsByUserId() {
+  getAllCountriesByUserId() {
     this.adminService
-      .getAllProgramsByUserId(this.userService?.userInfo?.userID)
+      .getAllCountriesByUserId(this.userService?.userInfo?.userID)
       .subscribe({
         next: (res) => {
-          this.programs = res.result;
-          if (this.programs) {
-            //this.selectedclimateProgramID = this.programs?.length > 0 ? this.programs[0].climateProgramID : null
+          this.countries = res.result;
+          if (this.countries) {
+            //this.selectedCountryID = this.countries?.length > 0 ? this.countries[0].countryID : null
           } else {
-            this.toaster.showWarning("No program assigned");
+            this.toaster.showWarning("No country assigned");
           }
         },
       });
-  }
-
-    customSearchFn(term: string, item: any) {
-    term = term.toLowerCase();
-    return (
-      item.programName?.toLowerCase().includes(term) ||
-      item.location?.toLowerCase().includes(term) ||
-      item.year?.toString().toLowerCase().includes(term)
-    );
   }
 
   selectChangedAssessment(assessmentPhase: AssessmentPhase,assessmentID: number){
@@ -155,7 +147,7 @@ export class AssesmentComponent implements OnInit {
   }
   selectAssessement(selectedAssessment: GetAssessmentResponse) {
     this.selectedAssessment = selectedAssessment;
-    this.getUsersAssignedToProgram();
+    this.getUsersAssignedToCountry();
     this.opendialog();
   }
   transferAssessment(payload:TransferAssessmentRequestDto) {
@@ -200,16 +192,16 @@ export class AssesmentComponent implements OnInit {
     if (modalInstance) modalInstance.hide();
     this.isOpendialog = false;
   }
-  getUsersAssignedToProgram() {
+  getUsersAssignedToCountry() {
     if (this.selectedAssessment == null) {
       this.toaster.showError("Plese select assessment");
     }
     this.adminService
-      .getUsersAssignedToProgram(this.selectedAssessment.climateProgramID)
+      .getUsersAssignedToCountry(this.selectedAssessment.countryID)
       .subscribe({
         next: (res) => {
           if (res.succeeded) {
-            this.userofSelectedProgramResponse = res.result ?? [];
+            this.userofSelectedCountryResponse = res.result ?? [];
           } else {
             this.toaster.showError(res.errors.join(", "));
           }

@@ -1,6 +1,6 @@
 .custom-sidebar {
     width: 775px !important;
-    /* 👈 set your desired width */
+    /* set your desired width */
 }
 
 app-kpianalysis {
@@ -11,7 +11,7 @@ app-kpianalysis {
 }
 
 /* Target first two bars */
-app-kpianalysis .program_pillar {
+app-kpianalysis .city_pillar {
   flex: 0 0 auto;
   width: calc(66.6% - 6px);
 }
@@ -29,13 +29,14 @@ app-kpianalysis app-ag-bar:nth-child(3) {
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
   background-repeat: no-repeat;
   background-position: center right 13px;
-  color: var(--Light-Text-Color);
+  color: #EFE7D6;
   /* font-family: 'Montserrat'; */
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
   line-height: normal;
 }
+
 
 .input_flex {
   display: flex;
@@ -47,6 +48,7 @@ app-kpianalysis app-ag-bar:nth-child(3) {
 .input_flex select {
   flex: 1;
 }
+
 
 .single_pillar {
   display: flex;
@@ -69,8 +71,8 @@ app-kpianalysis app-ag-bar:nth-child(3) {
 }
 
 .table_badge {
-  background: var(--Primary-Color);
-  color: #ffffff;
+  background: #C9A24A;
+  color: #EFE7D6;
   padding: 2px 8px;
   border-radius: 0.5rem;
   display: inline-block;
@@ -84,12 +86,12 @@ app-kpianalysis app-ag-bar:nth-child(3) {
   max-width: 100%;
 }
 
-.compare_table.table .program_cards_disc {
+.compare_table.table .city_cards_disc {
   font-weight: 400;
   color: #212529;
 }
 
-.compare_table.table .program_cards_h1 {
+.compare_table.table .city_cards_h1 {
   font-size: 24px;
   line-height: normal;
   font-weight: 600;
@@ -102,19 +104,55 @@ app-kpianalysis app-ag-bar:nth-child(3) {
   width: 200px;
 }
 
-.program_cards_p {
+.city_cards_p {
   font-size: 14px;
-  background-color: var(--Secondary-Color);
-  color: #ffffff;
+  background-color: #4b6635;
+  color: #EFE7D6;
   padding: 2px 10px;
   border-radius: 20px;
 }
 
+::ng-deep .analyst_multi_select .ng-option-selected {
+  background-color: rgba(201, 162, 74, 0.18) !important;
+  color: #C9A24A !important;
+  font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+  background-color: rgba(201, 162, 74, 0.14) !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+  border: none !important;
+  background-color: #1B1810 !important;
+  min-height: auto !important;
+  height: 100% !important;
+}
+
+::ng-deep .compare_select .ng-select-container:hover {
+  box-shadow: none !important;
+}
+
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+  box-shadow: none !important;
+}
+
+
+::ng-deep .compare_select .ng-value-container .ng-value {
+  white-space: nowrap;
+  padding: 2px 5px !important;
+  border-radius: 5px !important;
+  background-color: #C9A24A !important;
+  color: #EFE7D6 !important;
+}
+
+
 .faq_sidebar_item.active .faq_sidebar_item_inner:after {
-    background-color: var(--Primary-Color);
+    background-color: #C9A24A;
 }
 .faq_sidebar_item.active .faq_sidebar_item_inner svg > rect {
-    fill: var(--Primary-Color);
+    fill: #C9A24A;
 }
 .faq_inner_svg {
     border-radius: 15px;
@@ -128,18 +166,40 @@ app-kpianalysis app-ag-bar:nth-child(3) {
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
 }
 .faq_inner_svg img
 {
-    width: 44px;
+     width: 44px;
 }
-.faq_sidebar_item:nth-child(1) .faq_inner_svg { background-color: var(--Surface-Elevated); } /* Soft Blue */
+.faq_sidebar_item:nth-child(1) .faq_inner_svg { background-color: #584d00; } /* Soft Blue */
+.faq_sidebar_item:nth-child(2) .faq_inner_svg { background-color: #45B39D; } /* Sage Teal */
+.faq_sidebar_item:nth-child(3) .faq_inner_svg { background-color: #E67E22; } /* Soft Pumpkin */
+.faq_sidebar_item:nth-child(4) .faq_inner_svg { background-color: #A569BD; } /* Muted Amethyst */
+.faq_sidebar_item:nth-child(5) .faq_inner_svg { background-color: #52BE80; } /* Forest Mist */
+.faq_sidebar_item:nth-child(6) .faq_inner_svg { background-color: #85C1E9; } /* Pale Blue */
+.faq_sidebar_item:nth-child(7) .faq_inner_svg { background-color: #D98880; } /* Dusty Rose */
+.faq_sidebar_item:nth-child(8) .faq_inner_svg { background-color: #5499C7; } /* Ocean Blue */
+.faq_sidebar_item:nth-child(9) .faq_inner_svg { background-color: #AF7AC5; } /* Soft Lavender */
+.faq_sidebar_item:nth-child(10) .faq_inner_svg { background-color: #76D7C4; } /* Pale Aqua */
+.faq_sidebar_item:nth-child(11) .faq_inner_svg { background-color: #F5B041; } /* Golden Sand */
+.faq_sidebar_item:nth-child(12) .faq_inner_svg { background-color: #E59866; } /* Peach Clay */
+.faq_sidebar_item:nth-child(13) .faq_inner_svg { background-color: #1E8449; } /* Deep Moss */
+.faq_sidebar_item:nth-child(14) .faq_inner_svg { background-color: #566573; } /* Slate Grey */
+.faq_sidebar_item:nth-child(15) .faq_inner_svg { background-color: #808B96; } /* Blue Grey */
+.faq_sidebar_item:nth-child(16) .faq_inner_svg { background-color: #D35400; } /* Burnt Orange */
+.faq_sidebar_item:nth-child(17) .faq_inner_svg { background-color: #138D75; } /* Dark Teal */
+.faq_sidebar_item:nth-child(18) .faq_inner_svg { background-color: #AAB7B8; } /* Silver Mist */
+.faq_sidebar_item:nth-child(19) .faq_inner_svg { background-color: #935116; } /* Bronze Brown */
+.faq_sidebar_item:nth-child(20) .faq_inner_svg { background-color: #48C9B0; } /* Turquoise Tint */
+.faq_sidebar_item:nth-child(21) .faq_inner_svg { background-color: #F8C471; } /* Soft Mustard */
+.faq_sidebar_item:nth-child(22) .faq_inner_svg { background-color: #C0392B; } /* Brick Red */
+.faq_sidebar_item:nth-child(23) .faq_inner_svg { background-color: #2E86C1; } /* Steel Blue */
 
 .faq_sidebar_item.active .current-active span.faq_inner_svg {
     background-color: var(--Secondary-Color) !important;
     border-color: var(--Secondary-Color) !important;
 }
+
 
 .faq_sidebar_item.active .current-active.faq_sidebar_item_inner p {
     color: var(--Dark-Bg-Color) !important;
@@ -162,10 +222,10 @@ app-kpianalysis app-ag-bar:nth-child(3) {
 
 .table-responsive tbody td.action_td table .action_icons span {
     display: inline-block;
-    background-color: var(--Primary-Color);
+    background-color: #C9A24A;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #ffffff;
+    color: #EFE7D6;
     border-radius: 5px;
 }
 .faq_sidebar_item_inner {
@@ -185,7 +245,7 @@ app-kpianalysis app-ag-bar:nth-child(3) {
 }
 
 .medium {
-    background-color: #fff3cd;
+    background-color: #af8e2a;
     color: #856404;
     border: 1px solid #ffe69c !important;
 }
@@ -201,10 +261,10 @@ app-kpianalysis app-ag-bar:nth-child(3) {
 }
 .pillar_confidence_outer > p {
     font-weight: 600;
-    color: #0ccbaa;
+    color: #EFE7D6;
 }
 .action_icons a svg g path, .action_icons a svg path {
-    fill: #ffffff !important;
+    fill: #141209 !important;
 }
 tr.pillar_disabled {
     opacity: 0.4 !important;
@@ -213,15 +273,13 @@ tr.pillar_disabled {
     border-radius: 100px !important;
     padding: 0 !important;
     margin: 0 !important;
-    width: 30px;
-    height: 30px;
-    background: transparent;
 }
 p.btn_spinner {
     display: inline-block;
+    background-color: #C9A24A;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #ffffff;
+    color: #EFE7D6;
     border-radius: 5px;
 }
 
@@ -230,7 +288,7 @@ p.btn_spinner {
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  justify-content: center; /* 👈 center text */
+  justify-content: center; /* center text */
   min-width: 120px;  
   padding: 6px 14px;
   font-size: 12.5px;
@@ -249,29 +307,21 @@ p.btn_spinner {
 }
 
 .research_date.fresh {
-  background: linear-gradient(135deg, #e6fdf4, #d2f7eb);
-  color: #116c4a;
+  background: linear-gradient(135deg, #E8F0DC, #D5E4C4);
+  color: #1F3D2A;
 }
 .research_date.recent {
-  background: linear-gradient(135deg, #fff7df, #ffebba);
-  color: #8a6400;
+  background: linear-gradient(135deg, #FBF7F0, #E7C878);
+  color: #6c5201;
 }
 .research_date.old {
-  background: linear-gradient(135deg, #ffe9e6, #ffd1cb);
-  color: #912018;
-  margin: 0 auto;
-  display: block;
-  width: max-content;
+  background: linear-gradient(135deg, #F6E0DA, #E8C2B8);
+  color: #6B1F12;
 }
 .research_date.just-now {
-  background: linear-gradient(135deg, #e8f0ff, #d9e6ff);
-  color: #204ecf;
+  background: linear-gradient(135deg, #EFE7D6, #C9A24A);
+  color: #6c5201;
   animation: glow 1.8s ease-in-out infinite;
-}
-.compare_select .analyst_multi_select {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
 }
 
 @keyframes glow {
@@ -293,12 +343,15 @@ p.btn_spinner {
 }
 /* Ai date css end */
 
+
+
 @media only screen and (max-width:1750px) {
     .compare_city_table .city-col{
         min-width: 200px;
         width: 200px;
     }
 }
+
 
 @media only screen and (max-width:1550px) {
     .action_icons {
@@ -318,15 +371,33 @@ p.btn_spinner {
   }
 }
 
-/* ApexCharts custom tooltip — inline HTML controls bg/text colors */
+#chart {
+  width: 100%;
+  padding: 8px 8px 4px;
+}
+
+:host ::ng-deep #chart .apexcharts-canvas,
+:host ::ng-deep #chart .apexcharts-svg,
+:host ::ng-deep #chart .apexcharts-inner {
+  overflow: visible !important;
+}
+
+:host ::ng-deep #chart .apexcharts-xaxis text,
+:host ::ng-deep #chart .apexcharts-xaxis-label,
+:host ::ng-deep #chart .apexcharts-xaxis-label tspan,
+:host ::ng-deep #chart .apexcharts-legend-text {
+  fill: #EFE7D6 !important;
+  color: #EFE7D6 !important;
+}
+
 :host ::ng-deep .apexcharts-tooltip,
 :host ::ng-deep .apexcharts-tooltip.apexcharts-theme-light,
-:host ::ng-deep .apexcharts-tooltip.apexcharts-theme-dark {
+:host ::ng-deep .apexcharts-tooltip.apexcharts-theme-dark,
+:host ::ng-deep .apexcharts-tooltip.ami-kpi-custom-tooltip {
   background: transparent !important;
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  color: inherit !important;
 }
 
 :host ::ng-deep .apexcharts-tooltip .apexcharts-tooltip-series-group,

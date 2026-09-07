@@ -1,9 +1,9 @@
 declare const FB: any;
 import { AuthService } from '../../auth.service';
-import { ProgramVM } from 'src/app/core/models/ProgramVM';
+import { CountryVM } from 'src/app/core/models/CountryVM';
 import { environment } from 'src/environments/environment';
 import { UserRoleValue } from 'src/app/core/enums/UserRole';
-import { ClientSignUpDto } from '../../model/ClientSignUpDto';
+import { CountryUserSignUpDto } from '../../model/CountryUserSignUpDto';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 import { AfterViewInit, ChangeDetectorRef, Component, input, OnInit, output, signal } from '@angular/core';
@@ -15,11 +15,11 @@ import { AfterViewInit, ChangeDetectorRef, Component, input, OnInit, output, sig
 })
 export class SignUpComponent implements OnInit, AfterViewInit {
   signupForm: FormGroup;
-  submitsignUpDetail = output<ClientSignUpDto>();
+  submitsignUpDetail = output<CountryUserSignUpDto>();
   loading = input<boolean>(false);
   isSuccess = input<boolean>(false);
-  externalLogin = signal<ClientSignUpDto | null>(null);
-  programs = signal<ProgramVM[]>([]);
+  externalLogin = signal<CountryUserSignUpDto | null>(null);
+  countries = signal<CountryVM[]>([]);
   captchaToken: string | null = null;
   confirmPasswordVisible = false;
 
@@ -36,9 +36,9 @@ export class SignUpComponent implements OnInit, AfterViewInit {
 
   }
   ngOnInit(): void {
-    //this.getPrograms();
+    //this.getCountries();
   }
-  externalLoginForm(external: ClientSignUpDto) {
+  externalLoginForm(external: CountryUserSignUpDto) {
     this.externalLogin.set(external);
     this.signupForm.patchValue({
         fullName:external.fullName,
@@ -63,11 +63,11 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     };
   }
 
-  getPrograms() {
-    this.authService.getAllPrograms().subscribe({
+  getCountries() {
+    this.authService.getAllCountries().subscribe({
       next: (res) => {
         if (res.succeeded && res.result) {
-          this.programs.set(res.result);
+          this.countries.set(res.result);
         }
         else {
           this.toasterService.showError("Please refresh page and try again");
@@ -83,12 +83,12 @@ export class SignUpComponent implements OnInit, AfterViewInit {
     this.authService.initGoogleButton('googleBtn', (response) => {
       const user = JSON.parse(atob(response.credential.split('.')[1]));
       if (user?.name && user?.email) {
-        let payload: ClientSignUpDto = {
+        let payload: CountryUserSignUpDto = {
           fullName: user.name,
           email: user.email,
           phone: '',
           password: '',
-          role: UserRoleValue.ProgramUser,
+          role: UserRoleValue.CountryUser,
           isConfrimed: true,
           is2FAEnabled :false
         };
@@ -114,12 +114,12 @@ export class SignUpComponent implements OnInit, AfterViewInit {
         if (response.authResponse) {
           FB.api('/me', { fields: 'name,email,picture' }, (user: any) => {
             if (user?.name && user?.email) {
-              let payload: ClientSignUpDto = {
+              let payload: CountryUserSignUpDto = {
                 fullName: user.name,
                 email: user.email,
                 phone: '',
                 password: '',
-                role: UserRoleValue.ProgramUser,
+                role: UserRoleValue.CountryUser,
                 isConfrimed: true,
                 is2FAEnabled :false
               };
@@ -149,12 +149,12 @@ export class SignUpComponent implements OnInit, AfterViewInit {
       return;
     }
     let f = this.signupForm.value;
-    let payload: ClientSignUpDto = {
+    let payload: CountryUserSignUpDto = {
       fullName: f?.fullName,
       email: f?.email,
       phone: f?.phone,
       password: f?.password,
-      role: UserRoleValue.ProgramUser,
+      role: UserRoleValue.CountryUser,
       isConfrimed: this.externalLogin() !=null ,
       is2FAEnabled :f?.is2FAEnabled
     };

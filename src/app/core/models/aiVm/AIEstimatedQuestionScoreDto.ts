@@ -1,9 +1,9 @@
 export interface AIEstimatedQuestionScoreDto {
-  climateProgramID: number;
+  countryID: number;
   pillarID: number;
   questionID: number;
   questionText: string;
-  year: number; 
+  year: number; // ✅ renamed from dataYear
   aiScore: number | null;
   aiProgress: number | null;
   evaluatorScore: number | null; // ✅ renamed
@@ -20,11 +20,11 @@ export interface AIEstimatedQuestionScoreDto {
   distortionScreening: string | null;
   relationalDependencies: string | null;
   // Stress Tests
-  stressGeopoliticalShock: string | null;
-  stressFinanceShock: string | null;
-  stressLegitimacyShock: string | null;
+  stressPoliticalShock: string | null;
+  stressEconomicShock: string | null;
+  stressNarrativeShock: string | null;
   stressOverallResilienceShock: string | null;
-  inclusionEquityAdjustment: string | null; // ✅ renamed
+  inequalityAdjustment: string | null; // ✅ renamed
   opacityRisk: string | null;
   redFlag: string | null; // ✅ renamed
   // Source Metadata

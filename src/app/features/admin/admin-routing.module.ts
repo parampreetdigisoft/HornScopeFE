@@ -2,15 +2,16 @@ import { NgModule } from "@angular/core";
 import { CommonModule } from "@angular/common";
 import { RouterModule, Routes } from "@angular/router";
 import { AdminComponent } from "./component/admin.component";
+import { CountryComponent } from "./container/country/country.component";
 import { PillarComponent } from "./container/pillar/pillar.component";
 import { QuestionComponent } from "./container/question/question.component";
 import { AssesmentComponent } from "./container/assesment/assesment.component";
 import { AnalystViewComponent } from "./container/analyst-view/analyst-view.component";
-import { AdminPulseDashboardComponent } from "./container/admin-pulse-dashboard/admin-pulse-dashboard.component";
+import { AdminDashboardComponent } from "./container/admin-dashboard/admin-dashboard.component";
 import { ComparisionComponent } from "./container/comparision/comparision.component";
+import { KpiLayersComponent } from "./container/kpi-layers/kpi-layers.component";
 import { EvaluatoinResponseViewComponent } from "./container/evaluatoin-response-view/evaluatoin-response-view.component";
-import { ProgramsComponent } from "./container/programs/programs.component";
-import { ClientViewComponent } from "./container/client-view/client-view.component";
+import { CountryUserViewComponent } from "./container/country-user-view/country-user-view.component";
 
 const routes: Routes = [
   {
@@ -18,20 +19,21 @@ const routes: Routes = [
     component: AdminComponent,
     children: [
       { path: "", redirectTo: "dashboard", pathMatch: "full" },
-      { path: "dashboard", component: AdminPulseDashboardComponent },
-      { path: "programs", component: ProgramsComponent },
+      { path: "dashboard", component: AdminDashboardComponent },
+      { path: "rosew-dashboard", redirectTo: "dashboard", pathMatch: "full" },
+      { path: "country", component: CountryComponent },
       { path: "analyst", component: AnalystViewComponent },
-      { path: "client", component: ClientViewComponent },
+      { path: "countryuser", component: CountryUserViewComponent },
       { path: "pillar", component: PillarComponent },
       { path: "question", component: QuestionComponent },
-      { path: "assessment", component: AssesmentComponent },
-      { path: "assessment/:roleID/:climateProgramID", component: AssesmentComponent },
+      { path: "assesment", component: AssesmentComponent },
+      { path: "assesment/:roleID/:countryID", component: AssesmentComponent },
       {
         path: "assessment-result/:assessmentID/:userName",
         component: EvaluatoinResponseViewComponent,
       },
       { path: "viewUser/:roleID", component: AnalystViewComponent },
-      { path: "evaluator-comparison", component: ComparisionComponent },
+      { path: "evaluator-Comparision", component: ComparisionComponent },
       {
         path: "kpi-layers",
         loadComponent: () =>
@@ -40,26 +42,26 @@ const routes: Routes = [
           ),
       },
       {
-        path: "kpi-comparison",
+        path: "kpi-comparision",
         loadComponent: () =>
           import("./container/kpi-comparision/kpi-comparision.component").then(
             (m) => m.KpiComparisionComponent
           ),
       },
       {
-        path: "ai/program-analysis",
+        path: "ai/country-analysis",
         loadComponent: () =>
-          import("./container/ai-program-analysis/ai-program-analysis.component").then(
-            (m) => m.AIProgramAnalaysisComponent
+          import("./container/ai-country-analysis/ai-country-analysis.component").then(
+            (m) => m.AICountryAnalaysisComponent
           ),
       },
 
       {
-        path: "ai/program-comparison",
+        path: "ai/country-comparison",
         loadComponent: () =>
           import(
-            "./container/ai-program-comparison/ai-program-comparison.component"
-          ).then((m) => m.AiProgramComparisonComponent),
+            "./container/ai-country-comparison/ai-country-comparison.component"
+          ).then((m) => m.AiCountryComparisonComponent),
       },
       {
         path: "ai/questions-analysis",
@@ -80,6 +82,20 @@ const routes: Routes = [
         loadComponent: () =>
           import("./container/ai-documents/ai-documents.component").then(
             (m) => m.AiDocumentsComponent
+          ),
+      },
+      {
+        path: "ai/edit-permissions",
+        loadComponent: () =>
+          import("./container/ai-edit-permissions/ai-edit-permissions.component").then(
+            (m) => m.AiEditPermissionsComponent
+          ),
+      },
+      {
+        path: "ai/edit-changes",
+        loadComponent: () =>
+          import("./container/ai-edit-changes/ai-edit-changes.component").then(
+            (m) => m.AiEditChangesComponent
           ),
       },
       {

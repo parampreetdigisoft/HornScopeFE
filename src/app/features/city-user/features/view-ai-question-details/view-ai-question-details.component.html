@@ -1,0 +1,252 @@
+<div class="offcanvas-header">
+  <h5 id="offcanvasLabel">
+    Analysis of :
+    {{ question?.questionText ?? "" }}
+    <!-- <app-typing-text [text]="question?.questionText ?? ''" [speed]="40"
+            [numberOfWordAfterHideText]="25">
+        </app-typing-text> -->
+  </h5>
+
+  <button
+    type="button"
+    class="btn-close text-reset"
+    data-bs-dismiss="offcanvas"
+  ></button>
+</div>
+
+<ng-container>
+  <div class="cross-pillar_outter">
+    <div class="integrate_outter">
+      <div class="integrate_list">
+        <app-sparkline-score
+          [value]="question?.aiScore ?? 0"
+        ></app-sparkline-score>
+      </div>
+
+      <div class="cross-pillar">
+        <h5>Evidence Summary</h5>
+        &nbsp;
+        <div *ngIf="question?.evidenceSummary">
+          <app-typing-text
+            [text]="question?.evidenceSummary ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="50"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+
+      <div class="cross-pillar">
+        <h5>Red Flag</h5>
+        &nbsp;
+        <div *ngIf="question?.redFlag">
+          <app-typing-text
+            [text]="question?.redFlag ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="10"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+
+      <div class="cross-pillar">
+        <h5>Inequality Adjustment</h5>
+        &nbsp;
+        <div *ngIf="question?.inequalityAdjustment">
+          <app-typing-text
+            [text]="question?.inequalityAdjustment ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="10"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Structural Evidence</h5>
+        &nbsp;
+        <div *ngIf="question?.structuralEvidence">
+          <app-typing-text
+            [text]="question?.structuralEvidence ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="50"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Operational Evidence</h5>
+        &nbsp;
+        <div *ngIf="question?.operationalEvidence">
+          <app-typing-text
+            [text]="question?.operationalEvidence ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="50"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Outcome Evidence</h5>
+        &nbsp;
+        <div *ngIf="question?.outcomeEvidence">
+          <app-typing-text
+            [text]="question?.outcomeEvidence ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="50"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Perception Evidence</h5>
+        &nbsp;
+        <div *ngIf="question?.perceptionEvidence">
+          <app-typing-text
+            [text]="question?.perceptionEvidence ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="50"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Temporal Scope</h5>
+        &nbsp;
+        <div *ngIf="question?.temporalScope">
+          <app-typing-text
+            [text]="question?.temporalScope ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="20"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Distortion Screening</h5>
+        &nbsp;
+        <div *ngIf="question?.distortionScreening">
+          <app-typing-text
+            [text]="question?.distortionScreening ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="20"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Relational Dependencies</h5>
+        &nbsp;
+        <div *ngIf="question?.relationalDependencies">
+          <app-typing-text
+            [text]="question?.relationalDependencies ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="20"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Political Shock</h5>
+        &nbsp;
+        <div *ngIf="question?.stressPoliticalShock">
+          <app-typing-text
+            [text]="question?.stressPoliticalShock ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="20"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Economic Shock</h5>
+        &nbsp;
+        <div *ngIf="question?.stressEconomicShock">
+          <app-typing-text
+            [text]="question?.stressEconomicShock ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="20"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Narrative Shock</h5>
+        &nbsp;
+        <div *ngIf="question?.stressNarrativeShock">
+          <app-typing-text
+            [text]="question?.stressNarrativeShock ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="20"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Overall Resilience</h5>
+        &nbsp;
+        <div *ngIf="question?.stressOverallResilienceShock">
+          <app-typing-text
+            [text]="question?.stressOverallResilienceShock ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="20"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+      <div class="cross-pillar">
+        <h5>Opacity Risk</h5>
+        &nbsp;
+        <div *ngIf="question?.opacityRisk">
+          <app-typing-text
+            [text]="question?.opacityRisk ?? ''"
+            [speed]="10"
+            [numberOfWordAfterHideText]="20"
+          >
+          </app-typing-text>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  &nbsp;
+
+  <div class="cus_table kpi_table">
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th scope="col">Category</th>
+            <th scope="col">Description</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Source Type</td>
+            <td>{{ question?.sourceType ?? "" }}</td>
+          </tr>
+          <tr>
+            <td>Source Name</td>
+
+            <td [matTooltip]="'Go to link'">
+              <a [href]="question?.sourceURL" target="_blank">
+                {{ question?.sourceName ?? "" }}
+              </a>
+            </td>
+          </tr>
+          <tr>
+            <td>Data Year</td>
+            <td>{{ question?.sourceDataYear ?? "" }}</td>
+          </tr>
+          <tr>
+            <td>Trust Level</td>
+            <td>{{ getLabelDesById(question?.sourceHierarchyLevel ?? 0) }}</td>
+          </tr>
+          <tr>
+            <td>Data Extract</td>
+            <td>{{ question?.sourceDataExtract ?? "" }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</ng-container>

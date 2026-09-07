@@ -1,0 +1,59 @@
+@import '../../../../core/styles/ami-dashboard-theme.css';
+
+app-evaluator-dashboard {
+  display: block;
+  width: 100%;
+  position: relative;
+  min-height: 0;
+  background: #0A0906;
+  border-radius: 14px;
+}
+
+app-evaluator-dashboard .ami-field .analyst_multi_select {
+  width: min(280px, 100%);
+  padding: 0;
+  border: 0;
+  background: transparent !important;
+}
+
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-select-container {
+  background-color: #231f1a !important;
+  border: 1px solid #3a3224 !important;
+  color: #efe7d6 !important;
+}
+
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-value,
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-placeholder,
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-input > input {
+  color: #efe7d6 !important;
+}
+
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-dropdown-panel {
+  background: #1a1610 !important;
+  border: 1px solid #3a3224 !important;
+  color: #efe7d6 !important;
+}
+
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-option {
+  background: #1a1610 !important;
+  color: #efe7d6 !important;
+}
+
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-option:hover {
+  background: rgba(201, 162, 74, 0.16) !important;
+  color: #e7c878 !important;
+}
+
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-option.ng-option-selected,
+app-evaluator-dashboard .ami-field .analyst_multi_select .ng-option.ng-option-selected.ng-option-marked {
+  background: transparent !important;
+  color: #e7c878 !important;
+  border: 1px solid #c9a24a !important;
+}
+
+app-evaluator-dashboard .ami-empty {
+  padding: 36px 16px;
+  text-align: center;
+  color: #9c9484;
+  font-size: 13px;
+}

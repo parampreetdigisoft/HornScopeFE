@@ -4,7 +4,7 @@ import { ToasterService } from 'src/app/core/services/toaster.service';
 import { SortDirection } from 'src/app/core/enums/SortDirection';
 import { UserService } from 'src/app/core/services/user.service';
 import { environment } from 'src/environments/environment';
-import { ProgramVM } from 'src/app/core/models/ProgramVM';
+import { CountryVM } from 'src/app/core/models/CountryVM';
 import { AdminService } from '../../admin.service';
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -13,7 +13,7 @@ import { CircularScoreComponent } from 'src/app/shared/standAlone/circular-score
 import { SparklineScoreComponent } from 'src/app/shared/standAlone/sparkline-score/sparkline-score.component';
 import { debounceTime, Subject } from 'rxjs';
 import { CommonService } from 'src/app/core/services/common.service';
-declare var bootstrap: any; // 👈 use Bootstrap JS API
+declare var bootstrap: any; // use Bootstrap JS API
 @Component({
   standalone: true,
   imports: [CommonModule, SharedModule, SparklineScoreComponent, CircularScoreComponent],
@@ -22,27 +22,28 @@ declare var bootstrap: any; // 👈 use Bootstrap JS API
   styleUrl: './kpi-layers.component.css'
 })
 export class KpiLayersComponent {
+  selectedYear = new Date().getFullYear();
   urlBase = environment.apiUrl;
   selectedKpi: GetAnalyticalLayerResultDto | null | undefined = null;
-  selectedclimateProgramID?: number;
+  selectedCountryID?: number;
   selectedkpiLayerID?: number;
   kpiLayersResponse: PaginationResponse<GetAnalyticalLayerResultDto> | undefined;
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1;
   loading: boolean = false;
-  isLoader: boolean = false;
+  isLoader: boolean = true;
   kpis: AnalyticalLayerResponseDto[] = [];
-  programList: ProgramVM[] = [];
+  countryList: CountryVM[] = [];
   $kpiChanged = new Subject();
   kpiLayers: GetAnalyticalLayerResultDto[] = [];
   kpiSearchFn = (term: string, item: any) => this.customSearchFn(term, item, 'kpi');
-  programSearchFn = (term: string, item: any) => this.customSearchFn(term, item, 'program');
+  countrySearchFn = (term: string, item: any) => this.customSearchFn(term, item, 'country');
   constructor(private adminService: AdminService, private toaster: ToasterService, private userService: UserService, public commonService:CommonService) { }
 
   ngOnInit(): void {
     this.getAnalyticalLayerResults(1);
-    this.getProgramUserPrograms();
+    this.getCountryUserCountries();
     this.GetAllKpi();
     this.$kpiChanged.pipe(debounceTime(1000)).subscribe(x => {
       this.getAnalyticalLayerResults();
@@ -51,7 +52,7 @@ export class KpiLayersComponent {
   kpiChanged() {
     this.$kpiChanged.next(true);
   }
-  
+
   getAnalyticalLayerResults(currentPage: any = 1) {
     this.kpiLayersResponse = undefined;
     this.isLoader = true;
@@ -62,13 +63,17 @@ export class KpiLayersComponent {
       pageSize: this.pageSize,
       userId: this.userService?.userInfo?.userID
     }
-    if (this.selectedclimateProgramID != undefined && this.selectedclimateProgramID != 0) {
-      payload.climateProgramID = this.selectedclimateProgramID;
+    if (this.selectedCountryID != undefined && this.selectedCountryID != 0) {
+      payload.countryID = this.selectedCountryID;
     }
     if (this.selectedkpiLayerID != undefined && this.selectedkpiLayerID != 0) {
       payload.layerID = this.selectedkpiLayerID;
     }
-    this.adminService.getAnalyticalLayerResults(payload).subscribe(kpiLayers => {
+    if(this.selectedYear > 0){
+      payload.year = Number(this.selectedYear);
+    }
+
+    this.adminService.GetAnalyticalLayerResults(payload).subscribe(kpiLayers => {
       this.kpiLayersResponse = kpiLayers;
       this.totalRecords = kpiLayers.totalRecords;
       this.currentPage = currentPage;
@@ -78,10 +83,11 @@ export class KpiLayersComponent {
   }
 
   ngOnDestroy(): void {
+
   }
 
-  viewDetails(program: GetAnalyticalLayerResultDto) {   
-    this.selectedKpi = program;  
+  viewDetails(country: GetAnalyticalLayerResultDto) {   
+    this.selectedKpi = country;  
     const sidebarEl = document.getElementById('kpiLayerSidebar');
     const offcanvas = new bootstrap.Offcanvas(sidebarEl);
     offcanvas.show();
@@ -95,11 +101,11 @@ export class KpiLayersComponent {
       }
     });
   }
-  getProgramUserPrograms() {
-    this.adminService.getAllProgramsByUserId(this.userService.userInfo.userID ?? 0).subscribe({
+  getCountryUserCountries() {
+    this.adminService.getAllCountriesByUserId(this.userService.userInfo.userID ?? 0).subscribe({
       next: (res) => {
         if (res.succeeded) {
-          this.programList = res.result ?? [];
+          this.countryList = res.result ?? [];
         }
       }
     });
@@ -108,19 +114,19 @@ export class KpiLayersComponent {
   getConditionByid(layer: GetAnalyticalLayerResultDto) {
     return layer?.fiveLevelInterpretations?.find(x => x.interpretationID == layer.interpretationID)?.condition || '';
   }
-
-  customSearchFn(term: string, item: any, type: 'kpi' | 'program') {
+  
+   customSearchFn(term: string, item: any, type: 'kpi' | 'country') {
     term = term.toLowerCase();
     if (type === 'kpi') {
       return (
         item.layerCode?.toLowerCase().includes(term) ||
         item.layerName?.toLowerCase().includes(term)
       );
-    } else if (type === 'program') {
+    } else if (type === 'country') {
       return (
-        item.programName?.toLowerCase().includes(term) ||
-        item.location?.toLowerCase().includes(term) ||
-        item.year?.toString().includes(term)
+        item.countryName?.toLowerCase().includes(term) ||
+        item.continent?.toLowerCase().includes(term) ||
+        item.score?.toString().includes(term)
       );
     }
     return false;

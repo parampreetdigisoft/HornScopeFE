@@ -2,8 +2,8 @@ import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { TypingTextComponent } from '../typing-text/typing-text.component';
-import { AITrustLevelVM } from 'src/app/core/models/aiVm/AITrustLevelVM';
 import { AiFieldType, CONFIDENCE_LEVEL_OPTIONS } from 'src/app/core/models/aiVm/UpdateAiScoreDtos';
+import { AITrustLevelVM } from 'src/app/core/models/aiVm/AITrustLevelVM';
 
 @Component({
   selector: 'app-ai-editable-field',
@@ -26,7 +26,7 @@ export class AiEditableFieldComponent {
   @Input() hideAfterWords = 7;
   @Input() showLabel = true;
   @Input() compact = false;
-  @Input() scoreList = [-4,-3,-2,-1,0,1,2,3,4];
+  @Input() scoreList = [4,3,2,1,0,'N/A','Unknown'];
 
   @Output() valueChange = new EventEmitter<string | number | null>();
 

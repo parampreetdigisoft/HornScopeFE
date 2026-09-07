@@ -2,8 +2,9 @@ import { forkJoin } from 'rxjs';
 import { FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { ActivatedRoute } from '@angular/router';
-import { ProgramVM } from 'src/app/core/models/ProgramVM';
+import { CountryVM } from 'src/app/core/models/CountryVM';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { NgSelectDefaultsDirective } from 'src/app/shared/directives/ng-select-defaults.directive';
 import { AnalystService } from '../../analyst.service';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
 import { MatTooltipModule } from '@angular/material/tooltip';
@@ -14,7 +15,7 @@ import { ToasterService } from 'src/app/core/services/toaster.service';
 import { AITrustLevelVM } from 'src/app/core/models/aiVm/AITrustLevelVM';
 import { AiComputationService } from 'src/app/core/services/ai-computation.service';
 import { PaginationComponent } from 'src/app/shared/pagination/pagination.component';
-import { AiPillarQuestionsRequestDto } from 'src/app/core/models/aiVm/AiProgramSummeryRequestDto';
+import { AiPillarQuetionsRequestDto } from 'src/app/core/models/aiVm/AiCountrySummeryRequestDto';
 import { TypingTextComponent } from 'src/app/shared/standAlone/typing-text/typing-text.component';
 import { AIEstimatedQuestionScoreDto } from 'src/app/core/models/aiVm/AIEstimatedQuestionScoreDto';
 import { ChangeDetectorRef, Component, inject, OnChanges, OnInit, SimpleChanges } from '@angular/core';
@@ -22,24 +23,25 @@ import { CircularScoreComponent } from 'src/app/shared/standAlone/circular-score
 import { SparklineScoreComponent } from 'src/app/shared/standAlone/sparkline-score/sparkline-score.component';
 import { ViewAiQuestionDetailsComponent } from '../../../../shared/standAlone/view-ai-question-details/view-ai-question-details.component';
 import { UtcToLocalTooltipDirective } from 'src/app/shared/directives/utc-to-local-tooltip.directive';
-declare var bootstrap: any; // 👈 use Bootstrap JS API
+declare var bootstrap: any; // use Bootstrap JS API
 
 @Component({
   selector: 'app-ai-question-analysis',
   standalone: true,
   imports: [TypingTextComponent, CommonModule,
     ViewAiQuestionDetailsComponent, CircularScoreComponent, SparklineScoreComponent,
-    PaginationComponent, FormsModule, NgSelectModule,
+    PaginationComponent, FormsModule, NgSelectModule, NgSelectDefaultsDirective,
     MatTooltipModule, UtcToLocalTooltipDirective],
   templateUrl: './ai-question-analysis.component.html',
   styleUrl: './ai-question-analysis.component.css'
 })
 export class AiQuestionAnalysisComponent implements OnInit, OnChanges {
-  selectedclimateProgramID!: number;
+  selectedYear = new Date().getFullYear();
+  selectedCountryID!: number;
   selectedPillarID!: number;
   selectedQuestion: AIEstimatedQuestionScoreDto | null = null;
-  isLoader: boolean = false;
-  programs: ProgramVM[] = [];
+  isLoader: boolean = true;
+  countries: CountryVM[] = [];
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1;
@@ -61,7 +63,7 @@ export class AiQuestionAnalysisComponent implements OnInit, OnChanges {
     this.headerTextRepeatation = false;
 
     const p = this.pillars.find(x => x.pillarID === this.selectedPillarID)?.pillarName ?? '';
-    const c = this.programs.find(x => x.climateProgramID === this.selectedclimateProgramID)?.programName ?? '';
+    const c = this.countries.find(x => x.countryID === this.selectedCountryID)?.countryName ?? '';
 
     setTimeout(() => {
       this.headerTextRepeatation = true;
@@ -82,11 +84,13 @@ export class AiQuestionAnalysisComponent implements OnInit, OnChanges {
     this.loadInitialData();
     this.getAITrustLevels();
     this.route.queryParams.subscribe(params => {
-      let cid = +params['climateProgramID'] || null;
+      let cid = +params['countryID'] || null;
       let pid = +params['pillarID'] || null;
+      let sYear = +params['year'] || this.selectedYear;
       if (pid && cid) {
-        this.selectedclimateProgramID = Number(cid);
+        this.selectedCountryID = Number(cid);
         this.selectedPillarID = Number(pid);
+        this.selectedYear = Number(sYear);
         this.getAIPillarQuestions();
       }
     });
@@ -104,20 +108,20 @@ export class AiQuestionAnalysisComponent implements OnInit, OnChanges {
 
     forkJoin({
       pillarsRes: this.analystService.getAllPillars(),
-      programsRes: this.analystService.getAllProgramsByUserId(this.userService.userInfo?.userID ?? 0)
+      countriesRes: this.analystService.getAllCountriesByUserId(this.userService.userInfo?.userID ?? 0)
     }).subscribe({
-      next: ({ pillarsRes, programsRes }) => {
+      next: ({ pillarsRes, countriesRes }) => {
 
         this.pillars = pillarsRes ?? [];
-        if (programsRes.succeeded) {
-          this.programs = programsRes.result ?? [];
+        if (countriesRes.succeeded) {
+          this.countries = countriesRes.result ?? [];
         } else {
-          this.toaster.showError(programsRes.errors.join(', '));
+          this.toaster.showError(countriesRes.errors.join(', '));
         }
 
-        if ((!this.selectedPillarID && !this.selectedclimateProgramID) && this.pillars.length && this.programs.length) {
+        if ((!this.selectedPillarID && !this.selectedCountryID) && this.pillars.length && this.countries.length) {
           this.selectedPillarID = this.pillars[0].pillarID
-          this.selectedclimateProgramID = this.programs[0].climateProgramID
+          this.selectedCountryID = this.countries[0].countryID
           this.getAIPillarQuestions()
         }
       },
@@ -130,14 +134,17 @@ export class AiQuestionAnalysisComponent implements OnInit, OnChanges {
 
   getAIPillarQuestions(currentPage: any = 1) {
     this.isLoader = true;
-    let payload: AiPillarQuestionsRequestDto = {
+    this.closeSidebar();
+    
+    let payload: AiPillarQuetionsRequestDto = {
       sortDirection: SortDirection.DESC,
       sortBy: 'AIProgress',
       pageNumber: currentPage,
-      pageSize: this.pageSize
+      pageSize: this.pageSize,
+      year: this.selectedYear
     }
-    if (this.selectedclimateProgramID > 0) {
-      payload.climateProgramID = this.selectedclimateProgramID;
+    if (this.selectedCountryID > 0) {
+      payload.countryID = this.selectedCountryID;
     }
     if (this.selectedPillarID > 0) {
       payload.pillarID = this.selectedPillarID;
@@ -160,8 +167,8 @@ export class AiQuestionAnalysisComponent implements OnInit, OnChanges {
     })
   }
 
-  viewDetails(program: AIEstimatedQuestionScoreDto) {
-    this.selectedQuestion = program;
+  viewDetails(country: AIEstimatedQuestionScoreDto) {
+    this.selectedQuestion = country;
     const sidebarEl = document.getElementById('kpiLayerSidebar');
     const offcanvas = new bootstrap.Offcanvas(sidebarEl);
 
@@ -173,20 +180,30 @@ export class AiQuestionAnalysisComponent implements OnInit, OnChanges {
 
     offcanvas.show();
   }
+  closeSidebar(): void {
+    const sidebarEl = document.getElementById('kpiLayerSidebar');
+
+    if (!sidebarEl) {
+      return;
+    }
+
+    const offcanvas = bootstrap.Offcanvas.getInstance(sidebarEl);
+
+    if (offcanvas) {
+      offcanvas.hide();
+    }
+  }
+
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();
     return (
-      item.programName?.toLowerCase().includes(term) ||
-      item.programAliasName?.toLowerCase().includes(term)
+      item.countryName?.toLowerCase().includes(term) ||
+      item.countryAliasName?.toLowerCase().includes(term)
     );
   }
   
   discrepancy(question: any): number {
     let discrepancy = Math.abs((question?.evaluatorScore ?? 0) - (question?.aiScore ?? 0));
     return discrepancy;
-  }
-
-  onQuestionDetailSaved() {
-    this.getAIPillarQuestions(this.currentPage);
   }
 }

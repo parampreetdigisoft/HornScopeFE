@@ -4,6 +4,8 @@
     /* set your desired width */
 }
 
+
+
 .action_td input[type="checkbox"] {
     width: 22px;
     height: 22px;
@@ -21,8 +23,8 @@
 
 .document_td_data .bold_num,
 ::ng-deep .document_sidebar app-ai-document-view-details .bold_num {
-    background: var(--Primary-Color);
-    color: #ffffff;
+    background: #C9A24A;
+    color: #EFE7D6;
     padding: 2px 8px;
     border-radius: 0.5rem;
     display: inline-block;
@@ -30,20 +32,20 @@
     margin-top: 8px;
 }
 
-::ng-deep .document_sidebar app-ai-document-view-details .program_card_outter .program_card_img img {
+::ng-deep .document_sidebar app-ai-document-view-details .city_card_outter .city_card_img img {
     max-width: 300px;
 }
 
-::ng-deep .document_sidebar app-ai-document-view-details .program_card_outter .program_card_inner {
+::ng-deep .document_sidebar app-ai-document-view-details .city_card_outter .city_card_inner {
     padding: 10px 0px;
 }
 
-::ng-deep .document_sidebar app-ai-document-view-details .program_card_outter .program_card_inner .program_cards_h1 {
+::ng-deep .document_sidebar app-ai-document-view-details .city_card_outter .city_card_inner .city_cards_h1 {
     font-size: 18px;
     margin-right: auto;
 }
 
-::ng-deep .document_sidebar .program_cards_disc {
+::ng-deep .document_sidebar .city_cards_disc {
     margin: 10px 0 0px !important;
     font-size: 14px;
 }
@@ -63,14 +65,11 @@
 
 .compare_city_table tbody td.action_td table .action_icons a.mat-mdc-tooltip-trigger span {
     display: inline-block;
-    background-color: #164074 !important;
+    background-color: #7c642d;
     padding: 8px 10px;
     white-space: nowrap;
-    color: #ffffff;
+    color: #EFE7D6;
     border-radius: 5px;
-    color: rgb(59 158 255);
-    border: 1px solid rgba(59, 158, 255, 0.55);
-    background: rgba(59, 158, 255, 0.08);
 }
 
 .compare_city_table .action_td td {
@@ -81,17 +80,16 @@
     border-radius: 100px !important;
     padding: 0 !important;
     margin: 0 !important;
-    width: 30px;
-    height: 30px;
-    background: transparent;
 }
 p.btn_spinner {
     display: inline-block;
-    padding: 0px 0px;
+    background-color: #C9A24A;
+    padding: 8px 10px;
     white-space: nowrap;
-    color: #ffffff;
+    color: #EFE7D6;
     border-radius: 5px;
 }
+
 
 @media only screen and (max-width:1550px) {
     .table_outer .table th {
@@ -109,11 +107,48 @@ p.btn_spinner {
     }
 }
 
-.compare_select .analyst_multi_select {
-  flex: 1;
-  width: 100%;
-  min-width: 0;
+::ng-deep .analyst_multi_select .ng-option-selected {
+    background-color: rgba(201, 162, 74, 0.18) !important;
+    color: #C9A24A !important;
+    font-weight: 600;
 }
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+    background-color: rgba(201, 162, 74, 0.14) !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+    border: none !important;
+    background-color: #1B1810 !important;
+    min-height: auto !important;
+    height: 100% !important;
+}
+
+::ng-deep .compare_select .ng-select-container:hover {
+    box-shadow: none !important;
+}
+
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    box-shadow: none !important;
+}
+
+/* .compare_select .analyst_multi_select {
+    flex: 1;
+    height: auto;
+    background-color: #1B1810;
+    min-height: 36px;
+    align-items: center;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none !important;
+    border-radius: 12px !important;
+    padding: 6px 10px 6px 3px !important;
+    border: 1px solid #332C1D !important;
+} */
 
 .table_custom_inner {
     overflow: auto;
@@ -128,22 +163,23 @@ p.btn_spinner {
     flex-direction: column;
 }
 
+::ng-deep .compare_select .ng-value-container .ng-value {
+    white-space: nowrap;
+    padding: 2px 5px !important;
+    border-radius: 5px !important;
+    background-color: #C9A24A !important;
+    color: #EFE7D6 !important;
+}
+
 .document_cat05.document_td_data {
     display: flex;
 }
 
-::ng-deep .document_sidebar .program_pillar {
-    background-color: #f7f7f7;
+::ng-deep .document_sidebar .city_pillar {
+    background-color: #1B1810;
     padding: 0px 15px;
     position: relative;
     border-radius: 15px;
-    border: 1px solid #e4e4e4;
+    border: 1px solid #332C1D;
     margin-bottom: 15px;
-    margin-top: 15px;
-}
-
-::ng-deep span.spinner-border.spinner-border-sm
-{
-    width: 20px !important;
-    height: 20px !important;
 }

@@ -8,7 +8,7 @@ import {
   SimpleChanges,
   ViewChild,
 } from "@angular/core";
-import { ProgramVM } from "../../../../core/models/ProgramVM";
+import { CountryVM } from "../../../../core/models/CountryVM";
 import { AbstractControl, AsyncValidatorFn, FormBuilder, FormGroup, ValidationErrors, Validators } from "@angular/forms";
 import {
   InviteUserDto,
@@ -30,7 +30,7 @@ import { AdminService } from "../../admin.service";
 })
 export class AddUpdateAnalystComponent implements OnInit {
   @Input() analyst: GetUserByRoleResponse | null = null;
-  @Input() programs: ProgramVM[] | null = [];
+  @Input() countries: CountryVM[] | null = [];
   @Output() analystChange = new EventEmitter<UpdateInviteUserDto | null>();
   @Output() closeAnalystModel = new EventEmitter<boolean>();
   @Output() bulkImportChange = new EventEmitter<UpdateInviteUserDto[] | null>();
@@ -40,7 +40,7 @@ export class AddUpdateAnalystComponent implements OnInit {
   alertMsg = "";
   excelData: any;
   isSubmitted: boolean = false;
-  requiredHeaders = ["FullName", "Email", "Phone", "ProgramName"];
+  requiredHeaders = ["FullName", "Email", "Phone", "CountryName"];
   analystForm: FormGroup<any> = this.fb.group({});
 
   constructor(private fb: FormBuilder, private userService: UserService,private adminService: AdminService,) { 
@@ -51,17 +51,10 @@ export class AddUpdateAnalystComponent implements OnInit {
   initializeForm() {
     this.analystForm = this.fb.group({
       fullName: [this.analyst?.fullName, [Validators.required]],
-      email: this.fb.control(
-        this.analyst?.email,
-        {
-          validators: [Validators.required, Validators.email],
-          asyncValidators: [this.emailExistsValidator()],
-          updateOn: 'blur'
-        }
-      ),
+      email: [this.analyst?.email, [Validators.required, Validators.email], this.emailExistsValidator()],
       phone: [this.analyst?.phone, [Validators.required]],
-      program: [
-        this.analyst?.climatePrograms?.map((x) => x?.climateProgramID) ?? [],
+      country: [
+        this.analyst?.countries?.map((x) => x?.countryID) ?? [],
         [Validators.required],
       ],
     });
@@ -89,38 +82,47 @@ emailExistsValidator(): AsyncValidatorFn {
   };
 }
 
+get selectedFile(): File | null {
+    return this.fileInput?.nativeElement?.files?.[0] || null;
+  }
+
+  get selectedFileName(): string {
+    return this.selectedFile?.name || 'No file chosen';
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     this.alertMsg = "";
     this.isSubmitted = false;
-    if (this.analyst && this.analyst.climatePrograms) {
-      const selectedclimateProgramIDs = this.analyst.climatePrograms.map(c => c.climateProgramID);
-      this.analystForm.patchValue({
-        program: selectedclimateProgramIDs
-      });
-    }
+    if (this.analyst && this.analyst.countries) {
+    const selectedCountryIds = this.analyst.countries.map(c => c.countryID);
+    this.analystForm.patchValue({
+      country: selectedCountryIds
+    });
+  }
+    //this.initializeForm();
   } 
 
 
   onSubmit() {
     this.isSubmitted = true;
     if (this.analystForm.valid) {
-      const programData: UpdateInviteUserDto = {
+      const countryData: UpdateInviteUserDto = {
         ...this.analystForm.value,
         userID: this.analyst?.userID ?? 0,
-        climateProgramID: this.analystForm.value.program,
+        countryID: this.analystForm.value.country,
       };
-      this.analystChange.emit(programData);
+      this.analystChange.emit(countryData);
     }
   }
   downloadTemplate() {
-    const headers = ["FullName", "Email", "Phone", "ProgramName"];
+    const headers = ["FullName", "Email", "Phone", "countryName"];
 
     const sampleRow = {
       FullName: "FullName of Analyst",
       Email: "Enter Email of Analyst",
       Phone: "Enter Phone Number of Analyst",
-      ProgramName:
-        "Enter program name separated by comma, like :- COP Negotiation Transparency Initiative, Renewable Energy Transition Program, Climate Resilience and Adaptation Program",
+      countryName:
+        "Enter country seprated by comma, like :- Chandigarh, Mohali, Swar",
     };
 
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([sampleRow], {
@@ -178,14 +180,14 @@ emailExistsValidator(): AsyncValidatorFn {
         const fullName = String(row["FullName"] || "").trim();
         const email = String(row["Email"] || "").trim();
         const phone = String(row["Phone"] || "").trim();
-        const programName = String(row["ProgramName"] || "").trim();
+        const countryName = String(row["countryName"] || "").trim();
 
-        const isCompletelyBlank = !fullName && !email && !phone && !programName;
+        const isCompletelyBlank = !fullName && !email && !phone && !countryName;
         if (isCompletelyBlank) {
           continue;
         }
         // ✅ Required check
-        if (!fullName || !email || !phone || !programName) {
+        if (!fullName || !email || !phone || !countryName) {
           this.alertMsg = `Row ${i + 2}: All fields are required.`;
           this.fileInput.nativeElement.value = "";
           return;
@@ -224,7 +226,7 @@ emailExistsValidator(): AsyncValidatorFn {
           phone,
           password: email,
           role: UserRoleValue.Analyst,
-          climateProgramID: this.getProgramByName(programName),
+          countryID: this.getCountryByName(countryName),
         };
         excelData.push(dto);
       }
@@ -237,12 +239,12 @@ emailExistsValidator(): AsyncValidatorFn {
     reader.readAsBinaryString(target.files[0]);
   }
 
-  getProgramByName(programNames: string): number[] {
-    if (!programNames) return [];
-    return programNames
+  getCountryByName(countryNames: string): number[] {
+    if (!countryNames) return [];
+    return countryNames
       .split(",")
       .map((name) => name.trim())
-      .map((name) => this.programs?.find((c) => c.programName === name)?.climateProgramID)
+      .map((name) => this.countries?.find((c) => c.countryName === name)?.countryID)
       .filter((id): id is number => id !== undefined);
   }
 

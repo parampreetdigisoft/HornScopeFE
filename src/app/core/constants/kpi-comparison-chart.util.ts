@@ -10,8 +10,8 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
-import { ChartSeriesDto } from 'src/app/core/models/CompareProgramResponseDto';
-import { VCP_CHART } from './ahi-chart-theme';
+import { ChartSeriesDto } from 'src/app/core/models/CompareCountryResponseDto';
+import { AMI_CHART } from './ahi-chart-theme';
 
 export type KpiComparisonChartOptions = {
   series: ApexAxisChartSeries;
@@ -28,7 +28,7 @@ export type KpiComparisonChartOptions = {
 };
 
 type BuildArgs = {
-  programSeries: ChartSeriesDto[];
+  countrySeries: ChartSeriesDto[];
   categories: string[] | undefined;
   kpiMap: Map<string, string>;
   colorPalette: string[];
@@ -55,48 +55,58 @@ function lightenHex(color: string, percent: number): string {
   );
 }
 
-/** Dark-console KPI comparison line chart (admin / analyst / client). */
+/** Y-axis that can drop below 0 when KPI scores are negative. */
+export function computeKpiChartYRange(series: Array<{ data?: any[] }>): { min: number; max: number } {
+  const allValues = series
+    .flatMap((s) => s.data ?? [])
+    .filter((v) => v !== null && v !== undefined && !isNaN(Number(v)))
+    .map((v) => Number(v));
+  const dataMin = allValues.length ? Math.min(...allValues) : 0;
+  const dataMax = allValues.length ? Math.max(...allValues) : 100;
+  return {
+    min: dataMin < 0 ? Math.floor(dataMin / 10) * 10 : 0,
+    max: Math.max(100, Math.ceil(dataMax / 10) * 10),
+  };
+}
+
+/** Dark-console KPI comparison line chart (admin / analyst). */
 export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComparisonChartOptions> {
-  const { programSeries, categories, kpiMap, colorPalette, isAiViewEnabled } = args;
+  const { countrySeries, categories, kpiMap, colorPalette, isAiViewEnabled } = args;
 
   const series: any[] = [];
   const strokeDashArray: number[] = [];
   const colors: string[] = [];
 
-  programSeries.forEach((programData, index) => {
-    if (index === programSeries.length - 1 && isAiViewEnabled) {
+  countrySeries.forEach((countryData, index) => {
+    if (index === countrySeries.length - 1 && isAiViewEnabled) {
       return;
     }
 
     const baseColor = colorPalette[index % colorPalette.length];
 
     series.push({
-      name: `${programData.name} (Evaluation)`,
-      data: programData.data,
+      name: `${countryData.name} (Evaluation)`,
+      data: countryData.data,
       color: baseColor,
       type: 'line',
     });
     colors.push(baseColor);
     strokeDashArray.push(0);
 
-    if (isAiViewEnabled && programData.aiData) {
-      const aiColor = index % 2 === 0 ? VCP_CHART.secondary : lightenHex(baseColor, 28);
+    if (isAiViewEnabled && countryData.aiData) {
+      const aiColor = lightenHex(baseColor, 20);
       series.push({
-        name: `${programData.name} (AI)`,
-        data: programData.aiData,
+        name: `${countryData.name} (AI)`,
+        data: countryData.aiData,
         color: aiColor,
         type: 'line',
       });
       colors.push(aiColor);
-      strokeDashArray.push(7);
+      strokeDashArray.push(8);
     }
   });
 
-  const allValues = series.flatMap((s: any) => s.data ?? []).filter((v: any) => v !== null && v !== undefined && !isNaN(Number(v))).map((v: any) => Number(v));
-  const dataMin = allValues.length ? Math.min(...allValues) : 0;
-  const dataMax = allValues.length ? Math.max(...allValues) : 100;
-  const yMin = dataMin < 0 ? Math.floor(dataMin / 10) * 10 : 0;
-  const yMax = Math.max(100, Math.ceil(dataMax / 10) * 10);
+  const { min: yMin, max: yMax } = computeKpiChartYRange(series);
 
   return {
     series,
@@ -105,7 +115,7 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
       height: 440,
       type: 'line',
       background: 'transparent',
-      foreColor: VCP_CHART.textMuted,
+      foreColor: AMI_CHART.textMuted,
       fontFamily: 'Poppins, sans-serif',
       zoom: { enabled: false, type: 'x' },
       toolbar: {
@@ -124,13 +134,6 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         easing: 'easeinout',
         speed: 800,
       } as any,
-      dropShadow: {
-        enabled: true,
-        top: 0,
-        left: 0,
-        blur: 4,
-        opacity: 0.25,
-      },
     },
     dataLabels: { enabled: false },
     stroke: {
@@ -141,7 +144,7 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
     markers: {
       size: 5,
       strokeWidth: 2,
-      strokeColors: VCP_CHART.deep,
+      strokeColors: AMI_CHART.deep,
       hover: {
         size: 7,
         sizeOffset: 3,
@@ -151,27 +154,27 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
       show: true,
       position: 'top',
       horizontalAlign: 'center',
-      fontSize: '12px',
+      fontSize: '13px',
       fontWeight: 500,
-      labels: { colors: VCP_CHART.text },
+      labels: { colors: AMI_CHART.text },
       markers: {
-        width: 16,
+        width: 20,
         height: 3,
         radius: 0,
       } as any,
       itemMargin: {
-        horizontal: 14,
-        vertical: 6,
+        horizontal: 15,
+        vertical: 5,
       },
       onItemClick: { toggleDataSeries: true },
       onItemHover: { highlightDataSeries: true },
     },
     grid: {
-      borderColor: VCP_CHART.grid,
-      strokeDashArray: 4,
+      borderColor: AMI_CHART.grid,
+      strokeDashArray: 3,
       row: {
-        colors: ['rgba(59, 158, 255, 0.04)', 'transparent'],
-        opacity: 1,
+        colors: ['rgba(201,162,74,0.06)', 'transparent'],
+        opacity: 0.5,
       },
       xaxis: { lines: { show: false } },
       yaxis: { lines: { show: true } },
@@ -186,13 +189,13 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         style: {
           fontSize: '11px',
           fontWeight: 500,
-          colors: VCP_CHART.textMuted,
+          colors: AMI_CHART.textMuted,
         },
         trim: false,
       },
       tooltip: { enabled: false },
-      axisBorder: { show: true, color: VCP_CHART.border },
-      axisTicks: { show: true, color: VCP_CHART.border },
+      axisBorder: { show: true, color: AMI_CHART.border },
+      axisTicks: { show: true, color: AMI_CHART.border },
     },
     yaxis: {
       min: yMin,
@@ -205,7 +208,7 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         style: {
           fontSize: '12px',
           fontWeight: 500,
-          colors: [VCP_CHART.textMuted],
+          colors: [AMI_CHART.textMuted],
         },
       },
       title: {
@@ -213,10 +216,10 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         style: {
           fontSize: '13px',
           fontWeight: 600,
-          color: VCP_CHART.text,
+          color: AMI_CHART.text,
         },
       },
-      axisBorder: { show: true, color: VCP_CHART.border },
+      axisBorder: { show: true, color: AMI_CHART.border },
     },
     tooltip: {
       shared: true,
@@ -227,42 +230,42 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
         const layerName = kpiMap.get(layerCode) ?? '';
 
         let tooltipHtml = `
-          <div style="padding:14px 16px;min-width:260px;background:linear-gradient(160deg,#12243f 0%,#0d1a30 100%);border-radius:12px;box-shadow:${VCP_CHART.tooltipShadow};border:1px solid rgba(92,140,200,0.35);font-family:Poppins,sans-serif;color:#f8fafc;">
-            <div style="font-weight:700;margin-bottom:10px;color:#ffffff;font-size:13px;border-bottom:1px solid rgba(92,140,200,0.28);padding-bottom:8px;">
+          <div style="padding:14px 16px;min-width:260px;background:linear-gradient(160deg,#1B1810 0%,#141209 100%);border-radius:12px;box-shadow:${AMI_CHART.tooltipShadow};border:1px solid #332C1D;font-family:Poppins,sans-serif;color:#EFE7D6;">
+            <div style="font-weight:700;margin-bottom:10px;color:#EFE7D6;font-size:13px;border-bottom:1px solid #332C1D;padding-bottom:8px;">
               ${layerCode}${layerName ? ' — ' + layerName : ''}
             </div>
         `;
 
-        programSeries.forEach((program, idx) => {
-          if (idx === programSeries.length - 1 && isAiViewEnabled) {
+        countrySeries.forEach((country, idx) => {
+          if (idx === countrySeries.length - 1 && isAiViewEnabled) {
             return;
           }
 
-          const evalValue = Number(program.data?.[dataPointIndex] ?? 0);
-          const aiValue = program.aiData?.[dataPointIndex];
+          const evalValue = Number(country.data?.[dataPointIndex] ?? 0);
+          const aiValue = country.aiData?.[dataPointIndex];
           const color = colorPalette[idx % colorPalette.length];
           const difference = aiValue != null ? evalValue - Number(aiValue) : 0;
 
           tooltipHtml += `
             <div style="margin:8px 0;padding:10px;background:rgba(255,255,255,0.04);border-radius:8px;border-left:3px solid ${color};">
               <div style="font-weight:600;color:${color};margin-bottom:6px;font-size:12px;">
-                ${program.name}
+                ${country.name}
               </div>
               <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;">
-                <span style="color:#9AADC4;">Evaluation</span>
-                <span style="font-weight:700;color:#E8EEF8;">${evalValue.toFixed(2)}</span>
+                <span style="color:#9C9484;">Evaluation</span>
+                <span style="font-weight:700;color:#EFE7D6;">${evalValue.toFixed(2)}</span>
               </div>
           `;
 
           if (isAiViewEnabled && aiValue != null) {
             tooltipHtml += `
               <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;">
-                <span style="color:#9AADC4;">AI</span>
-                <span style="font-weight:700;color:${VCP_CHART.secondary};">${Number(aiValue).toFixed(2)}</span>
+                <span style="color:#9C9484;">AI</span>
+                <span style="font-weight:700;color:${AMI_CHART.primaryMid};">${Number(aiValue).toFixed(2)}</span>
               </div>
-              <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid rgba(92,140,200,0.22);">
-                <span style="color:#9AADC4;">Difference</span>
-                <span style="font-weight:700;color:${Math.abs(difference) > 10 ? '#ff8a65' : VCP_CHART.secondary};">
+              <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid #332C1D;">
+                <span style="color:#9C9484;">Difference</span>
+                <span style="font-weight:700;color:${Math.abs(difference) > 10 ? '#E08A6A' : AMI_CHART.primaryMid};">
                   ${difference > 0 ? '+' : ''}${difference.toFixed(2)}
                 </span>
               </div>

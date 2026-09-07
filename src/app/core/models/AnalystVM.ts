@@ -12,8 +12,8 @@ export interface RegisterDto {
 
 export interface InviteUserDto extends RegisterDto {
   invitedUserID: number;
-  climateProgramID: number[]|[]; 
-  isAllPrograms?: boolean;
+  countryID: number[]; 
+  isAllCountries?: boolean;
 }
 
 export interface UpdateInviteUserDto extends InviteUserDto {
@@ -22,8 +22,8 @@ export interface UpdateInviteUserDto extends InviteUserDto {
 export interface InviteBulkUserDto {
   users: InviteUserDto[];
 }
-export interface SendRequestMailToUpdateProgram {
+export interface SendRequestMailToUpdateCountry {
     userID: number;
     mailToUserID: number;
-    staffProgramMappingID: number;
+    userCountryMappingID: number;
 }

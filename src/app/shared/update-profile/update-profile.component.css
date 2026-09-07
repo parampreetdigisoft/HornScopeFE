@@ -1,37 +1,215 @@
+:host {
+  display: block;
+  color: #EFE7D6;
+}
+
+:host ::ng-deep .modal-content {
+  background:
+    radial-gradient(ellipse at top left, rgba(201, 162, 74, 0.1), transparent 52%),
+    #141209;
+  border: 1px solid #332C1D;
+  border-radius: 16px;
+  color: #EFE7D6;
+  box-shadow: 0 24px 64px rgba(0, 0, 0, 0.55);
+}
+
+.profile-modal-header {
+  margin-bottom: 8px;
+}
+
+.modal_head {
+  color: #EFE7D6 !important;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 22px;
+  font-weight: 700;
+}
+
+.modal_sub_head {
+  color: #9C9484 !important;
+  margin-top: 6px;
+  margin-bottom: 18px !important;
+}
+
 .error-msg {
-  color: #ff7b7b;
+  color: #E08A6A;
   font-size: 12px;
-  margin-top: 2px;
+  margin-top: 6px;
 }
 
 .pp_pic {
-  height: 55px;
-  width: 55px;
+  height: 56px;
+  width: 56px;
   border-radius: 100%;
   object-fit: cover;
-  border: 2px solid rgba(92, 140, 200, 0.35);
+  border: 2px solid rgba(201, 162, 74, 0.55);
+  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.12);
+}
+
+:host ::ng-deep .input_field label {
+  color: #E7C878 !important;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin-left: 0;
+  margin-bottom: 8px;
+}
+
+:host ::ng-deep .input_field .form-control {
+  background: #1B1810 !important;
+  border: 1px solid #332C1D !important;
+  border-radius: 10px !important;
+  color: #EFE7D6 !important;
+  min-height: 42px !important;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 10px 14px;
+}
+
+:host ::ng-deep .input_field .form-control::placeholder {
+  color: #8B887E !important;
+  font-weight: 400;
+}
+
+:host ::ng-deep .input_field .form-control:focus {
+  background: #141209 !important;
+  border-color: #C9A24A !important;
+  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.18) !important;
+  color: #EFE7D6 !important;
+  outline: 0;
+}
+
+.image-row {
+  margin-bottom: 15px;
+}
+
+.image-file-picker {
+  display: flex;
+  align-items: stretch;
+  position: relative;
+  width: 100%;
+  min-height: 42px;
+  border: 1px solid #332C1D;
+  border-radius: 10px;
+  background: #1B1810;
+  overflow: hidden;
+  cursor: pointer;
+  margin: 0;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.image-file-picker:hover {
+  border-color: rgba(201, 162, 74, 0.45);
+}
+
+.image-file-picker:focus-within {
+  border-color: #C9A24A;
+  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.18);
+}
+
+.image-file-input-hidden {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+}
+
+.image-file-trigger {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  padding: 0 14px;
+  background: rgba(201, 162, 74, 0.16);
+  color: #E7C878;
+  font-size: 12px;
+  font-weight: 600;
+  border-right: 1px solid #332C1D;
+  white-space: nowrap;
+}
+
+.image-file-name {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  min-width: 0;
+  padding: 0 12px;
+  color: #9C9484;
+  font-size: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  background: #1B1810;
+}
+
+.preview-field {
+  height: 100%;
+}
+
+.preview-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 6px;
+  border: 1px solid #332C1D;
+  border-radius: 10px;
+  background: #1B1810;
+}
+
+.preview-pic {
+  height: 48px;
+  width: 48px;
+}
+
+.twofa-field {
+  margin-top: 8px;
+}
+
+.form-switch {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding-left: 2.5em;
+  min-height: 28px;
 }
 
 .form-switch label {
   font-size: 13px;
-  color: var(--Light-Text-Color, #9AADC4);
+  color: #E7C878;
+  font-weight: 600;
+  letter-spacing: 0.02em;
 }
 
 .auth_text {
   font-size: 11px;
-  color: var(--Light-Text-Color, #9AADC4);
+  color: #9C9484 !important;
+  margin-top: 8px;
+  line-height: 1.45;
 }
 
 .form-switch input[type="checkbox"] {
   box-shadow: none;
   outline: none;
+  cursor: pointer;
+  width: 2.2em;
+  height: 1.15em;
+  background-color: #332C1D;
+  border-color: #4A4030;
+}
+
+.form-switch input[type="checkbox"]:focus {
+  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.18);
+  border-color: #C9A24A;
 }
 
 .form-switch input[type="checkbox"]:checked {
-  background-color: var(--Accent-Green, #4CAF50) !important;
-  border-color: var(--Accent-Green, #4CAF50);
+  background-color: #C9A24A !important;
+  border-color: #C9A24A;
 }
 
-:host ::ng-deep .text-muted {
-  color: var(--Light-Text-Color, #9AADC4) !important;
+:host ::ng-deep .common_button.w-100 {
+  margin-top: 8px;
 }

@@ -1,0 +1,34 @@
+<div class="heading_area">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-md-auto">
+      <h3 class="page_head">Assigned Countries</h3>
+    </div>
+  </div>
+</div>
+
+<div class="table_outer">
+  <table class="table table-striped" >
+    <thead>
+      <tr>
+        <th>S.No</th>
+        <th>Country</th>
+        <th>Continent</th>
+        <th>Score</th>
+        <th>Analyst</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let country of countriesResponse?.data; let i = index">
+        <td>{{((currentPage-1) * pageSize ) +(i+1)}}</td>
+        <td>{{country.countryName}}</td>
+        <td>{{country.continent}}</td>
+        <td>{{(country.score ?? 0).toFixed(1)}}</td>
+        <td>{{country.assignedBy}}</td>
+      </tr>
+
+    </tbody>
+  </table>
+  <app-pagination [totalPage]="totalRecords" [currentPage]="currentPage" [pageSize]="pageSize" [isLoader]="isLoader"
+    (pageChange)="getCountries($event)"></app-pagination>
+
+</div>

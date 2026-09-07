@@ -61,70 +61,73 @@ export class ShowAssessmentProgressComponent implements OnInit, OnChanges, OnDes
     this.chartOptions = {
       series: [this.assessmentProgress?.currentProgress ?? 0],
       chart: {
-        height: 180,
+        height: 130,
         type: "radialBar",
         toolbar: {
           show: false
-        }
+        },
+        background: "transparent",
+        foreColor: "#EFE7D6",
       },
       plotOptions: {
         radialBar: {
-          offsetX: 5,
-          offsetY: 5,
+          offsetX: 0,
+          offsetY: 0,
           startAngle: -135,
           endAngle: 225,
           hollow: {
-            margin: 2,
-            size: "80%",
-            background: "var(--Primary-Color)",
+            margin: 0,
+            size: "72%",
+            background: "#141209",
             image: undefined,
             position: "front",
             dropShadow: {
               enabled: true,
-              top: 3,
+              top: 2,
               left: 0,
               blur: 4,
-              opacity: 0.24
+              opacity: 0.3
             }
           },
           track: {
-            background: "#102044",
-            strokeWidth: "50%",
-            margin: 3, // margin is in pixels
+            background: "#332C1D",
+            strokeWidth: "55%",
+            margin: 2,
             dropShadow: {
-              enabled: true,
-              top: -3,
+              enabled: false,
+              top: 0,
               left: 0,
-              blur: 4,
-              opacity: 0.35
+              blur: 0,
+              opacity: 0
             }
           },
           dataLabels: {
             show: true,
             name: {
-              offsetY: -10,
+              offsetY: -8,
               show: true,
-              color: "#ffffff",
-              fontSize: "15px",
-              fontWeight: 400,
-              fontFamily: "Poppins",
+              color: "#9C9484",
+              fontSize: "11px",
+              fontWeight: 500,
+              fontFamily: "Inter, Poppins, sans-serif",
             },
             value: {
               formatter: function (val) {
                 return val.toString() + "%";
               },
-              color: "#ffffff",
-              fontSize: "26px",
-              fontWeight: 600,
-              fontFamily: "Poppins",
+              offsetY: 2,
+              color: "#E7C878",
+              fontSize: "20px",
+              fontWeight: 700,
+              fontFamily: "Inter, Poppins, sans-serif",
               show: true
             }
           }
         }
       },
       fill: {
-        type: "solid",               // ❗ Use solid color (no gradient)
-        colors: ["var(--Secondary-Color)"]          // 🌟 PURE YELLOW (Gold)
+        type: "solid",
+        colors: ["#C9A24A"]
       },
       stroke: {
         lineCap: "round"

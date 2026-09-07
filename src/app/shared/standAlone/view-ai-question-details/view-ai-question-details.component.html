@@ -1,137 +1,165 @@
 <div class="offcanvas-header ai-detail-header">
-  <app-ai-edit-toolbar
-    [title]="'Analysis of: ' + (question?.questionText ?? '')"
-    [canEdit]="canEdit"
-    [editMode]="editMode"
-    [saving]="saving"
-    [editDisabled]="!hasQuestionScoreRecord"
-    editDisabledReason="No question score record is available to edit yet."
-    (edit)="startEdit()"
-    (cancel)="cancelEdit()"
-    (save)="saveChanges()">
-  </app-ai-edit-toolbar>
-  <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"></button>
+	<app-ai-edit-toolbar [title]="'Analysis of: ' + (question?.questionText ?? '')"
+		[canEdit]="canEdit"
+		[editMode]="editMode"
+		[saving]="saving"
+		[editDisabled]="!hasQuestionScoreRecord"
+		editDisabledReason="No question score record is available to edit yet."
+		(edit)="startEdit()"
+		(cancel)="cancelEdit()"
+		(save)="saveChanges()">
+	</app-ai-edit-toolbar>
+	<button type="button"
+		class="btn-close text-reset"
+		data-bs-dismiss="offcanvas"></button>
 </div>
 
-<ng-container>
-  <div [class.ai-edit-surface]="editMode" class="cross-pillar_outter question-detail-content">
-    <div class="integrate_outter">
-      <div class="integrate_list">
-        <table class="kpi_custom_table">
-          <thead>
-            <tr>
-              <th scope="col">AI Confidence</th>
-              <th scope="col">Data Sources Used</th>
-              <th scope="col">AI Score</th>
-              <th scope="col">Evaluator Score</th>
-              <th scope="col">Discrepancy</th>
-              <th scope="col">Year</th>
-              <th scope="col">Average Score</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr class="last_data">
-              <td>
-                <app-ai-editable-field
-                  [editMode]="editMode"
-                  [showLabel]="false"
-                  [value]="getFieldValue('confidenceLevel')"
-                  (valueChange)="setFieldValue('confidenceLevel', $event)"
-                  fieldType="confidence">
-                </app-ai-editable-field>
-              </td>
-              <td>
-                <app-ai-editable-field
-                  [editMode]="editMode"
-                  [showLabel]="false"
-                  [value]="getFieldValue('sourcesConsulted')"
-                  (valueChange)="setFieldValue('sourcesConsulted', $event)"
-                  fieldType="number">
-                </app-ai-editable-field>
-              </td>
-              <td>
-                <app-ai-editable-field
-                  *ngIf="editMode; else aiScoreView"
-                  [editMode]="true"
-                  [showLabel]="false"
-                  [value]="getFieldValue('aiScore')"
-                  (valueChange)="setFieldValue('aiScore', $event)"
-                  fieldType="score">
-                </app-ai-editable-field>
-                <ng-template #aiScoreView>
-                  <app-circular-score [value]="question?.aiScore ?? 0"></app-circular-score>
-                </ng-template>
-              </td>
-              <td>
-                <app-circular-score [value]="question?.evaluatorScore ?? 0"></app-circular-score>
-              </td>
-              <td>
-                <app-sparkline-score [value]="discrepancy(question)"></app-sparkline-score>
-              </td>
-              <td>
-                {{ (question?.year ?? 0) > 0 ? question?.year : 'NA' }}
-              </td>
-              <td>
-                <app-circular-score
-                  [value]="editMode ? averageScore : (((question?.aiScore ?? 0) + (question?.evaluatorScore ?? 0)) / 2)">
-                </app-circular-score>
-              </td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+<div class="ai-edit-access-banner" *ngIf="isAnalyst && editAccess">
+	<p>{{ editAccess.message }}</p>
+	<div class="ai-edit-access-actions">
+		<button *ngIf="!editAccess.canEdit && editAccess.permissionStatus !== 'PendingRequest'"
+			type="button"
+			class="common_button"
+			[disabled]="requesting"
+			(click)="requestPermission()">
+			Request edit permission
+		</button>
+		<button *ngIf="editAccess.hasPendingDraft && editAccess.sessionID"
+			type="button"
+			class="common_button"
+			[disabled]="submitting"
+			(click)="submitDraft()">
+			Submit all drafts for admin approval
+		</button>
+	</div>
+</div>
 
-      <div
-        *ngFor="let field of textFields"
-        [hidden]="!shouldShowField(field)"
-        class="cross-pillar">
-        <h5>{{ field.label }}</h5>
-        <app-ai-editable-field
-          [label]="field.label"
-          [showLabel]="false"
-          [editMode]="editMode"
-          [fieldType]="field.type"
-          [hideAfterWords]="50"
-          [value]="getFieldValue(field.key)"
-          (valueChange)="setFieldValue(field.key, $event)">
-        </app-ai-editable-field>
-      </div>
-    </div>
-  </div>
 
-  <div [class.ai-edit-surface]="editMode" class="cus_table kpi_table question-source-table">
-    <div class="table-responsive">
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th scope="col">Category</th>
-            <th scope="col">Description</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr *ngFor="let field of sourceFields">
-            <td>{{ field.label }}</td>
-            <td>
-              <app-ai-editable-field
-                *ngIf="field.key !== 'sourceName' || editMode; else sourceNameLink"
-                [label]="field.label"
-                [showLabel]="false"
-                [editMode]="editMode"
-                [fieldType]="field.type"
-                [trustLevels]="aiTrustLevels"
-                [value]="getFieldValue(field.key)"
-                [max]="field.max ?? null"
-                (valueChange)="setFieldValue(field.key, $event)">
-              </app-ai-editable-field>
-              <ng-template #sourceNameLink>
-                <a [href]="question?.sourceURL" target="_blank" rel="noopener noreferrer">
-                  {{ question?.sourceName ?? '' }}
-                </a>
-              </ng-template>
-            </td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-</ng-container>
+<div class="question-detail-layout">
+	<div [class.ai-edit-surface]="editMode"
+		class="cross-pillar_outter scores-section">
+		<div class="integrate_outter">
+			<div class="integrate_list">
+				<table class="kpi_custom_table">
+						<thead>
+							<tr>
+								<th scope="col">AI Confidence</th>
+								<th scope="col">Data Sources Used</th>
+								<th scope="col">AI Score</th>
+								<th scope="col">Evaluation Score</th>
+								<th scope="col">Discrepancy</th>
+								<th scope="col">Year</th>
+								<th scope="col">Average Score</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="last_data">
+								<td>
+									<app-ai-editable-field [editMode]="editMode"
+										[showLabel]="false"
+										[value]="getFieldValue('confidenceLevel')"
+										(valueChange)="setFieldValue('confidenceLevel', $event)"
+										fieldType="confidence">
+									</app-ai-editable-field>
+								</td>
+								<td>
+									<app-ai-editable-field [editMode]="editMode"
+										[showLabel]="false"
+										[value]="getFieldValue('sourcesConsulted')"
+										(valueChange)="setFieldValue('sourcesConsulted', $event)"
+										fieldType="number">
+									</app-ai-editable-field>
+								</td>
+								<td>
+									<app-ai-editable-field *ngIf="editMode; else aiScoreView"
+										[editMode]="true"
+										[showLabel]="false"
+										[value]="getFieldValue('aiScore')"
+										(valueChange)="setFieldValue('aiScore', $event)"
+										fieldType="score">
+									</app-ai-editable-field>
+									<ng-template #aiScoreView>
+										<app-circular-score [value]="question?.aiScore ?? 0"></app-circular-score>
+									</ng-template>
+								</td>
+								<td>
+									<app-circular-score [value]="question?.evaluatorScore ?? 0"></app-circular-score>
+								</td>
+								<td>
+									<app-sparkline-score [value]="discrepancy(question)"></app-sparkline-score>
+								</td>
+								<td>
+									{{ (question?.year ?? 0) > 0 ? question?.year : 'NA' }}
+								</td>
+								<td>
+									<app-circular-score [value]="editMode ? averageScore : (((question?.aiScore ?? 0) + (question?.evaluatorScore ?? 0)) / 2)"></app-circular-score>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+	</div>
+
+
+	<div *ngIf="hasVisibleTextFields"
+		[class.ai-edit-surface]="editMode"
+		class="cross-pillar_outter narrative-section">
+		<div class="integrate_outter">
+			<div *ngFor="let field of textFields"
+				[hidden]="!shouldShowField(field)"
+				class="cross-pillar">
+				<h5>{{ field.label }}</h5>
+				<app-ai-editable-field [label]="field.label"
+					[showLabel]="false"
+					[editMode]="editMode"
+					[fieldType]="field.type"
+					[hideAfterWords]="50"
+					[value]="getFieldValue(field.key)"
+					(valueChange)="setFieldValue(field.key, $event)">
+				</app-ai-editable-field>
+			</div>
+		</div>
+	</div>
+
+
+	<div [class.ai-edit-surface]="editMode"
+		class="cus_table kpi_table question-source-table">
+		<div class="table-responsive">
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th scope="col">Category</th>
+						<th scope="col">Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr *ngFor="let field of sourceFields">
+						<td>
+							<span class="score_label_tab">{{ field.label }}</span>
+						</td>
+						<td>
+							<app-ai-editable-field *ngIf="field.key !== 'sourceName' || editMode; else sourceNameLink"
+								[label]="field.label"
+								[showLabel]="false"
+								[editMode]="editMode"
+								[fieldType]="field.type"
+								[trustLevels]="aiTrustLevels"
+								[value]="getFieldValue(field.key)"
+								[max]="field.max"
+								(valueChange)="setFieldValue(field.key, $event)">
+							</app-ai-editable-field>
+							<ng-template #sourceNameLink>
+								<a [href]="question?.sourceURL"
+									target="_blank"
+									rel="noopener noreferrer">
+									{{ question?.sourceName ?? '' }}
+								</a>
+							</ng-template>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>

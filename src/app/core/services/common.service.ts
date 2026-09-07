@@ -3,21 +3,61 @@ import * as XLSX from "xlsx";
 import * as FileSaver from "file-saver";
 import { ResultResponseDto } from "../models/ResultResponseDto";
 import { UserService } from "./user.service";
-import { BehaviorSubject, map, tap } from "rxjs";
+import { BehaviorSubject, catchError, from, map, Observable, switchMap, tap } from "rxjs";
 import { HttpService } from "../http/http.service";
 import { UpdateUserResponseDto, UserInfo } from "../models/UserInfo";
+import { CountryVM } from "../models/CountryVM";
+import { GetNearestCountryRequestDto } from "../models/GetNearestCountryRequestDto";
 import { ToasterService } from "./toaster.service";
-import { GetUserByRoleResponse } from "../models/GetUserByRoleResponse";
-import { ProgramUserRow } from "../models/ProgramUserRow";
 
 @Injectable({
   providedIn: "root",
 })
 export class CommonService {
-  location: string | null = null;
+  latitude = 0;
+  longitude = 0;
 
+  private years = new BehaviorSubject<number[]>(this.getYearList(2025));
 
   constructor(private http: HttpService, private userService: UserService, private toaster: ToasterService) { }
+
+  public getAllCountryByLocation(): Observable<ResultResponseDto<CountryVM[]>> {
+    const payload: GetNearestCountryRequestDto = {
+      userID: this.userService.userInfo.userID,
+      latitude: this.latitude,
+      longitude: this.longitude,
+    };
+
+    return this.http
+      .getWithQueryParams('Country/getAllCountryByLocation', payload)
+      .pipe(map((x) => x as ResultResponseDto<CountryVM[]>));
+  }
+
+  public getUserNearestCountry(): Observable<ResultResponseDto<CountryVM[]>> {
+    if (navigator.geolocation) {
+      return from(
+        new Promise<GeolocationPosition>((resolve, reject) => {
+          navigator.geolocation.getCurrentPosition(resolve, reject);
+        })
+      ).pipe(
+        switchMap((position) => {
+          this.latitude = position.coords.latitude;
+          this.longitude = position.coords.longitude;
+          return this.getAllCountryByLocation();
+        }),
+        catchError((error) => {
+          console.error('Geolocation error:', error);
+          this.toaster.showError(
+            'Location access denied or unavailable. Showing all countries.'
+          );
+          return this.getAllCountryByLocation(); // fallback
+        })
+      );
+    } else {
+      this.toaster.showError('Geolocation not supported by this browser.');
+      return this.getAllCountryByLocation();
+    }
+  }
 
   public getUserInfo() {
     return this.http
@@ -30,14 +70,12 @@ export class CommonService {
       .UploadFile(`Auth/updateUser`, formData)
       .pipe(map((x) => x as ResultResponseDto<UpdateUserResponseDto>));
   }
-
   public refreshToken() {
     this.userService.isTokenRefresh = new Date(Date.now() + 35 * 60 * 1000);
     let userRes = this.userService?.userInfo;
     if (userRes == null) {
       this.userService.RedirectBasedOnRole();
     }
-
     return this.http.post(`Auth/refreshToken`, { userID: userRes?.userID })
       .pipe(
         map(x => x as ResultResponseDto<UserInfo | any>),
@@ -49,7 +87,9 @@ export class CommonService {
           }
         }));
   }
-
+  get applicateYears() {
+    return this.years.value;
+  }
   getStartOfYearLocal(year: number): string {
     return `${year}-01-01T00:00:00`;
   }
@@ -70,8 +110,8 @@ export class CommonService {
 
     // Create workbook and add worksheet
     const workbook: XLSX.WorkBook = {
-      Sheets: { "Pillars Data": worksheet },
-      SheetNames: ["Pillars Data"],
+      Sheets: { "Domains Data": worksheet },
+      SheetNames: ["Domains Data"],
     };
 
     // Generate Excel buffer
@@ -93,7 +133,7 @@ export class CommonService {
     let paddingOuter = 0.1;
 
     if (n === 1) {
-      // Special case: one pillar → center the bar
+      // Special case: one domain → center the bar
       paddingInner = 0.8;
       paddingOuter = 0.41;
     } else if (n < 15) {
@@ -109,19 +149,26 @@ export class CommonService {
     }
     return { paddingInner, paddingOuter };
   }
+  getYearList(startYear: number): number[] {
+    const currentYear = new Date().getFullYear();
+    const years: number[] = [];
 
-  public getLatitudeLongitude(Program: any) {
-  const params = {
-    q: Program,
-    format: 'json',
-    limit: 1
-  };
+    for (let year = startYear; year <= currentYear; year++) {
+      years.push(year);
+    }
+    return years;
+  }
+  public getLatitudeLongitude(country: any) {
+    const params = {
+      q: country,
+      format: 'json',
+      limit: 1
+    };
 
-  return this.http
-    .getExternalApi('https://nominatim.openstreetmap.org/search', params)
-    .pipe(map((x) => x as any[]));
-}
-
+    return this.http
+      .getExternalApi('https://nominatim.openstreetmap.org/search', params)
+      .pipe(map((x) => x as any[]));
+  }
   getGeneratedTime(utcDate: string | Date | null | undefined): string {
     if (!utcDate) return 'NA';
 
@@ -177,8 +224,7 @@ export class CommonService {
     return remainingHours > 0
       ? `${diffDays} day${diffDays > 1 ? 's' : ''} ${remainingHours} hr`
       : `${diffDays} day${diffDays > 1 ? 's' : ''}`;
-}
-
+  }
   researchStatusClass(date: Date | string | null | undefined): string {
     if (!date) return 'old';
 
@@ -213,106 +259,99 @@ export class CommonService {
   }
   get PillarColors() {
     return [
-      '#3B9EFF',
-      '#A8E063',
-      '#4CAF50',
-      '#5CB8FF',
-      '#FFB74D',
-      '#81C784',
-      '#64B5F6',
-      '#CE93D8',
-      '#26C6DA',
-      '#FF8A65',
-      '#90CAF9',
-      '#C5F08A',
-      '#FFCC80',
-      '#80CBC4',
-      '#F48FB1',
+      "#B5502E",
+      "#C46A3A",
+      "#8A5A2B",
+      "#A67C3D",
+      "#C9A24A",
+      "#D4B45E",
+      "#E7C878",
+      "#B7A25A",
+      "#C9C7BF",
+      "#EFE7D6",
+      "#B5502E",
+      "#C46A3A",
+      "#8A5A2B",
+      "#A67C3D",
+      "#C9A24A",
+      "#D4B45E",
+      "#E7C878",
+      "#B7A25A",
+      "#C9C7BF",
+      "#EFE7D6",
+      "#B7A25A",
+      "#C9C7BF",
+      "#EFE7D6",
     ];
   }
-  
   get radarColors() {
     return [
       {
-        primary: '#3B9EFF',
-        light: '#5CB8FF',
-        gradient: 'rgba(59, 158, 255, 0.28)',
+        primary: '#E7C878',
+        light: '#C9A24A',
+        gradient: 'rgba(231, 200, 120, 0.28)'
       },
       {
-        primary: '#A8E063',
-        light: '#C5F08A',
-        gradient: 'rgba(168, 224, 99, 0.28)',
+        primary: '#C9A24A',
+        light: '#8A5A2B',
+        gradient: 'rgba(201, 162, 74, 0.28)'
       },
       {
-        primary: '#4CAF50',
-        light: '#81C784',
-        gradient: 'rgba(76, 175, 80, 0.28)',
+        primary: '#C9C7BF',
+        light: '#8B887E',
+        gradient: 'rgba(201, 199, 191, 0.28)'
       },
       {
-        primary: '#FFB74D',
-        light: '#FFCC80',
-        gradient: 'rgba(255, 183, 77, 0.28)',
+        primary: '#8A5A2B',
+        light: '#A67C3D',
+        gradient: 'rgba(138, 90, 43, 0.28)'
       },
       {
-        primary: '#CE93D8',
-        light: '#E1BEE7',
-        gradient: 'rgba(206, 147, 216, 0.28)',
+        primary: '#B7A25A',
+        light: '#D4B45E',
+        gradient: 'rgba(183, 162, 90, 0.28)'
       },
       {
-        primary: '#26C6DA',
-        light: '#4DD0E1',
-        gradient: 'rgba(38, 198, 218, 0.28)',
+        primary: '#D4B45E',
+        light: '#E7C878',
+        gradient: 'rgba(212, 180, 94, 0.28)'
       },
       {
-        primary: '#FF8A65',
-        light: '#FFAB91',
-        gradient: 'rgba(255, 138, 101, 0.28)',
+        primary: '#A67C3D',
+        light: '#C9A24A',
+        gradient: 'rgba(166, 124, 61, 0.28)'
       },
       {
-        primary: '#64B5F6',
-        light: '#90CAF9',
-        gradient: 'rgba(100, 181, 246, 0.28)',
+        primary: '#8B887E',
+        light: '#C9C7BF',
+        gradient: 'rgba(139, 136, 126, 0.28)'
       },
+      {
+        primary: '#B5502E',
+        light: '#C46A3A',
+        gradient: 'rgba(181, 80, 46, 0.28)'
+      },
+      {
+        primary: '#EFE7D6',
+        light: '#C9C7BF',
+        gradient: 'rgba(239, 231, 214, 0.22)'
+      }
     ];
   }
 
   get kpiColors() {
     return [
-      '#3B9EFF',
-      '#A8E063',
-      '#4CAF50',
-      '#5CB8FF',
-      '#FFB74D',
-      '#81C784',
-      '#64B5F6',
-      '#CE93D8',
-      '#26C6DA',
-      '#FF8A65',
+      "#E7C878",
+      "#C9A24A",
+      "#8A5A2B",
+      "#C9C7BF",
+      "#B7A25A",
+      "#D4B45E",
+      "#A67C3D",
+      "#8B887E",
+      "#EFE7D6",
+      "#B5502E",
     ];
   }
 
-  public mapProgramUserRow(user: GetUserByRoleResponse): ProgramUserRow {
-      const programsText = this.getProgramsText(user);
-      return {
-        ...user,
-        programsText,
-        programsExpand: false,
-        showProgramsToggle: this.isLongProgramsText(programsText),
-      };
-    }
-  
-     getProgramsText(user: GetUserByRoleResponse): string {
-      return (user.climatePrograms ?? [])
-        .map((program) => program?.programName)
-        .filter((name): name is string => !!name)
-        .join(", ");
-    }
-  
-    isLongProgramsText(text: string): boolean {
-      if (!text) {
-        return false;
-      }
-      const words = text.trim().split(/\s+/).filter(Boolean);
-      return words.length > 16 || text.length > 72;
-    }
 }

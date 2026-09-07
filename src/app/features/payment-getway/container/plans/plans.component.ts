@@ -63,7 +63,7 @@ export class PlansComponent {
   }
   async makePayment() {
 
-    this.toasterService.showInfo("Horn Scope System is currently at the pilot stage. Login and subscription features are temporarily unavailable while we finalize our email and authentication system.");
+    this.toasterService.showInfo("Africa Market Intelligence System is currently at the pilot stage. Login and subscription features are temporarily unavailable while we finalize our email and authentication system.");
     return
 
     // this.submitAttempted = true;

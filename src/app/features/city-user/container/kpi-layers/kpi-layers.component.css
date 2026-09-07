@@ -1,0 +1,260 @@
+/* Default Bootstrap width is 400px */
+/* KPI filter bar — pairs with markup in kpi-layers.component.html */
+::ng-deep .kpi_select_shell--ng .ng-select-container {
+  min-height: 44px !important;
+  height: 44px !important;
+  border: none !important;
+  box-shadow: none !important;
+  background: transparent !important;
+}
+
+::ng-deep .kpi_select_shell--ng .ng-select.ng-select-focused .ng-select-container,
+::ng-deep .kpi_select_shell--ng .ng-select.ng-select-opened .ng-select-container {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+::ng-deep .kpi_ng_select .ng-value {
+  background: transparent !important;
+  color: #12352f !important;
+  font-weight: 600;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+::ng-deep .kpi_select_shell--ng {
+  position: relative;
+  overflow: visible;
+}
+
+::ng-deep .kpi_ng_select {
+  position: relative;
+}
+
+::ng-deep .kpi_ng_select .ng-dropdown-panel {
+  position: absolute !important;
+  left: 0 !important;
+  right: auto !important;
+  top: calc(100% + 4px) !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  border: 1px solid #d5e5df;
+  border-radius: 12px;
+  box-shadow: 0 12px 28px rgba(18, 53, 47, 0.12);
+  overflow: hidden;
+  margin-top: 0;
+}
+
+::ng-deep .kpi_ng_select .ng-dropdown-panel .ng-dropdown-panel-items .ng-option:hover {
+  background: #eef6f2 !important;
+  color: #12352f !important;
+}
+
+::ng-deep .kpi_ng_select .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected {
+  background: linear-gradient(90deg, #e4f2eb, #f4faf7) !important;
+  color: #12352f !important;
+  font-weight: 600;
+}
+
+.custom-sidebar {
+    width: 775px !important;
+    /* set your desired width */
+}
+
+
+
+.action_td input[type="checkbox"] {
+    width: 22px;
+    height: 22px;
+    accent-color: #397b69;
+}
+
+.action_td td {
+    padding: 0 20px 0 0 !important;
+}
+
+.kpi_td_data div:empty,
+.kpi_sidebar app-view-city-user-kpi-layer .bold_num:empty {
+    display: none;
+}
+
+.kpi_td_data .bold_num,
+::ng-deep .kpi_sidebar app-view-city-user-kpi-layer .bold_num {
+    background: #463407;
+    color: #bfac7e !important;
+    padding: 2px 8px;
+    border-radius: 0.5rem;
+    display: inline-block;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+::ng-deep .kpi_sidebar app-view-city-user-kpi-layer .city_card_outter .city_card_img img {
+    max-width: 300px;
+}
+
+::ng-deep .kpi_sidebar app-view-city-user-kpi-layer .city_card_outter .city_card_inner {
+    padding: 10px 0px;
+}
+
+::ng-deep .kpi_sidebar app-view-city-user-kpi-layer .city_card_outter .city_card_inner .city_cards_h1 {
+    font-size: 18px;
+}
+
+::ng-deep .kpi_sidebar .city_cards_disc {
+    margin: 8px 0 0px !important;
+    font-size: 13px;
+}
+
+.compare_city_table .table thead tr {
+    border-top: 0;
+    border-bottom: 0;
+}
+
+.compare_city_table .table tr th:first-child,
+.compare_city_table .table tr td:first-child {
+    border-left: 0;
+}
+
+.compare_city_table .table tr th:last-child,
+.compare_city_table .table tr td:last-child {
+    border-right: 0;
+}
+
+.compare_city_table tbody td.action_td table {
+    width: 100%;
+}
+
+.compare_city_table tbody td.action_td table .action_icons {
+    justify-content: center;
+}
+
+.compare_city_table tbody td.action_td table .action_icons a.mat-mdc-tooltip-trigger span {
+    display: inline-block;
+    background-color: #8f702b;
+    padding: 8px 10px;
+    white-space: nowrap;
+    color: #EFE7D6;
+    border-radius: 5px;
+}
+
+.compare_city_table .action_td td {
+    padding: 0 !important;
+}
+
+@media only screen and (max-width:1550px) {
+    .table_outer .table th {
+        padding: 8px 6px;
+        font-size: 12px;
+    }
+
+    .table_outer .table td {
+        font-size: 12px;
+        padding: 8px 6px;
+    }
+
+    .table_custom_inner {
+        overflow-x: auto !important;
+    }
+}
+
+::ng-deep .analyst_multi_select .ng-option-selected {
+    background-color: rgba(201, 162, 74, 0.18) !important;
+    color: #C9A24A !important;
+    font-weight: 600;
+}
+
+/* Optional: hover style */
+::ng-deep .analyst_multi_select .ng-option:hover {
+    background-color: rgba(201, 162, 74, 0.14) !important;
+}
+
+::ng-deep .compare_select .ng-select-container {
+    border: none !important;
+    background-color: #1B1810 !important;
+    min-height: auto !important;
+    height: 100% !important;
+}
+
+::ng-deep .compare_select .ng-select-container:hover {
+    box-shadow: none !important;
+}
+
+::ng-deep .compare_select .ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container {
+    box-shadow: none !important;
+}
+
+.compare_select .analyst_multi_select {
+    flex: 1;
+    height: auto;
+    background-color: #1B1810;
+    min-height: 36px;
+    align-items: center;
+    font-family: "Poppins", sans-serif !important;
+    font-size: 12px !important;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    appearance: none !important;
+    border-radius: 12px !important;
+    padding: 6px 10px 6px 3px !important;
+    border: 1px solid #332C1D !important;
+}
+
+::ng-deep .kpi_compare_select .ng-select,
+::ng-deep .kpi_compare_select .ng-select-container,
+::ng-deep .kpi_compare_select .ng-value-container,
+::ng-deep .kpi_compare_select .ng-value,
+::ng-deep .kpi_compare_select .ng-value-label,
+::ng-deep .kpi_compare_select .ng-placeholder,
+::ng-deep .kpi_compare_select .ng-input > input,
+::ng-deep .kpi_compare_select .ng-dropdown-panel .ng-option,
+::ng-deep .compare_select .ng-select,
+::ng-deep .compare_select .ng-select-container,
+::ng-deep .compare_select .ng-value-container,
+::ng-deep .compare_select .ng-value,
+::ng-deep .compare_select .ng-value-label,
+::ng-deep .compare_select .ng-placeholder,
+::ng-deep .compare_select .ng-input > input,
+::ng-deep .compare_select .ng-dropdown-panel .ng-option {
+    font-size: 12px !important;
+}
+
+.table_custom_inner {
+    overflow: auto;
+}
+
+.table_custom_inner::-webkit-scrollbar {
+    display: none;
+}
+
+.card_title {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+::ng-deep .compare_select .ng-value-container .ng-value {
+    white-space: nowrap;
+    padding: 2px 5px !important;
+    border-radius: 5px !important;
+    background-color: #C9A24A !important;
+    color: #EFE7D6 !important;
+}
+
+.compare_city_table .table th {
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+.compare_city_table .table td {
+    font-size: 12px;
+    padding: 8px 10px;
+}
+
+.compare_city_table .kpi_td_data,
+.compare_city_table .kpi_td_data p {
+    font-size: 12px;
+    line-height: 1.35;
+    margin-bottom: 0;
+}

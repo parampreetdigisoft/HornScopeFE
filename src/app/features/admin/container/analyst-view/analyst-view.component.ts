@@ -1,6 +1,6 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
 import { AdminService } from "../../admin.service";
-import { ProgramVM } from "../../../../core/models/ProgramVM";
+import { CountryVM } from "../../../../core/models/CountryVM";
 import { PaginationResponse } from "src/app/core/models/PaginationResponse";
 import { ToasterService } from "src/app/core/services/toaster.service";
 import { UserService } from "src/app/core/services/user.service";
@@ -15,10 +15,7 @@ import {
 } from "../../../../core/models/AnalystVM";
 import { SortDirection } from "src/app/core/enums/SortDirection";
 import { ActivatedRoute } from "@angular/router";
-import { ProgramUserRow } from "src/app/core/models/ProgramUserRow";
-import { CommonService } from "src/app/core/services/common.service";
 declare var bootstrap: any;
-
 @Component({
   selector: "app-analyst-view",
   templateUrl: "./analyst-view.component.html",
@@ -27,12 +24,12 @@ declare var bootstrap: any;
 export class AnalystViewComponent implements OnInit, OnDestroy {
   isLoader: boolean = false;
   selectedAnalyst: GetUserByRoleResponse | null = null;
-  selectedProgram: ProgramVM | null = null;
-  analystResponse: PaginationResponse<ProgramUserRow> | undefined;
+  selectedCity: CountryVM | null = null;
+  analystResponse: PaginationResponse<GetUserByRoleResponse> | undefined;
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1;
-  programs: ProgramVM[] | null = [];
+  countries: CountryVM[] | null = [];
   loading: boolean = false;
   isOpendialog: boolean = false;
   roleId: number | any = 0;
@@ -40,14 +37,13 @@ export class AnalystViewComponent implements OnInit, OnDestroy {
   selectedIndex?:number;
   rolesList = [
     { name: "Evaluator", role: UserRoleValue.Evaluator },
-    { name: "ProgramUser", role: UserRoleValue.ProgramUser },
+    { name: "CountryUser", role: UserRoleValue.CountryUser },
   ];
 
   constructor(
     private adminService: AdminService,
     private toaster: ToasterService,
     private userService: UserService,
-    private commonService: CommonService,
     private route: ActivatedRoute
   ) {}
 
@@ -57,19 +53,18 @@ export class AnalystViewComponent implements OnInit, OnDestroy {
       this.selectedRoleID = this.roleId;
     });
     this.getAnalyst();
-    this.getAllProgramsByUserId();
+    this.getAllCountriesByUserId();
   }
 
-  getAllProgramsByUserId() {
+  getAllCountriesByUserId() {
     this.adminService
-      .getAllProgramsByUserId(this.userService?.userInfo?.userID)
+      .getAllCountriesByUserId(this.userService?.userInfo?.userID)
       .subscribe({
         next: (res) => {
-          this.programs = res.result;          
+          this.countries = res.result;          
         },
       });
   }
-
   getAnalyst(currentPage: number = 1) {
     this.analystResponse = undefined;
     this.isLoader = true;
@@ -84,10 +79,7 @@ export class AnalystViewComponent implements OnInit, OnDestroy {
       payload.getUserRole = UserRoleValue.Analyst;
     }
     this.adminService.getUserListByRole(payload).subscribe((anaylist) => {
-      this.analystResponse = {
-        ...anaylist,
-        data: (anaylist.data ?? []).map((user) => this.commonService.mapProgramUserRow(user)),
-      };
+      this.analystResponse = anaylist;
       this.totalRecords = anaylist.totalRecords;
       this.currentPage = currentPage;
       this.pageSize = anaylist.pageSize;
@@ -130,7 +122,7 @@ export class AnalystViewComponent implements OnInit, OnDestroy {
       password: "",
       role: UserRoleValue.Analyst,
       invitedUserID: this.userService.userInfo?.userID ?? 0,
-      climateProgramID: analyst.climatePrograms.map((x) => x.climateProgramID),
+      countryID: analyst.countries.map((x) => x.countryID),
       userID: analyst.userID,
     };
     this.addUpdateAnalyst(payload);
@@ -148,7 +140,7 @@ export class AnalystViewComponent implements OnInit, OnDestroy {
       password: analyst.password,
       role: UserRoleValue.Analyst,
       invitedUserID: this.userService.userInfo?.userID ?? 0,
-      climateProgramID: analyst.climateProgramID,
+      countryID: analyst.countryID,
       userID: analyst.userID,
     };
 
@@ -236,9 +228,5 @@ export class AnalystViewComponent implements OnInit, OnDestroy {
         this.toaster.showError("Failed to add analyst");
       },
     });
-  }
-
-  togglePrograms(programuser: ProgramUserRow): void {
-    programuser.programsExpand = !programuser.programsExpand;
   }
 }

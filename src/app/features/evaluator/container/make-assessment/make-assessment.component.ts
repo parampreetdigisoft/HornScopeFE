@@ -5,21 +5,19 @@ import {
   OnInit,
   ViewChild,
 } from "@angular/core";
-import { FormControl } from "@angular/forms";
 import { PillarsVM } from "src/app/core/models/PillersVM";
-import { ProgramVM } from "src/app/core/models/ProgramVM";
+import { CountryVM } from "src/app/core/models/CountryVM";
 import { UserService } from "src/app/core/services/user.service";
-import { ProgramMappingPillerRequestDto } from "src/app/core/models/QuestionRequest";
+import { CountryMappingPillerRequestDto } from "src/app/core/models/QuestionRequest";
 import {
   AssessmentQuestionOptionResponse,
-  GetQuestionByProgramMappingResponse,
+  GetQuestionByCountryMappingResponse,
 } from "src/app/core/models/QuestionResponse";
 import { ToasterService } from "src/app/core/services/toaster.service";
 import { FormBuilder, FormGroup, FormArray, Validators } from "@angular/forms";
 import {
   AddAssessmentDto,
   AddAssessmentResponseDto,
-  GetProgramProgressHistoryRequestDto,
 } from "src/app/core/models/AssessmentRequest";
 import { environment } from "src/environments/environment";
 import { EvaluatorService } from "../../evaluator.service";
@@ -29,28 +27,28 @@ import { debounceTime, Subject } from "rxjs";
 @Component({
   selector: "app-make-assessment",
   templateUrl: "./make-assessment.component.html",
-  styleUrls: ["../../../../shared/styles/make-assessment.shared.css"],
+  styleUrl: "./make-assessment.component.css",
 })
-
 export class MakeAssessmentComponent implements OnInit, OnDestroy {
   pillars: PillarsVM[] = [];
-  programs: ProgramVM[] = [];
-  programControl = new FormControl<number | null>(null);
-  selectedUserProgramMappingID: number = 0;
-  selectedProgram?: ProgramVM;
-  pillerQuestions: GetQuestionByProgramMappingResponse | null = null;
+  countries: CountryVM[] = [];
+  selectedUserCountryMappingID: number = 0;
+  selectedCountry!: CountryVM;
+  pillerQuestions: GetQuestionByCountryMappingResponse | null = null;
   form!: FormGroup;
   pillarDisplayOrder: number = 1;
+  checkAssessmentProgress = new Subject<void | null>();
   selectedPillar?: PillarsVM;
   @ViewChild("scrollContainer") scrollContainer!: ElementRef;
-  checkAssessmentProgress = new Subject<void | null>();
   @ViewChild("scrollPillarContainer") scrollPillarContainer!: ElementRef;
   isloading = false;
   isUploading = false;
   isLoader: boolean = false;
   urlBase = environment.apiUrl;
   isAssessementFinalized = false;
-  isProgramSubmissionAction = false;
+  isCountrySubmissionAction = false;
+  ROSEWPillarID = 22;
+
   constructor(
     private evaluatorService: EvaluatorService,
     private userService: UserService,
@@ -59,13 +57,13 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.isLoader =true;
+    this.isLoader = true;
     this.formInitialized();
     this.GetAllPillars();
-    this.getProgramByUserIdForAssessment();
-     this.checkAssessmentProgress.pipe(debounceTime(10000)).subscribe(() => {
-          this.getAssessmentProgressHistory();
-        });
+    this.getCountryByUserIdForAssessment();
+    this.checkAssessmentProgress.pipe(debounceTime(10000)).subscribe(() => {
+      this.getAssessmentProgressHistory();
+    });
   }
 
   get questions() {
@@ -81,15 +79,6 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
   get questionsArray(): FormArray {
     return this.form.get("questions") as FormArray;
   }
-  
-  customSearchFn(term: string, item: any) {
-    term = term.toLowerCase();
-    return (
-      item.programName?.toLowerCase().includes(term) ||
-      item.location?.toLowerCase().includes(term) ||
-      item.year?.toString().toLowerCase().includes(term)
-    );
-  }
 
   loadQuestions() {
     this.pillerQuestions?.questions.forEach((q) => {
@@ -103,7 +92,7 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
             q.isSelected ? option?.optionID : null,
             Validators.required,
           ],
-          // score: [q.isSelected ? option?.scoreValue : null],
+          score: [q.isSelected ? option?.scoreValue : null],
           justification: [
             q.isSelected ? option?.justification : null,
             Validators.required,
@@ -124,17 +113,19 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
         questionOptionID: selectedOption.optionID,
         score: selectedOption.scoreValue,
       });
+      this.autoSaveSingleAssessemnt(index);
     }
   }
 
- makePillarActive(pillar:PillarsVM){
-    return (this.selectedProgram?.assessmentPhase != AssessmentPhase.Completed && pillar.displayOrder <= this.pillarDisplayOrder );
+  makePillarActive(pillar: PillarsVM) {
+    return (this.selectedCountry?.assessmentPhase != AssessmentPhase.Completed && pillar.displayOrder <= this.pillarDisplayOrder)
+      || pillar?.pillarID == this.ROSEWPillarID;
   }
 
-  activeClass(pillar:PillarsVM){
-
+  activeClass(pillar: PillarsVM) {
     let con = this.selectedPillar?.displayOrder == pillar.displayOrder
-     &&  this.selectedProgram?.assessmentPhase != AssessmentPhase.Completed;
+      && this.selectedCountry?.assessmentPhase != AssessmentPhase.Completed
+      && this.selectedPillar.pillarID != this.ROSEWPillarID;
     return con;
   }
 
@@ -145,61 +136,64 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
   }
 
   pillarChanged(pillar?: PillarsVM) {
-    if (!this.selectedUserProgramMappingID || this.selectedUserProgramMappingID == 0) {
-      this.toaster.showWarning("Please select program first");
+    if (!this.selectedUserCountryMappingID || this.selectedUserCountryMappingID == 0) {
+      this.toaster.showWarning("Please select country first");
       return;
     }
+    if (this.selectedCountry?.assessmentPhase == AssessmentPhase.Completed && (pillar?.pillarID != this.ROSEWPillarID)) {
+      this.toaster.showWarning("You can only edit the ROSEW pillar. Editing other domains requires analyst permission.");
+      return;
+    }
+
     this.resetAssessmentActionState();
     if (pillar) {
       this.selectedPillar = pillar;
-      this.getQuestionsByProgramId();
-    }
-    else if(!this.selectedPillar){
-      this.selectedPillar = this.pillars.find((x) => x.pillarID == this.pillerQuestions?.pillarID);
+      this.getQuestionsByCountryId();
+    } else if (!this.selectedPillar) {
+      this.selectedPillar = this.pillars.find(
+        (x) => x.pillarID == this.pillerQuestions?.pillarID
+      );
       if (this.pillerQuestions && this.pillerQuestions?.submittedPillarDisplayOrder < (this.selectedPillar?.displayOrder ?? 0)) {
         this.pillarDisplayOrder = this.selectedPillar?.displayOrder ?? 1;
       }
     }
   }
 
-  onImgError(event: Event) {
-    (event.target as HTMLImageElement).src = 'assets/images/noImageAvailable.png';
+  countryChanged() {
+    this.selectedCountry = this.countries.filter(x => x.userCountryMappingID == this.selectedUserCountryMappingID)[0];
+    this.selectedPillar = undefined;
+    this.getQuestionsByCountryId();
   }
 
-  programChanged() {
-    this.selectedUserProgramMappingID = Number(this.programControl.value ?? 0);
-    this.selectedProgram = this.programs.find(
-      x => x.staffProgramMappingID == this.selectedUserProgramMappingID
-    );
-
-    if (!this.selectedProgram) {
-      return;
-    }
-
+  getCountryByUserIdForAssessment() {
     this.selectedPillar = undefined;
-    this.getQuestionsByProgramId();
-  }
-
-  getProgramByUserIdForAssessment() {
-    this.selectedPillar = undefined;
-    this.evaluatorService.getProgramByUserIdForAssessment(this.userService.userInfo.userID)
+    this.evaluatorService.getCountryByUserIdForAssessment(this.userService.userInfo.userID)
       .subscribe({
         next: (res) => {
-        this.programs = res.result ?? [];
-          if (this.programs.length > 0) {
-            this.selectedUserProgramMappingID = this.evaluatorService.staffProgramMappingIDSubject$.value != null ?
-              this.evaluatorService.staffProgramMappingIDSubject$.value
-              : this.programs[0].staffProgramMappingID ?? 0;
-            this.programControl.setValue(this.selectedUserProgramMappingID, { emitEvent: false });
-            this.selectedProgram = this.programs.find(x => x.staffProgramMappingID == this.selectedUserProgramMappingID);
+          this.countries = res.result ?? [];
+          if (this.countries.length > 0) {
+            const preferredId = this.evaluatorService.userCountryMappingIDSubject$.value;
+            const preferredCountry = this.countries.find(
+              (x) => x.userCountryMappingID == preferredId
+            );
+            this.selectedUserCountryMappingID =
+              preferredCountry?.userCountryMappingID ??
+              this.countries[0].userCountryMappingID ??
+              0;
+            this.selectedCountry = this.countries.find(
+              (x) => x.userCountryMappingID == this.selectedUserCountryMappingID
+            ) as CountryVM;
             setTimeout(() => {
               this.toaster.showInfo(
-                "You have rediredected to assgined program, please submit all pillars for the program"
+                "You have rediredected to assgined country, please submit all domains for the country"
               );
             }, 500);
-            this.getQuestionsByProgramId();
+            this.getQuestionsByCountryId();
           } else {
-            this.toaster.showWarning(res.errors.join(", "));
+            this.selectedUserCountryMappingID = 0;
+            this.formInitialized();
+            this.userService.assessmentProgress.next(null);
+            this.toaster.showWarning(res.errors?.join(", ") || "No country is found for assessment");
           }
         },
         error: () => {
@@ -208,50 +202,53 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
       });
   }
 
-  getQuestionsByProgramId() {
+  getQuestionsByCountryId() {
     if (
-      !this.selectedUserProgramMappingID ||
-      this.selectedUserProgramMappingID == 0
+      !this.selectedUserCountryMappingID ||
+      this.selectedUserCountryMappingID == 0
     ) {
-      this.toaster.showWarning("Please select program first");
+      this.toaster.showWarning("Please select country first");
       return;
     }
     this.formInitialized();
-    const payload: ProgramMappingPillerRequestDto = {
-      staffProgramMappingID: this.selectedUserProgramMappingID ?? 0,
+    const payload: CountryMappingPillerRequestDto = {
+      userCountryMappingID: this.selectedUserCountryMappingID ?? 0,
     };
     if (this.selectedPillar) {
       payload.pillarID = this.selectedPillar.pillarID;
     }
     this.pillerQuestions = null;
     this.isLoader = true;
-    this.evaluatorService.getQuestionsByProgramID(payload).subscribe({
+    this.evaluatorService.getQuestionsByCountryId(payload).subscribe({
       next: (res) => {
         this.isLoader = false;
         if (res.succeeded) {
           this.pillerQuestions = res.result;
-           setTimeout(() => {
+          setTimeout(() => {
             if (this.pillerQuestions?.displayOrder && this.pillerQuestions?.pillarID) {
-              const container = this.scrollPillarContainer.nativeElement;
-              const element = container.querySelector('#pillar-' + this.pillerQuestions.pillarID);
+              const container = this.scrollPillarContainer?.nativeElement;
+              const element = container?.querySelector('#pillar-' + this.pillerQuestions.pillarID);
               if (element) {
-                 element.scrollIntoView({
+                element.scrollIntoView({
                   behavior: 'smooth',
-                  block: 'nearest' // or 'center'
-                  });
+                  block: 'nearest'
+                });
               }
             }
-          }, 300);      
-          this.pillarDisplayOrder = Math.max(this.pillerQuestions?.displayOrder ?? 0, this.pillerQuestions?.submittedPillarDisplayOrder ?? 0);
-          if (this.pillerQuestions && (this.pillerQuestions?.assessmentID || this.selectedUserProgramMappingID) > 0) {
+          }, 300);
+          this.pillarDisplayOrder = Math.max(
+            this.pillerQuestions?.displayOrder ?? 0,
+            this.pillerQuestions?.submittedPillarDisplayOrder ?? 0
+          );
+          this.pillarChanged();
+          if (this.pillerQuestions && (this.pillerQuestions?.assessmentID || this.selectedUserCountryMappingID) > 0) {
             this.getAssessmentProgressHistory();
           } else {
             this.userService.assessmentProgress.next(null);
           }
-          this.pillarChanged();
           this.loadQuestions();
         } else {
-          this.toaster.showWarning("The program's assessment has already been submitted, or the selected pillar has no questions.");
+          this.toaster.showWarning("The country's assessment has already been submitted, or the selected domain has no questions.");
         }
       },
     });
@@ -259,17 +256,17 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
 
   SaveAssessment() {
     if (
-      !this.selectedUserProgramMappingID ||
-      this.selectedUserProgramMappingID == 0
+      !this.selectedUserCountryMappingID ||
+      this.selectedUserCountryMappingID == 0
     ) {
-      this.toaster.showWarning("Please select program first");
+      this.toaster.showWarning("Please select country first");
       return;
     }
     const validQuestions = this.questionsArray.controls
       .filter((ctrl) => ctrl.valid)
       .map((ctrl) => ctrl.value as AddAssessmentResponseDto);
     const payload: AddAssessmentDto = {
-      staffProgramMappingID: this.selectedUserProgramMappingID,
+      userCountryMappingID: this.selectedUserCountryMappingID,
       assessmentID: this.pillerQuestions?.assessmentID ?? 0,
       pillarID: this.pillerQuestions?.pillarID ?? 0,
       responses: validQuestions ?? [],
@@ -290,16 +287,14 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
           }, 300);
           if (res.succeeded) {
             if (this.isAssessementFinalized) {
-              this.evaluatorService.staffProgramMappingIDSubject$.next(null);
+              this.evaluatorService.userCountryMappingIDSubject$.next(null);
               this.checkAssessmentProgress.next();
-              setTimeout(() => {
-                window.location.reload();
-              }, 300);
+              this.getCountryByUserIdForAssessment();
             } else {
               this.selectedPillar = this.getNextPillar(
                 this.selectedPillar?.pillarID ?? this.pillerQuestions?.pillarID
               );
-              this.getQuestionsByProgramId();
+              this.getQuestionsByCountryId();
             }
             this.resetAssessmentActionState();
             this.toaster.showSuccess(res.messages.join(", "));
@@ -320,22 +315,26 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
     this.userService.assessmentProgress.next(null);
   }
 
+  onImgError(event: Event) {
+    (event.target as HTMLImageElement).src = 'assets/images/noImageAvailable.png';
+  }
+
   ImportQuestions() {
-    if (this.selectedUserProgramMappingID != 0) {
+    if (this.selectedUserCountryMappingID != 0) {
       this.isloading = true;
       this.evaluatorService
-        .ExportQuestions(this.selectedUserProgramMappingID)
+        .ExportQuestions(this.selectedUserCountryMappingID)
         .subscribe({
           next: (res: any) => {
-            var program = this.programs?.find(
-              (x) => x.staffProgramMappingID == this.selectedUserProgramMappingID
+            var country = this.countries?.find(
+              (x) => x.userCountryMappingID == this.selectedUserCountryMappingID
             );
             this.isloading = false;
             const url = window.URL.createObjectURL(res);
             const a = document.createElement("a");
             a.href = url;
             a.download =
-              program?.programName + "_" + program?.assignedBy + "_Questions.xlsx";
+              country?.countryName + "_" + country?.assignedBy + "_Questions.xlsx";
             a.click();
             this.toaster.showSuccess("Questions downloaded successfully");
           },
@@ -345,7 +344,7 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
           },
         });
     } else {
-      this.toaster.showWarning("Please select program to get questions");
+      this.toaster.showWarning("Please select country to get questions");
     }
   }
 
@@ -358,8 +357,10 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
       next: (res) => {
         this.isUploading = false;
         if (res.succeeded) {
-          this.selectedPillar = this.pillars[0];
-           this.getQuestionsByProgramId();
+          this.selectedPillar = this.selectedCountry?.assessmentPhase == AssessmentPhase.Completed ?
+            this.pillars.filter(x => x.pillarID == this.ROSEWPillarID)[0]
+            : this.pillars[0];
+          this.getQuestionsByCountryId();
           this.toaster.showSuccess(res.messages.join(", "));
         } else {
           this.toaster.showError(res.errors.join(", "));
@@ -373,12 +374,11 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
   }
 
   getAssessmentProgressHistory() {
-    var payload: GetProgramProgressHistoryRequestDto = {
-      staffProgramMappingID: this.selectedUserProgramMappingID,
-      assessmentID: this.pillerQuestions?.assessmentID ?? 0
-    }
     this.evaluatorService
-      .getAssessmentProgressHistory(payload)
+      .getAssessmentProgressHistory({
+        userCountryMappingID: this.selectedUserCountryMappingID,
+        assessmentID: this.pillerQuestions?.assessmentID ?? 0
+      })
       .subscribe((res) => {
         if (res.succeeded) {
           this.userService.assessmentProgress.next(res.result);
@@ -387,17 +387,16 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
         }
       });
   }
-  
+
   autoSaveSingleAssessemnt(index: number) {
     if (this.questionsArray.controls[index].valid) {
-      if (!this.selectedUserProgramMappingID || this.selectedUserProgramMappingID == 0) {
-        this.toaster.showWarning("Please select city first");
+      if (!this.selectedUserCountryMappingID || this.selectedUserCountryMappingID == 0) {
+        this.toaster.showWarning("Please select country first");
         return;
       }
       if (this.questionsArray.controls[index].valid && this.questionsArray.controls[index].dirty) {
-
         const payload: AddAssessmentDto = {
-          staffProgramMappingID: this.selectedUserProgramMappingID,
+          userCountryMappingID: this.selectedUserCountryMappingID,
           assessmentID: this.pillerQuestions?.assessmentID ?? 0,
           pillarID: this.pillerQuestions?.pillarID ?? 0,
           responses: [this.questionsArray.controls[index].value],
@@ -418,21 +417,11 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
       }
     }
   }
-  
-  decodeHtml(text: string | undefined): string {
-    if (text) {
-      const txt = document.createElement('textarea');
-      txt.innerHTML = text;
-      return txt.value.replace(/\u00a0/g, ' '); // Replace non-breaking space with normal space
-    }
-    return "";
-  }
 
   get isLastPillar(): boolean {
     if (!this.pillerQuestions?.pillarID || this.pillars.length === 0) {
       return false;
     }
-
     const sortedPillars = this.getSortedPillars();
     const currentIndex = sortedPillars.findIndex(
       (pillar) => pillar.pillarID === this.pillerQuestions?.pillarID
@@ -441,21 +430,21 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
     return currentIndex !== -1 && currentIndex === sortedPillars.length - 1;
   }
 
-  onAssessmentActionClick(forceProgramSubmit: boolean = false): void {
-    const shouldSubmitProgram = forceProgramSubmit || this.isLastPillar;
-    this.isProgramSubmissionAction = shouldSubmitProgram;
-    this.isAssessementFinalized = shouldSubmitProgram;
+  onAssessmentActionClick(forceCountrySubmit: boolean = false): void {
+    const shouldSubmitCountry = forceCountrySubmit || this.isLastPillar;
+    this.isCountrySubmissionAction = shouldSubmitCountry;
+    this.isAssessementFinalized = shouldSubmitCountry;
   }
 
   resetAssessmentActionState(): void {
-    this.isProgramSubmissionAction = false;
+    this.isCountrySubmissionAction = false;
     this.isAssessementFinalized = false;
   }
 
   private getSortedPillars(): PillarsVM[] {
-    return [...this.pillars].sort(
-      (a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0)
-    );
+    return [...this.pillars]
+      .filter((pillar) => pillar.pillarID !== this.ROSEWPillarID)
+      .sort((a, b) => (a.displayOrder ?? 0) - (b.displayOrder ?? 0));
   }
 
   private getNextPillar(currentPillarID?: number): PillarsVM | undefined {
@@ -473,5 +462,14 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
     }
 
     return sortedPillars[currentIndex + 1];
+  }
+
+  decodeHtml(text: string | undefined): string {
+    if (text) {
+      const txt = document.createElement('textarea');
+      txt.innerHTML = text;
+      return txt.value.replace(/\u00a0/g, ' ');
+    }
+    return "";
   }
 }

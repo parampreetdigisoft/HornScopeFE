@@ -1,5 +1,5 @@
 
 export interface AITransferAssessmentRequestDto {
-  climateProgramID: number;
+  countryID: number;
   transferToUserID: number;
 }

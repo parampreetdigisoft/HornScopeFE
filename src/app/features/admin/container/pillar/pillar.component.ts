@@ -19,8 +19,6 @@ export class PillarComponent implements OnInit, OnDestroy {
   isLoader: boolean = false;
   isOpendialog: boolean = false;
   urlBase = environment.apiUrl;
-  readonly blockedDeleteMessage = "You can't delete this pillar as it is binded by KPI's. To delete this pillar first replace the KPI mapping with other pillars.";
-  readonly confirmDeleteMessage = "Are you sure you want to delete this pillar? All questions under this pillar will also be deleted.";
   constructor(
     private adminService: AdminService,
     private toaster: ToasterService,
@@ -28,11 +26,11 @@ export class PillarComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.GetAllPillars();
-    this.GetAllKpiPillarMapping();
+    this.GetAllKpi();
   }
 
-  GetAllKpiPillarMapping() {
-    this.adminService.GetAllKpiPillarMapping().subscribe((res) => {
+  GetAllKpi() {
+    this.adminService.GetAllKpi().subscribe((res) => {
       if (res.succeeded) {
         this.kpis = res.result ?? [];
       }
@@ -58,31 +56,31 @@ export class PillarComponent implements OnInit, OnDestroy {
     const text = temp.innerText || temp.textContent || "";
     return text.split(/\s+/).length > 40;
   }
-  
-  addUpdatePillar(pillar: PillarsVM | any) {
-    if (!pillar) {
+
+  addUpdatePillar(piller: PillarsVM | any) {
+    if (!piller) {
       return;
     }
-     
-    if (!pillar.pillarName || pillar.pillarName.trim().length < 5) {
-      this.toaster.showError("Pillar name must be at least 5 characters");
+
+    if (!piller.pillarName || piller.pillarName.trim().length < 5) {
+      this.toaster.showError("Domain name must be at least 5 characters");
       return;
     }
 
     const formData = new FormData();
-    formData.append("pillarName", pillar.pillarName);
-    formData.append("pillarCode", pillar.pillarCode ?? "");
-    formData.append("displayOrder", (pillar.displayOrder ?? 0).toString());
-    formData.append("weight", pillar.weight.toString());
-    formData.append("reliability", pillar.reliability.toString());
-    formData.append("description", pillar.description);
-    formData.append("kpiUpdates", JSON.stringify(pillar.kpiUpdates ?? []));
+    formData.append("pillarName", piller.pillarName);
+    formData.append("pillarCode", piller.pillarCode ?? "");
+    formData.append("displayOrder", (piller.displayOrder ?? 0).toString());
+    formData.append("weight", piller.weight.toString());
+    formData.append("reliability", piller.reliability.toString());
+    formData.append("description", piller.description);
+    formData.append("kpiUpdates", JSON.stringify(piller.kpiUpdates ?? []));
 
-    if (pillar.imageFile) {
-      formData.append("imageFile", pillar.imageFile, pillar.imageFile.name);
+    if (piller.imageFile) {
+      formData.append("imageFile", piller.imageFile, piller.imageFile.name);
     }
 
-    const isAdd = !pillar.pillarID || pillar.pillarID === 0;
+    const isAdd = !piller.pillarID || piller.pillarID === 0;
 
     if (isAdd) {
       this.loading = true;
@@ -91,16 +89,16 @@ export class PillarComponent implements OnInit, OnDestroy {
           this.closeModal();
           if (res.succeeded) {
             this.toaster.showSuccess(
-              res.messages?.join(", ") || "Pillar created successfully",
+              res.messages?.join(", ") || "Domain created successfully",
             );
             this.GetAllPillars();
           } else {
-            this.toaster.showError(res.errors?.join(", ") || "Failed to create pillar");
+            this.toaster.showError(res.errors?.join(", ") || "Failed to create Domain");
           }
         },
         error: () => {
           this.loading = false;
-          this.toaster.showError("Failed to create pillar");
+          this.toaster.showError("Failed to create domain");
         },
       });
       return;
@@ -110,18 +108,21 @@ export class PillarComponent implements OnInit, OnDestroy {
       this.toaster.showWarning("No selected pillar");
       return;
     }
+
     this.loading = true;
-    this.adminService.editAllPillars(this.selectedPillar.pillarID, formData).subscribe({
-      next: () => {
-        this.closeModal();
-        this.toaster.showSuccess("Pillar updated successfully");
-        this.GetAllPillars();
-      },
-      error: () => {
-        this.loading = false;
-        this.toaster.showError("Failed to update pillar");
-      },
-    });
+    this.adminService
+      .editAllPillars(this.selectedPillar.pillarID, formData)
+      .subscribe({
+        next: () => {
+          this.closeModal();
+          this.toaster.showSuccess("Domain updated successfully");
+          this.GetAllPillars();
+        },
+        error: () => {
+          this.loading = false;
+          this.toaster.showError("Failed to update domain");
+        },
+      });
   }
 
   get nextDisplayOrder(): number {
@@ -136,56 +137,29 @@ export class PillarComponent implements OnInit, OnDestroy {
     this.openDialog();
   }
 
-  editPillar(pillar: PillarsVM, isOpen: boolean = true) {
-    this.selectedPillar = pillar;
+  editPillar(piller: PillarsVM, isOpen: boolean = true) {
+    this.selectedPillar = piller;
     if (isOpen) {
       this.openDialog();
     }
   }
 
-  get canDeleteSelectedPillar() {
-    return !this.selectedPillar?.kpiLayerIds?.length;
-  }
-  
-  get deletePromptMessage() {
-    return this.canDeleteSelectedPillar ? this.confirmDeleteMessage : this.blockedDeleteMessage;
-  }
-
-  onDeletePillarClick(pillar: PillarsVM, event: Event): void {
-    event.preventDefault();
-    this.selectedPillar = pillar;
-
-    this.adminService.getPillarKpiMappings(pillar.pillarID).subscribe({
-      next: (res) => {
-        pillar.kpiLayerIds = res.succeeded ? (res.result ?? []).map((m) => +m.layerID) : [];
-        bootstrap.Modal.getOrCreateInstance(document.getElementById("confirmModal")).show();
-      },
-      error: () => this.toaster.showError("Failed to validate pillar KPI mappings"),
-    });
-  }
-
   deletePillar() {
     if (this.selectedPillar === null) {
-      this.toaster.showError("No pillar selected for deletion");
+      this.toaster.showError("No domain selected for deletion");
       return;
     }
-
-    if (!this.canDeleteSelectedPillar) {
-      this.toaster.showWarning(this.blockedDeleteMessage);
-      return;
-    }
-
     this.adminService.deletePillar(this.selectedPillar.pillarID).subscribe({
       next: (res) => {
         if (res.succeeded) {
           this.GetAllPillars();
-          this.toaster.showSuccess(res?.messages?.join(", ") || "Pillar deleted successfully");
+          this.toaster.showSuccess(res?.messages?.join(", ") || "Domain deleted successfully");
         } else {
-          this.toaster.showError(res?.errors?.join(", ") || "Failed to delete pillar");
+          this.toaster.showError(res?.errors?.join(", ") || "Failed to delete domain");
         }
       },
       error: () => {
-        this.toaster.showError("Failed to delete pillar");
+        this.toaster.showError("Failed to delete domain");
       },
     });
   }

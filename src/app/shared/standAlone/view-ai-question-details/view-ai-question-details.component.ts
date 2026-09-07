@@ -1,7 +1,6 @@
 import { Component, EventEmitter, inject, Input, OnChanges, Output, SimpleChanges } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
 import { CircularScoreComponent } from 'src/app/shared/standAlone/circular-score/circular-score.component';
 import { SparklineScoreComponent } from 'src/app/shared/standAlone/sparkline-score/sparkline-score.component';
 import { AITrustLevelVM } from 'src/app/core/models/aiVm/AITrustLevelVM';
@@ -9,19 +8,18 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { AIEstimatedQuestionScoreDto } from 'src/app/core/models/aiVm/AIEstimatedQuestionScoreDto';
 import { UserService } from 'src/app/core/services/user.service';
 import { UserRole } from 'src/app/core/enums/UserRole';
-import { AiEditToolbarComponent } from '../ai-edit-toolbar/ai-edit-toolbar.component';
-import { AiEditableFieldComponent } from '../ai-editable-field/ai-editable-field.component';
-import {
-  AiEditableFieldConfig,
-  UpdateAIEstimatedQuestionScoreDto
-} from 'src/app/core/models/aiVm/UpdateAiScoreDtos';
-import { AiComputationService } from 'src/app/core/services/ai-computation.service';
+import { AiEditToolbarComponent } from 'src/app/shared/standAlone/ai-edit-toolbar/ai-edit-toolbar.component';
+import { AiEditableFieldComponent } from 'src/app/shared/standAlone/ai-editable-field/ai-editable-field.component';
+import { AiEditableFieldConfig, UpdateAIEstimatedQuestionScoreDto } from 'src/app/core/models/aiVm/UpdateAiScoreDtos';
+import { AiEditService } from 'src/app/core/services/ai-edit-audit.service';
 import { ToasterService } from 'src/app/core/services/toaster.service';
+import { FormsModule } from '@angular/forms';
+import { AIEditAccessDto } from 'src/app/core/models/aiVm/AiEditDtos';
 
 const QUESTION_TEXT_FIELDS: AiEditableFieldConfig[] = [
   { key: 'evidenceSummary', label: 'Evidence Summary', type: 'textarea' },
   { key: 'redFlag', label: 'Red Flag', type: 'textarea' },
-  { key: 'inclusionEquityAdjustment', label: 'Inclusion & Equity Adjustment', type: 'textarea' },
+  { key: 'inequalityAdjustment', label: 'Inequality Adjustment', type: 'textarea' },
   { key: 'structuralEvidence', label: 'Structural Evidence', type: 'textarea' },
   { key: 'operationalEvidence', label: 'Operational Evidence', type: 'textarea' },
   { key: 'outcomeEvidence', label: 'Outcome Evidence', type: 'textarea' },
@@ -29,18 +27,17 @@ const QUESTION_TEXT_FIELDS: AiEditableFieldConfig[] = [
   { key: 'temporalScope', label: 'Temporal Scope', type: 'textarea' },
   { key: 'distortionScreening', label: 'Distortion Screening', type: 'textarea' },
   { key: 'relationalDependencies', label: 'Relational Dependencies', type: 'textarea' },
-  { key: 'stressGeopoliticalShock', label: 'Geopolitical Shock', type: 'textarea' },
-  { key: 'stressFinanceShock', label: 'Finance Shock', type: 'textarea' },
-  { key: 'stressLegitimacyShock', label: 'Legitimacy Shock', type: 'textarea' },
-  { key: 'stressOverallResilienceShock', label: 'Overall Resilience', type: 'textarea' },
+  { key: 'stressPoliticalShock', label: 'Political Shock', type: 'textarea' },
+  { key: 'stressEconomicShock', label: 'Economic Shock', type: 'textarea' },
+  { key: 'stressNarrativeShock', label: 'Narrative Shock', type: 'textarea' },
   { key: 'opacityRisk', label: 'Opacity Risk', type: 'textarea' },
 ];
 
-const QUESTION_SOURCE_FIELDS: AiEditableFieldConfig[] = [
+const QUESTION_SOURCE_FIELDS: AiEditableFieldConfig[] | any  = [
   { key: 'sourceType', label: 'Source Type', type: 'text' },
   { key: 'sourceName', label: 'Source Name', type: 'text' },
   { key: 'sourceURL', label: 'Source URL', type: 'text' },
-  { key: 'sourceDataYear', label: 'Data Year', type: 'number', max: new Date().getFullYear() },
+  { key: 'sourceDataYear', label: 'Data Year', type: 'number', max:  new Date().getFullYear() },
   { key: 'sourceHierarchyLevel', label: 'Trust Level', type: 'trust' },
   { key: 'sourceDataExtract', label: 'Data Extract', type: 'textarea' },
 ];
@@ -68,29 +65,42 @@ export class ViewAiQuestionDetailsComponent implements OnChanges {
 
   urlBase = environment.apiUrl;
   userService = inject(UserService);
-  aiComputationService = inject(AiComputationService);
+  aiEditService = inject(AiEditService);
   toaster = inject(ToasterService);
 
   editMode = false;
   saving = false;
+  submitting = false;
+  requesting = false;
+  editAccess: AIEditAccessDto | null = null;
   draft: Record<string, string | number | null> = {};
   textFields = QUESTION_TEXT_FIELDS;
   sourceFields = QUESTION_SOURCE_FIELDS;
 
   get canEdit(): boolean {
     const role = this.userService.userInfo?.role;
-    return role === UserRole.Admin || role === UserRole.Analyst;
+    if (role === UserRole.Admin) return true;
+    if (role === UserRole.Analyst) return !!this.editAccess?.canEdit;
+    return false;
+  }
+
+  get isAnalyst(): boolean {
+    return this.userService.userInfo?.role === UserRole.Analyst;
   }
 
   get hasQuestionScoreRecord(): boolean {
-    return (this.question?.climateProgramID ?? 0) > 0
+    return (this.question?.countryID ?? 0) > 0
       && (this.question?.questionID ?? 0) > 0
       && (this.question?.year ?? 0) > 0;
   }
 
+  get hasVisibleTextFields(): boolean {
+    return this.editMode || this.textFields.some(field => this.shouldShowField(field));
+  }
+
   get averageScore(): number {
     const ai = this.getDraftNumber('aiScore') ?? this.question?.aiScore ?? 0;
-    const evaluator = this.question?.evaluatorScore ?? 0;
+    const evaluator = this.getDraftNumber('evaluatorScore') ?? this.question?.evaluatorScore ?? 0;
     return (ai + evaluator) / 2;
   }
 
@@ -98,7 +108,69 @@ export class ViewAiQuestionDetailsComponent implements OnChanges {
     if (changes['question']) {
       this.editMode = false;
       this.resetDraft();
+      this.loadEditAccess();
     }
+  }
+
+  loadEditAccess() {
+    if (!this.question?.countryID || !this.question?.year) {
+      this.editAccess = null;
+      return;
+    }
+    const role = this.userService.userInfo?.role;
+    if (role !== UserRole.Admin && role !== UserRole.Analyst) {
+      this.editAccess = null;
+      return;
+    }
+    this.aiEditService.getEditAccess(this.question.countryID, this.question.year).subscribe({
+      next: (res) => {
+        this.editAccess = res.succeeded ? (res.result ?? null) : null;
+      },
+      error: () => { this.editAccess = null; }
+    });
+  }
+
+  requestPermission() {
+    if (!this.question) return;
+    this.requesting = true;
+    this.aiEditService.requestPermission({
+      countryID: this.question.countryID,
+      year: this.question.year
+    }).subscribe({
+      next: (res) => {
+        this.requesting = false;
+        if (res.succeeded) {
+          this.toaster.showSuccess(res.messages?.join(', ') || 'Edit permission requested.');
+          this.loadEditAccess();
+        } else {
+          this.toaster.showError(res.errors?.join(', ') || 'Failed to request permission.');
+        }
+      },
+      error: () => {
+        this.requesting = false;
+        this.toaster.showError('Failed to request permission.');
+      }
+    });
+  }
+
+  submitDraft() {
+    if (!this.editAccess?.sessionID) return;
+    this.submitting = true;
+    this.aiEditService.submitSession(this.editAccess.sessionID).subscribe({
+      next: (res) => {
+        this.submitting = false;
+        if (res.succeeded) {
+          this.toaster.showSuccess(res.messages?.join(', ') || 'Draft submitted for admin approval.');
+          this.loadEditAccess();
+        } else {
+          this.toaster.showError(res.errors?.join(', ') || 'Failed to submit draft.');
+        }
+      },
+      error: () => {
+        this.submitting = false;
+        this.toaster.showError('Failed to submit draft.');
+      }
+    });
   }
 
   onImgError(event: Event) {
@@ -118,7 +190,9 @@ export class ViewAiQuestionDetailsComponent implements OnChanges {
     const ai = this.editMode
       ? (this.getDraftNumber('aiScore') ?? 0)
       : (question?.aiScore ?? 0);
-    const evaluator = question?.evaluatorScore ?? 0;
+    const evaluator = this.editMode
+      ? (this.getDraftNumber('evaluatorScore') ?? 0)
+      : (question?.evaluatorScore ?? 0);
     return Math.abs(evaluator - ai);
   }
 
@@ -136,12 +210,12 @@ export class ViewAiQuestionDetailsComponent implements OnChanges {
   }
 
   saveChanges() {
-    if (!this.question || !this.hasQuestionScoreRecord) {
+    if (!this.question) {
       return;
     }
 
     const payload: UpdateAIEstimatedQuestionScoreDto = {
-      climateProgramID: this.question.climateProgramID,
+      countryID: this.question.countryID,
       pillarID: this.question.pillarID,
       questionID: this.question.questionID,
       year: this.question.year,
@@ -156,11 +230,10 @@ export class ViewAiQuestionDetailsComponent implements OnChanges {
       temporalScope: this.getDraftString('temporalScope'),
       distortionScreening: this.getDraftString('distortionScreening'),
       relationalDependencies: this.getDraftString('relationalDependencies'),
-      stressGeopoliticalShock: this.getDraftString('stressGeopoliticalShock'),
-      stressFinanceShock: this.getDraftString('stressFinanceShock'),
-      stressLegitimacyShock: this.getDraftString('stressLegitimacyShock'),
-      stressOverallResilienceShock: this.getDraftString('stressOverallResilienceShock'),
-      inclusionEquityAdjustment: this.getDraftString('inclusionEquityAdjustment'),
+      stressPoliticalShock: this.getDraftString('stressPoliticalShock'),
+      stressEconomicShock: this.getDraftString('stressEconomicShock'),
+      stressNarrativeShock: this.getDraftString('stressNarrativeShock'),
+      inequalityAdjustment: this.getDraftString('inequalityAdjustment'),
       opacityRisk: this.getDraftString('opacityRisk'),
       redFlag: this.getDraftString('redFlag'),
       sourceType: this.getDraftString('sourceType'),
@@ -172,14 +245,23 @@ export class ViewAiQuestionDetailsComponent implements OnChanges {
     };
 
     this.saving = true;
-    this.aiComputationService.updateAIEstimatedQuestionScore(payload).subscribe({
+    this.aiEditService.updateAIEstimatedQuestionScore(payload).subscribe({
       next: (res) => {
         this.saving = false;
         if (res.succeeded) {
-          this.applyDraftToQuestion();
-          this.editMode = false;
+          if (this.isAnalyst) {
+            // Show this analyst's draft values locally; live AI DB stays unchanged until admin approves.
+            this.applyDraftToQuestion();
+            this.editMode = false;
+            this.resetDraft();
+            this.loadEditAccess();
+            this.dataSaved.emit();
+          } else {
+            this.applyDraftToQuestion();
+            this.editMode = false;
+            this.dataSaved.emit();
+          }
           this.toaster.showSuccess(res.messages?.join(', ') || 'Changes saved successfully.');
-          this.dataSaved.emit();
         } else {
           this.toaster.showError(res.errors?.join(', ') || 'Failed to save changes.');
         }
@@ -218,8 +300,10 @@ export class ViewAiQuestionDetailsComponent implements OnChanges {
 
     this.draft = {
       aiScore: this.question.aiScore ?? null,
+      evaluatorScore: this.question.evaluatorScore ?? null,
       confidenceLevel: this.question.confidenceLevel ?? null,
       sourcesConsulted: this.question.sourcesConsulted ?? null,
+      year: this.question.year ?? null,
     };
 
     [...this.textFields, ...this.sourceFields].forEach(field => {

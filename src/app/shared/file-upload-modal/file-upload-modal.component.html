@@ -1,4 +1,4 @@
-<div class="modal fade file_upload_modal modal_design" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade modal_design ami-upload-modal" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-body position-relative">
@@ -10,11 +10,15 @@
 
         <div class="input_field mt-3">
           <label>Select File *</label>
-          <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileSelected($event)" class="form-control">
+          <label class="image-file-picker"> 
+            <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileSelected($event)" class="image-file-input-hidden" >
+            <span class="image-file-trigger">Choose File</span>
+            <span class="image-file-name">{{ selectedFileName }}</span>
+          </label>
         </div>
 
-        <div class="d-flex justify-content-end mt-4 gap-2">
-          <button type="button" class="btn outline_btn px-4"
+        <div class="d-flex justify-content-end mt-4 ami-upload-actions">
+          <button type="button" class="btn btn-cancel btn-outline-secondary me-2 px-4 outline_btn"
                 data-bs-dismiss="modal" (click)="closeModal()">Cancel</button>
           <button type="button" class="common_button px-4"
                 [disabled]="!selectedFile" (click)="saveFile()">

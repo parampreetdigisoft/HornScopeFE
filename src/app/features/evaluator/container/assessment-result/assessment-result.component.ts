@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from "@angular/core";
-import { ProgramVM } from "src/app/core/models/ProgramVM";
+import { CountryVM } from "src/app/core/models/CountryVM";
 import { PaginationUserRequest } from "src/app/core/models/PaginationRequest";
 import { PaginationResponse } from "src/app/core/models/PaginationResponse";
 import { ToasterService } from "src/app/core/services/toaster.service";
@@ -11,7 +11,7 @@ import { GetAssessmentRequestDto } from "src/app/core/models/AssessmentRequest";
 import { SortDirection } from "src/app/core/enums/SortDirection";
 import { CommonService } from "src/app/core/services/common.service";
 import { AssessmentPhase } from "src/app/core/enums/AssessmentPhase";
-import { SendRequestMailToUpdateProgram } from "src/app/core/models/AnalystVM";
+import { SendRequestMailToUpdateCountry } from "src/app/core/models/AnalystVM";
 
 @Component({
   selector: "app-assessment-result",
@@ -19,14 +19,15 @@ import { SendRequestMailToUpdateProgram } from "src/app/core/models/AnalystVM";
   styleUrl: "./assessment-result.component.css",
 })
 export class AssessmentResultComponent implements OnInit {
-
-  selectedclimateProgramID: number | any = "";
+  currentYear = new Date().getFullYear();
+  selectedYear= this.currentYear;
+  selectedCountryID: number | any = "";
   assessmentsResponse: PaginationResponse<GetAssessmentResponse> | undefined;
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1;
-  programs: ProgramVM[] | null = [];
-  isLoader: boolean = false;
+  countries: CountryVM[] | null = [];
+  isLoader: boolean = true;
   selectedAssessment!:GetAssessmentResponse;
 
   constructor(
@@ -38,7 +39,7 @@ export class AssessmentResultComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.getAllProgramsByUserId();
+    this.getAllCountriesByUserId();
     this.getAssessments();
   }
 
@@ -61,7 +62,8 @@ export class AssessmentResultComponent implements OnInit {
       pageNumber: currentPage,
       pageSize: this.pageSize,
       userId: this.userService?.userInfo?.userID,
-      climateProgramID: this.selectedclimateProgramID
+      countryID: this.selectedCountryID,
+      updatedAt:this.commonService.getStartOfYearLocal(this.selectedYear)
     };
     this.evaluatorService
       .getAssessmentResults(payload)
@@ -73,16 +75,16 @@ export class AssessmentResultComponent implements OnInit {
         this.isLoader = false;
       });
   }
-  getAllProgramsByUserId() {
+  getAllCountriesByUserId() {
     this.evaluatorService
-      .getAllProgramsByUserId(this.userService?.userInfo?.userID)
+      .getAllCountriesByUserId(this.userService?.userInfo?.userID)
       .subscribe({
         next: (res) => {
-          this.programs = res.result;
-          if (this.programs) {
-            //this.selectedclimateProgramID = this.programs?.length > 0 ? this.programs[0].climateProgramID : null
+          this.countries = res.result;
+          if (this.countries) {
+            //this.selectedCountryID = this.countries?.length > 0 ? this.countries[0].countryID : null
           } else {
-            this.toaster.showWarning("No program assigned");
+            this.toaster.showWarning("No country assigned");
           }
         },
       });
@@ -98,15 +100,15 @@ export class AssessmentResultComponent implements OnInit {
     let userRole = this.userService.userInfo.role;
     switch (assessment.assessmentPhase) {
       case AssessmentPhase.InProgress: {
-        this.evaluatorService.staffProgramMappingIDSubject$.next(
-          assessment.staffProgramMappingID
+        this.evaluatorService.userCountryMappingIDSubject$.next(
+          assessment.userCountryMappingID
         );
         this.router.navigate(["evaluator/make-assessment"]);
         break;
       }
       case  AssessmentPhase.EditApproved: {
-        this.evaluatorService.staffProgramMappingIDSubject$.next(
-          assessment.staffProgramMappingID
+        this.evaluatorService.userCountryMappingIDSubject$.next(
+          assessment.userCountryMappingID
         );
         this.router.navigate(["evaluator/make-assessment"]);
         break;
@@ -115,14 +117,14 @@ export class AssessmentResultComponent implements OnInit {
         break;
         case AssessmentPhase.EditRejected : {
         this.sendMailForEditAssessment(
-          assessment.staffProgramMappingID,
+          assessment.userCountryMappingID,
           assessment.assignedByUserId
         );
         break;
       }
       case AssessmentPhase.Completed : {
         this.sendMailForEditAssessment(
-          assessment.staffProgramMappingID,
+          assessment.userCountryMappingID,
           assessment.assignedByUserId
         );
         break;
@@ -131,10 +133,10 @@ export class AssessmentResultComponent implements OnInit {
     }
   }
 
-  sendMailForEditAssessment(staffProgramMappingID: number, mailToUserID: number) {
-    let payload: SendRequestMailToUpdateProgram = {
+  sendMailForEditAssessment(userCountryMappingID: number, mailToUserID: number) {
+    let payload: SendRequestMailToUpdateCountry = {
       userID: this.userService.userInfo.userID,
-      staffProgramMappingID: staffProgramMappingID,
+      userCountryMappingID: userCountryMappingID,
       mailToUserID: mailToUserID,
     };
     this.evaluatorService.sendMailForEditAssessment(payload).subscribe({

@@ -2,6 +2,12 @@
   display: flex;
   flex-direction: column;
   gap: 0.35rem;
+  animation: amiFieldIn 0.35s ease both;
+}
+
+@keyframes amiFieldIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 .ai-field-compact {
@@ -10,30 +16,34 @@
 
 .ai-field-label {
   font-weight: 600;
-  color: var(--Text-Color, #E8EEF8);
-  font-size: 0.95rem;
+  color: #E7C878;
+  font-size: 0.85rem;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
 }
 
 .ai-field-readonly {
-  color: var(--Light-Text-Color, #9AADC4);
+  color: #EFE7D6;
   font-size: 0.95rem;
+  line-height: 1.5;
 }
 
 .ai-field-input,
 .ai-field-textarea {
-  border: 1px solid var(--Border-Color, rgba(92, 140, 200, 0.22));
-  border-radius: 0.5rem;
+  border: 1px solid #332C1D;
+  border-radius: 0.6rem;
   font-size: 0.95rem;
-  background: var(--Surface-Elevated, #102044);
-  color: var(--Text-Color, #E8EEF8);
-  transition: border-color 0.2s ease, box-shadow 0.2s ease;
+  color: #EFE7D6;
+  background: #1B1810;
+  transition: border-color 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
 }
 
 .ai-field-input:focus,
 .ai-field-textarea:focus {
-  border-color: var(--Accent-Blue, #3B9EFF);
-  box-shadow: 0 0 0 0.15rem rgba(59, 158, 255, 0.18);
+  border-color: #C9A24A;
+  box-shadow: 0 0 0 0.15rem rgba(201, 162, 74, 0.22);
   outline: none;
+  background: #141209;
 }
 
 .ai-field-textarea {

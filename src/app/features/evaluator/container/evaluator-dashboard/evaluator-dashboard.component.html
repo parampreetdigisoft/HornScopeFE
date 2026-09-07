@@ -1,0 +1,135 @@
+<div class="ami-dashboard eval-dash" *ngIf="!isLoader">
+	<div class="ami-kpi-strip">
+		<div class="ami-kpi-card">
+			<div class="ami-kpi-icon"><i class="bi bi-globe2"></i></div>
+			<div>
+				<div class="ami-kpi-label">Total Countries</div>
+				<div class="ami-kpi-value">{{ countryHistory?.totalCountry ?? 0 }}</div>
+				<div class="ami-kpi-sub">Assigned countries</div>
+			</div>
+		</div>
+		<div class="ami-kpi-card">
+			<div class="ami-kpi-icon"><i class="bi bi-clipboard2-check"></i></div>
+			<div>
+				<div class="ami-kpi-label">Active</div>
+				<div class="ami-kpi-value">{{ countryHistory?.activeCountry ?? 0 }}</div>
+				<div class="ami-kpi-sub">Active assessments</div>
+			</div>
+		</div>
+		<div class="ami-kpi-card">
+			<div class="ami-kpi-icon"><i class="bi bi-hourglass-split"></i></div>
+			<div>
+				<div class="ami-kpi-label">In Progress</div>
+				<div class="ami-kpi-value">{{ countryHistory?.inprocessCountry ?? 0 }}</div>
+				<div class="ami-kpi-sub">Manual in progress</div>
+			</div>
+		</div>
+		<div class="ami-kpi-card">
+			<div class="ami-kpi-icon"><i class="bi bi-check2-all"></i></div>
+			<div>
+				<div class="ami-kpi-label">Completed</div>
+				<div class="ami-kpi-value">{{ countryHistory?.compeleteCountry ?? 0 }}</div>
+				<div class="ami-kpi-sub">Manual completed</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="ami-controls">
+		<div class="ami-controls-left">
+			<div class="ami-field">
+				<label>Select Country *</label>
+				<ng-select [items]="countries"
+					[searchable]="true"
+					[placeholder]="selectedCountries == '' ? 'Select Country' : ''"
+					[(ngModel)]="selectedCountries"
+					(change)="onCountrySelected()"
+					bindValue="countryID"
+					bindLabel="countryName"
+					class="form-control analyst_multi_select">
+					<ng-template ng-label-tmp let-item="item">
+						{{ item.countryName }} ({{item?.assignedBy || ''}})
+					</ng-template>
+					<ng-template ng-option-tmp let-item="item">
+						{{ item.countryName }}, {{ item.continent }} ({{item?.assignedBy || ''}})
+					</ng-template>
+				</ng-select>
+			</div>
+			<div class="ami-field">
+				<label>Select Year *</label>
+				<ng-select
+					[items]="commonService.applicateYears"
+					[(ngModel)]="selectedYear"
+					(change)="yearChanged()"
+					[clearable]="false"
+					[searchable]="false"
+					name="selectedYear"
+					class="form-control analyst_multi_select">
+				</ng-select>
+			</div>
+		</div>
+		<div class="ami-actions">
+			<button *ngIf="countryQuestionHistoryResponse?.pillars?.length"
+				type="button"
+				class="ami-btn ami-btn-solid"
+				[matTooltip]="'Export domain details'"
+				(click)="exportCountryPillar()">
+				Export
+				<i class="bi bi-download"></i>
+			</button>
+		</div>
+	</div>
+
+	<div class="ami-grid-2">
+		<div class="ami-panel">
+			<div class="ami-panel-title">
+				<span><i class="bi bi-graph-up"></i> Manual Score Overview</span>
+				<div class="ami-legend">
+					<span><span class="ami-dot ami-dot-gold"></span> Manual Score</span>
+				</div>
+			</div>
+			<div class="ami-chart-host" *ngIf="chartPillarOptions?.series?.length; else emptyPillar">
+				<apx-chart
+					[series]="chartPillarOptions!.series!"
+					[chart]="chartPillarOptions!.chart!"
+					[xaxis]="chartPillarOptions!.xaxis!"
+					[yaxis]="chartPillarOptions!.yaxis!"
+					[colors]="chartPillarOptions!.colors!"
+					[tooltip]="chartPillarOptions!.tooltip!"
+					[plotOptions]="chartPillarOptions!.plotOptions || {}"
+					[legend]="chartPillarOptions!.legend!"
+					[fill]="chartPillarOptions!.fill || {}"
+					[dataLabels]="chartPillarOptions!.dataLabels!"
+					[stroke]="chartPillarOptions!.stroke!"
+					[markers]="chartPillarOptions!.markers!"
+					[grid]="chartPillarOptions!.grid!">
+				</apx-chart>
+			</div>
+			<ng-template #emptyPillar>
+				<div class="ami-empty">Select a country to view performance scores.</div>
+			</ng-template>
+		</div>
+
+		<div class="ami-panel">
+			<div class="ami-panel-title">
+				<span><i class="bi bi-pie-chart"></i> Country Overview</span>
+			</div>
+			<div class="ami-chart-host" *ngIf="chartOptions?.series?.length; else emptyRadial">
+				<apx-chart
+					[series]="chartOptions!.series!"
+					[chart]="chartOptions!.chart!"
+					[plotOptions]="chartOptions!.plotOptions!"
+					[labels]="chartOptions!.labels!"
+					[legend]="chartOptions!.legend!"
+					[colors]="chartOptions!.colors!">
+				</apx-chart>
+			</div>
+			<ng-template #emptyRadial>
+				<div class="ami-empty">Country overview will appear here.</div>
+			</ng-template>
+		</div>
+	</div>
+</div>
+
+<div *ngIf="isLoader" class="loader_main">
+	<div class="loader"></div>
+</div>

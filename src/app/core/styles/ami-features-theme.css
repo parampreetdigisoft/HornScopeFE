@@ -1,0 +1,1279 @@
+/* ============================================================
+   AMI Features Theme — global dark surfaces for all feature pages
+   Removes white cards / tables / headers across modules
+   ============================================================ */
+
+/* Page canvas */
+.inner_content_area,
+.content_area,
+.main_area .content_area {
+  background: transparent !important;
+  color: var(--ami-cream, #EFE7D6);
+}
+
+/* Headings / filter bars */
+.inner_content_area .heading_area,
+.heading_area,
+.city_pillar,
+.cross-pillar_outter,
+.cross-pillar,
+.pagination_outer,
+.table_outer,
+.apx_chart_new,
+.outer_graph,
+.cus_table,
+.compare_table,
+.dashboard_card {
+  background:
+    radial-gradient(ellipse at top right, rgba(201, 162, 74, 0.06), transparent 55%),
+    #141209 !important;
+  color: var(--ami-cream, #EFE7D6) !important;
+  box-shadow: 0 8px 28px rgba(0, 0, 0, 0.28) !important;
+}
+
+.page_head,
+.heading_area .page_head,
+.inner_content_area .heading_area .page_head {
+  color: var(--ami-cream, #EFE7D6) !important;
+}
+
+/* KPI comparison / layers header — one compact row down to 1366x540 */
+.kpi_compare_toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px 16px;
+  flex-wrap: nowrap;
+  width: 100%;
+  min-width: 0;
+  overflow: visible;
+}
+
+.kpi_compare_toolbar .page_head {
+  margin: 0;
+  flex: 0 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-size: 20px;
+  line-height: 1.25;
+}
+
+.kpi_compare_toolbar__actions {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  flex: 1 1 auto;
+  min-width: 0;
+}
+
+.kpi_compare_select {
+  flex: 1 1 200px;
+  max-width: 280px;
+  min-width: 160px;
+}
+
+.kpi_compare_select--year {
+  flex: 0 0 120px;
+  max-width: 140px;
+  min-width: 110px;
+}
+
+.kpi_compare_toolbar .export_btn {
+  flex: 0 0 auto;
+  width: 42px;
+  height: 42px;
+  min-width: 42px;
+  padding: 0 !important;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.kpi_compare_toolbar .common_button:not(.export_btn) {
+  flex: 0 0 auto;
+  width: auto;
+  min-width: 0;
+  height: 42px;
+}
+
+.kpi_compare_toolbar .toolbar-icon {
+  flex: 0 0 auto;
+  display: inline-flex;
+  align-items: center;
+  line-height: 0;
+}
+
+.heading_area .toolbar-icon--refresh,
+.heading_area .toolbar-icon--refresh .refresh-icon,
+.kpi_compare_toolbar .toolbar-icon--refresh,
+.kpi_compare_toolbar .refresh-icon,
+.refresh-icon {
+  color: #C9A24A !important;
+}
+
+.heading_area .toolbar-icon--refresh path,
+.kpi_compare_toolbar .toolbar-icon--refresh path,
+.refresh-icon path,
+svg.refresh-icon path,
+.action_icons .refresh-icon path {
+  fill: currentColor !important;
+}
+
+path[fill="#0c2c67"] {
+  fill: #C9A24A !important;
+}
+
+.kpi_compare_select .ng-select,
+.kpi_compare_select ng-select {
+  width: 100%;
+  position: relative;
+}
+
+.kpi_compare_select .ng-select.ng-select-opened,
+.heading_area .ng-select.ng-select-opened,
+.compare_select .ng-select.ng-select-opened,
+.kpi_filters_bar .ng-select.ng-select-opened {
+  z-index: 30;
+}
+
+/* Keep the list attached to its own field (never under a neighbor select). */
+.heading_area .ng-select .ng-dropdown-panel,
+.kpi_compare_select .ng-select .ng-dropdown-panel,
+.compare_select .ng-select .ng-dropdown-panel,
+.kpi_filters_bar .ng-select .ng-dropdown-panel,
+.kpi_select_shell--ng .ng-select .ng-dropdown-panel {
+  position: absolute !important;
+  left: 0 !important;
+  right: auto !important;
+  top: calc(100% + 4px) !important;
+  bottom: auto !important;
+  width: 100% !important;
+  min-width: 100% !important;
+  max-width: 100% !important;
+  transform: none !important;
+  margin-top: 0 !important;
+}
+
+.kpi_compare_select .ng-select-multiple .ng-select-container {
+  max-height: 42px;
+}
+
+.kpi_compare_select .ng-select.ng-select-single .ng-value-container,
+.kpi_compare_select .ng-select.ng-select-single .ng-value,
+.kpi_compare_select .ng-select.ng-select-single .ng-value-label {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.kpi_compare_select .ng-select-multiple .ng-value-container,
+.compare_select .ng-select-multiple .ng-value-container {
+  flex-wrap: nowrap !important;
+  overflow: hidden;
+}
+
+.kpi_compare_select .ng-select-multiple app-select-overflow-label,
+.compare_select .ng-select-multiple app-select-overflow-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: 100%;
+}
+
+.kpi_compare_select .ng-select-multiple .ng-input,
+.compare_select .ng-select-multiple .ng-input {
+  flex: 0 0 8px !important;
+  min-width: 8px !important;
+  width: 8px !important;
+}
+
+.kpi_compare_select .ng-select-multiple.ng-select-opened .ng-input,
+.kpi_compare_select .ng-select-multiple.ng-select-filtered .ng-input,
+.compare_select .ng-select-multiple.ng-select-opened .ng-input,
+.compare_select .ng-select-multiple.ng-select-filtered .ng-input {
+  flex: 1 1 48px !important;
+  min-width: 48px !important;
+  width: auto !important;
+}
+
+.kpi_compare_select .ng-select-multiple .ng-value-container::-webkit-scrollbar {
+  height: 0;
+}
+
+@media (max-width: 1540px) {
+  .kpi_compare_toolbar .page_head {
+    font-size: 18px;
+  }
+  .kpi_compare_select {
+    max-width: 240px;
+    flex-basis: 180px;
+  }
+}
+
+@media (max-width: 1366px) {
+  .inner_content_area .heading_area {
+    padding: 10px 12px !important;
+    margin-bottom: 8px;
+  }
+  .kpi_compare_toolbar {
+    gap: 8px 10px;
+  }
+  .kpi_compare_toolbar .page_head {
+    font-size: 16px;
+  }
+  .kpi_compare_toolbar__actions {
+    gap: 8px;
+  }
+  .kpi_compare_select {
+    max-width: 210px;
+    min-width: 150px;
+    flex-basis: 160px;
+  }
+  .kpi_compare_select .ng-select .ng-select-container,
+  .kpi_compare_select .ng-select-multiple .ng-select-container {
+    min-height: 38px !important;
+    max-height: 38px;
+  }
+  .kpi_compare_toolbar .export_btn {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+  }
+}
+
+@media (max-width: 1280px) {
+  .kpi_compare_toolbar .page_head {
+    font-size: 15px;
+  }
+  .kpi_compare_select {
+    max-width: 190px;
+    min-width: 140px;
+    flex-basis: 150px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .kpi_compare_toolbar {
+    flex-wrap: wrap;
+  }
+  .kpi_compare_toolbar .page_head {
+    flex: 1 1 auto;
+  }
+  .kpi_compare_toolbar__actions {
+    flex: 1 1 100%;
+  }
+}
+
+@media (max-height: 600px) {
+  .inner_content_area .heading_area {
+    padding: 8px 12px !important;
+    margin-bottom: 8px;
+  }
+  .ng-dropdown-panel .ng-dropdown-panel-items,
+  .ng-dropdown-panel .scroll-host {
+    max-height: 160px !important;
+  }
+}
+
+.heading_area,
+.city_pillar {
+  border-radius: 12px !important;
+  position: relative;
+  z-index: 40;
+}
+
+.heading_area:has(.ng-select-opened),
+.city_pillar:has(.ng-select-opened) {
+  z-index: 60;
+}
+
+#chart,
+.kpi_compare_chart_panel {
+  position: relative;
+  z-index: 1;
+}
+
+/* Labels / body text on feature surfaces */
+.city_pillar .input_field label,
+.heading_area label,
+.input_field label {
+  color: var(--ami-gold-bright, #E7C878) !important;
+}
+
+.city_cards_h1,
+.city_cards_disc,
+.kpi_head_col,
+.cross-pillar h5,
+.showing_data,
+.pagi_label {
+  color: var(--ami-cream, #EFE7D6) !important;
+}
+
+.city_cards_disc,
+.pagi_label,
+.showing_data {
+  color: var(--ami-muted, #9C9484) !important;
+}
+
+/* Forms on dark surfaces */
+.inner_content_area .form-control,
+.inner_content_area .form-select,
+.city_pillar .form-control,
+.city_pillar .form-select,
+.heading_area .form-control,
+.heading_area .form-select,
+.main_area .input_field .form-control,
+.main_area .input_field .form-select {
+  background: #1B1810 !important;
+  border: 1px solid #332C1D !important;
+  color: #EFE7D6 !important;
+  border-radius: 10px !important;
+  min-height: 42px;
+}
+
+.main_area .input_field .form-control:focus,
+.main_area .input_field .form-select:focus,
+.city_pillar .form-control:focus,
+.heading_area .form-control:focus {
+  background: #141209 !important;
+  border-color: rgba(201, 162, 74, 0.55) !important;
+  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.2) !important;
+  color: #EFE7D6 !important;
+}
+
+.input_field .form-control::placeholder {
+  color: #8B887E !important;
+}
+
+/* Tables stay under header dropdowns */
+.table_outer {
+  border-radius: 12px !important;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+}
+
+/* Keep the page spinner visible while rows are empty (absolute overlay was clipped). */
+.table_outer:has(.loader_main) {
+  min-height: 360px;
+}
+
+.table_outer:has(.loader_main) > table,
+.table_outer:has(.loader_main) > .table_custom_inner,
+.table_outer:has(.loader_main) > .table_scroll {
+  display: none;
+}
+
+.table_outer.compare_city_table {
+  overflow-x: auto;
+}
+
+.table_outer > .loader_main {
+  position: relative;
+  inset: auto;
+  min-height: 360px;
+  width: 100%;
+}
+
+/* KPI comparison: grow with rows (no nested vertical bar); sideways scroll on zoom / extra columns */
+.table_outer.table-responsive {
+  overflow-x: auto !important;
+  overflow-y: hidden !important;
+  max-height: none !important;
+}
+
+/* Allow dropdowns to escape filter/header panels */
+.heading_area,
+.city_pillar,
+.compare_select,
+.input_flex,
+.input_field {
+  overflow: visible !important;
+}
+
+.table_outer .table,
+.table_outer .table > :not(caption) > * > * {
+  background-color: transparent !important;
+  color: #EFE7D6 !important;
+  border-color: #241F14 !important;
+}
+
+.table_outer .table thead th,
+.table_outer .table th,
+.cus_table .table th,
+.kpi_custom_table th {
+  background: linear-gradient(135deg, rgba(201, 162, 74, 0.22), rgba(138, 90, 43, 0.18)) !important;
+  color: #E7C878 !important;
+  border-color: #332C1D !important;
+  font-weight: 700 !important;
+}
+
+.table_outer .table td,
+.cus_table .table td,
+.kpi_custom_table td {
+  color: #C9C7BF !important;
+  border-color: #241F14 !important;
+  background: transparent !important;
+}
+
+
+.table-striped > tbody > tr:nth-of-type(odd) > * {
+  --bs-table-bg-type: rgba(201, 162, 74, 0.04);
+  color: #EFE7D6 !important;
+}
+
+/* Pagination */
+.pagination_outer {
+  background: #141209 !important;
+}
+
+.cus_pagination > li:not(:first-child, :last-child) span {
+  background: #1B1810 !important;
+  color: #EFE7D6 !important;
+  border-color: #332C1D !important;
+}
+
+.cus_pagination > li:not(:first-child, :last-child) span.action,
+.cus_pagination > li:not(:first-child, :last-child) span:hover {
+  background: linear-gradient(135deg, #E7C878, #C9A24A) !important;
+  color: #0A0906 !important;
+  border-color: #C9A24A !important;
+}
+
+/* Dashboard stat cards */
+.dashboard_card {
+  border-left: 4px solid #C9A24A !important;
+}
+
+.dashboard_number h4 {
+  color: #9C9484 !important;
+}
+
+.dashboard_number h5 {
+  color: #EFE7D6 !important;
+}
+
+.dashboard_card_inner span {
+  background: rgba(201, 162, 74, 0.14) !important;
+  border: 1px solid rgba(201, 162, 74, 0.3) !important;
+}
+
+.dashboard_card_inner span svg path {
+  fill: #E7C878 !important;
+}
+
+/* Chart panels */
+#chart,
+#chartPillar,
+.ami-chart-panel,
+.apx_chart_new,
+.outer_graph,
+.city_pillar + app-ag-bar {
+  background:
+    radial-gradient(ellipse at top, rgba(201, 162, 74, 0.07), transparent 50%),
+    #141209 !important;
+  border: 1px solid #241F14 !important;
+  border-radius: 14px !important;
+  color: #EFE7D6 !important;
+  overflow: visible !important;
+  padding: 12px 16px 8px;
+  min-height: 0;
+}
+
+#chart .apexcharts-canvas,
+#chart .apexcharts-svg,
+#chart .apexcharts-inner {
+  overflow: visible !important;
+}
+
+.ami-kpi-analysis-chart {
+  min-height: 0;
+}
+
+.card_heading {
+  background: linear-gradient(180deg, #0D0B07 0%, #1B1810 100%) !important;
+}
+
+.card_heading h3 {
+  color: #EFE7D6 !important;
+}
+
+/* ApexCharts text on dark */
+.apexcharts-text,
+.apexcharts-yaxis text,
+.apexcharts-legend-text {
+  fill: #9C9484 !important;
+  color: #9C9484 !important;
+}
+
+#chart .apexcharts-xaxis text,
+#chart .apexcharts-xaxis-label,
+#chart .apexcharts-xaxis-texts-g text,
+#chart .ami-kpi-xaxis-label,
+#chart .apexcharts-xaxis-label tspan {
+  fill: #EFE7D6 !important;
+  color: #EFE7D6 !important;
+}
+
+#chart .apexcharts-legend-text {
+  color: #EFE7D6 !important;
+}
+
+.apexcharts-gridline {
+  stroke: #241F14 !important;
+}
+
+.apexcharts-tooltip {
+  background: #1B1810 !important;
+  border: 1px solid #332C1D !important;
+  color: #EFE7D6 !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+.apexcharts-tooltip-title {
+  background: #141209 !important;
+  border-bottom-color: #332C1D !important;
+  color: #E7C878 !important;
+}
+
+/* Custom HTML tooltips (Domain Analysis) — strip Apex's default white chrome */
+.apexcharts-tooltip.ami-kpi-custom-tooltip,
+.apexcharts-tooltip.ami-kpi-custom-tooltip.apexcharts-theme-light,
+.apexcharts-tooltip.ami-kpi-custom-tooltip.apexcharts-theme-dark {
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  color: #EFE7D6 !important;
+}
+
+.apexcharts-tooltip.ami-kpi-custom-tooltip .apexcharts-tooltip-title,
+.apexcharts-tooltip.ami-kpi-custom-tooltip .apexcharts-tooltip-series-group {
+  display: none !important;
+}
+
+.table_outer .pillar_confidence_outer > p {
+  color: #EFE7D6 !important;
+}
+
+.table_outer .pillar_confidence {
+  color: #9C9484 !important;
+}
+
+/* ApexCharts toolbar export menu (Download SVG / PNG / CSV) */
+#chart .apexcharts-menu,
+#chartPillar .apexcharts-menu,
+.ami-chart-panel .apexcharts-menu,
+.apx_chart_new .apexcharts-menu,
+.outer_graph .apexcharts-menu,
+.apexcharts-canvas .apexcharts-menu,
+.apexcharts-menu {
+  background: #1B1810 !important;
+  border: 1px solid #C9A24A !important;
+  border-radius: 10px !important;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.5) !important;
+  padding: 6px !important;
+  min-width: 140px;
+  overflow: hidden;
+}
+
+#chart .apexcharts-menu-item,
+#chartPillar .apexcharts-menu-item,
+.ami-chart-panel .apexcharts-menu-item,
+.apx_chart_new .apexcharts-menu-item,
+.outer_graph .apexcharts-menu-item,
+.apexcharts-canvas .apexcharts-menu-item,
+.apexcharts-menu-item {
+  color: #EFE7D6 !important;
+  background: transparent !important;
+  border-radius: 8px !important;
+  padding: 8px 12px !important;
+  font-size: 13px !important;
+  font-weight: 500 !important;
+  transition: background 0.15s ease, color 0.15s ease !important;
+}
+
+#chart .apexcharts-menu-item:hover,
+#chartPillar .apexcharts-menu-item:hover,
+.ami-chart-panel .apexcharts-menu-item:hover,
+.apx_chart_new .apexcharts-menu-item:hover,
+.outer_graph .apexcharts-menu-item:hover,
+.apexcharts-canvas .apexcharts-menu-item:hover,
+.apexcharts-menu-item:hover {
+  background: rgba(201, 162, 74, 0.18) !important;
+  color: #E7C878 !important;
+}
+
+/* ============================================================
+   ng-select — single select, no outer outline, body-appended panel
+   ============================================================ */
+.ng-select {
+  outline: none !important;
+  box-shadow: none !important;
+}
+
+.ng-select.form-control,
+.ng-select.analyst_multi_select,
+.compare_select .ng-select,
+.compare_select .analyst_multi_select,
+.input_field .ng-select,
+.heading_area .ng-select {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  outline: none !important;
+  box-shadow: none !important;
+  min-height: 0 !important;
+}
+
+.main_area .ng-select .ng-select-container,
+.inner_content_area .ng-select .ng-select-container,
+.heading_area .ng-select .ng-select-container,
+.city_pillar .ng-select .ng-select-container,
+.compare_select .ng-select-container,
+.analyst_multi_select .ng-select-container,
+.ng-select .ng-select-container {
+  background: #1B1810 !important;
+  border: 1px solid #332C1D !important;
+  color: #EFE7D6 !important;
+  min-height: 42px !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.main_area .ng-select.ng-select-focused .ng-select-container,
+.inner_content_area .ng-select.ng-select-focused .ng-select-container,
+.compare_select .ng-select.ng-select-focused .ng-select-container,
+.analyst_multi_select.ng-select-focused .ng-select-container,
+.ng-select.ng-select-opened > .ng-select-container,
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container {
+  border-color: #C9A24A !important;
+  box-shadow: none !important;
+  outline: none !important;
+}
+
+.main_area .ng-select .ng-value,
+.main_area .ng-select .ng-value-label,
+.main_area .ng-select .ng-placeholder,
+.main_area .ng-select .ng-input > input,
+.compare_select .ng-value,
+.compare_select .ng-value-label,
+.compare_select .ng-placeholder,
+.compare_select .ng-input > input,
+.analyst_multi_select .ng-value,
+.analyst_multi_select .ng-value-label,
+.analyst_multi_select .ng-placeholder,
+.analyst_multi_select .ng-input > input {
+  color: #EFE7D6 !important;
+  background: transparent !important;
+}
+
+.main_area .ng-select .ng-placeholder,
+.compare_select .ng-placeholder,
+.analyst_multi_select .ng-placeholder {
+  color: #8B887E !important;
+}
+
+/* Single-select: no chip/pill look for the selected value */
+.ng-select.ng-select-single .ng-value,
+.ng-select.ng-select-single .ng-value-container .ng-value {
+  background: transparent !important;
+  border: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  color: #EFE7D6 !important;
+  font-weight: 600;
+}
+
+.ng-select .ng-clear-wrapper {
+  color: #E7C878 !important;
+}
+
+.main_area .ng-select .ng-arrow-wrapper .ng-arrow,
+.compare_select .ng-arrow-wrapper .ng-arrow,
+.analyst_multi_select .ng-arrow-wrapper .ng-arrow,
+.ng-select .ng-arrow-wrapper .ng-arrow {
+  border-color: #E7C878 transparent transparent !important;
+}
+
+/* Dropdown panel */
+.ng-dropdown-panel {
+  z-index: 10050 !important;
+  background: #1A1610 !important;
+  border: 1px solid #C9A24A !important;
+  border-radius: 10px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
+  min-width: 0 !important;
+  margin-top: 4px !important;
+  outline: none !important;
+  padding: 6px 0 !important;
+}
+
+.ng-dropdown-panel .scroll-host,
+.ng-dropdown-panel .ng-dropdown-panel-items {
+  background: #1A1610 !important;
+  max-height: min(260px, 38vh) !important;
+}
+
+.ng-dropdown-panel .scroll-host::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.ng-dropdown-panel .scroll-host::-webkit-scrollbar-track {
+  background: #141209;
+}
+
+.ng-dropdown-panel .scroll-host::-webkit-scrollbar-thumb {
+  background: #C9A24A;
+  border-radius: 8px;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option {
+  background: #1A1610 !important;
+  color: #EFE7D6 !important;
+  padding: 10px 14px !important;
+  min-height: 40px;
+  white-space: normal !important;
+  line-height: 1.4 !important;
+  border: none !important;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option .option-main {
+  color: #EFE7D6;
+  font-weight: 600;
+  display: block;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option .option-sub {
+  color: #9C9484;
+  font-size: 12px;
+  display: block;
+  margin-top: 2px;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option:hover {
+  background: rgba(201, 162, 74, 0.16) !important;
+  color: #E7C878 !important;
+  border: 1px solid #c9a24a !important;
+  border-radius: 8px;
+}
+
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-marked {
+  background: rgba(201, 162, 74, 0.18) !important;
+  color: #E7C878 !important;
+  font-weight: 600;
+  border: none !important;
+  border-radius: 8px !important;
+  margin: 3px 0px !important;
+  width: auto;
+}
+
+/* Multi-select chips only */
+.ng-select.ng-select-multiple .ng-value {
+  background: rgba(201, 162, 74, 0.18) !important;
+  color: #E7C878 !important;
+  border-radius: 6px !important;
+  padding: 2px 8px !important;
+  border: 1px solid rgba(201, 162, 74, 0.35) !important;
+}
+
+/* Native year/select controls */
+.heading_area select.form-control,
+.compare_select select.form-control,
+.city_pillar select.form-control,
+.main_area select.form-control,
+.inner_content_area select.form-control,
+.ami-dashboard select.form-control,
+.ami-field select.form-control,
+.signal-dashboard-wrap select.form-control {
+  appearance: none;
+  -webkit-appearance: none;
+  background-color: #1B1810 !important;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23E7C878' d='M1.4.6 6 5.2 10.6.6 12 2 6 8 0 2z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 12px center;
+  background-size: 10px 7px;
+  border: 1px solid #332C1D !important;
+  color: #EFE7D6 !important;
+  border-radius: 10px !important;
+  box-shadow: none !important;
+  outline: none !important;
+  min-height: 42px;
+  padding-right: 34px !important;
+  color-scheme: dark;
+}
+
+.heading_area select.form-control:focus,
+.compare_select select.form-control:focus,
+.main_area select.form-control:focus,
+.inner_content_area select.form-control:focus,
+.ami-dashboard select.form-control:focus,
+.ami-field select.form-control:focus {
+  border-color: #C9A24A !important;
+  box-shadow: 0 0 0 3px rgba(201, 162, 74, 0.18) !important;
+}
+
+.heading_area select.form-control option,
+.compare_select select.form-control option,
+.main_area select.form-control option,
+.inner_content_area select.form-control option,
+.ami-dashboard select.form-control option,
+.ami-field select.form-control option {
+  background: #1A1610;
+  color: #EFE7D6;
+}
+
+/* Country tags / pills in compare headers */
+.city_card_ul li,
+.ng-value {
+  background: rgba(201, 162, 74, 0.18) !important;
+  color: #E7C878 !important;
+  border: 1px solid rgba(201, 162, 74, 0.35) !important;
+}
+
+/* Score pills stay readable */
+.score_label_tab,
+.ami-score-pill {
+  color: #0A0906 !important;
+}
+
+/* Details / action buttons on rows */
+.table_outer .common_button,
+.compare_table .common_button {
+  background: linear-gradient(135deg, #E7C878, #C9A24A, #8A5A2B) !important;
+  color: #0A0906 !important;
+}
+
+/* Compare KPI row cards */
+.compare_piller,
+.city_card_inner,
+.kpi_td_data {
+  color: #EFE7D6;
+}
+
+/* Bootstrap white utility overrides inside app shell */
+.main_area .bg-white,
+.main_area .bg-light,
+.inner_content_area .bg-white,
+.inner_content_area .card,
+.inner_content_area .card-body {
+  background: #141209 !important;
+  color: #EFE7D6 !important;
+  border-color: #241F14 !important;
+}
+
+/* Animation for feature panels.
+   Heading uses opacity only — transform would create a stacking context
+   that paints the chart over in-header ng-select dropdowns. */
+.heading_area,
+.city_pillar {
+  animation: amiFeatureInFade 0.4s ease both;
+}
+
+.table_outer,
+#chart {
+  animation: amiFeatureIn 0.4s ease both;
+}
+
+@keyframes amiFeatureInFade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes amiFeatureIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+@media (max-width: 1280px) {
+  .city_pillar {
+    padding: 18px 20px !important;
+  }
+}
+
+/* ==============================================================
+   Assessment ng-select — body-appended dropdown panels
+   (analyst-assessment + make-assessment use appendTo="body")
+   ============================================================== */
+body > .ng-dropdown-panel {
+  z-index: 10050 !important;
+  background: #1A1610 !important;
+  border: 1px solid #C9A24A !important;
+  border-radius: 8px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.55) !important;
+  color: #EFE7D6 !important;
+  overflow: hidden !important;
+  animation: amiAssessDropIn 0.22s ease both;
+  min-width: 0 !important;
+  padding: 4px 0 !important;
+}
+
+body > .ng-dropdown-panel .ng-dropdown-panel-items {
+  max-height: min(180px, 28vh) !important;
+  background: transparent !important;
+}
+
+body > .ng-dropdown-panel .scroll-host {
+  background: transparent !important;
+}
+
+body > .ng-dropdown-panel .ng-option {
+  background: transparent !important;
+  color: #EFE7D6 !important;
+  border-bottom: none !important;
+  margin: 0 4px 1px !important;
+  padding: 5px 8px !important;
+  min-height: 0 !important;
+  line-height: 1.3 !important;
+  white-space: nowrap !important;
+  border-radius: 6px !important;
+  font-size: 12px !important;
+  transition: background 0.15s ease, color 0.15s ease !important;
+}
+
+body > .ng-dropdown-panel .ng-option:last-child {
+  border-bottom: none !important;
+}
+
+body > .ng-dropdown-panel .ng-option:hover {
+  background: rgba(201, 162, 74, 0.16) !important;
+  color: #E7C878 !important;
+}
+
+body > .ng-dropdown-panel .ng-option.ng-option-selected,
+body > .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
+  background: rgba(201, 162, 74, 0.18) !important;
+  background-color: rgba(201, 162, 74, 0.18) !important;
+  color: #E7C878 !important;
+  font-weight: 600;
+  border: none !important;
+  box-shadow: none !important;
+}
+
+body > .ng-dropdown-panel .ng-option.ng-option-disabled {
+  color: #8B887E !important;
+  opacity: 0.7;
+}
+
+body > .ng-dropdown-panel .assessment_country_option {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+
+body > .ng-dropdown-panel .assessment_country_name {
+  font-weight: 650;
+  color: inherit;
+}
+
+body > .ng-dropdown-panel .assessment_country_meta {
+  font-size: 11px;
+  color: #9C9484;
+  font-weight: 500;
+}
+
+body > .ng-dropdown-panel .assessment_option,
+body > .ng-dropdown-panel .assessment_option_content {
+  display: flex;
+  align-items: center;
+  flex-wrap: nowrap;
+  gap: 6px;
+  width: 100%;
+  min-width: 0;
+}
+
+body > .ng-dropdown-panel .assessment_option--history {
+  flex-direction: row;
+  gap: 6px;
+}
+
+body > .ng-dropdown-panel .assessment_option_score {
+  flex: 0 0 auto;
+  min-width: 18px;
+  height: 18px;
+  padding: 0 5px;
+  border-radius: 4px;
+  background: rgba(201, 162, 74, 0.2);
+  color: #E7C878;
+  font-weight: 700;
+  text-align: center;
+  font-size: 11px;
+  line-height: 18px;
+}
+
+body > .ng-dropdown-panel .assessment_option_user {
+  color: #E7C878;
+  font-weight: 600;
+  font-size: 11px;
+  flex: 0 1 auto;
+  max-width: 34%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+body > .ng-dropdown-panel .assessment_option_text {
+  min-width: 0;
+  flex: 1 1 auto;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  overflow-wrap: normal;
+  color: #EFE7D6;
+  font-size: 12px;
+  line-height: 1.3;
+}
+
+@keyframes amiAssessDropIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+/* Bootstrap action dropdowns (Download PDF / DOCX, etc.) */
+.dropdown-menu {
+  --bs-dropdown-bg: #141209;
+  --bs-dropdown-border-color: #332C1D;
+  --bs-dropdown-link-color: #EFE7D6;
+  --bs-dropdown-link-hover-bg: rgba(201, 162, 74, 0.16);
+  --bs-dropdown-link-hover-color: #E7C878;
+  --bs-dropdown-link-active-bg: rgba(201, 162, 74, 0.22);
+  --bs-dropdown-link-active-color: #E7C878;
+  --bs-dropdown-header-color: #C9A24A;
+  --bs-dropdown-divider-bg: #332C1D;
+  background: #141209 !important;
+  border: 1px solid #332C1D !important;
+  border-radius: 12px !important;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5) !important;
+  padding: 8px !important;
+  color: #EFE7D6 !important;
+}
+
+.dropdown-menu .dropdown-header {
+  color: #C9A24A !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 8px 12px 6px !important;
+}
+
+.dropdown-menu .dropdown-item {
+  color: #EFE7D6 !important;
+  background: transparent !important;
+  border-radius: 8px !important;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 12px !important;
+}
+
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus,
+.dropdown-menu .dropdown-item:active,
+.dropdown-menu .dropdown-item.active {
+  background: rgba(201, 162, 74, 0.16) !important;
+  color: #E7C878 !important;
+}
+
+.dropdown-menu .dropdown-divider {
+  border-top-color: #332C1D !important;
+  opacity: 1;
+  margin: 6px 8px;
+}
+
+.table_outer tbody tr:hover td.action_td,
+.table_outer .table tbody tr:hover > td.action_td,
+.table-striped > tbody > tr:hover > td.action_td {
+  background-color: transparent !important;
+  background: transparent !important;
+}
+
+/* ============================================================
+   AMI scrollbars — gold thumb on dark track
+   (page, tables, offcanvas, dropdowns)
+   ============================================================ */
+html,
+body {
+  scrollbar-width: thin;
+  scrollbar-color: #C9A24A #141209;
+}
+
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track {
+  background: #0A0906;
+}
+
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #E7C878, #C9A24A 55%, #8A5A2B);
+  border-radius: 10px;
+  border: 2px solid #0A0906;
+}
+
+html::-webkit-scrollbar-thumb:hover,
+body::-webkit-scrollbar-thumb:hover {
+  background: #E7C878;
+}
+
+html::-webkit-scrollbar-corner,
+body::-webkit-scrollbar-corner {
+  background: #0A0906;
+}
+
+.main_area,
+.content_area,
+.inner_content_area,
+.table_outer,
+.table-responsive,
+.table_custom_inner,
+.offcanvas,
+.offcanvas-body,
+.modal-body,
+.cus_table,
+#chart,
+.city_pillar,
+.ng-dropdown-panel,
+.ng-dropdown-panel .scroll-host,
+.main_area *,
+.content_area *,
+.inner_content_area *,
+.offcanvas *,
+.modal * {
+  scrollbar-width: thin;
+  scrollbar-color: #C9A24A #141209;
+}
+
+.main_area::-webkit-scrollbar,
+.content_area::-webkit-scrollbar,
+.inner_content_area::-webkit-scrollbar,
+.table_outer::-webkit-scrollbar,
+.table-responsive::-webkit-scrollbar,
+.table_custom_inner::-webkit-scrollbar,
+.offcanvas::-webkit-scrollbar,
+.offcanvas-body::-webkit-scrollbar,
+.modal-body::-webkit-scrollbar,
+.cus_table::-webkit-scrollbar,
+#chart::-webkit-scrollbar,
+.city_pillar::-webkit-scrollbar,
+.ng-dropdown-panel::-webkit-scrollbar,
+.ng-dropdown-panel .scroll-host::-webkit-scrollbar,
+.main_area *::-webkit-scrollbar,
+.content_area *::-webkit-scrollbar,
+.inner_content_area *::-webkit-scrollbar,
+.offcanvas *::-webkit-scrollbar,
+.modal *::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.main_area::-webkit-scrollbar-track,
+.content_area::-webkit-scrollbar-track,
+.inner_content_area::-webkit-scrollbar-track,
+.table_outer::-webkit-scrollbar-track,
+.table-responsive::-webkit-scrollbar-track,
+.table_custom_inner::-webkit-scrollbar-track,
+.offcanvas::-webkit-scrollbar-track,
+.offcanvas-body::-webkit-scrollbar-track,
+.modal-body::-webkit-scrollbar-track,
+.cus_table::-webkit-scrollbar-track,
+#chart::-webkit-scrollbar-track,
+.city_pillar::-webkit-scrollbar-track,
+.ng-dropdown-panel::-webkit-scrollbar-track,
+.ng-dropdown-panel .scroll-host::-webkit-scrollbar-track,
+.main_area *::-webkit-scrollbar-track,
+.content_area *::-webkit-scrollbar-track,
+.inner_content_area *::-webkit-scrollbar-track,
+.offcanvas *::-webkit-scrollbar-track,
+.modal *::-webkit-scrollbar-track {
+  background: #141209;
+  border-radius: 10px;
+}
+
+.main_area::-webkit-scrollbar-thumb,
+.content_area::-webkit-scrollbar-thumb,
+.inner_content_area::-webkit-scrollbar-thumb,
+.table_outer::-webkit-scrollbar-thumb,
+.table-responsive::-webkit-scrollbar-thumb,
+.table_custom_inner::-webkit-scrollbar-thumb,
+.offcanvas::-webkit-scrollbar-thumb,
+.offcanvas-body::-webkit-scrollbar-thumb,
+.modal-body::-webkit-scrollbar-thumb,
+.cus_table::-webkit-scrollbar-thumb,
+#chart::-webkit-scrollbar-thumb,
+.city_pillar::-webkit-scrollbar-thumb,
+.ng-dropdown-panel::-webkit-scrollbar-thumb,
+.ng-dropdown-panel .scroll-host::-webkit-scrollbar-thumb,
+.main_area *::-webkit-scrollbar-thumb,
+.content_area *::-webkit-scrollbar-thumb,
+.inner_content_area *::-webkit-scrollbar-thumb,
+.offcanvas *::-webkit-scrollbar-thumb,
+.modal *::-webkit-scrollbar-thumb {
+  background: linear-gradient(180deg, #E7C878, #C9A24A 55%, #8A5A2B);
+  border-radius: 10px;
+  border: 2px solid #141209;
+}
+
+.main_area::-webkit-scrollbar-thumb:hover,
+.content_area::-webkit-scrollbar-thumb:hover,
+.inner_content_area::-webkit-scrollbar-thumb:hover,
+.table_outer::-webkit-scrollbar-thumb:hover,
+.table-responsive::-webkit-scrollbar-thumb:hover,
+.table_custom_inner::-webkit-scrollbar-thumb:hover,
+.offcanvas::-webkit-scrollbar-thumb:hover,
+.offcanvas-body::-webkit-scrollbar-thumb:hover,
+.modal-body::-webkit-scrollbar-thumb:hover,
+.cus_table::-webkit-scrollbar-thumb:hover,
+#chart::-webkit-scrollbar-thumb:hover,
+.city_pillar::-webkit-scrollbar-thumb:hover,
+.ng-dropdown-panel::-webkit-scrollbar-thumb:hover,
+.ng-dropdown-panel .scroll-host::-webkit-scrollbar-thumb:hover,
+.main_area *::-webkit-scrollbar-thumb:hover,
+.content_area *::-webkit-scrollbar-thumb:hover,
+.inner_content_area *::-webkit-scrollbar-thumb:hover,
+.offcanvas *::-webkit-scrollbar-thumb:hover,
+.modal *::-webkit-scrollbar-thumb:hover {
+  background: #E7C878;
+}
+
+.main_area::-webkit-scrollbar-corner,
+.content_area::-webkit-scrollbar-corner,
+.inner_content_area::-webkit-scrollbar-corner,
+.table_outer::-webkit-scrollbar-corner,
+.table-responsive::-webkit-scrollbar-corner,
+.table_custom_inner::-webkit-scrollbar-corner,
+.offcanvas::-webkit-scrollbar-corner,
+.offcanvas-body::-webkit-scrollbar-corner,
+.modal-body::-webkit-scrollbar-corner,
+.cus_table::-webkit-scrollbar-corner,
+#chart::-webkit-scrollbar-corner,
+.main_area *::-webkit-scrollbar-corner,
+.content_area *::-webkit-scrollbar-corner,
+.inner_content_area *::-webkit-scrollbar-corner,
+.offcanvas *::-webkit-scrollbar-corner,
+.modal *::-webkit-scrollbar-corner {
+  background: #141209;
+}
+
+/* Do not highlight ng-select's auto-focused first option until hover or a real selection */
+html body .ng-dropdown-panel .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover),
+html body .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover) {
+  background: #1A1610 !important;
+  background-color: #1A1610 !important;
+  color: #EFE7D6 !important;
+  border: none !important;
+  box-shadow: none !important;
+  font-weight: 400 !important;
+}
+

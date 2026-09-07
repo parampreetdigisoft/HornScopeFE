@@ -8,4 +8,7 @@ import { AdminService } from '../admin.service';
 })
 export class AdminComponent {
   constructor(private adminService: AdminService) {}
+
+  
+
 } 

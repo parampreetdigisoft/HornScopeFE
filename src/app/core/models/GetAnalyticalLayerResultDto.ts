@@ -1,15 +1,15 @@
-import { ProgramVM } from "./ProgramVM";
+import { CountryVM } from "./CountryVM";
 import { PaginationUserRequest } from "./PaginationRequest";
 
 export interface GetAnalyticalLayerRequestDto extends PaginationUserRequest {
   layerID?: number ;
-  climateProgramID?:number;
+  countryID?:number;
   year?:number;
 }
 
 export interface GetAnalyticalLayerResultDto extends AnalyticalLayerResponseDto {
   layerResultID: number;
-  climateProgramID: number;
+  countryID: number;
   interpretationID?: number | null;
   normalizeValue?: number | null;
   calValue1?: number ;
@@ -29,7 +29,7 @@ export interface GetAnalyticalLayerResultDto extends AnalyticalLayerResponseDto 
   aiLastUpdated?: string; 
 
   fiveLevelInterpretations: FiveLevelInterpretation[];
-  program?: ProgramVM | null;
+  country?: CountryVM | null;
 }
 
 export interface AnalyticalLayerResponseDto {
@@ -51,5 +51,5 @@ export interface FiveLevelInterpretation {
   maxRange: number;
   condition: string;
   descriptor: string;  
+  strategicAction: string;
 }
-

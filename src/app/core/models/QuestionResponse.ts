@@ -3,18 +3,19 @@ import { PaginationRequest } from "./PaginationRequest";
 export interface GetQuestionRequest extends PaginationRequest {
   pillarID?: number;
 }
-export interface GetQuestionByProgramMappingResponse {
+export interface GetQuestionByCountryMappingResponse {
   assessmentID: number;
-  staffProgramMappingID: number;
+  userCountryMappingID: number;
   displayOrder: number;
   submittedPillarDisplayOrder: number;
+  lastPillarDisplayOrder: number;
   pillarID: number;
   pillarName: string;
   description: string;
   questions:AssessmentQuestionResponse[];
 }
 
-export interface GetQuestionByProgramResponse extends GetQuestionResponse {
+export interface GetQuestionByCountryResponse extends GetQuestionResponse {
   assessmentID: number;
   pillarDisplayOrder: number;
 }
@@ -28,7 +29,7 @@ export interface QuestionOption {
   optionID: number;
   questionID: number;
   optionText: string;
-  scoreValue?: string | null;
+  scoreValue?: number;
   displayOrder?: number;
 }
 
@@ -37,7 +38,6 @@ export interface AddQuestionRequest {
   pillarID: number;
   questionText: string;
   questionOptions: QuestionOption[];
-  weightID: number;
 }
 export interface AddBulkQuestionsDto {
   questions: AddQuestionRequest[]

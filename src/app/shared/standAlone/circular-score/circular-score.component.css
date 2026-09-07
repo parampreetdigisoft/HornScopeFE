@@ -1,56 +1,96 @@
 .circular-score {
-      position: relative;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      cursor: pointer;
-      transition: transform 0.2s ease;
-      width: fit-content;
-    }
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 72px;
+  height: 72px;
+  cursor: pointer;
+  transition: transform 0.22s ease;
+  flex-shrink: 0;
+}
 
-    .circular-score:hover {
-      transform: scale(1.1);
-    }
+.circular-score:hover {
+  transform: scale(1.06);
+}
 
-    .circular-score svg {
-      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
-      width: 80px;
-      height: 80px;  
-    }
+.circular-score svg {
+  width: 72px;
+  height: 72px;
+  filter: drop-shadow(0 2px 8px rgba(201, 162, 74, 0.28));
+}
 
-    .progress-ring {
-      transition: stroke-dashoffset 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-      animation: pulse 2s ease-in-out infinite;
-    }
+.progress-ring {
+  transition: stroke-dashoffset 0.85s cubic-bezier(0.4, 0, 0.2, 1);
+}
 
-    @keyframes pulse {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.8; }
-    }
+.score-text {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: var(--ami-font-mono, "JetBrains Mono", monospace);
+  font-size: 13px;
+  font-weight: 700;
+  line-height: 1;
+  text-align: center;
+  pointer-events: none;
+  letter-spacing: -0.03em;
+  font-variant-numeric: tabular-nums;
+  color: #EFE7D6;
+  padding: 0 8px;
+  max-width: 100%;
+  box-sizing: border-box;
+}
 
-    .score-text {
-      position: absolute;
-      font-size: 14px;
-      font-weight: 700;
-      text-align: center;
-      pointer-events: none;
-    }
+.score-text.is-long {
+  font-size: 11px;
+  letter-spacing: -0.04em;
+}
 
-    .no-data {
-      font-size: 12px;
-      color: #888;
-    }
+.score-text.is-short {
+  font-size: 15px;
+}
 
-    @media only screen and (max-width:1550px) {
-    ::ng-deep .table_custom_inner .circular-score svg{
-        width: 70px !important;
-        height: 70px !important;
-    }
-    ::ng-deep .table_custom_inner .score-text {
-        font-size: 12px !important;
-    }
-    .ai_table_title {
-        font-size: 22px;
-    }
-        
+.score-text.is-negative {
+  color: #E08A6A;
+}
+
+.no-data {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--ami-muted, #9C9484);
+  letter-spacing: 0.06em;
+}
+
+@media only screen and (max-width:1550px) {
+  .circular-score,
+  .circular-score svg {
+    width: 64px;
+    height: 64px;
+  }
+  .score-text {
+    font-size: 12px;
+  }
+  .score-text.is-long {
+    font-size: 11px;
+  }
+  .score-text.is-short {
+    font-size: 13px;
+  }
+}
+
+@media only screen and (max-width:1280px) {
+  .circular-score,
+  .circular-score svg {
+    width: 58px;
+    height: 58px;
+  }
+  .score-text {
+    font-size: 11px;
+  }
+  .score-text.is-long {
+    font-size: 9.5px;
+  }
 }

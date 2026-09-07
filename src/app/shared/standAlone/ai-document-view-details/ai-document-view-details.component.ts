@@ -1,11 +1,13 @@
-import { Component, computed, EventEmitter, input, Input, OnChanges, OnInit, Output, output, signal, SimpleChanges } from '@angular/core';
+import { Component, computed, EmbeddedViewRef, EventEmitter, input, Input, OnChanges, OnDestroy, OnInit, Output, signal, SimpleChanges, TemplateRef, ViewChild, ViewContainerRef } from '@angular/core';
 import { environment } from 'src/environments/environment';
 import { CommonModule } from '@angular/common';
-import { GetProgramDocumentResponseDto, GetProgramPillarDocumentResponseDto } from 'src/app/core/models/aiVm/GetProgramDocumentResponseDto';
+import { GetCountryDocumentResponseDto, GetCountryPillarDocumentResponseDto } from 'src/app/core/models/aiVm/GetCountryDocumentResponseDto';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
 import { FormsModule } from '@angular/forms';
-import { DeleteProgramDocumentRequestDto } from 'src/app/core/models/aiVm/AiProgramSummeryRequestDto';
+import { DeleteCountryDocumentRequestDto } from 'src/app/core/models/aiVm/AiCountrySummeryRequestDto';
 import { PromptComponent } from '../../prompt/prompt.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { NgSelectDefaultsDirective } from '../../directives/ng-select-defaults.directive';
 
 export interface SelectedFileModel {
   file: File;
@@ -13,29 +15,37 @@ export interface SelectedFileModel {
   pillarName?: string;
 }
 
+export interface UploadCountryOption {
+  value: number | 'global';
+  label: string;
+}
+
 @Component({
   selector: 'app-ai-document-view-details',
   standalone: true,
-  imports: [CommonModule, FormsModule, PromptComponent],
+  imports: [CommonModule, FormsModule, NgSelectModule, NgSelectDefaultsDirective],
   templateUrl: './ai-document-view-details.component.html',
   styleUrl: './ai-document-view-details.component.css'
 })
 
-export class AiDocumentViewDetailsComponent implements OnInit, OnChanges {
+export class AiDocumentViewDetailsComponent implements OnInit, OnChanges, OnDestroy {
 
-  selectProgramDocument?: number | string;
-  totalFiles = computed(() => (this.selectedProgram()?.noOfFiles ?? 0) + this.selectedFiles().length);
-  selectedProgram = input<GetProgramDocumentResponseDto | null | undefined>(null);
-  documents = input<GetProgramPillarDocumentResponseDto[]>([]);
+  @ViewChild('uploadModal') uploadModalTpl?: TemplateRef<unknown>;
+  private uploadModalView?: EmbeddedViewRef<unknown>;
+
+  selectCountryDocuemnt?: number | string;
+  totalFiles = computed(() => (this.selectedCountry()?.noOfFiles ?? 0) + this.selectedFiles().length);
+  selectedCountry = input<GetCountryDocumentResponseDto | null | undefined>(null);
+  documents = input<GetCountryPillarDocumentResponseDto[]>([]);
   pillars = input<PillarsVM[]>([]);
   isUploadModalOpen = false;
   selectedFiles = signal<SelectedFileModel[]>([]);
   selectedPillarID?: number;
   @Output() uploadedDocuments = new EventEmitter<FormData>();
-  @Output() deleteDocument = new EventEmitter<DeleteProgramDocumentRequestDto>();
-  @Output() downloadDocument = new EventEmitter<GetProgramPillarDocumentResponseDto>();
+  @Output() deleteDocument = new EventEmitter<DeleteCountryDocumentRequestDto>();
+  @Output() downloadDocument = new EventEmitter<GetCountryPillarDocumentResponseDto>();
   @Input() saveDocumentLoader: boolean = false;
-  programDocuments = computed(() =>
+  countryDocuments = computed(() =>
     this.documents().filter(x => !x.pillarID)
   );
 
@@ -45,12 +55,30 @@ export class AiDocumentViewDetailsComponent implements OnInit, OnChanges {
 
   urlBase = environment.apiUrl;
 
+  countryUploadOptions = computed<UploadCountryOption[]>(() => {
+    const country = this.selectedCountry();
+    const options: UploadCountryOption[] = [
+      { value: 'global', label: 'Mark as Global' }
+    ];
+    if (country?.countryID != null) {
+      options.push({
+        value: country.countryID,
+        label: country.countryName
+      });
+    }
+    return options;
+  });
+
+  constructor(private viewContainerRef: ViewContainerRef) {}
+
   ngOnInit(): void {
   }
-
   ngOnChanges(changes: SimpleChanges): void {
     this.selectedFiles.set([]);
-    this.selectProgramDocument = this.selectedProgram()?.climateProgramID
+    this.selectCountryDocuemnt = this.selectedCountry()?.countryID
+  }
+  ngOnDestroy(): void {
+    this.destroyUploadModalView();
   }
   onImgError(event: Event) {
     (event.target as HTMLImageElement).src = 'assets/images/Frame 1321315029.png';
@@ -84,6 +112,7 @@ export class AiDocumentViewDetailsComponent implements OnInit, OnChanges {
         }
 
         this.selectedFiles.update(files => [...files, f]);
+        this.selectedPillarID = undefined;
       }
     }
 
@@ -100,10 +129,26 @@ export class AiDocumentViewDetailsComponent implements OnInit, OnChanges {
     return (size / 1024).toFixed(2) + ' KB';
   }
 
+  get selectedFileName(): string {
+    const files = this.selectedFiles();
+    if (!files.length) {
+      return 'No file chosen';
+    }
+    if (files.length === 1) {
+      return files[0].file.name;
+    }
+    return `${files.length} files selected`;
+  }
+
   uploadDocuments() {
     const formData = new FormData();
-    if (this.selectProgramDocument && this.selectProgramDocument != undefined && this.selectProgramDocument != "undefined") {
-      formData.append('climateProgramID', this.selectProgramDocument.toString());
+    if (
+      this.selectCountryDocuemnt != null &&
+      this.selectCountryDocuemnt !== undefined &&
+      this.selectCountryDocuemnt !== 'undefined' &&
+      this.selectCountryDocuemnt !== 'global'
+    ) {
+      formData.append('CountryID', this.selectCountryDocuemnt.toString());
     }
     this.selectedFiles().forEach((item, index) => {
       formData.append('Files', item.file); 
@@ -113,30 +158,58 @@ export class AiDocumentViewDetailsComponent implements OnInit, OnChanges {
   }
 
   openUploadModal() {
+    if (this.isUploadModalOpen) {
+      return;
+    }
     this.isUploadModalOpen = true;
+    this.attachUploadModal();
   }
 
   closeUploadModal() {
     this.isUploadModalOpen = false;
+    this.destroyUploadModalView();
     this.selectedFiles.set([]);
     this.selectedPillarID = undefined;
   }
 
   doneUploadModal() {
     this.isUploadModalOpen = false;
+    this.destroyUploadModalView();
     this.selectedPillarID = undefined;
   }
 
-  deleteProgramDocument(doc: GetProgramPillarDocumentResponseDto) {
-    let payload: DeleteProgramDocumentRequestDto = {
-      climateProgramID: this.selectedProgram()?.climateProgramID ?? 0,
-      programDocumentID: doc?.programDocumentID,
+  private attachUploadModal() {
+    if (!this.uploadModalTpl || this.uploadModalView) {
+      return;
+    }
+    this.uploadModalView = this.viewContainerRef.createEmbeddedView(this.uploadModalTpl);
+    this.uploadModalView.detectChanges();
+    this.uploadModalView.rootNodes.forEach(node => {
+      if (node instanceof Node) {
+        document.body.appendChild(node);
+      }
+    });
+    document.body.style.overflow = 'hidden';
+    document.body.classList.add('ai-doc-upload-open');
+  }
+
+  private destroyUploadModalView() {
+    this.uploadModalView?.destroy();
+    this.uploadModalView = undefined;
+    document.body.style.overflow = '';
+    document.body.classList.remove('ai-doc-upload-open');
+  }
+
+  deleteCountryDocument(doc: GetCountryPillarDocumentResponseDto) {
+    let payload: DeleteCountryDocumentRequestDto = {
+      countryID: this.selectedCountry()?.countryID ?? 0,
+      countryDocumentID: doc?.countryDocumentID,
       isAll: false
     }
     this.deleteDocument.emit(payload);
   }
 
-  download(doc: GetProgramPillarDocumentResponseDto) {
+  download(doc: GetCountryPillarDocumentResponseDto) {
     this.downloadDocument.emit(doc);
   }
 }

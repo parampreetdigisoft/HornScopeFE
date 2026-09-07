@@ -1,35 +1,39 @@
 <section class="vui_before_login vui_auth_page" *ngIf="!isSuccess">
-  <div class="vui_before_login_cards ahi_auth_card ahi_auth_card--narrow">
+  <div class="vui_before_login_cards ami_auth_card ami_auth_card--narrow">
     <figure class="vui_logo">
       <a>
-        <img src="assets/images/Logo-climate-pulse.png" alt="Horn Scope" />
+        <img src="assets/images/Logo-market-large.png" alt="AMI Logo" />
       </a>
     </figure>
 
-    <h4 class="before_login_card_head text-center">Two-Factor Authentication</h4>
+    <div class="ami_auth_icon_badge" aria-hidden="true">
+      <i class="bi bi-shield-check"></i>
+    </div>
+
+    <h4 class="before_login_card_head text-center">Two-factor authentication</h4>
     <p class="before_login_card_desc text-center">
-      Enter the One-Time Password (OTP) sent to your registered email to verify your login.
+      Enter the OTP sent to your registered email.
     </p>
 
     <form [formGroup]="otpForm" (ngSubmit)="onSubmit()">
       <div class="input_field mb-0">
-        <label for="otp">OTP *</label>
+        <label><i class="bi bi-upc"></i> OTP *</label>
 
         <div class="otp_field">
           <ng-container formArrayName="digits">
             <input *ngFor="let ctrl of digits.controls; let i = index" type="text" class="form-control" maxlength="1"
-              required #otpInput [formControlName]="i" [id]="'otp' + i" (keyup)="onKeyUp($event, i)" />
+              required #otpInput [formControlName]="i" [id]="'otp' + i" (keyup)="onKeyUp($event, i)" inputmode="numeric" />
           </ng-container>
         </div>
 
-        <div *ngIf="otpForm.invalid && otpForm.touched" class="text-danger mt-1">
-          <small>All OTP fields are required.</small>
+        <div *ngIf="otpForm.invalid && otpForm.touched" class="error-msg mt-1 text-center">
+          All OTP fields are required.
         </div>
       </div>
 
-      <button type="submit" class="common_button w-100 mt-4" [disabled]="otpForm.invalid || loading">
-        Verify OTP
-        <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+      <button type="submit" class="common_button w-100 mt-3" [disabled]="otpForm.invalid || loading">
+        <i class="bi bi-check2-circle"></i> Verify OTP
+        <span *ngIf="loading" class="spinner-border spinner-border-sm"></span>
       </button>
     </form>
 

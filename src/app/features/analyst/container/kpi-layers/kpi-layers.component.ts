@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { SortDirection } from "src/app/core/enums/SortDirection";
-import { ProgramVM } from "src/app/core/models/ProgramVM";
+import { CountryVM } from "src/app/core/models/CountryVM";
 import { GetAnalyticalLayerResultDto, AnalyticalLayerResponseDto, GetAnalyticalLayerRequestDto } from "src/app/core/models/GetAnalyticalLayerResultDto";
 import { PaginationResponse } from "src/app/core/models/PaginationResponse";
 import { ToasterService } from "src/app/core/services/toaster.service";
@@ -14,7 +14,7 @@ import { SparklineScoreComponent } from "src/app/shared/standAlone/sparkline-sco
 import { debounceTime, Subject } from "rxjs";
 import { CommonService } from "src/app/core/services/common.service";
 
-declare var bootstrap: any; // 👈 use Bootstrap JS API
+declare var bootstrap: any; // use Bootstrap JS API
 @Component({
   standalone: true,
   imports: [CommonModule, SharedModule, SparklineScoreComponent, CircularScoreComponent],
@@ -23,31 +23,31 @@ declare var bootstrap: any; // 👈 use Bootstrap JS API
   styleUrl: './kpi-layers.component.css'
 })
 export class KpiLayersComponent {
+  selectedYear = new Date().getFullYear();
   urlBase = environment.apiUrl;
   selectedKpi: GetAnalyticalLayerResultDto | null | undefined = null;
-  selectedclimateProgramID?: number;
+  selectedCountryID?: number;
   selectedkpiLayerID?: number;
   kpiLayersResponse: PaginationResponse<GetAnalyticalLayerResultDto> | undefined;
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1;
   loading: boolean = false;
-  isLoader: boolean = false;
+  isLoader: boolean = true;
   kpis: AnalyticalLayerResponseDto[] = [];
-  programList: ProgramVM[] = [];
+  countryList: CountryVM[] = [];
   $kpiChanged = new Subject();
   kpiLayers: GetAnalyticalLayerResultDto[] = [];
   constructor(private analystService: AnalystService, private toaster: ToasterService, private userService: UserService, public commonService:CommonService) { }
 
   ngOnInit(): void {
     this.GetAnalyticalLayerResults(1);
-    this.getClientPrograms();
+    this.getCountryUserCountries();
     this.GetAllKpi();
     this.$kpiChanged.pipe(debounceTime(1000)).subscribe(x => {
       this.GetAnalyticalLayerResults();
     });
   }
-
   kpiChanged() {
     this.$kpiChanged.next(true);
   }
@@ -62,13 +62,15 @@ export class KpiLayersComponent {
       pageSize: this.pageSize,
       userId: this.userService?.userInfo?.userID
     }
-    if (this.selectedclimateProgramID != undefined && this.selectedclimateProgramID != 0) {
-      payload.climateProgramID = this.selectedclimateProgramID
+    if (this.selectedCountryID != undefined && this.selectedCountryID != 0) {
+      payload.countryID = this.selectedCountryID
     }
     if (this.selectedkpiLayerID != undefined && this.selectedkpiLayerID != 0) {
       payload.layerID = this.selectedkpiLayerID
     }
-
+    if(this.selectedYear > 0){
+      payload.year = Number(this.selectedYear);
+    }
     this.analystService.GetAnalyticalLayerResults(payload).subscribe(kpiLayers => {
       this.kpiLayersResponse = kpiLayers;
       this.totalRecords = kpiLayers.totalRecords;
@@ -82,13 +84,12 @@ export class KpiLayersComponent {
 
   }
 
-  viewDetails(program: GetAnalyticalLayerResultDto) {
-    this.selectedKpi = program;
+  viewDetails(country: GetAnalyticalLayerResultDto) {
+    this.selectedKpi = country;
     const sidebarEl = document.getElementById('kpiLayerSidebar');
     const offcanvas = new bootstrap.Offcanvas(sidebarEl);
     offcanvas.show();
   }
-
   GetAllKpi() {
     this.analystService.GetAllKpi().subscribe({
       next: (res) => {
@@ -98,12 +99,11 @@ export class KpiLayersComponent {
       }
     });
   }
-  
-  getClientPrograms() {
-    this.analystService.getAllProgramsByUserId(this.userService.userInfo.userID ?? 0).subscribe({
+  getCountryUserCountries() {
+    this.analystService.getAllCountriesByUserId(this.userService.userInfo.userID ?? 0).subscribe({
       next: (res) => {
         if (res.succeeded) {
-          this.programList = res.result ?? [];
+          this.countryList = res.result ?? [];
         }
       }
     });
@@ -112,7 +112,6 @@ export class KpiLayersComponent {
   getConditionByid(layer: GetAnalyticalLayerResultDto) {
     return layer?.fiveLevelInterpretations?.find(x => x.interpretationID == layer.interpretationID)?.condition || '';
   }
-  
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();
     return (

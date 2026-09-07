@@ -10,23 +10,23 @@
 
             <form [formGroup]="commentForm" (ngSubmit)="submit()">
 
-                <!-- Program Info -->
-                <div class="details_list" *ngIf="program">
+                <!-- Country Info -->
+                <div class="details_list" *ngIf="country">
                     <div>
-                        <strong>Program:</strong>
-                        <span> {{ program.programName }}, {{ program.location }}</span>
+                        <strong>Country:</strong>
+                        <span> {{ country.countryName }}, {{ country.continent }}</span>
                     </div>
                     <div>
                         <strong>Evaluator Score:</strong>
-                        <span> {{ program.evaluatorScore }}</span>
+                        <span> {{ country.evaluatorScore }}</span>
                     </div>
                     <div>
                         <strong>Ai Score:</strong>
-                        <span> {{ program.aiProgress }}</span>
+                        <span> {{ country.aiProgress }}</span>
                     </div>
                     <div>
                         <strong>Discrepancy:</strong>
-                        <span> {{ program.discrepancy }}</span>
+                        <span> {{ country.discrepancy }}</span>
                     </div>
 
                 </div>

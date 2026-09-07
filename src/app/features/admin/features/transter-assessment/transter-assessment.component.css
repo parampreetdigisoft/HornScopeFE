@@ -1,18 +1,58 @@
 
 .error-msg {
-  color:#ff7b7b;
+color: #ff5f5f;
   font-size: 12px;
   margin-top: 2px;
 }
 
-::ng-deep .analyst_multi_select  .ng-select-container {
+.transfer_popup,
+.transfer_popup .modal-content,
+.transfer_popup .modal-body {
+  overflow: visible;
+}
+
+.transfer_popup .analyst_multi_select {
+  position: relative;
+}
+
+.transfer_popup .analyst_multi_select.ng-select-opened {
+  z-index: 20;
+}
+
+::ng-deep .transfer_popup .analyst_multi_select .ng-select-container {
     border: 0;
-    min-height: 30px;
+    min-height: 42px;
     outline: none !important;
     box-shadow: none !important;
 }
-::ng-deep .analyst_multi_select  .ng-select-container .ng-value-container {
-    padding: 0 !important;
+
+::ng-deep .transfer_popup .analyst_multi_select .ng-select-container .ng-value-container {
+    padding-left: 12px !important;
+    padding-right: 8px !important;
+}
+
+::ng-deep .transfer_popup .analyst_multi_select .ng-placeholder {
+    width: 100%;
+    padding-right: 24px;
+}
+
+::ng-deep .transfer_popup .analyst_multi_select .ng-input {
+    padding-left: 12px;
+}
+
+::ng-deep .transfer_popup .analyst_multi_select .ng-dropdown-panel {
+    position: absolute !important;
+    left: 0 !important;
+    right: 0 !important;
+    width: 100% !important;
+    min-width: 100% !important;
+    max-width: 100% !important;
+    transform: none !important;
+    z-index: 30 !important;
+}
+
+::ng-deep .transfer_popup .analyst_multi_select .ng-dropdown-panel .ng-option {
+    padding: 10px 16px !important;
 }
 .wrong_upload_alert p {
     font-size: 13px;
@@ -22,14 +62,8 @@
     display: block;
     margin-bottom: 10px;
     margin-left: 5px;
-    color: red;
+  color: #ff5f5f;
 }
-.transfer_popup,
-.transfer_popup .modal-content,
-.transfer_popup .modal-body {
-    overflow: visible;
-}
-
 .transfer_popup .modal_head {
     margin-bottom: 20px;
 }
@@ -53,8 +87,4 @@
 }
 .details_transf #pills-home {
     margin-top: 20px;
-}
-
-::ng-deep .analyst_multi_select  .ng-select-container .ng-value-container {
-    padding-left: 20px !important;
 }

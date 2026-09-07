@@ -17,8 +17,8 @@
         <div class="tab-content details_transf" id="pills-tabContent">
           <!-- Single Add / Update -->
           <h5>Transfer From </h5>
-          <div class="details_list">Program: <span>{{ assesment?.programName }}</span></div>
-          <!-- <div class="details_list">Location: <span>{{ assesment?.location }}</span></div> -->
+          <div class="details_list">Country: <span>{{ assesment?.countryName }}</span></div>
+          <div class="details_list">Continent: <span>{{ assesment?.continent }}</span></div>
           <div class="details_list">UserName: <span>{{ assesment?.userName }}</span></div>
           <div class="details_list">
             Score: <span class="bold_num">{{ assesment?.score }}</span>
@@ -29,17 +29,16 @@
               <div class="input_field">
                 <label>Select user to transfer results *</label>
                 <ng-select
-                  [items]="userOfSelectedProgramResponse"
+                  [items]="userOfSelectedCountryResponse"
                   bindValue="userID"
                   bindLabel="userName"
                   formControlName="transferToUserID"
                   [multiple]="false"
                   class="form-control analyst_multi_select"
                   [searchable]="true"
-                  appendTo="body"
+                  [dropdownPosition]="'bottom'"
                   placeholder="Choose a user to transfer results"
-                  (change)="selectedUser($event)"
-                >
+                  (change)="selectedUser($event)">
                   <ng-template
                     ng-label-tmp
                     let-item="item"
@@ -67,11 +66,12 @@
 
                 <ng-container *ngIf="selectedUserAssesment != null">
                     <h5>Transfer to </h5>
-                    <div class="details_list">Program: <span>{{ selectedUserAssesment.programName }}</span></div>
+                    <div class="details_list">Country: <span>{{ selectedUserAssesment.countryName }}</span></div>
+                    <div class="details_list">Continent: <span>{{ selectedUserAssesment.continent }}</span></div>
                     <div class="details_list">UserName: <span>{{ selectedUserAssesment.userName }}</span></div>
                     <div class="details_list">
                     Score:
-                   <span class="bold_num">{{ selectedUserAssesment.score | number:'1.2-2' }} </span>
+                    <span class="bold_num">{{ selectedUserAssesment.score | number:'1.2-2' }} </span>
                     </div>
                 </ng-container>
               <button type="submit" class="common_button w-100 mt-4">

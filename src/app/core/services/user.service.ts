@@ -18,7 +18,6 @@ interface DecodedToken {
 @Injectable({
   providedIn: 'root'
 })
-
 export class UserService {
   private userInfoSource = new BehaviorSubject<UserInfo>(this.getUserInfo());
   private tokenExpirationSource = new BehaviorSubject<Date>(new Date(this.userInfo?.tokenExpirationDate));
@@ -141,8 +140,8 @@ export class UserService {
         case UserRole.Evaluator.toLowerCase():
           this.router.navigate(['/evaluator/dashboard'], { state: { role: UserRole.Evaluator } });
           break;
-        case UserRole.ProgramUser.toLowerCase():
-          this.router.navigate(['/programuser/dashboard'], { state: { role: UserRole.ProgramUser } });
+        case UserRole.CountryUser.toLowerCase():
+          this.router.navigate(['/countryuser/dashboard'], { state: { role: UserRole.CountryUser } });
           break;
         default:
           this.router.navigate(['/']);
@@ -153,7 +152,7 @@ export class UserService {
   logout() {
     let role = this.userInfo?.role;
     let url = '/auth/clientPortalLogin';
-    if (role && role?.toLowerCase() !== UserRole.ProgramUser.toLowerCase()) {
+    if (role && role?.toLowerCase() !== UserRole.CountryUser.toLowerCase()) {
       url = '/auth/login';
     }
     localStorage.removeItem(StorageKeyEnum.UserInfo);

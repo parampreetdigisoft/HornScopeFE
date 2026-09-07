@@ -15,18 +15,17 @@
     color: #304A43;
 }
 .bold_num {
-    color: var(--Secondary-Color);
+    color: #c5b538;
     font-weight: 800;
 }
 .input_field {
     margin-bottom: 0;
 }
-
 .input_field .form-control {
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8' fill='none'%3E%3Cpath d='M0.765098 1.70703L4.97795 5.91988C5.47548 6.41741 6.28962 6.41741 6.78715 5.91988L11 1.70703' stroke='%23888888' stroke-width='1.5' stroke-miterlimit='10' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E%0A");
     background-repeat: no-repeat;
     background-position: center right 13px;
-    color: var(--Light-Text-Color);
+    color: #EFE7D6;
     /* font-family: 'Montserrat'; */
     font-size: 13px;
     font-style: normal;
@@ -34,7 +33,7 @@
     line-height: normal;
     
     height: auto;
-    background-color: var(--Surface-Elevated);
+    background-color: #1B1810;
     min-height: 36px;
     align-items: center;
     font-family: "Poppins", sans-serif !important;
@@ -45,7 +44,7 @@
     appearance: none!important;
     border-radius: 12px !important;
     padding: 10px !important;
-    border: 1px solid var(--Border-Color) !important;
+    border: 1px solid #332C1D !important;
 }
 
 .inner_div {
@@ -61,6 +60,23 @@
 .input_flex select{
     flex: 1;
 }
+
+.heading_area .kpi_compare_toolbar {
+  width: 100%;
+}
+
+.heading_area .ng-select .ng-placeholder,
+.heading_area .analyst_multi_select .ng-placeholder {
+  color: #8B887E !important;
+  opacity: 1 !important;
+}
+
+:host ::ng-deep .heading_area .ng-select .ng-placeholder,
+:host ::ng-deep .heading_area .analyst_multi_select .ng-placeholder {
+  width: 100%;
+  padding-right: 22px;
+}
+
 .no_result_found {
     display: flex;
     align-items: center;
@@ -70,56 +86,39 @@
 .no_result_found h3{    
     font-weight: 700;
 }
-.input_flex ng-select {
-  flex: 1;
-  min-width: 0;
+
+:host {
+  display: block;
+  width: 100%;
+  max-width: 100%;
 }
 
-/* Remove Bootstrap's form-control chrome from ng-select host */
-.input_flex ng-select.form-control {
-  padding: 0 !important;
-  border: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
+:host ::ng-deep .transfer-results-modal.modal {
+  overflow: visible;
 }
 
-/* Program dropdown style to visually match the native select */
-::ng-deep .input_flex ng-select .ng-select-container {
-  min-height: 36px !important;
-  border: 1px solid var(--Border-Color) !important;
-  border-radius: 12px !important;
-  background-color: var(--Surface-Elevated) !important;
-  box-shadow: none !important;
-  padding: 6px 2px 6px 10px !important;
-  font-family: "Poppins", sans-serif !important;
-  font-size: 13px !important;
-  font-weight: 400 !important;
-  color: var(--Text-Color) !important;
+.table_outer {
+  overflow: hidden;
 }
 
-::ng-deep .input_flex ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container,
-::ng-deep .input_flex ng-select.ng-select-opened > .ng-select-container {
-  border-color: var(--Border-Color) !important;
-  box-shadow: none !important;
+.table_scroll {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: auto;
+  overflow-y: hidden;
 }
 
-::ng-deep .input_flex ng-select .ng-value-container {
-  padding-left: 0 !important;
+.table_outer:has(.loader_main) .table_scroll {
+  display: none;
 }
 
-::ng-deep .input_flex ng-select .ng-placeholder,
-::ng-deep .input_flex ng-select .ng-value-label {
-  color: var(--Text-Color) !important;
-  font-size: 13px !important;
+.table_scroll::-webkit-scrollbar:vertical {
+  display: none;
+  width: 0;
 }
 
-::ng-deep .input_flex ng-select .ng-arrow-wrapper {
-  padding-right: 0 !important;
-}
-
-::ng-deep .input_flex ng-select .ng-arrow {
-  border-color: #9AADC4 transparent transparent !important;
-}
-::ng-deep .table_outer .table tr th {
-    border-bottom: 1px solid rgb(255 255 255 / 22%);
+.table_scroll .table {
+  width: 100%;
+  min-width: 960px;
+  margin-bottom: 0;
 }

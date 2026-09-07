@@ -1,7 +1,7 @@
-import { AIDataSourceCitation } from './AiProgramPillarResponseDto';
+import { AIDataSourceCitation } from './AiCountryPillarResponseDto';
 
-export interface UpdateAIProgramScoreDto {
-  climateProgramID: number;
+export interface UpdateAICountryScoreDto {
+  countryID: number;
   year: number;
   confidenceLevel?: string | null;
   immediateSituationSummary?: string | null;
@@ -20,12 +20,8 @@ export interface UpdateAIProgramScoreDto {
   politicalShock?: string | null;
   economicShock?: string | null;
   narrativeShock?: string | null;
-  geopoliticalShock?: string | null;
-  financeShock?: string | null;
-  legitimacyShock?: string | null;
   stressScoreAdjustment?: string | null;
   inequalityAdjustment?: string | null;
-  inclusionEquityAdjustment?: string | null;
   opacityRisk?: string | null;
   nonCompensationNote?: string | null;
   relationalIntegrity?: string | null;
@@ -36,7 +32,6 @@ export interface UpdateAIProgramScoreDto {
   conflictRiskOutlook?: string | null;
   strategicRecommendation?: string | null;
   dataTransparencyNote?: string | null;
-  assessmentValueNote?: string | null;
 }
 
 export interface UpdateAIPillarScoreDto {
@@ -53,16 +48,11 @@ export interface UpdateAIPillarScoreDto {
   stressPoliticalShock?: string | null;
   stressEconomicShock?: string | null;
   stressNarrativeShock?: string | null;
-  stressGeopoliticalShock?: string | null;
-  stressFinanceShock?: string | null;
-  stressLegitimacyShock?: string | null;
   stressScoreAdjustment?: string | null;
   inequalityAdjustment?: string | null;
-  inclusionEquityAdjustment?: string | null;
   opacityRisk?: string | null;
   nonCompensationNote?: string | null;
   geographicEquityNote?: string | null;
-  inclusionAccessNote?: string | null;
   institutionalAssessment?: string | null;
   dataGapAnalysis?: string | null;
   redFlag?: string | null;
@@ -80,7 +70,7 @@ export interface UpdateAIDataSourceCitationDto {
 }
 
 export interface UpdateAIEstimatedQuestionScoreDto {
-  climateProgramID: number;
+  countryID: number;
   pillarID: number;
   questionID: number;
   year: number;
@@ -95,11 +85,10 @@ export interface UpdateAIEstimatedQuestionScoreDto {
   temporalScope?: string | null;
   distortionScreening?: string | null;
   relationalDependencies?: string | null;
-  stressGeopoliticalShock?: string | null;
-  stressFinanceShock?: string | null;
-  stressLegitimacyShock?: string | null;
-  stressOverallResilienceShock?: string | null;
-  inclusionEquityAdjustment?: string | null;
+  stressPoliticalShock?: string | null;
+  stressEconomicShock?: string | null;
+  stressNarrativeShock?: string | null;
+  inequalityAdjustment?: string | null;
   opacityRisk?: string | null;
   redFlag?: string | null;
   sourceType?: string | null;
@@ -118,10 +107,9 @@ export interface AiEditableFieldConfig {
   type: AiFieldType;
   showInTable?: boolean;
   section?: 'scores' | 'summary' | 'evidence' | 'source';
-  max?: number;
 }
 
-export const CONFIDENCE_LEVEL_OPTIONS = ['Low', 'Medium', 'High','Indeterminate'];
+export const CONFIDENCE_LEVEL_OPTIONS = ['Low', 'Medium', 'High'];
 
 export function mapCitationsForUpdate(citations?: AIDataSourceCitation[] | null): UpdateAIDataSourceCitationDto[] {
   return (citations ?? []).map(c => ({

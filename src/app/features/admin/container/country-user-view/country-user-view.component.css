@@ -1,0 +1,80 @@
+.no_result_found {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 60px;
+}
+.no_result_found h3{    
+    font-weight: 700;
+}
+
+
+.country-list.desc {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  position: relative;
+}
+
+.country-list.desc.collapsed {
+  -webkit-line-clamp: 2;
+}
+
+.country-list.desc:not(.collapsed) {
+  -webkit-line-clamp: unset;
+  overflow: visible;
+}
+
+.read-more {
+  color: #12352f;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 13px;
+  display: inline-block;
+  margin-top: 6px;
+  text-decoration: none;
+}
+
+/* Common button style */
+button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px; /* space between text and spinner */
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+  min-width: 110px; /* keeps consistent size even with spinner */
+}
+
+/* Confirmed button (green) */
+.btn-confirmed {
+  background-color: #4CAF50;
+  color: white;
+  cursor: default;
+}
+
+.btn-confirmed:hover {
+  background-color: #45a049;
+}
+
+/* Resend button (blue) */
+.btn-resend {
+  background-color: #007BFF;
+  color: white;
+}
+
+.btn-resend:hover {
+  background-color: #0056b3;
+}
+
+/* Spinner adjustment */
+button .spinner-border {
+  width: 14px;
+  height: 14px;
+}
+

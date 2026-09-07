@@ -1,0 +1,200 @@
+<div class="heading_area">
+  <div class="row justify-content-between align-items-center">
+    <div class="col-md-auto">
+      <h3 class="page_head">AI Edit Permissions</h3>
+      <p class="page_sub">Grant analysts editable authority for a country/year. One grant covers country, pillar and question screens in a single draft session. Select up to 5 countries at a time.</p>
+    </div>
+  </div>
+</div>
+
+<div class="heading_area grant-panel">
+  <h5 class="grant-panel__title">Grant editable authority</h5>
+  <div class="row g-3 align-items-end">
+    <div class="col-md-3">
+      <label class="field-label">Analyst</label>
+      <div class="compare_select kpi_compare_select">
+        <ng-select
+          [items]="analysts"
+          bindValue="userID"
+          bindLabel="fullName"
+          [(ngModel)]="grantUserID"
+          [searchable]="true"
+          [placeholder]="grantUserID ? '' : 'Select analyst'"
+          class="form-control analyst_multi_select" appendTo="body">
+          <ng-template ng-label-tmp let-item="item" class="select_item">
+            {{ item.fullName }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.fullName }} ({{ item.email }})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="col-md-3">
+      <label class="field-label">Countries (max 5)</label>
+      <div class="compare_select kpi_compare_select">
+        <ng-select
+          [items]="countryList"
+          [multiple]="true"
+          [maxSelectedItems]="5"
+          [closeOnSelect]="false"
+          [searchable]="true"
+          [placeholder]="grantCountryIDs.length ? '' : 'Select countries'"
+          [(ngModel)]="grantCountryIDs"
+          bindValue="countryID"
+          bindLabel="countryName"
+          class="form-control analyst_multi_select" appendTo="body">
+          <ng-template ng-multi-label-tmp>
+            <app-select-overflow-label [items]="grantCountryNames"></app-select-overflow-label>
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.countryName }}, {{ item.continent }} ({{ item.score?.toFixed(1) || 'NA' }})
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <label class="field-label">Year</label>
+      <div class="compare_select kpi_compare_select">
+        <ng-select
+          [items]="commonService.applicateYears"
+          [(ngModel)]="grantYear"
+          [clearable]="false"
+          [searchable]="false"
+          [dropdownPosition]="'bottom'"
+          name="grantYear"
+          class="form-control analyst_multi_select year_select">
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <label class="field-label">Notes</label>
+      <div class="compare_select kpi_compare_select">
+        <input type="text" class="form-control analyst_multi_select notes-input" [(ngModel)]="grantNotes" placeholder="Optional" style="padding-left: 10px !important;" />
+      </div>
+    </div>
+
+    <div class="col-md-2">
+      <button type="button" class="common_button grant-panel__submit" [disabled]="granting" (click)="grantPermission()">
+        Grant Access
+        <span *ngIf="granting" class="spinner-border spinner-border-sm ms-1"></span>
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="heading_area">
+  <div class="kpi_compare_toolbar">
+    <h3 class="page_head">AI Edit Permissions</h3>
+    <div class="kpi_compare_toolbar__actions">
+      <div class="compare_select kpi_compare_select">
+        <ng-select
+          [items]="countryList"
+          bindValue="countryID"
+          bindLabel="countryName"
+          [(ngModel)]="filterCountryID"
+          [searchable]="true"
+          [clearable]="true"
+          [placeholder]="filterCountryID ? '' : 'All countries'"
+          class="form-control analyst_multi_select"
+          (change)="loadPermissions(1)" appendTo="body">
+          <ng-template ng-label-tmp let-item="item" class="select_item">
+            {{ item.countryName }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            {{ item.countryName }}, {{ item.continent }} ({{ item.score?.toFixed(1) || 'NA' }})
+          </ng-template>
+        </ng-select>
+      </div>
+      <div class="compare_select kpi_compare_select kpi_compare_select--year">
+        <ng-select
+          [items]="commonService.applicateYears"
+          [(ngModel)]="filterYear"
+          (change)="loadPermissions(1)"
+          [clearable]="false"
+          [searchable]="false"
+          [dropdownPosition]="'bottom'"
+          name="filterYear"
+          class="form-control analyst_multi_select year_select">
+        </ng-select>
+      </div>
+      <div class="compare_select kpi_compare_select">
+        <ng-select
+          [items]="statusOptions"
+          [(ngModel)]="filterStatus"
+          (change)="loadPermissions(1)"
+          [clearable]="false"
+          [searchable]="false"
+          [placeholder]="'Select Status'"
+          [dropdownPosition]="'bottom'"
+          class="form-control analyst_multi_select">
+        </ng-select>
+      </div>
+      <button type="button" class="common_button" (click)="loadPermissions(1)">Refresh</button>
+    </div>
+  </div>
+</div>
+
+<div class="table_outer compare_city_table">
+  <div class="table_custom_inner">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>S.No.</th>
+          <th>Analyst</th>
+          <th>Country</th>
+          <th>Year</th>
+          <th>Status</th>
+          <th>Requested</th>
+          <th>Granted By</th>
+          <th>Notes</th>
+          <th class="action_th">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngIf="isLoader">
+          <td colspan="9" class="text-center">Loading...</td>
+        </tr>
+        <tr *ngIf="!isLoader && permissions.length === 0">
+          <td colspan="9" class="text-center">No permission records found.</td>
+        </tr>
+        <tr *ngFor="let item of permissions; let i = index">
+          <td>{{ (currentPage - 1) * pageSize + (i + 1) }}</td>
+          <td>
+            <div>{{ item.userName }}</div>
+            <small>{{ item.userEmail }}</small>
+          </td>
+          <td>{{ item.countryName }}</td>
+          <td>{{ item.year }}</td>
+          <td><span class="status-badge" [ngClass]="statusClass(item.status)">{{ item.statusName }}</span></td>
+          <td>{{ item.requestedAt | date: 'medium' }}</td>
+          <td>{{ item.grantedByName || '—' }}</td>
+          <td>{{ item.notes || '—' }}</td>
+          <td class="action_td">
+            <ng-container *ngIf="item.status === 0">
+              <a href="javascript:void(0)" (click)="approveRequest(item)">Approve</a>
+              &nbsp;|&nbsp;
+              <a href="javascript:void(0)" (click)="rejectRequest(item)">Reject</a>
+            </ng-container>
+            <ng-container *ngIf="item.status === 1">
+              <a href="javascript:void(0)" (click)="revoke(item)">Revoke</a>
+            </ng-container>
+            <span *ngIf="item.status !== 0 && item.status !== 1">—</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <app-pagination
+    [selectedYear]="filterYear"
+    [totalPage]="totalRecords"
+    [currentPage]="currentPage"
+    [pageSize]="pageSize"
+    [isLoader]="isLoader"
+    (pageChange)="loadPermissions($event)">
+  </app-pagination>
+</div>

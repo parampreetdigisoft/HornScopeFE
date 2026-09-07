@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { debounceTime, Subject } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { AdminService } from '../../admin.service';
-import { ProgramVM } from 'src/app/core/models/ProgramVM';
+import { CountryVM } from 'src/app/core/models/CountryVM';
 import { environment } from 'src/environments/environment';
 import { SharedModule } from 'src/app/shared/share.module';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
@@ -13,31 +13,35 @@ import { CommonService } from 'src/app/core/services/common.service';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 import { PaginationResponse } from 'src/app/core/models/PaginationResponse';
 import { AiComputationService } from 'src/app/core/services/ai-computation.service';
+import { CircularScoreComponent } from 'src/app/shared/standAlone/circular-score/circular-score.component';
+import { SparklineScoreComponent } from 'src/app/shared/standAlone/sparkline-score/sparkline-score.component';
 import { AiDocumentViewDetailsComponent } from 'src/app/shared/standAlone/ai-document-view-details/ai-document-view-details.component';
-import { GetProgramDocumentResponseDto, GetProgramPillarDocumentResponseDto } from 'src/app/core/models/aiVm/GetProgramDocumentResponseDto';
-import { AiProgramDocumentRequestDto, AiProgramPillarDocumentRequestDto, DeleteProgramDocumentRequestDto } from 'src/app/core/models/aiVm/AiProgramSummeryRequestDto';
+import { GetCountryDocumentResponseDto, GetCountryPillarDocumentResponseDto } from 'src/app/core/models/aiVm/GetCountryDocumentResponseDto';
+import { AiCountryDocumentRequestDto, AiCountryPillarDocumentRequestDto, DeleteCountryDocumentRequestDto } from 'src/app/core/models/aiVm/AiCountrySummeryRequestDto';
 
 @Component({
   selector: 'app-ai-documents',
   standalone: true,
-  imports: [CommonModule, SharedModule, AiDocumentViewDetailsComponent],
+  imports: [CommonModule, SharedModule, SparklineScoreComponent, CircularScoreComponent, AiDocumentViewDetailsComponent],
   templateUrl: './ai-documents.component.html',
   styleUrl: './ai-documents.component.css'
 })
 export class AiDocumentsComponent {
+
+  selectedYear = new Date().getFullYear();
   urlBase = environment.apiUrl;
-  selectedProgram: GetProgramDocumentResponseDto | null | undefined = null;
-  selectedclimateProgramID?: number;
+  selectedCountry: GetCountryDocumentResponseDto | null | undefined = null;
+  selectedCountryID?: number;
   selecteddocumentLayerID?: number;
-  documentLayersResponse: PaginationResponse<GetProgramDocumentResponseDto> | undefined;
+  documentLayersResponse: PaginationResponse<GetCountryDocumentResponseDto> | undefined;
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1;
-  isLoader: boolean = false;
-  programList: ProgramVM[] = [];
+  isLoader: boolean = true;
+  countryList: CountryVM[] = [];
   pillars: PillarsVM[] = [];
   $documentChanged = new Subject();
-  documentLayers: GetProgramDocumentResponseDto[] = [];
+  documentLayers: GetCountryDocumentResponseDto[] = [];
   sidebarLoader = {
     index: -1,
     loader: false
@@ -45,7 +49,7 @@ export class AiDocumentsComponent {
   selectedDoc: any = null;
   saveDocumentLoader: boolean = false;
   isDeletePromptOpen = false;
-  programPillarDocuments: GetProgramPillarDocumentResponseDto[] = [];
+  countryPillarDocuments: GetCountryPillarDocumentResponseDto[] = [];
 
   constructor(private adminService: AdminService,
     private toaster: ToasterService,
@@ -55,11 +59,11 @@ export class AiDocumentsComponent {
 
 
   ngOnInit(): void {
-    this.getAIProgramDocuments(1);
-    this.getProgramUserPrograms();
+    this.getAICountryDocuments(1);
+    this.getCountryUserCountries();
     this.getPillars();
     this.$documentChanged.pipe(debounceTime(1000)).subscribe(x => {
-      this.getAIProgramDocuments();
+      this.getAICountryDocuments();
     });
   }
   documentChanged() {
@@ -70,20 +74,20 @@ export class AiDocumentsComponent {
       this.pillars = r;
     })
   }
-  getAIProgramDocuments(currentPage: any = 1) {
+  getAICountryDocuments(currentPage: any = 1) {
     this.documentLayersResponse = undefined;
     this.isLoader = true;
-    let payload: AiProgramDocumentRequestDto = {
+    let payload: AiCountryDocumentRequestDto = {
       sortDirection: SortDirection.ASC,
-      sortBy: 'ProgramName',
+      sortBy: 'CountryName',
       pageNumber: currentPage,
       pageSize: this.pageSize
     }
-    if (this.selectedclimateProgramID != undefined && this.selectedclimateProgramID != 0) {
-      payload.climateProgramID = this.selectedclimateProgramID;
+    if (this.selectedCountryID != undefined && this.selectedCountryID != 0) {
+      payload.countryID = this.selectedCountryID;
     }
 
-    this.aiComputationService.getAIProgramDocuments(payload).subscribe(documentLayers => {
+    this.aiComputationService.getAICountryDocuments(payload).subscribe(documentLayers => {
       this.documentLayersResponse = documentLayers;
       this.totalRecords = documentLayers.totalRecords;
       this.currentPage = currentPage;
@@ -94,33 +98,30 @@ export class AiDocumentsComponent {
 
   ngOnDestroy(): void { }
 
-  viewDetails(program: GetProgramDocumentResponseDto, index: number) {
-    this.selectedProgram = program;
+  viewDetails(country: GetCountryDocumentResponseDto, index: number) {
+    this.selectedCountry = country;
     this.sidebarLoader.index = index;
     this.sidebarLoader.loader = true;
-    this.getAIProgramPillarDocuments();
+    this.getAICountryPillarDocuments();
   }
 
-  getProgramUserPrograms() {
-  this.adminService.getAllProgramsByUserId(this.userService.userInfo.userID ?? 0).subscribe({
-    next: (res) => {
-      if (res.succeeded) {
-        this.programList = (res.result ?? []).sort(
-          (a, b) => (b.aiScore ?? 0) - (a.aiScore ?? 0)
-        );
-      }
-    }
-  });
-}
-
-  getAIProgramPillarDocuments(isOpen = true) {
-    let payload: AiProgramPillarDocumentRequestDto = {
-      climateProgramID: this.selectedProgram?.climateProgramID ?? 0
-    }
-    this.aiComputationService.getAIProgramPillarDocuments(payload).subscribe({
+  getCountryUserCountries() {
+    this.adminService.getAllCountriesByUserId(this.userService.userInfo.userID ?? 0).subscribe({
       next: (res) => {
         if (res.succeeded) {
-          this.programPillarDocuments = res.result ?? [];
+          this.countryList = res.result ?? [];
+        }
+      }
+    });
+  }
+  getAICountryPillarDocuments(isOpen = true) {
+    let payload: AiCountryPillarDocumentRequestDto = {
+      countryID: this.selectedCountry?.countryID ?? 0
+    }
+    this.aiComputationService.getAICountryPillarDocuments(payload).subscribe({
+      next: (res) => {
+        if (res.succeeded) {
+          this.countryPillarDocuments = res.result ?? [];
           if (isOpen) {
             this.sidebarLoader.index = -1;
             this.sidebarLoader.loader = false;
@@ -139,7 +140,7 @@ export class AiDocumentsComponent {
       next: (res) => {
         this.saveDocumentLoader = false;
         if (res.succeeded) {
-          this.getAIProgramPillarDocuments(false);
+          this.getAICountryPillarDocuments(false);
           this.toaster.showSuccess(res.messages.join(", "));
         }
       },
@@ -149,19 +150,22 @@ export class AiDocumentsComponent {
     });
   }
 
-  deleteDocument(payload: DeleteProgramDocumentRequestDto) {
+  deleteDocument(payload: DeleteCountryDocumentRequestDto) {
     this.aiComputationService.deleteDocument(payload).subscribe({
       next: (res) => {
         if (res.succeeded) {
-          this.getAIProgramPillarDocuments(false);
+          this.getAICountryPillarDocuments(false);
           this.toaster.showSuccess(res.messages.join(", "))
+        }
+        else{
+          this.toaster.showError(res.errors.join(", "));
         }
       }
     });
   }
 
-  downloadDocument(request: GetProgramPillarDocumentResponseDto) {
-    this.aiComputationService.downloadDocument(request.programDocumentID).subscribe({
+  downloadDocument(request: GetCountryPillarDocumentResponseDto) {
+    this.aiComputationService.downloadDocument(request.countryDocumentID).subscribe({
       next: (blob) => {
         if (blob.size > 0) {
           const url = window.URL.createObjectURL(blob);
@@ -175,7 +179,7 @@ export class AiDocumentsComponent {
           this.toaster.showSuccess('Report generated successfully');
         } else {
           this.toaster.showWarning(
-            'No data available for the selected program or the PDF could not be generated.'
+            'No data available for the selected country or the PDF could not be generated.'
           );
         }
       },

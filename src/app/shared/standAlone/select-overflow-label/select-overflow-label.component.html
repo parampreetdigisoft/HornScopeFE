@@ -1,0 +1,4 @@
+<span class="ami-select-overflow" [title]="fullTitle">
+  <span class="ami-select-overflow__item" *ngFor="let label of visibleLabels">{{ label }}</span>
+  <span class="ami-select-overflow__more" *ngIf="extraCount > 0">+{{ extraCount }}</span>
+</span>

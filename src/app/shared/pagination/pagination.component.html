@@ -14,8 +14,11 @@
     </li>
 
     <!-- Pages -->
-    <li *ngFor="let page of getPages()" [class.active]="currentPage === page">
-      <span *ngIf="page !== '...'" (click)="changePage(page)">
+    <li *ngFor="let page of getPages()" [class.active]="isCurrentPage(page)">
+      <span
+        *ngIf="page !== '...'"
+        [class.action]="isCurrentPage(page)"
+        (click)="changePage(page)">
         {{ page }}
       </span>
       <span *ngIf="page === '...'">...</span>
@@ -31,7 +34,8 @@
 </div>
 <div class="no_result_found" *ngIf="!totalPages && !isLoader">
   <div class="no_result_found_inner">
-      <h3><i class="fas fa-search"></i> No Result Found</h3>
+      <h3 *ngIf="selectedYear == currentYear"><i class="fas fa-search"></i> No Result Found</h3>
+      <h3 *ngIf="selectedYear != currentYear"><i class="fas fa-search"></i> No result from previous year </h3>
   </div>
 </div>
 

@@ -5,7 +5,7 @@ import { filter, map, mergeMap, Subject } from 'rxjs';
 import { UserService } from 'src/app/core/services/user.service';
 import { AuthService } from '../auth.service';
 import { ToasterService } from 'src/app/core/services/toaster.service';
-import { ClientSignUpDto } from '../model/ClientSignUpDto';
+import { CountryUserSignUpDto } from '../model/CountryUserSignUpDto';
 import { CommonService } from 'src/app/core/services/common.service';
 import { StorageKeyEnum } from 'src/app/core/enums/StorageKeyEnum';
 
@@ -65,39 +65,39 @@ export class AccountComponent implements OnInit {
       if (event.value.email != null && event.value.password != null) {
         this.loading = true;
         this.authService.login(event.value.email, event.value.password, event.value.rememberMe)
-          .subscribe({
-            next: (res) => {
-              this.loading = false;
-              if (res.succeeded) {               
-                if (res.result?.userID) {
-                  if ((this.roleName === 'clientPortalLogin' && res?.result?.role == 'ProgramUser') || (this.roleName === 'login' && res?.result?.role != 'ProgramUser')) {
-                    this.toasterService.showSuccess('Login successful');
-                    this.userService.RedirectBasedOnRole();
-                  }
-                  else {
-                    this.toasterService.showError('Invalid credentials, please try again');
-                    this.userService.logoutNotRedirect();
-                  }
-                }
-                else if (this.roleName === 'clientPortalLogin' || this.roleName === 'login') {
-                  localStorage.setItem(StorageKeyEnum.UserKey, event.value.email ?? '');
-                  this.toasterService.showSuccess(res?.messages?.join(", "));
-                  this.router.navigate(['/auth/2fa-verification']);
+        .subscribe({
+          next: (res) => {
+            this.loading = false;
+            if (res.succeeded) {               
+              if (res.result?.userID) {
+                if ((this.roleName === 'clientPortalLogin' && res?.result?.role == 'CountryUser') || (this.roleName === 'login' && res?.result?.role != 'CountryUser')) {
+                  this.toasterService.showSuccess('Login successful');
+                  this.userService.RedirectBasedOnRole();
                 }
                 else {
                   this.toasterService.showError('Invalid credentials, please try again');
                   this.userService.logoutNotRedirect();
                 }
               }
-              else {
-                this.toasterService.showError(res?.errors?.join(", "));
+              else if (this.roleName === 'clientPortalLogin' || this.roleName === 'login') {
+                localStorage.setItem(StorageKeyEnum.UserKey, event.value.email ?? '');
+                this.toasterService.showSuccess(res?.messages?.join(", "));
+                this.router.navigate(['/auth/2fa-verification']);
               }
-            },
-            error: (err) => {
-              this.loading = false;
-              this.toasterService.showError("Invalid credentials");
-            },
-          })
+              else {
+                this.toasterService.showError('Invalid credentials, please try again');
+                this.userService.logoutNotRedirect();
+              }
+            }
+            else {
+              this.toasterService.showError(res?.errors?.join(", "));
+            }
+          },
+          error: (err) => {
+            this.loading = false;
+            this.toasterService.showError("Invalid credentials");
+          },
+        })
       }
     }
   }
@@ -124,12 +124,12 @@ export class AccountComponent implements OnInit {
       }
     }
   }
-  public cityUserSignUp(event: ClientSignUpDto) {
+  public cityUserSignUp(event: CountryUserSignUpDto) {
     if (!this.loading) {
       if (event) {
         this.loading = true;
         this.authService
-          .clientSignUp(event)
+          .cityUserSignUp(event)
           .subscribe({
             next: (res) => {
               this.loading = false;
