@@ -14,8 +14,8 @@ declare var bootstrap: any;
 })
 export class QuestionComponent implements OnInit, OnDestroy {
   selectedQuestion: GetQuestionResponse | null = null;
-  selectedPiller: PillarsVM | null = null;
-  pillers: PillarsVM[] = [];
+  selectedPillar: PillarsVM | null = null;
+  pillars: PillarsVM[] = [];
   totalRecords: number = 0;
   pageSize: number = 10;
   currentPage: number = 1
@@ -34,7 +34,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
 
   GetAllPillars() {
     this.adminService.getAllPillars().subscribe(p => {
-      this.pillers = p;
+      this.pillars = p;
     });
   }
 
@@ -90,6 +90,7 @@ export class QuestionComponent implements OnInit, OnDestroy {
       }
     });
   }
+
   addUpdateQuestion(question: AddQuestionRequest | null) {
     if (!question) {
       return;

@@ -2,6 +2,8 @@
 	<app-ai-edit-toolbar [canEdit]="canEdit"
 		[editMode]="editMode"
 		[saving]="saving"
+		[editDisabled]="!hasPillarScoreRecord"
+		editDisabledReason="No domain score record is available to edit yet."
 		(edit)="startEdit()"
 		(cancel)="cancelEdit()"
 		(save)="saveChanges()"

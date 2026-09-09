@@ -20,7 +20,6 @@
             [clearable]="false"
             [placeholder]="'Select Country-Analyst'"
             notFoundText="No countries found"
-            appendTo="body"
             dropdownPosition="auto">
             <ng-template ng-label-tmp let-item="item">
               {{ item.countryName }}<span *ngIf="item.assignedBy"> — {{ item.assignedBy }}</span>
@@ -84,7 +83,7 @@
     <div class="faq_main_section" #scrollContainer>
       <form [formGroup]="form">
         <div class="tabs_discrp">
-          <div class="tabs_discrp_inner" [innerHTML]="decodeHtml(pillerQuestions?.description)"></div>
+          <div class="tabs_discrp_inner" [innerHTML]="decodeHtml(pillarQuestions?.description)"></div>
         </div>
 
         <div class="faq_main_section_inner" formArrayName="questions"
@@ -95,12 +94,13 @@
 
               <ng-select class="faq_select assessment_select"
                 [items]="questions[i].questionOptions"
+                bindLabel="optionText"
                 bindValue="optionID"
                 formControlName="questionOptionID"
                 placeholder="Select option"
                 [searchable]="false"
                 [clearable]="true"
-                dropdownPosition="bottom"
+                dropdownPosition="auto"
                 (change)="onOptionChange($event, i)">
                 <ng-template ng-label-tmp let-item="item">
                   <span class="assessment_select_label" [title]="item.optionText">
@@ -110,6 +110,7 @@
                 <ng-template ng-option-tmp let-item="item">
                   <div class="assessment_option">
                     <span *ngIf="item.scoreValue != null" class="assessment_option_score">{{ item.scoreValue }}</span>
+                    <span *ngIf="optionEndLabel(item)" class="assessment_option_score assessment_option_end_label">{{ optionEndLabel(item) }}</span>
                     <span class="assessment_option_text">{{ item.optionText }}</span>
                   </div>
                 </ng-template>

@@ -210,7 +210,7 @@ export class ViewAiQuestionDetailsComponent implements OnChanges {
   }
 
   saveChanges() {
-    if (!this.question) {
+    if (!this.question || !this.hasQuestionScoreRecord) {
       return;
     }
 

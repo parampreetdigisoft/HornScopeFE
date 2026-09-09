@@ -75,7 +75,8 @@ input.form-control {
 .tab-pane,
 .option-row,
 .option-row .row,
-.option-row .col-4 {
+.option-row .col-4,
+.option-row .col-3 {
   overflow: visible;
 }
 
@@ -123,10 +124,11 @@ input.form-control {
 }
 
 ::ng-deep .compare_select .ng-placeholder,
-::ng-deep .analyst_multi_select .ng-placeholder {
+::ng-deep .analyst_multi_select .ng-placeholder,
+::ng-deep .score-select .ng-placeholder {
   color: #8FA3B5 !important;
   opacity: 1 !important;
-  padding-left: 10px !important;
+  visibility: visible !important;
 }
 
 ::ng-deep .compare_select .ng-value-container .ng-value {
@@ -195,4 +197,29 @@ input.form-control {
   overflow: hidden;
   text-overflow: ellipsis;
   background: #123049;
+}
+.tier-dot {
+    position: absolute;
+    top: 50%;
+    right: 55px;
+    transform: translateY(-50%);
+    font-size: 16px;
+    pointer-events: none;
+    z-index: 2;
+}
+
+/* Only the star gets colored — nothing here targets the select's text anymore */
+.tier-dot.weight-critical {
+  font-weight: 600;
+    color: #f04455;
+}
+
+.tier-dot.weight-high {
+  font-weight: 600;
+    color: #e9b20e;
+}
+
+.tier-dot.weight-standard {
+    font-weight: 600;
+    color: #28a745;
 }

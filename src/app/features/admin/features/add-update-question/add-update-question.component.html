@@ -2,9 +2,10 @@
     <div class="modal-content">
 
         <div class="modal-body">
-            <button type="button" (click)="closeModel()" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            <button type="button" (click)="closeModel()" class="btn-close" data-bs-dismiss="modal"
+                aria-label="Close"></button>
             <h4 class="modal_head"> {{question ?'Update':'Add' }} Question</h4>
-            <p class="modal_sub_head">Enter The details and marked</p>
+            <p class="modal_sub_head">Enter the details and marked</p>
             <div class="modal_tabs">
                 <ul class="nav nav-pills" id="pills-tab" role="tablist">
                     <li class="nav-item" role="presentation">
@@ -24,7 +25,7 @@
                             <!-- Question -->
                             <div class="input_field">
                                 <label>Question *</label>
-                                <input type="text" formControlName="questionText" placeholder="Enter question text"
+                                <input type="text" formControlName="questionText" placeholder="Enter Question Text"
                                     class="form-control" />
                                 <div class="error-msg"
                                     *ngIf="questionForm.get('questionText')?.invalid && (questionForm.get('questionText')?.touched || isSubmitted)">
@@ -33,29 +34,57 @@
                             </div>
 
                             <!-- Domain -->
-                            <div class="input_field">
-                                <label>Domain *</label>
-                                <div class="compare_select kpi_compare_select">
-                                    <ng-select [items]="pillers"
-                                        bindValue="pillarID"
-                                        bindLabel="pillarName"
-                                        [searchable]="true"
-                                        [searchFn]="customSearchFn"
-                                        [clearable]="true"
-                                        formControlName="pillarID"
-                                        [placeholder]="questionForm.get('pillarID')?.value ? '' : 'Select Domain'"
-                                        class="form-control analyst_multi_select">
-                                        <ng-template ng-label-tmp let-item="item">
-                                            {{ item.pillarName }}
-                                        </ng-template>
-                                        <ng-template ng-option-tmp let-item="item">
-                                            {{ item.pillarName }} ({{ item.score?.toFixed(1) || "NA" }})
-                                        </ng-template>
-                                    </ng-select>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="input_field">
+                                        <label>Domain *</label>
+                                        <div class="compare_select kpi_compare_select">
+                                            <ng-select [items]="pillars" bindValue="pillarID" bindLabel="pillarName"
+                                                [searchable]="true" [searchFn]="customSearchFn" [clearable]="true"
+                                                formControlName="pillarID"
+                                                [placeholder]="questionForm.get('pillarID')?.value ? '' : 'Select Domain'"
+                                                class="form-control analyst_multi_select">
+                                                <ng-template ng-label-tmp let-item="item">
+                                                    {{ item.pillarName }}
+                                                </ng-template>
+                                                <ng-template ng-option-tmp let-item="item">
+                                                    {{ item.pillarName }} ({{ item.score?.toFixed(1) || "NA" }})
+                                                </ng-template>
+                                            </ng-select>
+                                        </div>
+                                        <div class="error-msg"
+                                            *ngIf="questionForm.get('pillarID')?.invalid && (questionForm.get('pillarID')?.touched || isSubmitted)">
+                                            Domain is required.
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="error-msg"
-                                    *ngIf="questionForm.get('pillarID')?.invalid && (questionForm.get('pillarID')?.touched || isSubmitted)">
-                                    Domain is required.
+                                <div class="col-md-6">
+                                    <div class="input_field">
+                                        <label>Weight *</label>
+                                          <div class="compare_select kpi_compare_select">
+                                            <ng-select [items]="weightOptions" bindValue="id" bindLabel="weightName"
+                                                [searchable]="true" [searchFn]="customSearchFn" [clearable]="true"
+                                                formControlName="weightID"
+                                                [placeholder]="questionForm.get('weightID')?.value ? '' : 'Select Weight'"
+                                                [ngClass]="getWeightTierClass()"
+                                                class="form-control analyst_multi_select">
+                                                <ng-template ng-label-tmp let-item="item">
+                                                    {{ item.value }}
+                                                </ng-template>
+                                                <ng-template ng-option-tmp let-item="item">
+                                                    {{ item.value }}
+                                                </ng-template>
+                                            </ng-select>
+                                             <span class="tier-dot" [ngClass]="getWeightTierClass()"
+                                                *ngIf="getSelectedWeight()">
+                                                {{ getSelectedWeight()?.stars }}
+                                            </span>
+                                        </div>
+                                        <div class="error-msg"
+                                            *ngIf="questionForm.get('weightID')?.invalid && (questionForm.get('weightID')?.touched || isSubmitted)">
+                                            Weight is required.
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                             <div formArrayName="questionOptions" class="input_field mt-3">
@@ -67,15 +96,12 @@
                                     <div class="row mb-2">
 
                                         <!-- Score Dropdown -->
-                                        <div class="col-4">
+                                        <div class="col-3">
                                             <div class="compare_select kpi_compare_select">
-                                                <ng-select [items]="scoreOptions"
-                                                    bindValue="scoreValue"
-                                                    bindLabel="scoreValue"
-                                                    [searchable]="false"
-                                                    [clearable]="false"
+                                                <ng-select [items]="scoreOptions" bindValue="scoreValue"
+                                                    bindLabel="scoreValue" [searchable]="false" [clearable]="false"
                                                     formControlName="scoreValue"
-                                                    [placeholder]="option.get('scoreValue')?.value === '' || option.get('scoreValue')?.value == null ? 'Select Score' : ''"
+                                                    [placeholder]="option.get('scoreValue')?.value != null && option.get('scoreValue')?.value !== '' ? '' : 'Select Score'"
                                                     class="form-control analyst_multi_select score-select">
                                                 </ng-select>
                                             </div>
@@ -86,8 +112,14 @@
                                             </div>
                                         </div>
 
+                                        <!-- Label -->
+                                        <div class="col-3">
+                                            <input type="text" formControlName="label" placeholder="Enter Label"
+                                                class="form-control" />
+                                        </div>
+
                                         <!-- Option Text -->
-                                        <div class="col-md px-0">
+                                        <div class="col px-0">
                                             <input type="text" formControlName="optionText" placeholder="Option text"
                                                 class="form-control" />
                                             <!-- Validation message -->
@@ -122,12 +154,13 @@
                                     </div>
                                 </div>
                                 <button type="button" class="btn add_btn btn-primary mt-2" (click)="addOption()"
-                                    [disabled]="this.questionOptions.length>=5">Add</button>
+                                    [disabled]="this.questionOptions.length>=7">Add</button>
                             </div>
 
                             <!-- Submit -->
                             <button type="submit" class="common_button w-100 mt-4">
-                                {{ question ? 'Update' : 'Save' }} <span *ngIf="loading" class="spinner-border spinner-border-sm ms-2"></span>
+                                {{ question ? 'Update' : 'Save' }} <span *ngIf="loading"
+                                    class="spinner-border spinner-border-sm ms-2"></span>
                             </button>
                         </form>
                     </div>
@@ -142,12 +175,12 @@
                                     Download Template
                                 </a>
                             </label>
-                              <label class="image-file-picker"> 
-                            <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileChange($event)"
-                               class="image-file-input-hidden" >
-                            <span class="image-file-trigger">Choose File</span>
-                            <span class="image-file-name">{{ selectedFileName }}</span>
-                        </label>
+                            <label class="image-file-picker">
+                                <input #fileInput type="file" accept=".xlsx, .xls" (change)="onFileChange($event)"
+                                    class="image-file-input-hidden">
+                                <span class="image-file-trigger">Choose File</span>
+                                <span class="image-file-name">{{ selectedFileName }}</span>
+                            </label>
                         </div>
                         <div class="wrong_upload_alert">
                             <p>{{this.alertMsg}}</p>

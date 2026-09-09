@@ -34,7 +34,7 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
   countries: CountryVM[] = [];
   selectedUserCountryMappingID: number = 0;
   selectedCountry!: CountryVM;
-  pillerQuestions: GetQuestionByCountryMappingResponse | null = null;
+  pillarQuestions: GetQuestionByCountryMappingResponse | null = null;
   form!: FormGroup;
   pillarDisplayOrder: number = 1;
   checkAssessmentProgress = new Subject<void | null>();
@@ -67,7 +67,7 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
   }
 
   get questions() {
-    return this.pillerQuestions?.questions ?? [];
+    return this.pillarQuestions?.questions ?? [];
   }
 
   formInitialized() {
@@ -81,13 +81,13 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
   }
 
   loadQuestions() {
-    this.pillerQuestions?.questions.forEach((q) => {
+    this.pillarQuestions?.questions.forEach((q) => {
       let option = q.questionOptions.find((x) => x.isSelected);
       this.questionsArray.push(
         this.fb.group({
           questionID: [q.questionID, Validators.required],
           responseID: [q.responseID],
-          assessmentID: [this.pillerQuestions?.assessmentID],
+          assessmentID: [this.pillarQuestions?.assessmentID],
           questionOptionID: [
             q.isSelected ? option?.optionID : null,
             Validators.required,
@@ -151,9 +151,9 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
       this.getQuestionsByCountryId();
     } else if (!this.selectedPillar) {
       this.selectedPillar = this.pillars.find(
-        (x) => x.pillarID == this.pillerQuestions?.pillarID
+        (x) => x.pillarID == this.pillarQuestions?.pillarID
       );
-      if (this.pillerQuestions && this.pillerQuestions?.submittedPillarDisplayOrder < (this.selectedPillar?.displayOrder ?? 0)) {
+      if (this.pillarQuestions && this.pillarQuestions?.submittedPillarDisplayOrder < (this.selectedPillar?.displayOrder ?? 0)) {
         this.pillarDisplayOrder = this.selectedPillar?.displayOrder ?? 1;
       }
     }
@@ -217,17 +217,17 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
     if (this.selectedPillar) {
       payload.pillarID = this.selectedPillar.pillarID;
     }
-    this.pillerQuestions = null;
+    this.pillarQuestions = null;
     this.isLoader = true;
     this.evaluatorService.getQuestionsByCountryId(payload).subscribe({
       next: (res) => {
         this.isLoader = false;
         if (res.succeeded) {
-          this.pillerQuestions = res.result;
+          this.pillarQuestions = res.result;
           setTimeout(() => {
-            if (this.pillerQuestions?.displayOrder && this.pillerQuestions?.pillarID) {
+            if (this.pillarQuestions?.displayOrder && this.pillarQuestions?.pillarID) {
               const container = this.scrollPillarContainer?.nativeElement;
-              const element = container?.querySelector('#pillar-' + this.pillerQuestions.pillarID);
+              const element = container?.querySelector('#pillar-' + this.pillarQuestions.pillarID);
               if (element) {
                 element.scrollIntoView({
                   behavior: 'smooth',
@@ -237,11 +237,11 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
             }
           }, 300);
           this.pillarDisplayOrder = Math.max(
-            this.pillerQuestions?.displayOrder ?? 0,
-            this.pillerQuestions?.submittedPillarDisplayOrder ?? 0
+            this.pillarQuestions?.displayOrder ?? 0,
+            this.pillarQuestions?.submittedPillarDisplayOrder ?? 0
           );
           this.pillarChanged();
-          if (this.pillerQuestions && (this.pillerQuestions?.assessmentID || this.selectedUserCountryMappingID) > 0) {
+          if (this.pillarQuestions && (this.pillarQuestions?.assessmentID || this.selectedUserCountryMappingID) > 0) {
             this.getAssessmentProgressHistory();
           } else {
             this.userService.assessmentProgress.next(null);
@@ -267,15 +267,15 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
       .map((ctrl) => ctrl.value as AddAssessmentResponseDto);
     const payload: AddAssessmentDto = {
       userCountryMappingID: this.selectedUserCountryMappingID,
-      assessmentID: this.pillerQuestions?.assessmentID ?? 0,
-      pillarID: this.pillerQuestions?.pillarID ?? 0,
+      assessmentID: this.pillarQuestions?.assessmentID ?? 0,
+      pillarID: this.pillarQuestions?.pillarID ?? 0,
       responses: validQuestions ?? [],
       isAutoSave: false,
       isFinalized: this.isAssessementFinalized
     };
     if (
-      this.pillerQuestions?.pillarID != null &&
-      this.pillerQuestions?.pillarID > 0
+      this.pillarQuestions?.pillarID != null &&
+      this.pillarQuestions?.pillarID > 0
     ) {
       this.evaluatorService.saveAssessment(payload).subscribe({
         next: (res) => {
@@ -292,7 +292,7 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
               this.getCountryByUserIdForAssessment();
             } else {
               this.selectedPillar = this.getNextPillar(
-                this.selectedPillar?.pillarID ?? this.pillerQuestions?.pillarID
+                this.selectedPillar?.pillarID ?? this.pillarQuestions?.pillarID
               );
               this.getQuestionsByCountryId();
             }
@@ -377,7 +377,7 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
     this.evaluatorService
       .getAssessmentProgressHistory({
         userCountryMappingID: this.selectedUserCountryMappingID,
-        assessmentID: this.pillerQuestions?.assessmentID ?? 0
+        assessmentID: this.pillarQuestions?.assessmentID ?? 0
       })
       .subscribe((res) => {
         if (res.succeeded) {
@@ -397,8 +397,8 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
       if (this.questionsArray.controls[index].valid && this.questionsArray.controls[index].dirty) {
         const payload: AddAssessmentDto = {
           userCountryMappingID: this.selectedUserCountryMappingID,
-          assessmentID: this.pillerQuestions?.assessmentID ?? 0,
-          pillarID: this.pillerQuestions?.pillarID ?? 0,
+          assessmentID: this.pillarQuestions?.assessmentID ?? 0,
+          pillarID: this.pillarQuestions?.pillarID ?? 0,
           responses: [this.questionsArray.controls[index].value],
           isAutoSave: true,
           isFinalized: false
@@ -419,12 +419,12 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
   }
 
   get isLastPillar(): boolean {
-    if (!this.pillerQuestions?.pillarID || this.pillars.length === 0) {
+    if (!this.pillarQuestions?.pillarID || this.pillars.length === 0) {
       return false;
     }
     const sortedPillars = this.getSortedPillars();
     const currentIndex = sortedPillars.findIndex(
-      (pillar) => pillar.pillarID === this.pillerQuestions?.pillarID
+      (pillar) => pillar.pillarID === this.pillarQuestions?.pillarID
     );
 
     return currentIndex !== -1 && currentIndex === sortedPillars.length - 1;
@@ -471,5 +471,18 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
       return txt.value.replace(/\u00a0/g, ' ');
     }
     return "";
+  }
+
+  optionEndLabel(item: { label?: string; optionLabel?: string; scoreValue?: string } | null): string {
+    if (!item) {
+      return '';
+    }
+    const custom = String(
+      item.label ?? (item as { Label?: string }).Label ?? item.optionLabel ?? ''
+    ).trim();
+    if (custom) {
+      return custom;
+    }
+    return item.scoreValue == null ? '' : String(item.scoreValue).trim();
   }
 }

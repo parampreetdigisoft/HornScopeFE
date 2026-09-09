@@ -29,13 +29,15 @@ export interface QuestionOption {
   optionID: number;
   questionID: number;
   optionText: string;
-  scoreValue?: number;
+  scoreValue?: string;
   displayOrder?: number;
+  label?: string;
 }
 
 export interface AddQuestionRequest {
   questionID: number;
   pillarID: number;
+  weightID: number;
   questionText: string;
   questionOptions: QuestionOption[];
 }

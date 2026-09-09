@@ -13,7 +13,7 @@ import { saveAs } from 'file-saver';
 export class AddUpdateQuestionComponent implements OnChanges, OnInit {
 
   @Input() question: GetQuestionResponse | null = null;
-  @Input() pillers: PillarsVM[] = [];
+  @Input() pillars: PillarsVM[] = [];
   @Output() questionChange = new EventEmitter<AddQuestionRequest | null>();
   @Output() bulkQuestionChange = new EventEmitter<AddQuestionRequest[] | null>();
   @Output() closeModal = new EventEmitter<boolean>();
@@ -22,11 +22,19 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
   isSubmitted = false;
   alertMsg = '';
   scoreOptions = [
-    { scoreValue: 4 },
-    { scoreValue: 3 },
-    { scoreValue: 2 },
-    { scoreValue: 1 },
-    { scoreValue: 0 }
+    { scoreValue: '100' },
+    { scoreValue: '75' },
+    { scoreValue: '50' },
+    { scoreValue: '25' },
+    { scoreValue: '0' },
+    { scoreValue: 'N/A' },
+    { scoreValue: 'Indeterminate' }
+  ];
+
+  weightOptions = [
+    { id: 1, value: 3.0, stars: '★★', tier: 'critical' },
+    { id: 2, value: 1.5, stars: '★',  tier: 'high' },
+    { id: 3, value: 1.0, stars: '',   tier: 'standard' }
   ];
 
   excelData: any[] = [];
@@ -54,13 +62,13 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
     this.initializeForm(this.question)
   }
 
+
+  ngOnChanges(changes: SimpleChanges): void {
+  }
+
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();
     return item.pillarName?.toLowerCase().includes(term);
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    this.initializeForm(this.question)
   }
 
 
@@ -68,6 +76,7 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
     this.questionForm = this.fb.group({
       questionText: [question?.questionText, Validators.required],
       pillarID: [question?.pillarID, Validators.required],
+      weightID: [question?.weightID, Validators.required],
       questionOptions: this.fb.array([])
     });
     if ((question?.questionOptions?.length ?? 0) > 0) {
@@ -93,10 +102,18 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
   createOption(option: QuestionOption | null = null): FormGroup {
     return this.fb.group({
       optionText: [option?.optionText, Validators.required],
-      scoreValue: [option?.scoreValue ?? '', Validators.required],
+      scoreValue: [this.toScoreValue(option?.scoreValue), Validators.required],
+      label: [option?.label ?? ''],
       optionID: [option?.optionID ?? 0],
       questionID: [this.question?.questionID ?? 0]
     });
+  }
+
+  private toScoreValue(score: string | number | null | undefined): string | null {
+    if (score === null || score === undefined || score === '') {
+      return null;
+    }
+    return String(score);
   }
 
   addOption(option: QuestionOption | null = null): void {
@@ -110,9 +127,14 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
   onSubmit() {
     this.isSubmitted = true;
     if (this.questionForm.valid) {
+      const formValue = this.questionForm.value;
       const data: AddQuestionRequest = {
-        ...this.questionForm.value,
-        questionID: this.question?.questionID ?? 0
+        ...formValue,
+        questionID: this.question?.questionID ?? 0,
+        questionOptions: (formValue.questionOptions ?? []).map((option: QuestionOption) => ({
+          ...option,
+          scoreValue: this.toScoreValue(option.scoreValue) ?? ''
+        }))
       };
       this.questionChange.emit(data);
     }
@@ -121,6 +143,7 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
     const headers = [
       "QuestionText",
       "PillarName",
+      "Weight",
       "Option1Text", "Option1Score",
       "Option2Text", "Option2Score",
       "Option3Text", "Option3Score",
@@ -131,12 +154,15 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
     // One sample row
      const sampleRow = {
       QuestionText: "Enter Question",
-      PillarName: "Enter Pillar",
-      Option1Text: "Enter Option 1", Option1Score: "4",
-      Option2Text: "Enter Option 2", Option2Score: "3",
-      Option3Text: "Enter Option 3", Option3Score: "2",
-      Option4Text: "Enter Option 4", Option4Score: "1",
-      Option5Text: "Enter Option 5", Option5Score: "0"
+      PillarName: "Enter Pillar",   
+      Weight: "Enter Weight (1.0, 1.5, 3.0)", 
+      Option1Text: "Enter Option 1", Option1Score: "100",
+      Option2Text: "Enter Option 2", Option2Score: "75",
+      Option3Text: "Enter Option 3", Option3Score: "50",
+      Option4Text: "Enter Option 4", Option4Score: "25",
+      Option5Text: "Enter Option 5", Option5Score: "0",
+      Option6Text: "Enter Option 6", Option6Score: "N/A",
+      Option7Text: "Enter Option 7", Option7Score: "Indeterminate"
     };
 
     const ws: XLSX.WorkSheet = XLSX.utils.json_to_sheet([sampleRow], { header: headers });
@@ -200,46 +226,104 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
           this.fileInput.nativeElement.value = "";
           return;
         }
+        
+        const weightValue = parseFloat(String(row["Weight"] ?? "1.0").trim());
+        if(weightValue !== 1.0 && weightValue !== 1.5 && weightValue !== 3.0) {
+          this.alertMsg = `Row ${i + 2}: Invalid Weight - ${weightValue}. Allowed values are 1.0, 1.5, 3.0`;
+          this.fileInput.nativeElement.value = "";
+          return;
+        }
+        
+        const weightOption = this.weightOptions.find(w => w.value === weightValue);
+        const validScores = ["100", "75", "50", "25", "0", "N/A", "INDETERMINATE"];
+        let invalidScoreFound = false;
+        for (let optionNum = 1; optionNum <= 8; optionNum++) {
+          const optionText = String(row[`Option${optionNum}Text`] ?? "").trim();
+          const scoreRaw = String(row[`Option${optionNum}Score`] ?? "").trim();
+          if (!optionText || !scoreRaw) {
+            continue;
+          }
+          
+          const scoreNormalized = scoreRaw.toUpperCase();
+          
+          if (/^-?\d+\.\d+$/.test(scoreRaw)) {
+            this.alertMsg = `Row ${i + 2}: Invalid Score for Option${optionNum} - "${scoreRaw}". Decimal values are not allowed.`;
+            invalidScoreFound = true;
+            break;
+          }
+          if (!validScores.includes(scoreNormalized)) {
+            this.alertMsg = `Row ${i + 2}: Invalid Score for Option${optionNum} - "${scoreRaw}". Allowed values are 100, 75, 50, 25, 0, N/A or Indeterminate.`;
+            invalidScoreFound = true;
+            break;
+          }
+        }
+
+        if (invalidScoreFound) {
+          this.fileInput.nativeElement.value = "";
+          return;
+        }
 
         const question: AddQuestionRequest = {
           questionID: 0,
           pillarID: pillar.pillarID,
+          weightID: weightOption ? weightOption.id : 1,
           questionText: questionText,
           questionOptions: [
             {
               optionID: 0,
               questionID: 0,
               optionText: String(row["Option1Text"] ?? "").trim(),
-              scoreValue: this.parseScore(row["Option1Score"]),
+              scoreValue: String(row["Option1Score"] ?? "").trim(),
               displayOrder: 1
             },
             {
               optionID: 0,
               questionID: 0,
               optionText: String(row["Option2Text"] ?? "").trim(),
-              scoreValue: this.parseScore(row["Option2Score"]),
+              scoreValue: String(row["Option2Score"] ?? "").trim(),
               displayOrder: 2
             },
             {
               optionID: 0,
               questionID: 0,
               optionText: String(row["Option3Text"] ?? "").trim(),
-              scoreValue: this.parseScore(row["Option3Score"]),
+              scoreValue: String(row["Option3Score"] ?? "").trim(),
               displayOrder: 3
             },
             {
               optionID: 0,
               questionID: 0,
               optionText: String(row["Option4Text"] ?? "").trim(),
-              scoreValue: this.parseScore(row["Option4Score"]),
+              scoreValue: String(row["Option4Score"] ?? "").trim(),
               displayOrder: 4
             },
             {
               optionID: 0,
               questionID: 0,
               optionText: String(row["Option5Text"] ?? "").trim(),
-              scoreValue: this.parseScore(row["Option5Score"]),
+              scoreValue: String(row["Option5Score"] ?? "").trim(),
               displayOrder: 5
+            },
+             {
+              optionID: 0,
+              questionID: 0,
+              optionText: String(row["Option6Text"] ?? "").trim(),
+              scoreValue: String(row["Option6Score"] ?? "").trim(),
+              displayOrder: 6
+            },
+            {
+              optionID: 0,
+              questionID: 0,
+              optionText: String(row["Option7Text"] ?? "").trim(),
+              scoreValue: String(row["Option7Score"] ?? "").trim(),
+              displayOrder: 7
+            },
+            {
+              optionID: 0,
+              questionID: 0,
+              optionText: String(row["Option8Text"] ?? "").trim(),
+              scoreValue: String(row["Option8Score"] ?? "").trim(),
+              displayOrder: 8
             }
           ].filter(o => o.optionText) // ✅ remove empty options
         };
@@ -256,16 +340,20 @@ export class AddUpdateQuestionComponent implements OnChanges, OnInit {
     reader.readAsBinaryString(target.files[0]);
   }
 
-
-  private getPillarByName(pillarName: string): PillarsVM | undefined {
-    return this.pillers.find(
-      x => x.pillarName.toLowerCase().trim() === pillarName.trim().toLowerCase()
-    );
+  getSelectedWeight() {
+    const selectedId = this.questionForm.get('weightID')?.value;
+    return this.weightOptions.find(w => w.id === selectedId);
   }
 
-  private parseScore(val: any): number {
-    const parsed = parseInt(val, 10);
-    return isNaN(parsed) ? 0 : parsed;
+  getWeightTierClass(): string {
+    const selected = this.getSelectedWeight();
+    return selected ? 'weight-' + selected.tier : '';
+  }
+
+  private getPillarByName(pillarName: string): PillarsVM | undefined {
+    return this.pillars.find(
+      x => x.pillarName.toLowerCase().trim() === pillarName.trim().toLowerCase()
+    );
   }
 
   bulkImport() {

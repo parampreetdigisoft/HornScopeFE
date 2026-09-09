@@ -20,7 +20,6 @@
             [clearable]="false"
             [placeholder]="'Search by Country'"
             notFoundText="No countries found"
-            appendTo="body"
             dropdownPosition="auto">
             <ng-template ng-option-tmp let-item="item">
               <span class="assessment_country_option">{{ item.countryName }}</span>
@@ -123,7 +122,7 @@
     <div class="faq_main_section" #scrollContainer>
       <form [formGroup]="form">
         <div class="tabs_discrp">
-          <div class="tabs_discrp_inner" [innerHTML]="decodeHtml(pillerQuestions?.description)"></div>
+          <div class="tabs_discrp_inner" [innerHTML]="decodeHtml(pillarQuestions?.description)"></div>
         </div>
         <div class="faq_main_section_inner" formArrayName="questions"
           *ngFor="let group of questionsArray.controls; let i = index">
@@ -133,12 +132,13 @@
 
               <ng-select class="faq_select assessment_select"
                 [items]="questions[i].questionOptions"
+                bindLabel="optionText"
                 bindValue="optionID"
                 formControlName="questionOptionID"
                 placeholder="Select option"
                 [searchable]="false"
                 [clearable]="true"
-                dropdownPosition="bottom"
+                dropdownPosition="auto"
                 (change)="onOptionChange($event, i)">
                 <ng-template ng-label-tmp let-item="item">
                   <span class="assessment_select_label" [title]="item.optionText">
@@ -148,6 +148,7 @@
                 <ng-template ng-option-tmp let-item="item">
                   <div class="assessment_option">
                     <span *ngIf="item.scoreValue != null" class="assessment_option_score">{{ item.scoreValue }}</span>
+                    <span *ngIf="optionEndLabel(item)" class="assessment_option_score assessment_option_end_label">{{ optionEndLabel(item) }}</span>
                     <span class="assessment_option_text">{{ item.optionText }}</span>
                   </div>
                 </ng-template>
@@ -155,12 +156,13 @@
 
               <ng-select class="faq_select assessment_select assessment_select--history"
                 [items]="questions[i].history"
+                bindLabel="optionText"
                 bindValue="userID"
                 formControlName="historyQuestionOptionID"
                 placeholder="Choose from history"
                 [searchable]="false"
                 [clearable]="true"
-                dropdownPosition="bottom"
+                dropdownPosition="auto"
                 (change)="onHistoryOptionChange($event, i)">
                 <ng-template ng-label-tmp let-item="item">
                   <span class="assessment_select_label" [title]="item.fullName + ': ' + item.optionText">
@@ -173,6 +175,7 @@
                     <span class="assessment_option_content">
                       <span class="assessment_option_user">{{ item.fullName }}</span>
                       <span *ngIf="item.scoreValue != null" class="assessment_option_score">{{ item.scoreValue }}</span>
+                      <span *ngIf="optionEndLabel(item)" class="assessment_option_score assessment_option_end_label">{{ optionEndLabel(item) }}</span>
                       <span class="assessment_option_text">{{ item.optionText }}</span>
                     </span>
                   </div>

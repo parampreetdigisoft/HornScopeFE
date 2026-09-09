@@ -921,6 +921,14 @@ body > .ng-dropdown-panel .ng-dropdown-panel-items {
   background: transparent !important;
 }
 
+body > .ng-dropdown-panel:has(.assessment_option) .ng-dropdown-panel-items {
+  max-height: min(260px, 40vh) !important;
+}
+
+body > .ng-dropdown-panel:has(.assessment_option--history) .ng-dropdown-panel-items {
+  max-height: min(220px, 34vh) !important;
+}
+
 body > .ng-dropdown-panel .scroll-host {
   background: transparent !important;
 }
@@ -937,6 +945,12 @@ body > .ng-dropdown-panel .ng-option {
   border-radius: 6px !important;
   font-size: 12px !important;
   transition: background 0.15s ease, color 0.15s ease !important;
+}
+
+body > .ng-dropdown-panel .ng-option:has(.assessment_option) {
+  padding: 6px 8px !important;
+  line-height: 1.45 !important;
+  white-space: normal !important;
 }
 
 body > .ng-dropdown-panel .ng-option:last-child {
@@ -984,16 +998,16 @@ body > .ng-dropdown-panel .assessment_country_meta {
 body > .ng-dropdown-panel .assessment_option,
 body > .ng-dropdown-panel .assessment_option_content {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   flex-wrap: nowrap;
-  gap: 6px;
+  gap: 8px;
   width: 100%;
   min-width: 0;
 }
 
 body > .ng-dropdown-panel .assessment_option--history {
   flex-direction: row;
-  gap: 6px;
+  gap: 8px;
 }
 
 body > .ng-dropdown-panel .assessment_option_score {
@@ -1001,6 +1015,7 @@ body > .ng-dropdown-panel .assessment_option_score {
   min-width: 18px;
   height: 18px;
   padding: 0 5px;
+  margin-top: 1px;
   border-radius: 4px;
   background: rgba(197, 160, 90, 0.2);
   color: #D4B86A;
@@ -1024,13 +1039,22 @@ body > .ng-dropdown-panel .assessment_option_user {
 body > .ng-dropdown-panel .assessment_option_text {
   min-width: 0;
   flex: 1 1 auto;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  overflow-wrap: normal;
+  white-space: normal;
+  overflow: visible;
+  overflow-wrap: anywhere;
+  word-break: break-word;
   color: #E8EEF4;
   font-size: 12px;
-  line-height: 1.3;
+  line-height: 1.45;
+}
+
+body > .ng-dropdown-panel .assessment_option_end_label {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  margin: 1px 0 0 0;
+  white-space: nowrap;
 }
 
 @keyframes amiAssessDropIn {

@@ -6,7 +6,7 @@
     <div class="col-md-auto">
       <div class="inner_div d-flex align-items-center justify-content-center">
         <div class="compare_select kpi_compare_select">
-        <ng-select [items]="pillers" [searchable]="true" [searchFn]="customSearchFn"
+        <ng-select [items]="pillars" [searchable]="true" [searchFn]="customSearchFn"
           [placeholder]="selectedPillarId ? '' : 'Search Domain..'"
           [(ngModel)]="selectedPillarId" (change)="onPillarChange()"
           bindValue="pillarID" bindLabel="pillarName"
@@ -137,7 +137,7 @@
   >
     <app-add-update-question
       [question]="selectedQuestion"
-      [pillers]="pillers"
+      [pillars]="pillars"
       (questionChange)="addUpdateQuestion($event)"
       (bulkQuestionChange)="addBulkQuestion($event)"
       [loading]="loading"

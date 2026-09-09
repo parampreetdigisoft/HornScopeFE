@@ -236,6 +236,9 @@ export class ViewCountryDetailComponent implements OnChanges {
   }
 
   startEdit() {
+    if (!this.hasCountryScoreRecord) {
+      return;
+    }
     this.resetDraft();
     this.editMode = true;
     this.ApexGetPieOptions();
@@ -248,7 +251,7 @@ export class ViewCountryDetailComponent implements OnChanges {
   }
 
   saveChanges() {
-    if (!this.country) {
+    if (!this.country || !this.hasCountryScoreRecord) {
       return;
     }
 

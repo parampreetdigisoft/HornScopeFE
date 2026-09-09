@@ -85,6 +85,12 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
     return false;
   }
 
+  get hasPillarScoreRecord(): boolean {
+    return (this.pillar?.pillarScoreID ?? 0) > 0
+      && (this.pillar?.countryID ?? 0) > 0
+      && (this.pillar?.pillarID ?? 0) > 0;
+  }
+
   get isAnalyst(): boolean {
     return this.userService.userInfo?.role === UserRole.Analyst;
   }
@@ -161,6 +167,9 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
   }
 
   startEdit() {
+    if (!this.hasPillarScoreRecord) {
+      return;
+    }
     this.resetDraft();
     this.editMode = true;
   }
@@ -171,7 +180,7 @@ export class ViewAiPillarDetailsComponent implements OnChanges {
   }
 
   saveChanges() {
-    if (!this.pillar) {
+    if (!this.pillar || !this.hasPillarScoreRecord) {
       return;
     }
 
