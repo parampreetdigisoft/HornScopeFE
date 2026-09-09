@@ -226,7 +226,6 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
       next: (res) => {
         this.isLoader = false;
         if (res.succeeded) {
-          debugger;
           this.pillarQuestions = res.result;
           setTimeout(() => {
             if (this.pillarQuestions?.displayOrder && this.pillarQuestions?.pillarID) {
@@ -588,7 +587,6 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
   }
 
   optionEndLabel(item: { label?: string; optionLabel?: string; scoreValue?: string } | null): string {
-    debugger;
     if (!item) {
       return '';
     }
