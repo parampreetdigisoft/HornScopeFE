@@ -18,7 +18,7 @@ import {
 import { AiCountryPillarDashboardResponseDto } from 'src/app/core/models/AiCountryPillarDashboardResponseDto';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HS_CHART, amiScoreColor, HS_AXIS_STYLE } from 'src/app/core/constants/hs-chart-theme';
-import { SignalIndexHelpers, SignalTab } from 'src/app/core/utils/signal-index.helpers';
+import { DiagnosticsDashboardTab } from 'src/app/core/constants/relational-diagnostics.catalog';
 import { DashboardModeResponseDto } from 'src/app/core/models/CountrySignalDashboardDto';
 
 
@@ -65,7 +65,11 @@ export type PillarChartOptions = {
   templateUrl: './analyst-dashboard.component.html',
   styleUrl: './analyst-dashboard.component.css',
 })
-export class AnalystDashboardComponent extends SignalIndexHelpers implements OnInit {
+export class AnalystDashboardComponent implements OnInit {
+  activeTab: DiagnosticsDashboardTab = 'relational';
+  selectedFamilyId = 'A';
+  diagnosticsDashboard: DashboardModeResponseDto | null = null;
+  signalLoading = false;
   selectedYear = new Date().getFullYear();
   countries: CountryVM[] | null = [];
   selectedCountries: number | any = '';
@@ -76,7 +80,6 @@ export class AnalystDashboardComponent extends SignalIndexHelpers implements OnI
   resizeTimeout: any;
   constructor(private analystService: AnalystService, private toaster: ToasterService,
     private userService: UserService, public commonService: CommonService, private router: Router) {
-    super('analystSignalDetailModal');
   }
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
@@ -127,9 +130,7 @@ export class AnalystDashboardComponent extends SignalIndexHelpers implements OnI
 
   onCountrySelected() {
     this.getCountryPillarHistory();
-    if (this.selectedCountries) {
-      this.loadActiveTabData();
-    }
+    this.loadActiveTabData();
   }
 
   GetCountryHistory() {
@@ -163,87 +164,67 @@ export class AnalystDashboardComponent extends SignalIndexHelpers implements OnI
     });
   }
 
-  setActiveTab(tab: SignalTab): void {
-    if (this.activeTab === tab) return;
+  setActiveTab(tab: DiagnosticsDashboardTab): void {
     this.activeTab = tab;
     this.loadActiveTabData();
   }
 
+  onFamilyChange(familyId: string): void {
+    this.selectedFamilyId = familyId || 'A';
+    if (this.activeTab === 'relational') {
+      this.loadRelationalDiagnosticsDashboard(this.selectedFamilyId);
+    }
+  }
+
   loadActiveTabData(): void {
     if (!this.selectedCountries) return;
-    if (this.activeTab === 'stress') {
-      this.loadStressDashboard();
+    if (this.activeTab === 'relational') {
+      this.loadRelationalDiagnosticsDashboard(this.selectedFamilyId || 'A');
       return;
     }
-    if (this.activeTab === 'warning') {
-      this.loadEarlyWarningDashboard();
-      return;
-    }
-    this.loadResilienceDashboard();
+    this.loadCompositeDiagnosticsDashboard();
   }
 
-  loadStressDashboard(): void {
+  loadRelationalDiagnosticsDashboard(familyGroup: string = 'A'): void {
     if (!this.selectedCountries) return;
     this.signalLoading = true;
-    this.analystService.getPeaceStressTestDashboard(this.selectedCountries, Number(this.selectedYear)).subscribe({
+    this.analystService
+      .getRelationalDiagnosticsDashboard(this.selectedCountries, Number(this.selectedYear), familyGroup)
+      .subscribe({
+        next: (res) => {
+          this.signalLoading = false;
+          if (!res.succeeded) {
+            this.diagnosticsDashboard = null;
+            this.toaster.showWarning(res.errors?.[0] || 'No relational diagnostics data found.');
+            return;
+          }
+          this.diagnosticsDashboard = res.result as DashboardModeResponseDto;
+        },
+        error: () => {
+          this.signalLoading = false;
+          this.diagnosticsDashboard = null;
+          this.toaster.showError('Failed to load relational diagnostics dashboard.');
+        },
+      });
+  }
+
+  loadCompositeDiagnosticsDashboard(): void {
+    if (!this.selectedCountries) return;
+    this.signalLoading = true;
+    this.analystService.getCompositeDiagnosticsDashboard(this.selectedCountries, Number(this.selectedYear)).subscribe({
       next: (res) => {
         this.signalLoading = false;
         if (!res.succeeded) {
-          this.stressDashboard = null;
-          this.toaster.showWarning(res.errors?.[0] || 'No stress test data found.');
+          this.diagnosticsDashboard = null;
+          this.toaster.showWarning(res.errors?.[0] || 'No composite diagnostics data found.');
           return;
         }
-        this.stressDashboard = res.result as DashboardModeResponseDto;
-        this.interpretationConditions = res.result?.dashboardInterpretations ?? [];
-        if (this.activeTab === 'stress') this.updateGlanceCharts(this.stressDashboard);
+        this.diagnosticsDashboard = res.result as DashboardModeResponseDto;
       },
       error: () => {
         this.signalLoading = false;
-        this.toaster.showError('Failed to load stress test dashboard.');
-      },
-    });
-  }
-
-  loadEarlyWarningDashboard(): void {
-    if (!this.selectedCountries) return;
-    this.signalLoading = true;
-    this.analystService.getEarlyWarningDashboard(this.selectedCountries, Number(this.selectedYear)).subscribe({
-      next: (res) => {
-        this.signalLoading = false;
-        if (!res.succeeded) {
-          this.warningDashboard = null;
-          this.toaster.showWarning(res.errors?.[0] || 'No early warning data found.');
-          return;
-        }
-        this.warningDashboard = res.result as DashboardModeResponseDto;
-        this.interpretationConditions = res.result?.dashboardInterpretations ?? [];
-        if (this.activeTab === 'warning') this.updateGlanceCharts(this.warningDashboard);
-      },
-      error: () => {
-        this.signalLoading = false;
-        this.toaster.showError('Failed to load early warning dashboard.');
-      },
-    });
-  }
-
-  loadResilienceDashboard(): void {
-    if (!this.selectedCountries) return;
-    this.signalLoading = true;
-    this.analystService.getResilienceScorecard(this.selectedCountries, Number(this.selectedYear)).subscribe({
-      next: (res) => {
-        this.signalLoading = false;
-        if (!res.succeeded) {
-          this.resilienceDashboard = null;
-          this.toaster.showWarning(res.errors?.[0] || 'No resilience data found.');
-          return;
-        }
-        this.resilienceDashboard = res.result as DashboardModeResponseDto;
-        this.interpretationConditions = res.result?.dashboardInterpretations ?? [];
-        if (this.activeTab === 'resilience') this.updateGlanceCharts(this.resilienceDashboard);
-      },
-      error: () => {
-        this.signalLoading = false;
-        this.toaster.showError('Failed to load resilience scorecard.');
+        this.diagnosticsDashboard = null;
+        this.toaster.showError('Failed to load composite diagnostics dashboard.');
       },
     });
   }
@@ -253,10 +234,6 @@ export class AnalystDashboardComponent extends SignalIndexHelpers implements OnI
       this.countries?.find((x) => x.countryID === this.selectedCountries)?.countryName ||
       'Selected Country'
     );
-  }
-
-  getSignalCountryName(): string {
-    return this.getCountryName();
   }
 
   goToCountryAnalysis() {
@@ -277,8 +254,8 @@ export class AnalystDashboardComponent extends SignalIndexHelpers implements OnI
         return {
           CountryName: country?.countryName,
           PillarName: x.pillarName,
-          AIScore: x.aiValue?.toFixed(2),
-          EvaluationScore: x.evaluationValue?.toFixed(2)
+          AIScore: x.aiValue?.toFixed(1),
+          EvaluationScore: x.evaluationValue?.toFixed(1)
         };
       });
       this.commonService.exportExcel(exportData);
@@ -722,7 +699,7 @@ export class AnalystDashboardComponent extends SignalIndexHelpers implements OnI
               </div>
               <div style="background:#123049; border:1px solid #1E3D5C; border-radius:8px; padding:10px;">
                 <div style="color:#8FA3B5; margin-bottom:4px;">Avg Score</div>
-                <div style="font-family:JetBrains Mono,monospace; font-weight:700;">${avgScore.toFixed(0)}</div>
+                <div style="font-family:JetBrains Mono,monospace; font-weight:700;">${avgScore.toFixed(1)}</div>
               </div>
             </div>
           </div>

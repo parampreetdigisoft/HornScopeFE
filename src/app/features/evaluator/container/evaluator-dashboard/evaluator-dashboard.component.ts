@@ -237,7 +237,7 @@ export class EvaluatorDashboardComponent implements OnInit {
           style: {
             fontSize: '14px',
             fontWeight: 700,
-            color: HS_CHART.text,
+            color: HS_CHART.primaryMid,
           },
           offsetY: 0,
         },
@@ -245,18 +245,18 @@ export class EvaluatorDashboardComponent implements OnInit {
           style: {
             fontSize: '12px',
             fontWeight: 600,
-            colors: HS_CHART.textMuted,
+            colors: [HS_CHART.text],
           },
           formatter: (value: string) => `${value}`,
         },
         axisBorder: {
           show: true,
-          color: HS_CHART.border,
+          color: HS_CHART.textMuted,
           offsetY: 0,
         },
         axisTicks: {
           show: true,
-          color: HS_CHART.grid,
+          color: HS_CHART.textMuted,
           height: 5,
         },
         min: 0,
@@ -384,10 +384,11 @@ export class EvaluatorDashboardComponent implements OnInit {
 
   private getBarColor(scoreProgress: number, maxNumber: number): string {
     if (scoreProgress === 0) {
-      return HS_CHART.pillarBar[0];
+      return HS_CHART.accent;
     }
     const normalized = maxNumber > 0 ? (scoreProgress / maxNumber) * 100 : 0;
-    return amiScoreColor(normalized);
+    return (amiScoreColor(normalized));
+    // return color === '#E8EEF4' ? HS_CHART.primaryMid : color;
   }
 
   private buildRadialChart(): void {

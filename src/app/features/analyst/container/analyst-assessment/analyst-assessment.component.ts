@@ -38,9 +38,9 @@ import { AssessmentPhase } from "src/app/core/enums/AssessmentPhase";
 })
 export class AnalystAssessmentComponent implements OnInit, OnDestroy {
   pillars: PillarsVM[] = [];
-  countries: CountryVM[] = []; // ✅ fixed type
+  countries: CountryVM[] = [];
   selectedUserCountryMappingID: number = 0;
-  selectedCountry!: CountryVM ;
+  selectedCountry!: CountryVM;
   pillarQuestions: GetQuestionByCountryMappingResponse | null = null;
   form!: FormGroup;
   pillarDisplayOrder: number = 1;
@@ -102,7 +102,7 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
             q.isSelected ? option?.optionID : null,
             Validators.required,
           ],
-          score: [q.isSelected ? option?.scoreValue :null],
+          // score: [q.isSelected ? option?.scoreValue :null],
           justification: [
             q.isSelected ? option?.justification : null,
             Validators.required,
@@ -122,14 +122,13 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
       const formGroup = this.questionsArray.at(index) as FormGroup;
       formGroup.patchValue({
         questionOptionID: selectedOption.optionID,
-        score: selectedOption.scoreValue,
+        // score: selectedOption.scoreValue,
         historyQuestionOptionID: null
       });
-      this.autoSaveSingleAssessemnt(index);
     }
   }
 
-  makePillarActive(pillar:PillarsVM){
+  makePillarActive(pillar: PillarsVM) {
     return (this.selectedCountry?.assessmentPhase != AssessmentPhase.Completed && pillar.displayOrder <= this.pillarDisplayOrder );
   }
   activeClass(pillar:PillarsVM){
@@ -165,7 +164,7 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
   }
 
   countryChanged() {
-    this.selectedCountry = this.countries.filter(x=>x.userCountryMappingID == this.selectedUserCountryMappingID)[0]
+    this.selectedCountry = this.countries.filter(x => x.userCountryMappingID == this.selectedUserCountryMappingID)[0];
     this.selectedPillar = undefined;
     this.getQuestionsByCountryId();
   }
@@ -189,7 +188,7 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
               (x) => x.userCountryMappingID == this.selectedUserCountryMappingID
             ) as CountryVM;
             setTimeout(() => {
-              this.toaster.showInfo("You have rediredected to assgined country, please submit all domains for the country");
+              this.toaster.showInfo("You have redirected to assigned country, please submit all domains for the country");
             }, 500);
             this.getQuestionsByCountryId();
           } else {
@@ -251,7 +250,7 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
           this.pillarChanged();
           this.loadQuestions();
         } else {
-          this.toaster.showWarning("The country's assessment has already been submitted, or the selected pillar has no questions.");
+          this.toaster.showWarning("The country's assessment has already been submitted, or the selected domain has no questions.");
         }
       },
     });
@@ -387,10 +386,9 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
   }
   
   autoSaveSingleAssessemnt(index: number) {
-
     if (this.questionsArray.controls[index].valid) {
       if (!this.selectedUserCountryMappingID || this.selectedUserCountryMappingID == 0) {
-        this.toaster.showWarning("Please select city first");
+        this.toaster.showWarning("Please select country first");
         return;
       }
       if (this.questionsArray.controls[index].valid && this.questionsArray.controls[index].dirty) {
@@ -509,7 +507,8 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
         }
       });
   }
-  downloadQuestions(mode: string) {
+  
+  downloadAssessment(mode: string) {
     if (mode === 'excel') { this.ImportQuestions() }
     else { this.exportPillarsHistoryByUserId(ExportType.Pdf); }
 
@@ -550,7 +549,7 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
         const a = document.createElement("a");
         a.href = url;
 
-        // ✅ Dynamic filename
+        //  Dynamic filename
         a.download = type === ExportType.Pdf
           ? "PillarQuestionHistory.pdf"
           : "PillarQuestionHistory.xlsx";

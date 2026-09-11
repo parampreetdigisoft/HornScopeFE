@@ -50,8 +50,8 @@ export const HS_CHART = {
     '#C9A85A',
     '#D4B86A',
     '#5A9B8A',
-    '#B8C5D0',
-    '#E8EEF4',
+    '#29567a',
+    '#3f75ac',
   ],
 
   /** Domain bar chart (evaluator) — light to strong */
@@ -63,9 +63,9 @@ export const HS_CHART = {
     '#C9A85A',
     '#D4B86A',
     '#5A9B8A',
-    '#B8C5D0',
-    '#7A8A9A',
-    '#E8EEF4',
+    '#2c5679',
+    '#0b6dcf',
+    '#3a665c',
   ],
 
   completionHigh: '#5A9B8A',

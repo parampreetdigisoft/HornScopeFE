@@ -1,6 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
 import {
   ApexAxisChartSeries,
   ApexChart,
@@ -14,43 +13,18 @@ import {
 } from 'ng-apexcharts';
 import { CountryVM } from 'src/app/core/models/CountryVM';
 import { TieredAccessPlanValue } from 'src/app/core/enums/TieredAccessPlan';
-import {
-  DashboardModeResponseDto,
-  SignalCardDto,
-} from 'src/app/core/models/CountrySignalDashboardDto';
 import { CountryHistoryDto } from 'src/app/core/models/countryHistoryDto';
 import { PillarsVM } from 'src/app/core/models/PillersVM';
 import { AiCountrySummeryRequestPdfDto } from 'src/app/core/models/aiVm/AiCountrySummeryRequestPdfDto';
-import { ResultResponseDto } from 'src/app/core/models/ResultResponseDto';
 import { HS_CHART } from 'src/app/core/constants/hs-chart-theme';
+import { DiagnosticsDashboardTab } from 'src/app/core/constants/relational-diagnostics.catalog';
+import { DashboardModeResponseDto } from 'src/app/core/models/CountrySignalDashboardDto';
 import { CommonService } from 'src/app/core/services/common.service';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { CountryUserService } from '../../country-user.service';
 
 declare var bootstrap: any;
-
-type SignalTab = 'stress' | 'warning' | 'resilience';
-
-interface CountryKpiCard {
-  id: number;
-  code: string;
-  name: string;
-  description: string;
-  aiScore: number | null;
-  condition: string;
-  interpretation: string;
-  icon: string;
-  isAlert: boolean;
-  aiUpdatedAt: Date | string | null;
-}
-
-interface CountryIndexHero {
-  modeName: string;
-  countryLabel: string;
-  overallLabel: string;
-  stats: { label: string; value: string }[];
-}
 
 export type AreaChartOptions = {
   series: ApexAxisChartSeries;
@@ -84,33 +58,23 @@ export type RadialChartOptions = {
   encapsulation: ViewEncapsulation.None,
 })
 export class CountryUserDashboardComponent implements OnInit {
-  readonly kpiTabs: { id: SignalTab; label: string; icon: string }[] = [
-    { id: 'stress', label: 'Market System Stress Test', icon: 'bi-speedometer2' },
-    { id: 'warning', label: 'Strategic Early Warning', icon: 'bi-bell' },
-    { id: 'resilience', label: 'Market System Resilience Scorecard', icon: 'bi-bar-chart-steps' },
-  ];
-
   selectedYear = new Date().getFullYear();
   countries: CountryVM[] = [];
   selectedCountryID: number | null = null;
   countryHistory: CountryHistoryDto | null = null;
-  modeDashboard: DashboardModeResponseDto | null = null;
   aiPillars: { pillarID: number; pillarName: string; aiValue: number }[] = [];
-  activeKpiTab: SignalTab = 'stress';
-  selectedKpi: CountryKpiCard | null = null;
-  kpiCards: CountryKpiCard[] = [];
-  indexHero: CountryIndexHero | null = null;
+  activeKpiTab: DiagnosticsDashboardTab = 'relational';
+  selectedFamilyId = 'A';
+  diagnosticsDashboard: DashboardModeResponseDto | null = null;
+  signalLoading = false;
   pillarChartOptions: Partial<AreaChartOptions> | null = null;
   radialChartOptions: Partial<RadialChartOptions> | null = null;
 
   isLoader = false;
-  isKpiLoader = false;
   loading = false;
   chooseKpisLayers = false;
   pillars: PillarsVM[] = [];
   tier: TieredAccessPlanValue = TieredAccessPlanValue.Pending;
-
-  private readonly kpiModalId = 'countryUserKpiDetailModal';
 
   constructor(
     private countryUserService: CountryUserService,
@@ -165,25 +129,83 @@ export class CountryUserDashboardComponent implements OnInit {
 
   onCountryChanged(): void {
     if (!this.selectedCountryID) return;
-    this.activeKpiTab = 'stress';
     this.loadAiPillars();
-    this.loadModeDashboard(false);
+    this.loadActiveTabData();
   }
 
   yearChanged(): void {
     if (!this.selectedCountryID) return;
     this.loadAiPillars();
-    this.loadModeDashboard(false);
+    this.loadActiveTabData();
   }
 
-  setKpiTab(tab: SignalTab): void {
-    if (this.activeKpiTab === tab) return;
+  setKpiTab(tab: DiagnosticsDashboardTab): void {
     this.activeKpiTab = tab;
-    this.loadModeDashboard(true);
+    this.loadActiveTabData();
   }
 
-  getTabIcon(tab: SignalTab): string {
-    return this.kpiTabs.find((item) => item.id === tab)?.icon ?? 'bi-speedometer2';
+  onFamilyChange(familyId: string): void {
+    this.selectedFamilyId = familyId || 'A';
+    if (this.activeKpiTab === 'relational') {
+      this.loadRelationalDiagnosticsDashboard(this.selectedFamilyId);
+    }
+  }
+
+  loadActiveTabData(): void {
+    if (!this.selectedCountryID) return;
+    if (this.activeKpiTab === 'relational') {
+      this.loadRelationalDiagnosticsDashboard(this.selectedFamilyId || 'A');
+      return;
+    }
+    this.loadCompositeDiagnosticsDashboard();
+  }
+
+  loadRelationalDiagnosticsDashboard(familyGroup: string = 'A'): void {
+    if (!this.selectedCountryID) return;
+    this.signalLoading = true;
+    this.countryUserService
+      .getRelationalDiagnosticsDashboard(this.selectedCountryID, Number(this.selectedYear), familyGroup)
+      .subscribe({
+        next: (res) => {
+          this.signalLoading = false;
+          if (!res.succeeded) {
+            this.diagnosticsDashboard = null;
+            this.toaster.showWarning(res.errors?.[0] || 'No relational diagnostics data found.');
+            return;
+          }
+          this.diagnosticsDashboard = res.result as DashboardModeResponseDto;
+        },
+        error: () => {
+          this.signalLoading = false;
+          this.diagnosticsDashboard = null;
+          this.toaster.showError('Failed to load relational diagnostics dashboard.');
+        },
+      });
+  }
+
+  loadCompositeDiagnosticsDashboard(): void {
+    if (!this.selectedCountryID) return;
+    this.signalLoading = true;
+    this.countryUserService.getCompositeDiagnosticsDashboard(this.selectedCountryID, Number(this.selectedYear)).subscribe({
+      next: (res) => {
+        this.signalLoading = false;
+        if (!res.succeeded) {
+          this.diagnosticsDashboard = null;
+          this.toaster.showWarning(res.errors?.[0] || 'No composite diagnostics data found.');
+          return;
+        }
+        this.diagnosticsDashboard = res.result as DashboardModeResponseDto;
+      },
+      error: () => {
+        this.signalLoading = false;
+        this.diagnosticsDashboard = null;
+        this.toaster.showError('Failed to load composite diagnostics dashboard.');
+      },
+    });
+  }
+
+  get diagnosticsCountryName(): string {
+    return this.countries.find((c) => c.countryID === this.selectedCountryID)?.countryName || 'Selected country';
   }
 
   private loadAiPillars(): void {
@@ -208,134 +230,9 @@ export class CountryUserDashboardComponent implements OnInit {
     });
   }
 
-  private loadModeDashboard(sectionOnly: boolean): void {
-    if (!this.selectedCountryID) {
-      this.isLoader = false;
-      this.isKpiLoader = false;
-      return;
-    }
-
-    if (sectionOnly) {
-      this.isKpiLoader = true;
-    } else {
-      this.isLoader = true;
-    }
-
-    this.getModeRequest(this.selectedCountryID).subscribe({
-      next: (res) => {
-        this.isLoader = false;
-        this.isKpiLoader = false;
-        this.modeDashboard = res.succeeded ? res.result : null;
-        this.kpiCards = this.buildKpiCards(this.modeDashboard);
-        if (!this.aiPillars.length && this.modeDashboard) {
-          const signals = this.getSignals(this.modeDashboard);
-          this.aiPillars = signals.map((s, index) => ({
-            pillarID: s.layerID || index,
-            pillarName: s.name || s.layerName || s.code || `Signal ${index + 1}`,
-            aiValue: Number(s.aiValue ?? 0),
-          }));
-          this.refreshDerivedViews();
-        } else {
-          this.buildIndexHero();
-        }
-      },
-      error: () => {
-        this.isLoader = false;
-        this.isKpiLoader = false;
-        this.modeDashboard = null;
-        this.kpiCards = [];
-        this.buildIndexHero();
-      },
-    });
-  }
-
-  private getModeRequest(countryID: number): Observable<ResultResponseDto<DashboardModeResponseDto>> {
-    const year = Number(this.selectedYear);
-    if (this.activeKpiTab === 'warning') {
-      return this.countryUserService.getEarlyWarningDashboard(countryID, year);
-    }
-    if (this.activeKpiTab === 'resilience') {
-      return this.countryUserService.getResilienceScorecard(countryID, year);
-    }
-    return this.countryUserService.getPeaceStressTestDashboard(countryID, year);
-  }
-
   private refreshDerivedViews(): void {
     this.pillarChartOptions = this.buildAreaChart();
     this.radialChartOptions = this.buildRadialChart();
-    this.buildIndexHero();
-  }
-
-  private getSignals(dashboard: DashboardModeResponseDto | null): SignalCardDto[] {
-    if (!dashboard) return [];
-    if (dashboard.primarySignals?.length) {
-      return [...dashboard.primarySignals, ...(dashboard.secondarySignals ?? [])];
-    }
-    return dashboard.signals ?? [];
-  }
-
-  private buildKpiCards(dashboard: DashboardModeResponseDto | null): CountryKpiCard[] {
-    if (!dashboard) return [];
-    const signals = this.getSignals(dashboard);
-    if (signals.length) {
-      return signals.map((s, index) => ({
-        id: s.layerID || index,
-        code: s.code || s.layerCode || `KPI-${index + 1}`,
-        name: s.name || s.layerName || `Indicator ${index + 1}`,
-        description: s.description || '',
-        aiScore: this.hasScore(s.aiValue) ? Number(s.aiValue) : null,
-        condition: s.aiCondition || this.conditionFromScore(s.aiValue),
-        interpretation: s.aiDescriptor || s.aiInterpretationValue || '',
-        icon: this.kpiIcon(s.code || s.layerName || s.name),
-        isAlert: !!s.isAlert,
-        aiUpdatedAt: s.aiUpdatedAt,
-      }));
-    }
-    return (dashboard.questions ?? []).map((q, index) => ({
-      id: q.questionID || index,
-      code: q.layerCode || `Q-${index + 1}`,
-      name: q.questionDescription || `Indicator ${index + 1}`,
-      description: q.questionDescription || '',
-      aiScore: this.hasScore(q.aiScore) ? Number(q.aiScore) : null,
-      condition: q.condition || this.conditionFromScore(q.aiScore),
-      interpretation: q.conditionDescription || '',
-      icon: this.kpiIcon(q.layerCode || q.questionDescription),
-      isAlert: !!q.isAlert,
-      aiUpdatedAt: q.aiUpdatedAt,
-    }));
-  }
-
-  private buildIndexHero(): void {
-    const country = this.countries.find((c) => c.countryID === this.selectedCountryID);
-    const d = this.modeDashboard;
-    const first = this.kpiCards[0];
-    const second = this.kpiCards[1];
-    const third = this.kpiCards[2];
-    const overall =
-      first?.aiScore ??
-      (d ? Number(d.aiCountryScore ?? d.ami ?? 0) : null) ??
-      (this.aiPillars.length
-        ? this.aiPillars.reduce((sum, p) => sum + Number(p.aiValue ?? 0), 0) / this.aiPillars.length
-        : 0);
-    const condition =
-      d?.amiCondition ||
-      first?.condition ||
-      (Number(overall) >= 70 ? 'Stable' : Number(overall) >= 40 ? 'Watch' : 'Critical');
-    const fallbackMode =
-      this.kpiTabs.find((t) => t.id === this.activeKpiTab)?.label || 'Market System Stress Test';
-
-    this.indexHero = {
-      modeName: d?.modeName || fallbackMode,
-      countryLabel: country
-        ? `${country.countryName}${country.continent ? ' · ' + country.continent : ''} · ${this.selectedYear}`
-        : 'Select a country',
-      overallLabel: `Overall Score ${Number(overall).toFixed(1)}/100 · ${condition}`,
-      stats: [
-        { label: first?.code || 'HS', value: Number(overall).toFixed(1) },
-        { label: second?.code || 'IND-2', value: Number(second?.aiScore ?? 0).toFixed(1) },
-        { label: third?.code || 'IND-3', value: Number(third?.aiScore ?? 0).toFixed(1) },
-      ],
-    };
   }
 
   private buildAreaChart(): Partial<AreaChartOptions> | null {
@@ -548,71 +445,6 @@ word-break: break-word;">
       }
       return label || `${words[0]}…`;
     });
-  }
-
-  hasScore(score: number | null | undefined): boolean {
-    return score !== null && score !== undefined;
-  }
-
-  formatScore(score: number | null | undefined): string {
-    if (!this.hasScore(score)) return 'N/A';
-    return Number(score).toFixed(1);
-  }
-
-  scoreProgress(score: number | null | undefined): number {
-    if (!this.hasScore(score)) return 0;
-    return Math.max(0, Math.min(100, Number(score)));
-  }
-
-  conditionClass(condition?: string | null): string {
-    const value = (condition || '').toLowerCase();
-    if (value.includes('critical') || value.includes('fragile')) return 'critical';
-    if (value.includes('elevated') || value.includes('high')) return 'elevated';
-    if (value.includes('watch') || value.includes('developing') || value.includes('moderate')) return 'watch';
-    return 'stable';
-  }
-
-  private conditionFromScore(score: number | null | undefined): string {
-    if (!this.hasScore(score)) return 'No Data';
-    const value = Number(score);
-    if (value >= 70) return 'Stable';
-    if (value >= 40) return 'Watch';
-    return 'Critical';
-  }
-
-  private kpiIcon(value?: string): string {
-    const text = (value || '').toLowerCase();
-    if (text.includes('stress') || text.includes('shock')) return 'bi-speedometer2';
-    if (text.includes('warn') || text.includes('risk') || text.includes('alert')) return 'bi-bell';
-    if (text.includes('resilien') || text.includes('ready')) return 'bi-shield-check';
-    if (text.includes('market') || text.includes('trade')) return 'bi-graph-up-arrow';
-    return 'bi-broadcast';
-  }
-
-  openKpiDetails(kpi: CountryKpiCard, event?: Event): void {
-    event?.stopPropagation();
-    this.selectedKpi = kpi;
-    setTimeout(() => {
-      const modalEl = document.getElementById(this.kpiModalId);
-      if (!modalEl) return;
-      let modalInstance = bootstrap.Modal.getInstance(modalEl);
-      if (!modalInstance) {
-        modalInstance = new bootstrap.Modal(modalEl);
-      }
-      modalInstance.show();
-    }, 40);
-  }
-
-  closeKpiDetails(): void {
-    const modalEl = document.getElementById(this.kpiModalId);
-    if (modalEl) {
-      bootstrap.Modal.getInstance(modalEl)?.hide();
-    }
-    this.selectedKpi = null;
-  }
-
-  trackByKpi(_: number, item: CountryKpiCard): number | string {
-    return item.id;
   }
 
   goToCountryAnalysis(): void {

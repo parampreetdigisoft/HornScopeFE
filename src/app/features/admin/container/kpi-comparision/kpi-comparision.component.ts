@@ -191,9 +191,9 @@ export class KpiComparisionComponent implements OnInit {
   getCountryScore(countryID: number, isAi: boolean = false): string {
     const country = this.countries?.find(c => c.countryID === countryID);
     if (isAi) {
-      return country?.aiScore?.toFixed(2) || '0';
+      return country?.aiScore?.toFixed(1) || '0';
     }
-    return country?.score?.toFixed(2) || '0';
+    return country?.score?.toFixed(1) || '0';
   }
 
   getCountryImage(countryID: number): string {
@@ -225,7 +225,7 @@ export class KpiComparisionComponent implements OnInit {
         ? peerCountries.reduce((sum, row) => sum + (row.score ?? 0), 0) / peerCountries.length
         : 0;
 
-    return avgPeerCountryScore.toFixed(2);
+    return avgPeerCountryScore.toFixed(1);
   }
   customSearchFn(term: string, item: any) {
     term = term.toLowerCase();

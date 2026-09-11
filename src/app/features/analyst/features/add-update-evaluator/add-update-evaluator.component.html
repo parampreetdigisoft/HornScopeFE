@@ -66,11 +66,11 @@
                                     [placeholder]="evaluatorForm.get('country')?.invalid ? 'Assign country' : ''">
 
                                     <ng-template ng-label-tmp let-item="item">
-                                        {{ item.countryName +', '}}
+                                        {{ item.countryName }}
                                     </ng-template>
 
                                     <ng-template ng-option-tmp let-item="item">
-                                        {{ item.countryName }} {{ item.continent }}
+                                        {{ item.countryName }} , {{ item.continent }}
                                     </ng-template>
                                 </ng-select>
 

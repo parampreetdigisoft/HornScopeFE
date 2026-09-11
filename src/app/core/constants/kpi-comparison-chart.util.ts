@@ -253,7 +253,7 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
               </div>
               <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;">
                 <span style="color:#8FA3B5;">Evaluation</span>
-                <span style="font-weight:700;color:#E8EEF4;">${evalValue.toFixed(2)}</span>
+                <span style="font-weight:700;color:#E8EEF4;">${evalValue.toFixed(1)}</span>
               </div>
           `;
 
@@ -261,12 +261,12 @@ export function buildKpiComparisonChartOptions(args: BuildArgs): Partial<KpiComp
             tooltipHtml += `
               <div style="display:flex;justify-content:space-between;font-size:11px;margin-bottom:3px;">
                 <span style="color:#8FA3B5;">AI</span>
-                <span style="font-weight:700;color:${HS_CHART.primaryMid};">${Number(aiValue).toFixed(2)}</span>
+                <span style="font-weight:700;color:${HS_CHART.primaryMid};">${Number(aiValue).toFixed(1)}</span>
               </div>
               <div style="display:flex;justify-content:space-between;font-size:11px;margin-top:6px;padding-top:6px;border-top:1px solid #1E3D5C;">
                 <span style="color:#8FA3B5;">Difference</span>
                 <span style="font-weight:700;color:${Math.abs(difference) > 10 ? '#E08A6A' : HS_CHART.primaryMid};">
-                  ${difference > 0 ? '+' : ''}${difference.toFixed(2)}
+                  ${difference > 0 ? '+' : ''}${difference.toFixed(1)}
                 </span>
               </div>
             `;

@@ -258,7 +258,7 @@ export class ComparisionComponent implements OnInit {
 
       // Overwrite existing users with their scoreProgress
       pillar.users.forEach((u) => {
-        row[u.userID] = u.scoreProgress?.toFixed(2);
+        row[u.userID] = u.scoreProgress?.toFixed(1);
       });
 
       return row;

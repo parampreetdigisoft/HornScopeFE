@@ -101,7 +101,8 @@
                         </span>
                       </a>
                       <div class="dropdown d-inline-block">
-                        <a style="cursor:pointer" data-bs-toggle="dropdown" aria-expanded="false" [matTooltip]="'Download Report'">
+                        <a style="cursor:pointer" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
+                          aria-expanded="false" [matTooltip]="'Download Report'">
 
                           <span style="display: inline-block" *ngIf="i != selectedIndex">
                             <svg width="20" height="20" viewBox="0 0 20 20" fill="none"
@@ -116,7 +117,7 @@
                           </p>
                         </a>
 
-                        <ul class="dropdown-menu">
+                        <ul class="dropdown-menu dropdown-menu-end">
                           <li>
                             <a style="cursor:pointer" class="dropdown-item"
                               (click)="aiCountryDetailsReport(country, i, 'pdf')">

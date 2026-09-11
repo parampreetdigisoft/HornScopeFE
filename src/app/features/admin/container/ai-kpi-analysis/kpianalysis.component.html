@@ -253,6 +253,7 @@
 
                      <div class="dropdown d-inline-block">
 												<a style="cursor:pointer" data-bs-toggle="dropdown"
+													data-bs-popper-config='{"strategy":"fixed"}'
 													aria-expanded="false" [matTooltip]="'Download Report'">
 
 													<span style="display: inline-block" *ngIf="i != selectedIndex">
@@ -268,7 +269,7 @@
 													</p>
 												</a>
 
-												<ul class="dropdown-menu">
+												<ul class="dropdown-menu dropdown-menu-end">
 													<li>
 														<a style="cursor:pointer" class="dropdown-item"
 															(click)="piller.isAccess ? aiPillarDetailsReport(piller,i, 'pdf'):$event.preventDefault()">

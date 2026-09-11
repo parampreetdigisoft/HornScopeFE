@@ -11,6 +11,7 @@ import { EvaluatorResponsesComponent } from './container/evaluator-responses/eva
 import { EvaluatorResponseViewComponent } from './container/evaluator-response-view/evaluator-response-view.component';
 import { AnalystDashboardComponent } from './container/analyst-dashboard/analyst-dashboard.component';
 import { ComparisionComponent } from './container/comparision/comparision.component';
+import { DashboardDiagnosticsPanelComponent } from "src/app/shared/standAlone/dashboard-diagnostics-panel/dashboard-diagnostics-panel.component";
 const routes: Routes = [
   {
     path: '',
@@ -72,7 +73,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild(routes),
+    DashboardDiagnosticsPanelComponent
+]
 })
 export class AnalystModule { }

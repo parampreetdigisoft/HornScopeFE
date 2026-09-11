@@ -1113,6 +1113,32 @@ body > .ng-dropdown-panel .assessment_option_end_label {
   margin: 6px 8px;
 }
 
+/* Action-column menus must escape table overflow and sit above pagination */
+.table_outer .dropdown-menu,
+.table_custom_inner .dropdown-menu,
+.table-responsive .dropdown-menu {
+  min-width: 190px;
+  z-index: 1080 !important;
+}
+
+.table_outer .action_td,
+.table_outer .action_td table,
+.table_outer .action_td td,
+.table_outer .action_icons,
+.table_outer .action_td .dropdown {
+  overflow: visible !important;
+}
+
+.table_outer:has(.dropdown-menu.show),
+.table_custom_inner:has(.dropdown-menu.show),
+.table-responsive:has(.dropdown-menu.show) {
+  overflow: visible !important;
+}
+
+.table_outer:has(.dropdown-menu.show) {
+  z-index: 30;
+}
+
 .table_outer tbody tr:hover td.action_td,
 .table_outer .table tbody tr:hover > td.action_td,
 .table-striped > tbody > tr:hover > td.action_td {

@@ -121,7 +121,7 @@ readonly rotatingPlaceholders = [
   'Ask about a country’s market system or current market status…',
   'Explore market risks, trends, or early warning indicators…',
   'Compare market performance across countries or regions…',
-  'Ask about market pillars, KPIs, or ROSEW operational status…',
+  'Ask about market pillars, KPIs, or diagnostic status…',
 ];
   rotatingIndex = signal(0);
   placeholderIndex = signal(0);

@@ -5,9 +5,6 @@
   box-shadow: none !important;
 }
 
-::ng-deep .analyst_multi_select .ng-select-container .ng-value-container {
-  padding: 0 !important;
-}
 
 .transfer_popup .modal-content {
   border-radius: 14px;

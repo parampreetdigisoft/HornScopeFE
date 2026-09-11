@@ -71,7 +71,7 @@
                                     <div class="dashboard_number" *ngIf="maxCountry">
                                         <div class="card_ttile">
                                             <h4>{{ maxCountry.countryName }}</h4>
-                                            <h5>{{ maxCountry.value.toFixed(2) }}</h5>
+                                            <h5>{{ maxCountry.value.toFixed(1) }}</h5>
                                         </div>
                                         <div class="pileer_info">
                                             <h6 class="city_pile">Highest Country</h6>
@@ -91,7 +91,7 @@
 
                                         <div class="card_ttile">
                                             <h4>{{ highestPillar.pillarName }}</h4>
-                                            <h5>{{ highestPillar.value.toFixed(2) }}</h5>
+                                            <h5>{{ highestPillar.value.toFixed(1) }}</h5>
                                         </div>
                                         <div class="pileer_info">
                                             <h6 class="city_pile">Highest Domain</h6>
@@ -110,7 +110,7 @@
                                     <div class="dashboard_number">
                                         <div class="card_ttile">
                                             <h4>{{ lowestPillar.pillarName }}</h4>
-                                            <h5>{{ lowestPillar.value.toFixed(2) }}</h5>
+                                            <h5>{{ lowestPillar.value.toFixed(1) }}</h5>
                                         </div>
                                         <div class="pileer_info">
                                             <h6 class="city_pile">Lowest Domain</h6>
@@ -177,7 +177,7 @@
                                                 <h2 class="city_cards_h1 country_header_name">{{ country.countryName }}</h2>
                                                 <div class="header_Score">
                                                     <span class="header_score_chip">
-                                                        AI Score <strong>{{ country.value.toFixed(2) }}</strong>
+                                                        AI Score <strong>{{ country.value.toFixed(1) }}</strong>
                                                     </span>
                                                     <span
                                                         class="research_date"

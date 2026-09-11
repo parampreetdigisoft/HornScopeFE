@@ -446,7 +446,7 @@ function metricRow(label: string, value: number | null | undefined, color: strin
 function formatScore(value: number | null | undefined): string {
   const numeric = Number(value);
   if (Number.isNaN(numeric)) return '0.00';
-  return numeric.toFixed(2);
+  return numeric.toFixed(1);
 }
 
 function escapeHtml(value: string): string {

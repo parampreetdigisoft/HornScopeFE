@@ -101,125 +101,37 @@
 		</div>
 	</div>
 
-	<div class="hs-index-section" [class.is-loading]="isKpiLoader">
+	<div class="hs-index-section" *ngIf="selectedCountryID">
 		<div class="signal-dashboard-wrap embedded ami-themed">
 			<div class="dashboard_control_bar">
 				<nav class="tab_head" aria-label="Dashboard modes">
-					<button class="tab_btn" [class.active]="activeKpiTab === 'stress'" (click)="setKpiTab('stress')">
-						<i class="bi" [ngClass]="getTabIcon('stress')"></i>
-						<span>Market System Stress Test</span>
+					<button class="tab_btn" [class.active]="activeKpiTab === 'relational'" (click)="setKpiTab('relational')">
+						<i class="bi bi-intersect"></i>
+						<span>Relational Diagnostics</span>
 					</button>
-					<button class="tab_btn" [class.active]="activeKpiTab === 'warning'" (click)="setKpiTab('warning')">
-						<i class="bi" [ngClass]="getTabIcon('warning')"></i>
-						<span>Strategic Early Warning</span>
-					</button>
-					<button class="tab_btn" [class.active]="activeKpiTab === 'resilience'" (click)="setKpiTab('resilience')">
-						<i class="bi" [ngClass]="getTabIcon('resilience')"></i>
-						<span>Market System Resilience Scorecard</span>
+					<button class="tab_btn" [class.active]="activeKpiTab === 'composite'" (click)="setKpiTab('composite')">
+						<i class="bi bi-hdd-stack"></i>
+						<span>Composite Indices</span>
 					</button>
 				</nav>
 			</div>
-		</div>
-
-		<div class="hs-banner" *ngIf="indexHero">
-			<div class="hs-banner-left">
-				<div class="hs-banner-icon"><i class="bi bi-bullseye"></i></div>
-				<div>
-					<div class="hs-tag">{{ indexHero.modeName }}</div>
-					<div class="hs-banner-title">{{ indexHero.countryLabel }}</div>
-					<div class="hs-banner-sub">{{ indexHero.overallLabel }}</div>
-				</div>
+			<div class="tab_body">
+				<app-dashboard-diagnostics-panel
+					[mode]="activeKpiTab"
+					[dashboard]="diagnosticsDashboard"
+					[loading]="signalLoading"
+					[selectedFamilyId]="selectedFamilyId"
+					[countryName]="diagnosticsCountryName"
+					[showManual]="false"
+					(familyChange)="onFamilyChange($event)">
+				</app-dashboard-diagnostics-panel>
 			</div>
-			<div class="hs-banner-metrics">
-				<div class="hs-metric-box" *ngFor="let stat of indexHero.stats">
-					<div class="v">{{ stat.value }}</div>
-					<div class="k">{{ stat.label }}</div>
-				</div>
-			</div>
-		</div>
-
-		<div class="hs-score-grid" *ngIf="kpiCards?.length">
-			<article
-				class="hs-score-card"
-				*ngFor="let kpi of kpiCards; trackBy: trackByKpi"
-				[class.is-alert]="kpi.isAlert"
-				(click)="openKpiDetails(kpi, $event)">
-				<div class="hs-score-top">
-					<div class="hs-kpi-icon"><i class="bi" [ngClass]="kpi.icon"></i></div>
-					<div class="hs-score-header-meta">
-						<h4 class="hs-score-name">{{ kpi.name }}</h4>
-					</div>
-					<div class="hs-score-card-meta">
-						<div class="hs-score-label">{{ kpi.code }}</div>
-						<span class="hs-badge" [ngClass]="conditionClass(kpi.condition)">
-							{{ kpi.condition || 'Stable' }}
-						</span>
-					</div>
-				</div>
-				<div class="hs-score-value-row">
-					<strong>{{ formatScore(kpi.aiScore) }}</strong>
-					<span>/ 100</span>
-					<em>Score</em>
-				</div>
-				<div class="hs-score-track" *ngIf="kpi.aiScore != null">
-					<span [style.width.%]="scoreProgress(kpi.aiScore)"></span>
-				</div>
-				<p class="hs-score-preview">{{ kpi.interpretation || kpi.description || 'No interpretation available.' }}</p>
-				<button type="button" class="hs-score-view" (click)="openKpiDetails(kpi, $event)">
-					<i class="bi bi-eye"></i> View details
-				</button>
-			</article>
-		</div>
-
-		<div class="ami-empty" *ngIf="!kpiCards?.length && !isKpiLoader">
-			No KPI signals available for this mode yet.
-		</div>
-
-		<div *ngIf="isKpiLoader" class="ami-kpi-section-loader">
-			<div class="loader"></div>
 		</div>
 	</div>
 </div>
 
 <div *ngIf="isLoader" class="loader_main">
 	<div class="loader"></div>
-</div>
-
-<div class="modal fade modal_design ami-kpi-modal" id="countryUserKpiDetailModal" tabindex="-1" aria-hidden="true">
-	<div class="modal-dialog modal-lg modal-dialog-centered">
-		<div class="modal-content ami-kpi-modal-content" *ngIf="selectedKpi as kpi">
-			<div class="modal-header ami-kpi-modal-header">
-				<div class="ami-kpi-modal-title">
-					<div class="ami-kpi-modal-icon"><i class="bi" [ngClass]="kpi.icon"></i></div>
-					<div>
-						<span class="ami-kpi-code-pill">{{ kpi.code }}</span>
-						<h5 class="modal-title mb-0">{{ kpi.name }}</h5>
-					</div>
-				</div>
-				<button type="button" class="btn-close btn-close-white" (click)="closeKpiDetails()"></button>
-			</div>
-			<div class="modal-body ami-kpi-modal-body">
-				<div class="ami-kpi-detail-stats">
-					<div class="ami-kpi-detail-stat">
-						<span>Score</span>
-						<strong class="score-ai">{{ formatScore(kpi.aiScore) }}</strong>
-					</div>
-					<div class="ami-kpi-detail-stat">
-						<span>Condition</span>
-						<strong [ngClass]="conditionClass(kpi.condition)">{{ kpi.condition || 'Stable' }}</strong>
-					</div>
-				</div>
-				<div class="ami-kpi-detail-block">
-					<h6><i class="bi bi-info-circle"></i> Interpretation Condition</h6>
-					<p>{{ kpi.interpretation || 'No interpretation available.' }}</p>
-				</div>
-				<div class="ami-kpi-detail-block">
-					<h6><i class="bi bi-card-text"></i> KPI Description</h6>
-					<p>{{ kpi.description || 'No description available.' }}</p>
-				</div>
-			</div>
-		</div>
-	</div>
 </div>
 
 <div *ngIf="chooseKpisLayers">

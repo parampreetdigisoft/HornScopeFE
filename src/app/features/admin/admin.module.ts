@@ -22,6 +22,7 @@ import { KpiLayersComponent } from './container/kpi-layers/kpi-layers.component'
 import { AddUpdateCountryComponent } from './features/add-update-country/add-update-country.component';
 import { CountryUserViewComponent } from './container/country-user-view/country-user-view.component';
 import { AddUpdateCountryUserComponent } from './features/add-update-country-user/add-update-country-user.component';
+import { DashboardDiagnosticsPanelComponent } from "src/app/shared/standAlone/dashboard-diagnostics-panel/dashboard-diagnostics-panel.component";
 
 @NgModule({
   declarations: [
@@ -48,17 +49,18 @@ import { AddUpdateCountryUserComponent } from './features/add-update-country-use
     AdminRoutingModule,
     QuillModule.forRoot({
       theme: 'snow',
-      format: 'html' ,
+      format: 'html',
       modules: {
-        toolbar: [
-          ['bold', 'italic', 'underline'],
-          [{ 'list': 'ordered' }, { 'list': 'bullet' }],
-          [{ 'header': [1, 2, 3, false] }],
-          ['link', 'image']
-        ]
-      }
-    }) 
-  ],
+          toolbar: [
+            ['bold', 'italic', 'underline'],
+            [{ 'list': 'ordered' }, { 'list': 'bullet' }],
+            [{ 'header': [1, 2, 3, false] }],
+            ['link', 'image']
+          ]
+        }
+    }),
+    DashboardDiagnosticsPanelComponent
+],
   //bootstrap: [AdminComponent]
 })
 export class AdminModule { } 

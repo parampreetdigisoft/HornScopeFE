@@ -95,14 +95,14 @@ export function buildCountryScoreRadialOptions(scores: {
             color: HS_CHART.text,
             formatter: (value: number) => {
               const parsed = Number(value);
-              return Number.isNaN(parsed) ? '0.00' : parsed.toFixed(2);
+              return Number.isNaN(parsed) ? '0.0' : parsed.toFixed(1);
             },
           },
           total: {
             show: true,
             label: 'Avg Score',
             color: HS_CHART.primaryMid,
-            formatter: () => avg.toFixed(2),
+            formatter: () => avg.toFixed(1),
           },
         },
       },
@@ -126,7 +126,7 @@ export function buildCountryScoreRadialOptions(scores: {
         highlightDataSeries: true,
       },
       formatter: (seriesName: string, opts: any) =>
-        `${seriesName}:  ${Number(opts?.w?.globals?.series?.[opts?.seriesIndex] ?? 0).toFixed(2)}`,
+        `${seriesName}:  ${Number(opts?.w?.globals?.series?.[opts?.seriesIndex] ?? 0).toFixed(1)}`,
       itemMargin: {
         horizontal: 3,
       },

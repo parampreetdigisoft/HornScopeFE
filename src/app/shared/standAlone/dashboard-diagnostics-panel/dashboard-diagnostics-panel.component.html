@@ -1,0 +1,247 @@
+<section class="diag-panel" [class.is-loading]="loading" [class.ai-only]="!showManual">
+  <!-- Relational Diagnostics -->
+  <ng-container *ngIf="mode === 'relational'">
+    <div class="diag-hero">
+      <div class="diag-hero-scan" aria-hidden="true"></div>
+      <div class="diag-hero-icon">
+        <i class="bi" [ngClass]="selectedFamily.icon"></i>
+      </div>
+      <div class="diag-hero-copy">
+        <span class="diag-kicker">Relational Diagnostics</span>
+        <h3>{{ selectedFamily.pillar }}</h3>
+        <p>{{ selectedFamily.focus }}</p>
+        <p class="diag-meta">
+          {{ countryName }}
+          <span *ngIf="familyAverage !== null"> · Average Score:{{ formatScore(familyAverage) }}/100</span>
+          <span *ngIf="familyAverage === null"> · {{ familyRecords.length || 0 }} diagnostics in this family</span>
+        </p>
+      </div>
+      <div class="diag-hero-filter">
+        <label>Pillar family</label>
+        <ng-select
+          [items]="families"
+          bindValue="id"
+          bindLabel="shortLabel"
+          [ngModel]="selectedFamilyId"
+          (ngModelChange)="onFamilyChange($event)"
+          [clearable]="false"
+          [searchable]="false"
+          appendTo="body"
+          class="form-control analyst_multi_select diag-family-select">
+          <ng-template ng-label-tmp let-item="item">
+            {{ item.shortLabel }}
+          </ng-template>
+          <ng-template ng-option-tmp let-item="item">
+            <div class="diag-option">
+              <strong>{{ item.shortLabel }}</strong>
+              <span>{{ item.pillar }}</span>
+            </div>
+          </ng-template>
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="diag-section-head">
+      <h4><i class="bi bi-intersect"></i> {{ selectedFamily.shortLabel }} records</h4>
+      <span>{{ familyRecords.length }} relational diagnostics</span>
+    </div>
+
+    <div class="diag-grid" *ngIf="familyRecords.length; else emptyFamily">
+      <ng-container *ngFor="let item of familyRecords">
+        <ng-container *ngTemplateOutlet="kpiCard; context: { $implicit: item }"></ng-container>
+      </ng-container>
+    </div>
+
+    <ng-template #emptyFamily>
+      <div class="diag-empty">
+        <i class="bi bi-layers"></i>
+        <h5>{{ selectedFamily.shortLabel }}</h5>
+        <p>No diagnostic KPI records were returned for this family yet.</p>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <!-- Composite Diagnostic Indices -->
+  <ng-container *ngIf="mode === 'composite'">
+    <div class="diag-hero diag-hero--composite">
+      <div class="diag-hero-scan" aria-hidden="true"></div>
+      <div class="diag-hero-icon">
+        <i class="bi bi-hdd-stack"></i>
+      </div>
+      <div class="diag-hero-copy">
+        <span class="diag-kicker">Composite Diagnostic Indices</span>
+        <h3>System-level coherence, risk, and resilience</h3>
+        <p>Three rollups built from the 55 relational diagnostics — not from individual pillars.</p>
+        <p class="diag-meta">
+          {{ countryName }}
+          <span *ngIf="compositeAverage !== null"> · Average Score {{ formatScore(compositeAverage) }}/100</span>
+        </p>
+      </div>
+    </div>
+
+    <div class="diag-grid diag-composite-grid" *ngIf="compositeRecords.length; else emptyComposite">
+      <ng-container *ngFor="let item of compositeRecords">
+        <ng-container *ngTemplateOutlet="kpiCard; context: { $implicit: item }"></ng-container>
+      </ng-container>
+    </div>
+    <ng-template #emptyComposite>
+      <div class="diag-empty">
+        <i class="bi bi-hdd-stack"></i>
+        <h5>Composite Indices</h5>
+        <p>No composite KPI records were returned yet.</p>
+      </div>
+    </ng-template>
+  </ng-container>
+
+  <div class="glance_charts_section" *ngIf="showGlanceCharts && (glanceBarChartOptions?.series || glanceDonutChartOptions?.series)">
+    <div class="diag-section-head">
+      <h4><i class="bi bi-bar-chart-line"></i> At a Glance</h4>
+      <span>Compare indicator values and status distribution</span>
+    </div>
+    <div class="glance_charts_grid">
+      <div class="glance_chart_card">
+        <h5><i class="bi bi-bar-chart-steps"></i> Score Comparison</h5>
+        <apx-chart
+          *ngIf="glanceBarChartOptions?.series"
+          [series]="glanceBarChartOptions!.series!"
+          [chart]="glanceBarChartOptions!.chart!"
+          [plotOptions]="glanceBarChartOptions!.plotOptions!"
+          [xaxis]="glanceBarChartOptions!.xaxis!"
+          [yaxis]="glanceBarChartOptions!.yaxis!"
+          [dataLabels]="glanceBarChartOptions!.dataLabels!"
+          [grid]="glanceBarChartOptions!.grid!"
+          [colors]="glanceBarChartOptions!.colors!"
+          [tooltip]="glanceBarChartOptions!.tooltip!"
+          [legend]="glanceBarChartOptions!.legend!"
+          [stroke]="glanceBarChartOptions!.stroke!">
+        </apx-chart>
+      </div>
+      <div class="glance_chart_card">
+        <h5><i class="bi bi-pie-chart"></i> Status Distribution</h5>
+        <apx-chart
+          *ngIf="glanceDonutChartOptions?.series"
+          [series]="glanceDonutChartOptions!.series!"
+          [chart]="glanceDonutChartOptions!.chart!"
+          [labels]="glanceDonutChartOptions!.labels!"
+          [colors]="glanceDonutChartOptions!.colors!"
+          [legend]="glanceDonutChartOptions!.legend!"
+          [dataLabels]="glanceDonutChartOptions!.dataLabels!"
+          [plotOptions]="glanceDonutChartOptions!.plotOptions!"
+          [tooltip]="glanceDonutChartOptions!.tooltip!">
+        </apx-chart>
+      </div>
+    </div>
+  </div>
+</section>
+
+<ng-template #kpiCard let-item>
+  <article class="kpi-card" [attr.data-band]="statusTone(item.aiCondition)" (click)="openDetails(item, $event)">
+    <div class="kpi-card-head">
+      <div class="kpi-icon-ring" [style.--ring-value]="progress(showManual ? item.aiScore ?? item.manualScore : item.aiScore) + '%'">
+        <div class="kpi-icon-well">
+          <i class="bi" [ngClass]="item.icon"></i>
+        </div>
+      </div>
+      <h5>{{ item.name }}</h5>
+    </div>
+
+    <div class="kpi-score-block">
+      <div class="kpi-score-row">
+        <i class="bi bi-robot kpi-role-icon" *ngIf="showManual" aria-hidden="true"></i>
+        <span class="kpi-score">{{ formatScore(item.aiScore) }}</span>
+        <span class="kpi-unit" *ngIf="showScale(item.aiScore)">/ 100</span>
+        <span class="kpi-condition" [attr.data-band]="statusTone(item.aiCondition)">
+          {{ item.aiCondition || 'No Data' }}
+        </span>
+      </div>
+      <div class="kpi-updated">{{ lastUpdatedLabel(item.signal.aiUpdatedAt) }}</div>
+      <div class="kpi-bar"><span [style.width.%]="progress(item.aiScore)"></span></div>
+    </div>
+
+    <div class="kpi-score-block" *ngIf="showManual">
+      <div class="kpi-score-row">
+        <i class="bi bi-person kpi-role-icon" aria-hidden="true"></i>
+        <span class="kpi-score">{{ formatScore(item.manualScore) }}</span>
+        <span class="kpi-unit" *ngIf="showScale(item.manualScore)">/ 100</span>
+        <span class="kpi-condition" [attr.data-band]="statusTone(item.manualCondition)">
+          {{ item.manualCondition || 'No Data' }}
+        </span>
+      </div>
+      <div class="kpi-updated">{{ lastUpdatedLabel(item.signal.manualUpdatedAt) }}</div>
+      <div class="kpi-bar"><span [style.width.%]="progress(item.manualScore)"></span></div>
+    </div>
+
+    <button type="button" class="kpi-view-details" (click)="openDetails(item, $event)" tabindex="-1">
+      VIEW DETAILS <i class="bi bi-eye"></i>
+    </button>
+  </article>
+</ng-template>
+
+<div class="modal fade modal_design signal_detail_modal kpi-detail-modal" id="dashboardDiagnosticsDetailModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-lg modal-dialog-centered">
+    <div class="modal-content signal_detail_content" *ngIf="selectedDetail as detail">
+      <div class="modal-header kpi-detail-header">
+        <div class="kpi-detail-title">
+          <div class="kpi-detail-icon">
+            <i class="bi" [ngClass]="detail.icon"></i>
+          </div>
+          <div class="kpi-detail-heading">
+            <h5 class="modal-title mb-0">{{ detail.name }}</h5>
+            <span class="kpi-code-badge" *ngIf="detail.code">{{ detail.code }}</span>
+          </div>
+        </div>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close" (click)="closeDetails()"></button>
+      </div>
+      <div class="modal-body kpi-detail-body">
+        <section class="kpi-desc-block">
+          <h6><i class="bi bi-file-earmark-text"></i> KPI Description</h6>
+          <p>{{ detail.measures || 'No description available.' }}</p>
+        </section>
+
+        <div class="kpi-compare" [class.kpi-compare--single]="!showManual">
+          <article class="kpi-pane is-ai">
+            <span class="kpi-pane-tag" *ngIf="showManual"><i class="bi bi-robot"></i> AI</span>
+            <div class="kpi-pane-stats">
+              <div class="kpi-stat">
+                <span class="kpi-stat-label">{{ showManual ? 'AI Score' : 'Score' }}</span>
+                <strong class="kpi-stat-value">{{ formatScore(detail.aiScore) }}</strong>
+              </div>
+              <div class="kpi-stat">
+                <span class="kpi-stat-label">Condition</span>
+                <strong class="kpi-stat-condition" [attr.data-band]="statusTone(detail.aiCondition)">
+                  {{ detail.aiCondition || 'No Data' }}
+                </strong>
+              </div>
+            </div>
+            <div class="kpi-pane-updated">{{ lastUpdatedLabel(detail.signal.aiUpdatedAt) }}</div>
+            <div class="kpi-interp">
+              <h6><i class="bi bi-info-circle"></i> Interpretation</h6>
+              <p>{{ detail.aiDescriptor || 'No interpretation available.' }}</p>
+            </div>
+          </article>
+
+          <article class="kpi-pane is-manual" *ngIf="showManual">
+            <span class="kpi-pane-tag"><i class="bi bi-person"></i> Manual</span>
+            <div class="kpi-pane-stats">
+              <div class="kpi-stat">
+                <span class="kpi-stat-label">Manual Score</span>
+                <strong class="kpi-stat-value">{{ formatScore(detail.manualScore) }}</strong>
+              </div>
+              <div class="kpi-stat">
+                <span class="kpi-stat-label">Condition</span>
+                <strong class="kpi-stat-condition" [attr.data-band]="statusTone(detail.manualCondition)">
+                  {{ detail.manualCondition || 'No Data' }}
+                </strong>
+              </div>
+            </div>
+            <div class="kpi-pane-updated">{{ lastUpdatedLabel(detail.signal.manualUpdatedAt) }}</div>
+            <div class="kpi-interp">
+              <h6><i class="bi bi-info-circle"></i> Interpretation</h6>
+              <p>{{ detail.manualDescriptor || 'No interpretation available.' }}</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

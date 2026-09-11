@@ -527,7 +527,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   color: var(--ami-muted) !important;
 }
 
-/* ── Index tabs (ROSEW section) ─────────────────────────────── */
+/* ── Index tabs (diagnostics section) ───────────────────────── */
 .hs-index-section {
   display: flex;
   flex-direction: column;
@@ -1167,7 +1167,242 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   }
 }
 
-/* ── Signal dashboard (ROSEW) overrides when inside HS shell ─ */
+/* Diagnostics KPI details modal (body-appended; used on every dashboard) */
+.kpi-detail-modal .modal-dialog {
+  max-width: 860px;
+}
+
+.kpi-detail-modal .kpi-detail-header,
+.signal_detail_modal.kpi-detail-modal .modal-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 18px 22px !important;
+  position: relative;
+  background: linear-gradient(135deg, #123049 0%, #16324a 55%, #123049 100%) !important;
+  border-bottom: 1px solid #1e3d5c !important;
+  color: #e8eef4 !important;
+}
+
+.kpi-detail-modal .kpi-detail-title {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  min-width: 0;
+  padding-right: 28px;
+}
+
+.kpi-detail-modal .kpi-detail-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 12px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  background: rgba(197, 160, 90, 0.12);
+  border: 1px solid rgba(197, 160, 90, 0.4);
+  color: #d4b86a;
+  font-size: 20px;
+}
+
+.kpi-detail-modal .kpi-detail-heading {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+}
+
+.kpi-detail-modal .kpi-detail-heading .modal-title {
+  font-size: 18px !important;
+  line-height: 1.3;
+  color: #ece4d3 !important;
+}
+
+.kpi-detail-modal .kpi-code-badge {
+  display: inline-flex;
+  align-self: flex-start;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: rgba(197, 160, 90, 0.16);
+  border: 1px solid rgba(197, 160, 90, 0.35);
+  color: #d4b86a;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.kpi-detail-modal .kpi-detail-body,
+.signal_detail_modal.kpi-detail-modal .modal-body {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding: 18px 22px 22px !important;
+}
+
+.kpi-detail-modal .kpi-desc-block {
+  background: #123049;
+  border: 1px solid #1e3d5c;
+  border-radius: 12px;
+  padding: 14px 16px;
+}
+
+.kpi-detail-modal .kpi-desc-block h6,
+.kpi-detail-modal .kpi-interp h6 {
+  margin: 0 0 8px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #d4b86a;
+  font-size: 13px;
+  font-weight: 700;
+}
+
+.kpi-detail-modal .kpi-desc-block p,
+.kpi-detail-modal .kpi-interp p {
+  margin: 0;
+  color: #b8c5d0;
+  font-size: 13.5px;
+  line-height: 1.55;
+}
+
+.kpi-detail-modal .kpi-compare {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+}
+
+.kpi-detail-modal .kpi-compare.kpi-compare--single {
+  grid-template-columns: 1fr;
+}
+
+.kpi-detail-modal .kpi-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  background: #123049;
+  border: 1px solid #1e3d5c;
+  border-radius: 12px;
+  padding: 16px;
+}
+
+.kpi-detail-modal .kpi-pane.is-ai {
+  border-top: 3px solid #d4b86a;
+}
+
+.kpi-detail-modal .kpi-pane.is-manual {
+  border-top: 3px solid #8fa3b5;
+}
+
+.kpi-detail-modal .kpi-pane-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  align-self: flex-start;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(197, 160, 90, 0.12);
+  color: #d4b86a;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.kpi-detail-modal .kpi-pane.is-manual .kpi-pane-tag {
+  background: rgba(143, 163, 181, 0.14);
+  color: #c9d4de;
+}
+
+.kpi-detail-modal .kpi-pane-stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+.kpi-detail-modal .kpi-stat {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  min-width: 0;
+  background: #0c2238;
+  border: 1px solid #1e3d5c;
+  border-radius: 10px;
+  padding: 10px 12px;
+}
+
+.kpi-detail-modal .kpi-stat-label {
+  display: block;
+  color: #8fa3b5;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.kpi-detail-modal .kpi-stat-value {
+  display: block;
+  color: #d4b86a;
+  font-size: 22px;
+  font-weight: 800;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+}
+
+.kpi-detail-modal .kpi-stat-condition {
+  display: inline-flex;
+  align-items: center;
+  width: fit-content;
+  max-width: 100%;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: rgba(197, 160, 90, 0.16);
+  color: #d4b86a;
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.kpi-detail-modal .kpi-stat-condition[data-band='strong'],
+.kpi-detail-modal .kpi-stat-condition[data-band='functional'] {
+  background: rgba(90, 155, 138, 0.2);
+  color: #8fd0b5;
+}
+
+.kpi-detail-modal .kpi-stat-condition[data-band='strained'] {
+  background: rgba(197, 160, 90, 0.2);
+  color: #e8bd72;
+}
+
+.kpi-detail-modal .kpi-stat-condition[data-band='weak'],
+.kpi-detail-modal .kpi-stat-condition[data-band='critical'] {
+  background: rgba(181, 80, 46, 0.22);
+  color: #e08a6a;
+}
+
+.kpi-detail-modal .kpi-pane-updated {
+  color: #8fa3b5;
+  font-size: 12px;
+}
+
+.kpi-detail-modal .kpi-interp {
+  background: #0c2238;
+  border: 1px solid #1e3d5c;
+  border-radius: 10px;
+  padding: 12px 14px;
+}
+
+@media (max-width: 768px) {
+  .kpi-detail-modal .kpi-compare,
+  .kpi-detail-modal .kpi-pane-stats {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* ── Signal dashboard overrides when inside HS shell ───────── */
 .hs-dashboard .signal-dashboard-wrap,
 .signal-dashboard-wrap.ami-themed {
   --pe-primary: #c5a05a;
@@ -1240,7 +1475,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
   color: var(--ami-cream);
 }
 
-/* Hide duplicate country filter when ROSEW is embedded */
+/* Hide duplicate country filter when diagnostics are embedded */
 .hs-dashboard .signal-dashboard-wrap.embedded .filters_panel {
   display: none;
 }
@@ -1251,6 +1486,14 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 
 .hs-dashboard .signal-dashboard-wrap.embedded .tab_head {
   width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.hs-dashboard .tab_btn span,
+.signal-dashboard-wrap .tab_btn span {
+  white-space: nowrap;
 }
 
 /* Force dark shell for Operational Intelligence section */
@@ -1268,6 +1511,7 @@ body > .ng-dropdown-panel .ng-optgroup-label {
 .hs-dashboard .tab_body {
   border: 1px solid #1e3d5c !important;
   border-radius: 16px;
+  padding: 22px 20px 18px;
 }
 
 .hs-dashboard .section_title,
@@ -1503,4 +1747,47 @@ body > .ng-dropdown-panel .ng-optgroup-label {
     flex: 1;
     justify-content: center;
   }
+}
+
+/* KPI view-details: gold pill + eye, hidden until card hover (all dashboards). */
+app-dashboard-diagnostics-panel .kpi-card {
+  padding-bottom: 56px;
+}
+
+app-dashboard-diagnostics-panel .kpi-view-details {
+  position: absolute !important;
+  left: 16px !important;
+  bottom: 12px !important;
+  z-index: 2 !important;
+  display: none !important;
+  align-items: center !important;
+  gap: 8px !important;
+  margin: 0 !important;
+  padding: 6px 14px !important;
+  border: 1px solid #d4b86a !important;
+  border-radius: 999px !important;
+  background: #0c2238 !important;
+  box-shadow: none !important;
+  font-size: 11px !important;
+  font-weight: 700 !important;
+  letter-spacing: 0.08em !important;
+  text-transform: uppercase !important;
+  color: #d4b86a !important;
+  line-height: 1 !important;
+  cursor: pointer !important;
+  width: fit-content !important;
+}
+
+app-dashboard-diagnostics-panel .kpi-view-details i {
+  font-size: 13px !important;
+  color: #d4b86a !important;
+}
+
+app-dashboard-diagnostics-panel .kpi-card:hover .kpi-view-details,
+app-dashboard-diagnostics-panel .kpi-card:focus-within .kpi-view-details {
+  display: inline-flex !important;
+}
+
+app-dashboard-diagnostics-panel .kpi-view-details:hover {
+  background: rgba(197, 160, 90, 0.12) !important;
 }

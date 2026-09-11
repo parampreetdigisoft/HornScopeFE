@@ -259,16 +259,13 @@ export class AdminService {
   public exportCompareCountries(params: any) {
     return this.http.ImportFile(`Kpi/ExportCompareCountries`, params);
   }
-  public getPeaceStressTestDashboard(countryID: number, year: number) {
-      return this.http.getWithQueryParams(`Dashboard/getPeaceStressTestDashboard`, { countryID, year })
+  public getRelationalDiagnosticsDashboard(countryID: number, year: number, familyGroup: string) {
+      return this.http.getWithQueryParams(`Dashboard/getRelationalDiagnosticsDashboard`, { countryID, year, familyGroup })
         .pipe(map(x => x as ResultResponseDto<DashboardModeResponseDto>));
   }
-  public getEarlyWarningDashboard(countryID: number, year: number) {
-    return this.http.getWithQueryParams(`Dashboard/getEarlyWarningDashboard`, { countryID, year })
+  public getCompositeDiagnosticsDashboard(countryID: number, year: number) {
+    return this.http.getWithQueryParams(`Dashboard/getCompositeDiagnosticsDashboard`, { countryID, year })
     .pipe(map(x => x as ResultResponseDto<DashboardModeResponseDto>));
   }
-  public getResilienceScorecard(countryID: number, year: number) {
-    return this.http.getWithQueryParams(`Dashboard/getResilienceScorecard`, { countryID, year })
-    .pipe(map(x => x as ResultResponseDto<DashboardModeResponseDto>));
-  }
+  
 }

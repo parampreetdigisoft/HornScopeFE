@@ -21,7 +21,7 @@ import { SendRequestMailToUpdateCountry } from "src/app/core/models/AnalystVM";
 export class AssessmentResultComponent implements OnInit {
   currentYear = new Date().getFullYear();
   selectedYear= this.currentYear;
-  selectedCountryID: number | any = "";
+  selectedCountryID?: number | null;
   assessmentsResponse: PaginationResponse<GetAssessmentResponse> | undefined;
   totalRecords: number = 0;
   pageSize: number = 10;
@@ -41,6 +41,14 @@ export class AssessmentResultComponent implements OnInit {
   ngOnInit(): void {
     this.getAllCountriesByUserId();
     this.getAssessments();
+  }
+
+  customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.countryName?.toLowerCase().includes(term) ||
+      item.countryAliasName?.toLowerCase().includes(term)
+    );
   }
 
   goToAssessment(assessment: GetAssessmentResponse) {

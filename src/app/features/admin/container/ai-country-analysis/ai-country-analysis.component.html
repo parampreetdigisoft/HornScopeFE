@@ -148,7 +148,8 @@
                         </span>
                       </a>
                       <div class="dropdown d-inline-block">
-                        <a style="cursor:pointer" data-bs-toggle="dropdown" aria-expanded="false"
+                        <a style="cursor:pointer" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
+                          aria-expanded="false"
                           [matTooltip]="'Download Report'">
 
                           <span *ngIf="i != selectedIndex">
@@ -165,7 +166,7 @@
                           </p>
                         </a>
 
-                        <ul class="dropdown-menu" style="cursor:pointer">
+                        <ul class="dropdown-menu dropdown-menu-end" style="cursor:pointer">
 
                           <!-- AI Section -->
                           <li class="dropdown-header">AI Report</li>

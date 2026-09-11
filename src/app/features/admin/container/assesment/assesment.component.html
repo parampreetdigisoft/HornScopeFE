@@ -69,7 +69,7 @@
         <th>Country</th>
         <th>Score</th>
         <th>Status</th>
-        <th>Unknown</th>
+        <th>Indeterminate</th>
         <th>NA</th>
         <th>Assign By</th>
         <th>Action</th>
@@ -81,7 +81,7 @@
         <td>{{ assessment.userName }}</td>
         <td>{{ assessment.countryName }}</td>
         <td>
-          <span class="bold_num">{{ assessment.score?.toFixed(2) }}</span>
+          <span class="bold_num">{{ assessment.score?.toFixed(1) }}</span>
         </td>
         <td>{{ assessment.assessmentPhase==5 ? 'Completed' :'InProgress' }}</td>
         <td>{{ assessment.totalUnknown }}</td>

@@ -13,12 +13,12 @@
         Welcome{{ role == '3' ? ' back' : '' }}
       </h4>
       <p class="before_login_card_desc text-center">
-        {{ role == '3' ? 'Strategic intelligence for the Horn of Africa and East Africa.' : 'Sign in to continue to Hornscope.' }}
+        {{ role == '3' ? 'Strategic intelligence for the Horn of Africa and East Africa.' : 'Log in to your account' }}
       </p>
 
       <div class="input_field">
         <label for="loginEmail"><i class="bi bi-envelope"></i> Email *</label>
-        <input id="loginEmail" type="email" formControlName="email" placeholder="name@example.com" class="form-control" autocomplete="username">
+        <input id="loginEmail" type="email" formControlName="email" placeholder="Enter Username" class="form-control" autocomplete="username">
         <div *ngIf="(email?.touched || (email?.invalid && isSubmitted))" class="error-msg">
           <div *ngIf="email?.errors?.['required']">Email is required.</div>
           <div *ngIf="email?.errors?.['email']">Please enter a valid email address.</div>
@@ -28,7 +28,7 @@
       <div class="input_field password_eye mb-2">
         <label for="loginPassword"><i class="bi bi-lock"></i> Password *</label>
         <div class="position-relative">
-          <input id="loginPassword" type="password" formControlName="password" placeholder="Enter password"
+          <input id="loginPassword" type="password" formControlName="password" placeholder="Enter Password"
             class="form-control" #password autocomplete="current-password">
           <button type="button" class="password_eye_icon" tabindex="-1"
             [attr.aria-label]="password.type === 'password' ? 'Show password' : 'Hide password'"

@@ -8,6 +8,7 @@ import { CountryViewComponent } from './container/country-view/country-view.comp
 import { CountryDetailsComponent } from './features/country-details/country-details.component';
 import { ChooseKpisComponent } from './container/choose-kpis/choose-kpis.component';
 import { CountryUserDashboardComponent } from './container/country-signal-dashboard/country-signal-dashboard.component';
+import { DashboardDiagnosticsPanelComponent } from "src/app/shared/standAlone/dashboard-diagnostics-panel/dashboard-diagnostics-panel.component";
 const routes: Routes = [
   {
     path: '',
@@ -68,7 +69,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     SharedModule,
-    RouterModule.forChild(routes)
-  ]
+    RouterModule.forChild(routes),
+    DashboardDiagnosticsPanelComponent
+]
 })
 export class CountryUserModule { } 

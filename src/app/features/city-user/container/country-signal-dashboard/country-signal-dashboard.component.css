@@ -131,7 +131,7 @@ app-country-user-dashboard .hs-index-section {
   position: relative;
 }
 
-/* Header-only wrap: no extra ROSEW section padding around the tabs */
+/* Header-only wrap: no extra section padding around the tabs */
 app-country-user-dashboard .hs-index-section > .signal-dashboard-wrap.embedded {
   padding: 0;
   gap: 0;

@@ -135,19 +135,13 @@ export class AnalystService {
   public getQuestionsByCountryId(payload: CountryMappingPillerRequestDto) {
     return this.http.getWithQueryParams(`Question/getQuestionsByCountryMappingIdForAnalyst`, payload).pipe(map(x => x as ResultResponseDto<GetQuestionByCountryMappingResponse>));
   }
-  
-  public getPeaceStressTestDashboard(countryID: number, year: number) {
-    return this.http.getWithQueryParams(`Dashboard/getPeaceStressTestDashboard`, { countryID, year })
-    .pipe(map(x => x as ResultResponseDto<DashboardModeResponseDto>));
-  }
-  
-  public getEarlyWarningDashboard(countryID: number, year: number) {
-    return this.http.getWithQueryParams(`Dashboard/getEarlyWarningDashboard`, { countryID, year })
-    .pipe(map(x => x as ResultResponseDto<DashboardModeResponseDto>));
-  }
 
-  public getResilienceScorecard(countryID: number, year: number) {
-    return this.http.getWithQueryParams(`Dashboard/getResilienceScorecard`, { countryID, year })
+   public getRelationalDiagnosticsDashboard(countryID: number, year: number, familyGroup: string) {
+      return this.http.getWithQueryParams(`Dashboard/getRelationalDiagnosticsDashboard`, { countryID, year, familyGroup })
+        .pipe(map(x => x as ResultResponseDto<DashboardModeResponseDto>));
+  }
+  public getCompositeDiagnosticsDashboard(countryID: number, year: number) {
+    return this.http.getWithQueryParams(`Dashboard/getCompositeDiagnosticsDashboard`, { countryID, year })
     .pipe(map(x => x as ResultResponseDto<DashboardModeResponseDto>));
   }
 }

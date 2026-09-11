@@ -580,9 +580,9 @@ export class AiCountryComparisonComponent implements OnInit {
   getCountryScore(countryID: number, isAi: boolean = false): string {
     const country = this.countries?.find(c => c.countryID === countryID);
     if (isAi) {
-      return country?.aiScore?.toFixed(2) || '0';
+      return country?.aiScore?.toFixed(1) || '0';
     }
-    return country?.score?.toFixed(2) || '0';
+    return country?.score?.toFixed(1) || '0';
   }
 
   onImgError(event: Event) {

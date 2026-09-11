@@ -38,6 +38,7 @@ export interface AddQuestionRequest {
   questionID: number;
   pillarID: number;
   weightID: number;
+  weight?: number;
   questionText: string;
   questionOptions: QuestionOption[];
 }

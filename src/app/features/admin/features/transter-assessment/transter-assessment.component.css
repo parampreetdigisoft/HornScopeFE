@@ -78,12 +78,34 @@ color: #ff5f5f;
     border: 1px solid #9c9c9c;
     font-size: 14px;
 }
+.transfer-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
 .details_list {
+    display: grid;
+    grid-template-columns: 108px minmax(0, 1fr);
+    column-gap: 12px;
+    align-items: baseline;
+    line-height: 1.5;
     font-weight: 700;
 }
-.details_list span{
+
+.details_list .details_label {
+    font-weight: 700;
+}
+
+.details_list span {
     font-weight: 400;
 }
+
+.details_list .bold_num {
+    font-weight: 600;
+}
+
 .details_transf #pills-home {
     margin-top: 20px;
 }

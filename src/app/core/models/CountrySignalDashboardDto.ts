@@ -73,8 +73,6 @@ export interface DashboardModeResponseDto {
   manualDescriptor?: string;
   amiStrategicAction?: string;
   signals?: SignalCardDto[];
-  primarySignals?: SignalCardDto[];
-  secondarySignals?: SignalCardDto[];
   questions?: DashboardQuestionScoreDto[];
   dashboardInterpretations?: DashboardInterpretationDto[];
 }

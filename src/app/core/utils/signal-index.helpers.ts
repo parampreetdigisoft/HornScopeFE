@@ -81,9 +81,6 @@ export class SignalIndexHelpers {
 
   getSignals(dashboard: DashboardModeResponseDto | null): SignalCardDto[] {
     if (!dashboard) return [];
-    if (dashboard.primarySignals?.length) {
-      return [...dashboard.primarySignals, ...(dashboard.secondarySignals ?? [])];
-    }
     return dashboard.signals ?? [];
   }
 
