@@ -272,7 +272,7 @@ export class ChatService {
   }
 
   getContriesCrossComparision() {
-    let userText = "Provide a comprehensive comparative analysis of the selected countries across all HS pillars, highlighting healthcare performance, key market challenges, strengths, structural vulnerabilities, resilience indicators, emerging public market trends, and strategic recommendations for each pillar."
+    let userText = "Provide a comprehensive comparative analysis of the selected countries across all Hornscope pillars, highlighting geopolitical and security conditions, governance quality, macroeconomic stress, connectivity, humanitarian pressure, climate and resource risks, strengths, structural vulnerabilities, resilience indicators, emerging trends, and strategic recommendations for each pillar."
 
     if (this.isTyping()) {
       this.stopGeneration();
@@ -471,65 +471,72 @@ export class ChatService {
   // Questions for a single country
   countryQuickQuestions = [
     {
-      label: 'Market Summary',
-      question: 'Summarize the current market situation, key challenges, and recent developments in this country.'
+      label: 'Hornscope Summary',
+      question: 'Provide a Hornscope summary for this country covering the immediate situation, country score overview, evidence picture, key developments, critical risks, gaps, and strategic recommendations across all Hornscope pillars.'
     },
     {
-      label: 'Market Priorities',
-      question: 'What are the major market priorities, economic initiatives, and development programs currently underway in this country?'
+      label: 'Country Brief',
+      question: 'Summarize the current strategic situation, key developments, and intelligence picture for this country across Hornscope pillars.'
     },
     {
-      label: 'Market Risks',
-      question: 'What are the most significant market risks, economic challenges, supply disruptions, or other market concerns affecting this country?'
+      label: 'Critical Risks',
+      question: 'What are the most significant geopolitical, security, governance, economic, climate, and humanitarian risks currently affecting this country?'
+    },
+    {
+      label: 'Pillar Strengths',
+      question: 'Which Hornscope pillars show the strongest performance in this country, and where are the main structural vulnerabilities?'
+    },
+    {
+      label: 'Early Warning',
+      question: 'What early warning signals, shocks, or emerging stresses should decision-makers watch in this country?'
     },
     {
       label: 'Recommendations',
-      question: 'What recommendations can strengthen market performance, economic resilience, investment opportunities, and overall market stability in this country?'
+      question: 'What strategic recommendations can strengthen resilience, governance, security, and stability in this country?'
     },
     {
-      label: 'Recent Improvements',
-      question: 'What recent improvements have been observed in this country’s market performance, economic conditions, investment environment, or business climate?'
+      label: 'Cross-Domain Patterns',
+      question: 'What cross-pillar patterns, cascading risks, or shock transmission pathways are visible in this country’s Hornscope profile?'
     },
     {
-      label: 'Risk Factors',
-      question: 'What are the key factors affecting market outcomes in this country, including infrastructure, investment, trade, funding, governance, or environmental challenges?'
-    },
-    {
-      label: 'Market Trends',
-      question: 'What are the latest market trends, emerging opportunities, economic developments, trade activities, and investment trends in this country?'
+      label: 'Strategic Outlook',
+      question: 'What is the near-term strategic outlook and the most plausible scenarios for this country?'
     }
   ];
 
-  // Questions for all African countries
-
+  // Questions for the Horn of Africa and East Africa region
   globalQuickQuestions = [
     {
-      label: 'Market Summary',
-      question: 'Summarize the overall market situation across African countries over the past few days.'
+      label: 'Hornscope Summary',
+      question: 'Provide a Hornscope summary of the Horn of Africa and East Africa covering the regional situation, country score overview, evidence picture, key developments, critical risks, gaps, and strategic recommendations across all Hornscope pillars.'
     },
     {
-      label: 'Market Leaders',
-      question: 'Which African countries are demonstrating the strongest market performance, economic growth, investment activity, and business environment recently?'
+      label: 'Regional Brief',
+      question: 'Summarize the overall strategic intelligence picture across the Horn of Africa and East Africa.'
     },
     {
-      label: 'Market Risks',
-      question: 'What are the major market risks, economic challenges, supply disruptions, and financial concerns currently affecting African countries?'
+      label: 'Resilience Leaders',
+      question: 'Which countries in the Horn of Africa and East Africa currently show the strongest resilience across Hornscope pillars?'
+    },
+    {
+      label: 'Regional Risks',
+      question: 'What are the major geopolitical, security, climate, governance, and humanitarian risks currently affecting the Horn of Africa and East Africa?'
     },
     {
       label: 'Recommendations',
-      question: 'What are the key recommendations for strengthening market performance, economic resilience, investment, trade, and business environments across Africa?'
+      question: 'What strategic recommendations would strengthen regional stability, resilience, and cooperation across the Horn of Africa and East Africa?'
     },
     {
-      label: 'Improved Countries',
-      question: 'Which African countries have shown the most significant improvements in market performance, economic conditions, investment, and business activity recently?'
+      label: 'Improving Countries',
+      question: 'Which countries in the Horn of Africa and East Africa have shown the most significant improvements across Hornscope pillars recently?'
     },
     {
       label: 'High-Risk Countries',
-      question: 'Which African countries are currently facing the highest market risks due to economic instability, political uncertainty, weak infrastructure, supply disruptions, or other market challenges?'
+      question: 'Which countries currently face the highest compound risk due to conflict, governance stress, economic shock, climate pressure, or humanitarian strain?'
     },
     {
-      label: 'Market Trends',
-      question: 'What are the latest market trends, emerging investment opportunities, economic developments, trade activities, and regional market developments across Africa?'
+      label: 'Emerging Trends',
+      question: 'What are the latest emerging trends, early warning signals, and strategic developments across the Horn of Africa and East Africa?'
     }
   ];
 }

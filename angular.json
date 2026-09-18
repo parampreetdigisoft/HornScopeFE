@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "market-intelligence-frontend": {
+    "Hornscope-frontend": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/market-intelligence-frontend",
+            "outputPath": "dist/Hornscope-frontend",
             "allowedCommonJsDependencies": [
               "file-saver",
               "quill-delta"
@@ -69,18 +69,18 @@
         "serve": {
           "builder": "@angular-devkit/build-angular:dev-server",
           "options": {
-            "buildTarget": "market-intelligence-frontend:build"
+            "buildTarget": "Hornscope-frontend:build"
           },
           "configurations": {
             "production": {
-              "buildTarget": "market-intelligence-frontend:build:production"
+              "buildTarget": "Hornscope-frontend:build:production"
             }
           }
         },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "buildTarget": "market-intelligence-frontend:build"
+            "buildTarget": "Hornscope-frontend:build"
           }
         },
         "test": {

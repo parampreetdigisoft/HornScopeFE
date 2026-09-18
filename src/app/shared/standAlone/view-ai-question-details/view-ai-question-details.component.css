@@ -49,6 +49,41 @@
     text-align: center;
 }
 
+.kpi_custom_table col.col-confidence { width: 18%; }
+.kpi_custom_table col.col-sources { width: 11%; }
+.kpi_custom_table col.col-ai-score { width: 12%; }
+.kpi_custom_table col.col-eval-score { width: 13%; }
+.kpi_custom_table col.col-discrepancy { width: 22%; }
+.kpi_custom_table col.col-year { width: 8%; }
+.kpi_custom_table col.col-average { width: 16%; }
+
+.kpi_custom_table th.col-confidence,
+.kpi_custom_table td.col-confidence {
+    width: 18%;
+    min-width: 118px;
+    overflow: visible;
+    padding-left: 6px;
+    padding-right: 6px;
+}
+
+.kpi_custom_table th.col-year,
+.kpi_custom_table td.col-year {
+    width: 8%;
+    max-width: 58px;
+    padding-left: 2px;
+    padding-right: 2px;
+    white-space: nowrap;
+}
+
+.kpi_custom_table th.col-discrepancy,
+.kpi_custom_table td.col-discrepancy {
+    width: 22%;
+    min-width: 140px;
+    overflow: visible;
+    padding-left: 8px;
+    padding-right: 8px;
+}
+
 .kpi_custom_table td {
     padding: 6px 4px;
     border: 1px solid rgba(197, 160, 90, 0.18);
@@ -72,7 +107,7 @@
     text-align: center;
 }
 
-.last_data td span {
+.last_data td span:not(.score-label):not(.no-data):not(.confidence-badge) {
     color: #061525;
     background-color: #C5A05A;
     white-space: nowrap;
@@ -232,17 +267,42 @@ button.btn-close:focus-visible {
 
 ::ng-deep .kpi_custom_table .last_data app-ai-editable-field .confidence-badge {
     margin: 0 auto;
+    font-size: 10px;
+    padding: 3px 8px;
+    min-width: 0;
+    max-width: 100%;
+    white-space: nowrap;
+    display: inline-block;
+    box-sizing: border-box;
+}
+
+::ng-deep .kpi_custom_table td.col-confidence app-ai-editable-field,
+::ng-deep .kpi_custom_table td.col-confidence .ai-field {
+    width: 100%;
+    max-width: 100%;
+}
+
+::ng-deep .kpi_custom_table td.col-confidence .ai-field-input {
+    width: 100%;
+    min-width: 0;
     font-size: 11px;
-    padding: 2px 8px;
+    padding: 2px 4px;
 }
 
 ::ng-deep .kpi_custom_table app-circular-score,
-::ng-deep .kpi_custom_table app-ai-editable-field,
-::ng-deep .kpi_custom_table app-sparkline-score {
+::ng-deep .kpi_custom_table app-ai-editable-field {
     display: inline-flex;
     justify-content: center;
     align-items: center;
     max-width: 100%;
+}
+
+::ng-deep .kpi_custom_table td.col-discrepancy app-sparkline-score {
+    display: flex;
+    width: 100%;
+    max-width: 100%;
+    justify-content: stretch;
+    align-items: center;
 }
 
 ::ng-deep .kpi_custom_table .circular-score,
@@ -256,22 +316,24 @@ button.btn-close:focus-visible {
 }
 
 ::ng-deep .kpi_custom_table .sparkline-container {
-    gap: 4px;
+    gap: 8px;
     min-width: 0;
     width: 100%;
     max-width: 100%;
-    justify-content: center;
+    justify-content: flex-start;
     padding: 0;
 }
 
 ::ng-deep .kpi_custom_table .sparkline-track {
-    min-width: 0;
-    max-width: 48px;
+    flex: 1 1 auto;
+    min-width: 72px;
+    max-width: none;
     height: 8px;
 }
 
 ::ng-deep .kpi_custom_table .score-label {
-    min-width: 28px;
+    flex: 0 0 auto;
+    min-width: 36px;
     font-size: 11px;
 }
 

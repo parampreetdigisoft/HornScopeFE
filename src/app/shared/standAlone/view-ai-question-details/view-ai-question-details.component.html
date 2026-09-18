@@ -41,20 +41,29 @@
 		<div class="integrate_outter">
 			<div class="integrate_list">
 				<table class="kpi_custom_table">
+						<colgroup>
+							<col class="col-confidence">
+							<col class="col-sources">
+							<col class="col-ai-score">
+							<col class="col-eval-score">
+							<col class="col-discrepancy">
+							<col class="col-year">
+							<col class="col-average">
+						</colgroup>
 						<thead>
 							<tr>
-								<th scope="col">AI Confidence</th>
+								<th scope="col" class="col-confidence">AI Confidence</th>
 								<th scope="col">Data Sources Used</th>
 								<th scope="col">AI Score</th>
 								<th scope="col">Evaluation Score</th>
-								<th scope="col">Discrepancy</th>
-								<th scope="col">Year</th>
+								<th scope="col" class="col-discrepancy">Discrepancy</th>
+								<th scope="col" class="col-year">Year</th>
 								<th scope="col">Average Score</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr class="last_data">
-								<td>
+								<td class="col-confidence">
 									<app-ai-editable-field [editMode]="editMode"
 										[showLabel]="false"
 										[value]="getFieldValue('confidenceLevel')"
@@ -85,10 +94,10 @@
 								<td>
 									<app-circular-score [value]="question?.evaluatorScore ?? 0"></app-circular-score>
 								</td>
-								<td>
+								<td class="col-discrepancy">
 									<app-sparkline-score [value]="discrepancy(question)"></app-sparkline-score>
 								</td>
-								<td>
+								<td class="col-year">
 									{{ (question?.year ?? 0) > 0 ? question?.year : 'NA' }}
 								</td>
 								<td>

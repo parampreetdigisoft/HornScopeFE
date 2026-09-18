@@ -30,20 +30,10 @@
             </div>
 
             <div class="cross-pillar">
-                <h5>Geographic Equity Note</h5>
+                <h5>Reliability Assessment</h5>
                 &nbsp;
-                <div *ngIf="pillar?.geographicEquityNote">
-                    <app-typing-text [text]="pillar!.geographicEquityNote ?? ''" [speed]="10"
-                        [numberOfWordAfterHideText]="10">
-                    </app-typing-text>
-                </div>
-            </div>
-
-            <div class="cross-pillar">
-                <h5>Institutional Assessment</h5>
-                &nbsp;
-                <div *ngIf="pillar?.institutionalAssessment">
-                    <app-typing-text [text]="pillar!.institutionalAssessment ?? ''" [speed]="10"
+                <div *ngIf="pillar?.reliabilityAssessment">
+                    <app-typing-text [text]="pillar!.reliabilityAssessment ?? ''" [speed]="10"
                         [numberOfWordAfterHideText]="10">
                     </app-typing-text>
                 </div>

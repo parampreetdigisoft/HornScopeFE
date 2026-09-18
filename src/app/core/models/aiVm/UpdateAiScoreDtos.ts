@@ -15,21 +15,18 @@ export interface UpdateAICountryScoreDto {
   operationalEvidence?: string | null;
   outcomeEvidence?: string | null;
   perceptionEvidence?: string | null;
-  temporalScope?: string | null;
-  distortionScreening?: string | null;
-  politicalShock?: string | null;
+  temporalReliability?: string | null;
+  geopoliticalShock?: string | null;
   economicShock?: string | null;
-  narrativeShock?: string | null;
-  stressScoreAdjustment?: string | null;
-  inequalityAdjustment?: string | null;
-  opacityRisk?: string | null;
-  nonCompensationNote?: string | null;
+  financeShock?: string | null;
+  reliabilityAssessment?: string | null;
+  scenarioAnalysis?: string | null;
+  dataIntegrityIndex?: string | null;
+  dataOpacityRisk?: string | null;
   relationalIntegrity?: string | null;
-  institutionalCapacity?: string | null;
   primarySource?: string | null;
   crossPillarPatterns?: string | null;
-  equityAssessment?: string | null;
-  conflictRiskOutlook?: string | null;
+  earlyWarningAssessment?: string | null;
   strategicRecommendation?: string | null;
   dataTransparencyNote?: string | null;
 }
@@ -42,18 +39,13 @@ export interface UpdateAIPillarScoreDto {
   operationalEvidence?: string | null;
   outcomeEvidence?: string | null;
   perceptionEvidence?: string | null;
-  temporalScope?: string | null;
-  distortionScreening?: string | null;
+  temporalReliability?: string | null;
   relationalIntegrity?: string | null;
-  stressPoliticalShock?: string | null;
+  stressGeopoliticalShock?: string | null;
   stressEconomicShock?: string | null;
-  stressNarrativeShock?: string | null;
-  stressScoreAdjustment?: string | null;
-  inequalityAdjustment?: string | null;
-  opacityRisk?: string | null;
-  nonCompensationNote?: string | null;
-  geographicEquityNote?: string | null;
-  institutionalAssessment?: string | null;
+  stressFinanceShock?: string | null;
+  dataOpacityRisk?: string | null;
+  reliabilityAssessment?: string | null;
   dataGapAnalysis?: string | null;
   redFlag?: string | null;
   dataSourceCitations?: UpdateAIDataSourceCitationDto[] | null;
@@ -82,14 +74,12 @@ export interface UpdateAIEstimatedQuestionScoreDto {
   operationalEvidence?: string | null;
   outcomeEvidence?: string | null;
   perceptionEvidence?: string | null;
-  temporalScope?: string | null;
-  distortionScreening?: string | null;
+  temporalReliability?: string | null;
   relationalDependencies?: string | null;
-  stressPoliticalShock?: string | null;
+  stressGeopoliticalShock?: string | null;
   stressEconomicShock?: string | null;
-  stressNarrativeShock?: string | null;
-  inequalityAdjustment?: string | null;
-  opacityRisk?: string | null;
+  stressFinanceShock?: string | null;
+  dataOpacityRisk?: string | null;
   redFlag?: string | null;
   sourceType?: string | null;
   sourceName?: string | null;
@@ -109,7 +99,7 @@ export interface AiEditableFieldConfig {
   section?: 'scores' | 'summary' | 'evidence' | 'source';
 }
 
-export const CONFIDENCE_LEVEL_OPTIONS = ['Low', 'Medium', 'High'];
+export const CONFIDENCE_LEVEL_OPTIONS = ['Low', 'Medium', 'High','Indeterminate'];
 
 export function mapCitationsForUpdate(citations?: AIDataSourceCitation[] | null): UpdateAIDataSourceCitationDto[] {
   return (citations ?? []).map(c => ({

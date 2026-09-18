@@ -248,6 +248,38 @@
   max-width: 100% !important;
 }
 
+.offcanvas-body .question-detail-layout .kpi_custom_table col.col-confidence,
+.offcanvas-body .question-detail-layout .kpi_custom_table th.col-confidence,
+.offcanvas-body .question-detail-layout .kpi_custom_table td.col-confidence {
+  width: 18% !important;
+  min-width: 118px;
+  overflow: visible;
+}
+
+.offcanvas-body .question-detail-layout .kpi_custom_table col.col-discrepancy,
+.offcanvas-body .question-detail-layout .kpi_custom_table th.col-discrepancy,
+.offcanvas-body .question-detail-layout .kpi_custom_table td.col-discrepancy {
+  width: 22% !important;
+}
+
+.offcanvas-body .question-detail-layout .kpi_custom_table col.col-year,
+.offcanvas-body .question-detail-layout .kpi_custom_table th.col-year,
+.offcanvas-body .question-detail-layout .kpi_custom_table td.col-year {
+  width: 7% !important;
+  max-width: 58px;
+}
+
+.offcanvas-body .question-detail-layout .kpi_custom_table td.col-discrepancy app-sparkline-score,
+.offcanvas-body .question-detail-layout .kpi_custom_table td.col-discrepancy .sparkline-container {
+  width: 100%;
+}
+
+.offcanvas-body .question-detail-layout .kpi_custom_table td.col-discrepancy .sparkline-track {
+  flex: 1 1 auto;
+  min-width: 72px;
+  max-width: none;
+}
+
 .offcanvas-body .country-detail-layout .city_cards_h1 {
   font-size: 30px !important;
   line-height: normal !important;
@@ -526,6 +558,12 @@
   background: rgba(181, 80, 46, 0.15);
   color: #E08A6A;
   border: 1px solid rgba(181, 80, 46, 0.4);
+}
+
+.confidence-badge.indeterminate {
+  background: rgb(255 255 255 / 22%);
+  color: #E8EEF4;
+  border: 1px solid rgba(143, 163, 181, 0.4);
 }
 
 /* ── Desktop responsive shell ───────────────────────────────── */

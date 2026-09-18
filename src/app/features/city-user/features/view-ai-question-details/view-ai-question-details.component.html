@@ -50,18 +50,6 @@
       </div>
 
       <div class="cross-pillar">
-        <h5>Inequality Adjustment</h5>
-        &nbsp;
-        <div *ngIf="question?.inequalityAdjustment">
-          <app-typing-text
-            [text]="question?.inequalityAdjustment ?? ''"
-            [speed]="10"
-            [numberOfWordAfterHideText]="10"
-          >
-          </app-typing-text>
-        </div>
-      </div>
-      <div class="cross-pillar">
         <h5>Structural Evidence</h5>
         &nbsp;
         <div *ngIf="question?.structuralEvidence">
@@ -110,23 +98,11 @@
         </div>
       </div>
       <div class="cross-pillar">
-        <h5>Temporal Scope</h5>
+        <h5>Temporal Reliability</h5>
         &nbsp;
-        <div *ngIf="question?.temporalScope">
+        <div *ngIf="question?.temporalReliability">
           <app-typing-text
-            [text]="question?.temporalScope ?? ''"
-            [speed]="10"
-            [numberOfWordAfterHideText]="20"
-          >
-          </app-typing-text>
-        </div>
-      </div>
-      <div class="cross-pillar">
-        <h5>Distortion Screening</h5>
-        &nbsp;
-        <div *ngIf="question?.distortionScreening">
-          <app-typing-text
-            [text]="question?.distortionScreening ?? ''"
+            [text]="question?.temporalReliability ?? ''"
             [speed]="10"
             [numberOfWordAfterHideText]="20"
           >
@@ -146,11 +122,11 @@
         </div>
       </div>
       <div class="cross-pillar">
-        <h5>Political Shock</h5>
+        <h5>Geopolitical Shock</h5>
         &nbsp;
-        <div *ngIf="question?.stressPoliticalShock">
+        <div *ngIf="question?.stressGeopoliticalShock">
           <app-typing-text
-            [text]="question?.stressPoliticalShock ?? ''"
+            [text]="question?.stressGeopoliticalShock ?? ''"
             [speed]="10"
             [numberOfWordAfterHideText]="20"
           >
@@ -170,11 +146,11 @@
         </div>
       </div>
       <div class="cross-pillar">
-        <h5>Narrative Shock</h5>
+        <h5>Finance Shock</h5>
         &nbsp;
-        <div *ngIf="question?.stressNarrativeShock">
+        <div *ngIf="question?.stressFinanceShock">
           <app-typing-text
-            [text]="question?.stressNarrativeShock ?? ''"
+            [text]="question?.stressFinanceShock ?? ''"
             [speed]="10"
             [numberOfWordAfterHideText]="20"
           >
@@ -182,23 +158,11 @@
         </div>
       </div>
       <div class="cross-pillar">
-        <h5>Overall Resilience</h5>
+        <h5>Data Opacity Risk</h5>
         &nbsp;
-        <div *ngIf="question?.stressOverallResilienceShock">
+        <div *ngIf="question?.dataOpacityRisk">
           <app-typing-text
-            [text]="question?.stressOverallResilienceShock ?? ''"
-            [speed]="10"
-            [numberOfWordAfterHideText]="20"
-          >
-          </app-typing-text>
-        </div>
-      </div>
-      <div class="cross-pillar">
-        <h5>Opacity Risk</h5>
-        &nbsp;
-        <div *ngIf="question?.opacityRisk">
-          <app-typing-text
-            [text]="question?.opacityRisk ?? ''"
+            [text]="question?.dataOpacityRisk ?? ''"
             [speed]="10"
             [numberOfWordAfterHideText]="20"
           >

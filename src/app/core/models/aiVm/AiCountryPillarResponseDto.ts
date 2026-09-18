@@ -31,21 +31,15 @@ export interface AiCountryPillarVM {
   operationalEvidence?: string | null;
   outcomeEvidence?: string | null;
   perceptionEvidence?: string | null;
-  temporalScope?: string | null;
-  distortionScreening?: string | null;
+  temporalReliability?: string | null;
   relationalIntegrity?: string | null;
 
-  stressPoliticalShock?: string | null;
+  stressGeopoliticalShock?: string | null;
   stressEconomicShock?: string | null;
-  stressNarrativeShock?: string | null;
-  stressOverallResilience?: string | null;
-  stressScoreAdjustment?: string | null;
+  stressFinanceShock?: string | null;
 
-  inequalityAdjustment?: string | null;
-  opacityRisk?: string | null;
-  nonCompensationNote?: string | null;
-  geographicEquityNote?: string | null;
-  institutionalAssessment?: string | null;
+  dataOpacityRisk?: string | null;
+  reliabilityAssessment?: string | null;
   dataGapAnalysis?: string | null;
 
   redFlag?: string | null;
@@ -66,6 +60,5 @@ export interface AIDataSourceCitation {
   dataYear?: number | null;
   dataExtract?: string | null;
   trustLevel?: number | null;
-  createdAt?: string | null; // ISO string from API
+  createdAt?: string | null;
 }
-

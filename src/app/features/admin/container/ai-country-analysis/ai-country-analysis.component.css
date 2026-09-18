@@ -94,16 +94,47 @@
 }
 
 .compare_city_table tbody td.action_td table .action_icons {
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
     justify-content: flex-start;
+    gap: 8px;
 }
 
-.compare_city_table tbody td.action_td table .action_icons span {
-    display: inline-block;
-    background-color: #c3ab86;
+.compare_city_table tbody td.action_td table .action_icons > a,
+.compare_city_table tbody td.action_td table .action_icons > .dropdown {
+    position: static;
+    flex: 0 0 40px;
+    width: 40px;
+    min-width: 40px;
+    height: 36px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.compare_city_table tbody td.action_td table .action_icons > .dropdown > a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+}
+
+.compare_city_table tbody td.action_td table .action_icons span:not(.spinner-border) {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 36px;
+    box-sizing: border-box;
+    background-color: #cd9e56;
     padding: 8px 10px;
     white-space: nowrap;
     color: #E8EEF4;
     border-radius: 5px;
+    line-height: 0;
+    margin: 0;
 }
 
 .compare_city_table .action_td td {
@@ -166,26 +197,40 @@
     display: block;
 }
 .table_outer .table td.action_td {
-    width: 200px;
+    width: 220px;
+    min-width: 220px;
+    white-space: nowrap;
 }
 .action_icons a svg g path {
     fill: #0C2238 !important;
 }
 
 .compare_city_table .table_custom_inner tbody td.action_td table .btn_spinner .spinner-border {
+    width: 1rem;
+    height: 1rem;
     border-radius: 100px !important;
     padding: 0 !important;
     margin: 0 !important;
-}
-p.btn_spinner {
-    display: inline-block;
-    background-color: #C5A05A;
-    padding: 7px 10px;
-    white-space: nowrap;
-    color: #E8EEF4;
-    border-radius: 5px;
+    background: transparent !important;
 }
 
+p.btn_spinner {
+    width: 40px;
+    height: 36px;
+    min-width: 40px;
+    min-height: 36px;
+    margin: 0 !important;
+    box-sizing: border-box;
+    background-color: #cd9e56;
+    padding: 8px 10px;
+    white-space: nowrap;
+    color: #ffffff;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 0;
+}
 /* Ai date css start */
 .research_date {
   display: inline-flex;
@@ -279,13 +324,27 @@ p.btn_spinner {
         display: block;
     }
     .action_icons {
+        gap: 5px;
         grid-gap: 5px;
     }
-    .compare_city_table tbody td.action_td table .action_icons span {
+    .compare_city_table tbody td.action_td table .action_icons > a,
+    .compare_city_table tbody td.action_td table .action_icons > .dropdown {
+        flex-basis: 36px;
+        width: 36px;
+        min-width: 36px;
+        height: 32px;
+    }
+    .compare_city_table tbody td.action_td table .action_icons span:not(.spinner-border),
+    p.btn_spinner {
+        width: 36px;
+        min-width: 36px;
+        height: 32px;
+        min-height: 32px;
         padding: 6px 8px;
     }
     .table_outer .table td.action_td {
         width: 185px;
+        min-width: 185px;
     }
 }
 
