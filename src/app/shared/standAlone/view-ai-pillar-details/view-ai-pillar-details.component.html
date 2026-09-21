@@ -36,7 +36,7 @@
 						<tr>
 							<th scope="col">AI Confidence</th>
 							<th scope="col">AI Score</th>
-							<th scope="col">Evaluator Score</th>
+							<th scope="col" class="text-center">Evaluator Score</th>
 							<th scope="col">Discrepancy</th>
 							<th scope="col">Average Score</th>
 						</tr>
@@ -54,7 +54,7 @@
 							<td>
 								<app-circular-score [value]="pillar?.aiProgress ?? 0"></app-circular-score>
 							</td>
-							<td>
+							<td class="text-center">
 								<app-circular-score [value]="pillar?.evaluatorScore ?? 0"></app-circular-score>
 							</td>
 							<td>

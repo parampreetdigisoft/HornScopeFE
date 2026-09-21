@@ -20,7 +20,7 @@ import { EvaluatorService } from '../../evaluator.service';
 import { ToasterService } from 'src/app/core/services/toaster.service';
 import { UserService } from 'src/app/core/services/user.service';
 import { CommonService } from 'src/app/core/services/common.service';
-import { HS_CHART, amiCompletionColor, amiScoreColor } from 'src/app/core/constants/hs-chart-theme';
+import { HS_CHART, amiCompletionColor, hsScoreColor } from 'src/app/core/constants/hs-chart-theme';
 
 export type ChartOptions = {
   series: ApexNonAxisChartSeries;
@@ -387,7 +387,7 @@ export class EvaluatorDashboardComponent implements OnInit {
       return HS_CHART.accent;
     }
     const normalized = maxNumber > 0 ? (scoreProgress / maxNumber) * 100 : 0;
-    return (amiScoreColor(normalized));
+    return (hsScoreColor(normalized));
     // return color === '#E8EEF4' ? HS_CHART.primaryMid : color;
   }
 

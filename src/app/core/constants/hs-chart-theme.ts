@@ -73,7 +73,7 @@ export const HS_CHART = {
   completionLow: '#B5502E',
 } as const;
 
-export function amiScoreColor(score: number | null | undefined): string {
+export function hsScoreColor(score: number | null | undefined): string {
   if (score === null || score === undefined || Number.isNaN(Number(score))) {
     return '#7A8A9A';
   }

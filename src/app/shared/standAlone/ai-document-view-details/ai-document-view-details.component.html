@@ -140,7 +140,7 @@
 					<ng-select [items]="countryUploadOptions()"
 						bindValue="value"
 						bindLabel="label"
-						[(ngModel)]="selectCountryDocuemnt"
+						[(ngModel)]="selectCountryDocument"
 						[clearable]="false"
 						[searchable]="true"
 						[dropdownPosition]="'auto'"
@@ -215,13 +215,13 @@
 			</div>
 
 			<div class="modal-footer">
+				<button (click)="doneUploadModal()"
+					class="save-btn">
+					Done
+				</button>
 				<button (click)="closeUploadModal()"
 					class="cancel-btn">
 					Cancel
-				</button>
-				<button (click)="doneUploadModal()"
-					class="save-btn">
-					done
 				</button>
 			</div>
 		</div>

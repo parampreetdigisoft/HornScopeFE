@@ -148,7 +148,12 @@
                         </span>
                       </a>
                       <div class="dropdown d-inline-block">
-                        <a style="cursor:pointer" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
+                        <a style="cursor:pointer"
+                          href="javascript:void(0)"
+                          tabindex="0"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          data-bs-popper-config='{"strategy":"fixed"}'
                           aria-expanded="false"
                           [matTooltip]="'Download Report'">
 
@@ -171,12 +176,22 @@
                           <!-- AI Section -->
                           <li class="dropdown-header">AI Report</li>
                           <li>
-                            <a class="dropdown-item" (click)="aiCountryDetailsReport(country, i, 'pdf', 'ai')">
+                            <a class="dropdown-item"
+                              href="javascript:void(0)"
+                              tabindex="0"
+                              role="button"
+                              (click)="aiCountryDetailsReport(country, i, 'pdf', 'ai')"
+                              (keydown.enter)="aiCountryDetailsReport(country, i, 'pdf', 'ai')">
                               Download PDF
                             </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" (click)="aiCountryDetailsReport(country, i, 'docx', 'ai')">
+                            <a class="dropdown-item"
+                              href="javascript:void(0)"
+                              tabindex="0"
+                              role="button"
+                              (click)="aiCountryDetailsReport(country, i, 'docx', 'ai')"
+                              (keydown.enter)="aiCountryDetailsReport(country, i, 'docx', 'ai')">
                               Download DOCX
                             </a>
                           </li>
@@ -188,12 +203,22 @@
                           <!-- Manual Section -->
                           <li class="dropdown-header">Manual Report</li>
                           <li>
-                            <a class="dropdown-item" (click)="aiCountryDetailsReport(country, i, 'pdf', 'manual')">
+                            <a class="dropdown-item"
+                              href="javascript:void(0)"
+                              tabindex="0"
+                              role="button"
+                              (click)="aiCountryDetailsReport(country, i, 'pdf', 'manual')"
+                              (keydown.enter)="aiCountryDetailsReport(country, i, 'pdf', 'manual')">
                               Download PDF
                             </a>
                           </li>
                           <li>
-                            <a class="dropdown-item" (click)="aiCountryDetailsReport(country, i, 'docx', 'manual')">
+                            <a class="dropdown-item"
+                              href="javascript:void(0)"
+                              tabindex="0"
+                              role="button"
+                              (click)="aiCountryDetailsReport(country, i, 'docx', 'manual')"
+                              (keydown.enter)="aiCountryDetailsReport(country, i, 'docx', 'manual')">
                               Download DOCX
                             </a>
                           </li>

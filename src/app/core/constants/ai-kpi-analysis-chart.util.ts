@@ -13,7 +13,7 @@ import {
   ApexXAxis,
   ApexYAxis,
 } from 'ng-apexcharts';
-import { HS_CHART, HS_AXIS_STYLE, amiScoreColor } from './hs-chart-theme';
+import { HS_CHART, HS_AXIS_STYLE, hsScoreColor } from './hs-chart-theme';
 import { computeKpiChartYRange } from './kpi-comparison-chart.util';
 
 export type AiKpiPillarTooltipPillar = {
@@ -389,7 +389,7 @@ export function buildAiKpiAreaChartOptions(args: {
     markers: {
       size: pillars.map((p) => (p.isAccess === false ? 4 : 6)),
       colors: pillars.map((p) =>
-        p.isAccess === false ? HS_CHART.accent : amiScoreColor(p.aiProgress)
+        p.isAccess === false ? HS_CHART.accent : hsScoreColor(p.aiProgress)
       ),
       strokeColors: HS_CHART.deep,
       strokeWidth: 2,
@@ -423,7 +423,7 @@ export function buildAiKpiAreaChartOptions(args: {
       cssClass: 'ami-kpi-custom-tooltip',
       custom: ({ dataPointIndex }: { dataPointIndex: number }) => {
         const pillar = pillars[dataPointIndex] ?? { pillarName: '', isAccess: true };
-        return buildAiKpiProgressTooltipHtml(pillar, amiScoreColor(pillar.aiProgress));
+        return buildAiKpiProgressTooltipHtml(pillar, hsScoreColor(pillar.aiProgress));
       },
     },
     states: {

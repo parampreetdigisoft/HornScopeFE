@@ -27,7 +27,7 @@ import {
   ApexStates,
 } from "ng-apexcharts";
 import { AiCountryPillarDashboardResponseDto } from "src/app/core/models/AiCountryPillarDashboardResponseDto";
-import { HS_CHART, amiScoreColor, HS_AXIS_STYLE } from "src/app/core/constants/hs-chart-theme";
+import { HS_CHART, hsScoreColor, HS_AXIS_STYLE } from "src/app/core/constants/hs-chart-theme";
 import { DiagnosticsDashboardTab } from "src/app/core/constants/relational-diagnostics.catalog";
 import { DashboardModeResponseDto } from "src/app/core/models/CountrySignalDashboardDto";
 
@@ -454,7 +454,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
 
       markers: {
         size: data.map(p => 4),
-        colors: data.map(p => amiScoreColor(p.aiValue)),
+        colors: data.map(p => hsScoreColor(p.aiValue)),
         strokeColors: HS_CHART.primaryMid,
         strokeWidth: 2,
         hover: {
@@ -527,8 +527,8 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
         custom: ({ dataPointIndex }) => {
           const pillar = data[dataPointIndex];
 
-          const progressColor = amiScoreColor(pillar.aiValue);
-          const evaluatorProgressColor = amiScoreColor(pillar.evaluationValue);
+          const progressColor = hsScoreColor(pillar.aiValue);
+          const evaluatorProgressColor = hsScoreColor(pillar.evaluationValue);
           const progressPercent = pillar.aiValue ?? 0;
           const evaluatorProgressPercent = pillar.evaluationValue ?? 0;
           const avgScore = ((progressPercent + evaluatorProgressPercent) / 2);
@@ -584,7 +584,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     };
   }
 PillarColorByScore(score: any): string {
-  return amiScoreColor(score);
+  return hsScoreColor(score);
 }
 
   buildUniqueCategories(data: { pillarName: string }[]): string[] {

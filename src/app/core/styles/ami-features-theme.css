@@ -758,7 +758,8 @@ path[fill="#0c2c67"] {
   margin-top: 2px;
 }
 
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option:hover {
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option:hover,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
   background: rgba(197, 160, 90, 0.16) !important;
   color: #D4B86A !important;
   border: 1px solid #c5a05a !important;
@@ -957,7 +958,8 @@ body > .ng-dropdown-panel .ng-option:last-child {
   border-bottom: none !important;
 }
 
-body > .ng-dropdown-panel .ng-option:hover {
+body > .ng-dropdown-panel .ng-option:hover,
+body > .ng-dropdown-panel .ng-option.ng-option-marked {
   background: rgba(197, 160, 90, 0.16) !important;
   color: #D4B86A !important;
 }
@@ -1097,14 +1099,21 @@ body > .ng-dropdown-panel .assessment_option_end_label {
   font-size: 13px;
   font-weight: 500;
   padding: 8px 12px !important;
+  border: 1px solid transparent !important;
+  outline: none !important;
+  transition: background 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
 }
 
 .dropdown-menu .dropdown-item:hover,
 .dropdown-menu .dropdown-item:focus,
+.dropdown-menu .dropdown-item:focus-visible,
 .dropdown-menu .dropdown-item:active,
 .dropdown-menu .dropdown-item.active {
   background: rgba(197, 160, 90, 0.16) !important;
+  background-color: rgba(197, 160, 90, 0.16) !important;
   color: #D4B86A !important;
+  border: 1px solid rgba(197, 160, 90, 0.4) !important;
+  outline: none !important;
 }
 
 .dropdown-menu .dropdown-divider {
@@ -1349,15 +1358,12 @@ body::-webkit-scrollbar-corner {
   background: #0C2238;
 }
 
-/* Do not highlight ng-select's auto-focused first option until hover or a real selection */
-html body .ng-dropdown-panel .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover),
-html body .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover) {
-  background: #0F2A40 !important;
-  background-color: #0F2A40 !important;
-  color: #E8EEF4 !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-weight: 400 !important;
+/* Keyboard navigation (Up/Down arrow keys) & hover highlight for ng-select options */
+html body .ng-dropdown-panel .ng-option.ng-option-marked,
+html body .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+  background: rgba(197, 160, 90, 0.16) !important;
+  background-color: rgba(197, 160, 90, 0.16) !important;
+  color: #D4B86A !important;
 }
 
 /* Add/Update Question score dropdown: 5 values, never clip behind a scrollbar */

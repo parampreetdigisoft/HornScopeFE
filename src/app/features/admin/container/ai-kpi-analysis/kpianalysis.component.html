@@ -131,7 +131,7 @@
           </td>
 
           <td>
-            <div class="kpi_city kpi_td_data">
+            <div class="kpi_city kpi_td_data text-center">
               <app-circular-score
                 [value]="piller?.evaluatorScore ?? 0"
               ></app-circular-score>
@@ -251,8 +251,12 @@
                         </span>
                       </a>
 
-                     <div class="dropdown d-inline-block">
-												<a style="cursor:pointer" data-bs-toggle="dropdown"
+                      <div class="dropdown d-inline-block">
+												<a style="cursor:pointer"
+													href="javascript:void(0)"
+													tabindex="0"
+													role="button"
+													data-bs-toggle="dropdown"
 													data-bs-popper-config='{"strategy":"fixed"}'
 													aria-expanded="false" [matTooltip]="'Download Report'">
 
@@ -272,13 +276,21 @@
 												<ul class="dropdown-menu dropdown-menu-end">
 													<li>
 														<a style="cursor:pointer" class="dropdown-item"
-															(click)="piller.isAccess ? aiPillarDetailsReport(piller,i, 'pdf'):$event.preventDefault()">
+															href="javascript:void(0)"
+															tabindex="0"
+															role="button"
+															(click)="piller.isAccess ? aiPillarDetailsReport(piller,i, 'pdf'):$event.preventDefault()"
+															(keydown.enter)="piller.isAccess ? aiPillarDetailsReport(piller,i, 'pdf'):$event.preventDefault()">
 															Download PDF
 														</a>
 													</li>
 													<li>
 														<a style="cursor:pointer" class="dropdown-item"
-															(click)="piller.isAccess ? aiPillarDetailsReport(piller,i,'docx'):$event.preventDefault()">
+															href="javascript:void(0)"
+															tabindex="0"
+															role="button"
+															(click)="piller.isAccess ? aiPillarDetailsReport(piller,i,'docx'):$event.preventDefault()"
+															(keydown.enter)="piller.isAccess ? aiPillarDetailsReport(piller,i,'docx'):$event.preventDefault()">
 															Download DOCX
 														</a>
 													</li>

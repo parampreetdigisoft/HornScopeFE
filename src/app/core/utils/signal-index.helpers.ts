@@ -147,7 +147,7 @@ export class SignalIndexHelpers {
   }
 
   getAverageScore(dashboard: DashboardModeResponseDto | null): number | null {
-    const countryScore = dashboard?.aiCountryScore ?? dashboard?.ami;
+    const countryScore = dashboard?.aiCountryScore ?? dashboard?.HS;
     if (this.hasScore(countryScore)) return Number(countryScore);
     const scores = this.getQuestions(dashboard)
       .map((q) => q.aiScore)

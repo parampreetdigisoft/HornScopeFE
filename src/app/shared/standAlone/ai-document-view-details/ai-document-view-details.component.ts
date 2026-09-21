@@ -33,7 +33,7 @@ export class AiDocumentViewDetailsComponent implements OnInit, OnChanges, OnDest
   @ViewChild('uploadModal') uploadModalTpl?: TemplateRef<unknown>;
   private uploadModalView?: EmbeddedViewRef<unknown>;
 
-  selectCountryDocuemnt?: number | string;
+  selectCountryDocument?: number | string;
   totalFiles = computed(() => (this.selectedCountry()?.noOfFiles ?? 0) + this.selectedFiles().length);
   selectedCountry = input<GetCountryDocumentResponseDto | null | undefined>(null);
   documents = input<GetCountryPillarDocumentResponseDto[]>([]);
@@ -75,7 +75,7 @@ export class AiDocumentViewDetailsComponent implements OnInit, OnChanges, OnDest
   }
   ngOnChanges(changes: SimpleChanges): void {
     this.selectedFiles.set([]);
-    this.selectCountryDocuemnt = this.selectedCountry()?.countryID
+    this.selectCountryDocument = this.selectedCountry()?.countryID
   }
   ngOnDestroy(): void {
     this.destroyUploadModalView();
@@ -143,12 +143,12 @@ export class AiDocumentViewDetailsComponent implements OnInit, OnChanges, OnDest
   uploadDocuments() {
     const formData = new FormData();
     if (
-      this.selectCountryDocuemnt != null &&
-      this.selectCountryDocuemnt !== undefined &&
-      this.selectCountryDocuemnt !== 'undefined' &&
-      this.selectCountryDocuemnt !== 'global'
+      this.selectCountryDocument != null &&
+      this.selectCountryDocument !== undefined &&
+      this.selectCountryDocument !== 'undefined' &&
+      this.selectCountryDocument !== 'global'
     ) {
-      formData.append('CountryID', this.selectCountryDocuemnt.toString());
+      formData.append('CountryID', this.selectCountryDocument.toString());
     }
     this.selectedFiles().forEach((item, index) => {
       formData.append('Files', item.file); 

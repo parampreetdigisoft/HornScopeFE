@@ -504,39 +504,39 @@ export class ChatService {
     }
   ];
 
-  // Questions for the Horn of Africa and East Africa region
+  // Questions for the Hornscope region
   globalQuickQuestions = [
     {
       label: 'Hornscope Summary',
-      question: 'Provide a Hornscope summary of the Horn of Africa and East Africa covering the regional situation, country score overview, evidence picture, key developments, critical risks, gaps, and strategic recommendations across all Hornscope pillars.'
+      question: 'Provide a Hornscope summary of the countries covering the Hornscope regional situation, country score overview, evidence picture, key developments, critical risks, gaps, and strategic recommendations across all Hornscope pillars.'
     },
     {
       label: 'Regional Brief',
-      question: 'Summarize the overall strategic intelligence picture across the Horn of Africa and East Africa.'
+      question: 'Summarize the overall strategic intelligence picture across the Hornscope countries.'
     },
     {
       label: 'Resilience Leaders',
-      question: 'Which countries in the Horn of Africa and East Africa currently show the strongest resilience across Hornscope pillars?'
+      question: 'Which countries in the Hornscope region currently show the strongest resilience across Hornscope pillars?'
     },
     {
       label: 'Regional Risks',
-      question: 'What are the major geopolitical, security, climate, governance, and humanitarian risks currently affecting the Horn of Africa and East Africa?'
+      question: 'What are the major geopolitical, security, climate, governance, and humanitarian risks currently affecting the Hornscope region?'
     },
     {
       label: 'Recommendations',
-      question: 'What strategic recommendations would strengthen regional stability, resilience, and cooperation across the Horn of Africa and East Africa?'
+      question: 'What strategic recommendations would strengthen regional stability, resilience, and cooperation across the Hornscope region?'
     },
     {
       label: 'Improving Countries',
-      question: 'Which countries in the Horn of Africa and East Africa have shown the most significant improvements across Hornscope pillars recently?'
+      question: 'Which countries in the Hornscope region have shown the most significant improvements across Hornscope pillars recently?'
     },
     {
       label: 'High-Risk Countries',
-      question: 'Which countries currently face the highest compound risk due to conflict, governance stress, economic shock, climate pressure, or humanitarian strain?'
+      question: 'Which countries in the Hornscope region currently face the highest compound risk due to conflict, governance stress, economic shock, climate pressure, or humanitarian strain?'
     },
     {
       label: 'Emerging Trends',
-      question: 'What are the latest emerging trends, early warning signals, and strategic developments across the Horn of Africa and East Africa?'
+      question: 'What are the latest emerging trends, early warning signals, and strategic developments across the Hornscope region?'
     }
   ];
 }

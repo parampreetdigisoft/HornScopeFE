@@ -101,7 +101,12 @@
                         </span>
                       </a>
                       <div class="dropdown d-inline-block">
-                        <a style="cursor:pointer" data-bs-toggle="dropdown" data-bs-popper-config='{"strategy":"fixed"}'
+                        <a style="cursor:pointer"
+                          href="javascript:void(0)"
+                          tabindex="0"
+                          role="button"
+                          data-bs-toggle="dropdown"
+                          data-bs-popper-config='{"strategy":"fixed"}'
                           aria-expanded="false" [matTooltip]="'Download Report'">
 
                           <span style="display: inline-block" *ngIf="i != selectedIndex">
@@ -120,15 +125,24 @@
                         <ul class="dropdown-menu dropdown-menu-end">
                           <li>
                             <a style="cursor:pointer" class="dropdown-item"
-                              (click)="aiCountryDetailsReport(country, i, 'pdf')">
+                              href="javascript:void(0)"
+                              tabindex="0"
+                              role="button"
+                              (click)="aiCountryDetailsReport(country, i, 'pdf')"
+                              (keydown.enter)="aiCountryDetailsReport(country, i, 'pdf')">
                               Download PDF
                             </a>
                           </li>
 
                           <li>
                             <a style="cursor:pointer" class="dropdown-item"
-                              (click)="aiCountryDetailsReport(country, i, 'docx')">
-                              Download DOCX                             </a>
+                              href="javascript:void(0)"
+                              tabindex="0"
+                              role="button"
+                              (click)="aiCountryDetailsReport(country, i, 'docx')"
+                              (keydown.enter)="aiCountryDetailsReport(country, i, 'docx')">
+                              Download DOCX
+                            </a>
                           </li>
                         </ul>
                       </div>

@@ -112,16 +112,16 @@ export class ChatContainerComponent implements OnInit, OnDestroy {
 
   readonly rotatingHeadlines = [
   'Welcome to Hornscope',
-  'Monitor market system performance across the Horn of Africa',
-  'Explore country market risks and resilience',
-  'Compare market indicators, pillars, and trends',
-  'Detect early market warnings and emerging risks',
+  'Monitor Hornscope performance across the Horn of Africa',
+  'Explore country Hornscope risks and resilience',
+  'Compare Hornscope indicators, pillars, and trends',
+  'Detect early warnings and emerging risks',
 ];
 readonly rotatingPlaceholders = [
-  'Ask about a country’s market system or current market status…',
-  'Explore market risks, trends, or early warning indicators…',
-  'Compare market performance across countries or regions…',
-  'Ask about market pillars, KPIs, or diagnostic status…',
+  'Ask about a country’s Hornscope status…',
+  'Explore Hornscope risks, trends, or early warning indicators…',
+  'Compare Hornscope performance across countries or regions…',
+  'Ask about Hornscope pillars, KPIs, or diagnostic status…',
 ];
   rotatingIndex = signal(0);
   placeholderIndex = signal(0);

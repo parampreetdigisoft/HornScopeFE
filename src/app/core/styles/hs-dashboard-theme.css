@@ -309,9 +309,13 @@ body > .ng-dropdown-panel .ng-option:last-child {
 }
 
 .hs-dashboard .ng-dropdown-panel .ng-option:hover,
+.hs-dashboard .ng-dropdown-panel .ng-option.ng-option-marked,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option:hover,
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-marked,
 .ng-dropdown-panel.ami-dark-dd .ng-option:hover,
-body > .ng-dropdown-panel .ng-option:hover {
+.ng-dropdown-panel.ami-dark-dd .ng-option.ng-option-marked,
+body > .ng-dropdown-panel .ng-option:hover,
+body > .ng-dropdown-panel .ng-option.ng-option-marked {
   background: rgba(197, 160, 90, 0.16) !important;
   color: #d4b86a !important;
 }

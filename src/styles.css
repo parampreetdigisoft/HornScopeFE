@@ -25,11 +25,24 @@ body > .ng-dropdown-panel .ng-option.ng-option-selected.ng-option-marked {
 }
 
 .hs-dashboard .ng-dropdown-panel .ng-option:hover,
+.hs-dashboard .ng-dropdown-panel .ng-option.ng-option-marked,
 .signal-dashboard-wrap .ng-dropdown-panel .ng-option:hover,
-body > .ng-dropdown-panel .ng-option:hover {
-  background-color: transparent !important;
+.signal-dashboard-wrap .ng-dropdown-panel .ng-option.ng-option-marked,
+body > .ng-dropdown-panel .ng-option:hover,
+body > .ng-dropdown-panel .ng-option.ng-option-marked,
+.ng-dropdown-panel .ng-option:hover,
+.ng-dropdown-panel .ng-option.ng-option-marked,
+.ng-dropdown-panel .ng-dropdown-panel-items .ng-option:hover,
+.dropdown-menu .dropdown-item:hover,
+.dropdown-menu .dropdown-item:focus,
+.dropdown-menu .dropdown-item:focus-visible,
+.dropdown-menu .dropdown-item:active,
+.dropdown-menu .dropdown-item.active {
+  background-color: rgba(197, 160, 90, 0.16) !important;
   background: rgba(197, 160, 90, 0.16) !important;
   color: #d4b86a !important;
+  border: 1px solid rgba(197, 160, 90, 0.4) !important;
+  outline: none !important;
 }
 
 .hs-dashboard .ng-dropdown-panel,
@@ -986,12 +999,12 @@ body .content_area .inner_content_area {
     border: 1px solid #1E3D5C !important;
 }
 
-html body .ng-dropdown-panel .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover),
-html body .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked:not(.ng-option-selected):not(:hover) {
-  background: #0F2A40 !important;
-  background-color: #0F2A40 !important;
-  color: #E8EEF4 !important;
-  border: none !important;
-  box-shadow: none !important;
-  font-weight: 400 !important;
+/* Ensure keyboard navigation (Up/Down arrow keys) properly highlights marked options globally */
+html body .ng-dropdown-panel .ng-option.ng-option-marked,
+html body .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked,
+body > .ng-dropdown-panel .ng-option.ng-option-marked,
+.ng-select .ng-dropdown-panel .ng-option.ng-option-marked {
+  background: rgba(197, 160, 90, 0.16) !important;
+  background-color: rgba(197, 160, 90, 0.16) !important;
+  color: #d4b86a !important;
 }

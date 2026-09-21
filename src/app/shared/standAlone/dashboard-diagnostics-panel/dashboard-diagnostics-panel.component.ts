@@ -185,15 +185,15 @@ export class DashboardDiagnosticsPanelComponent implements OnChanges, OnDestroy 
     const dashboard = this.dashboard;
     if (!dashboard) return [];
     const list = dashboard.signals ?? [];
-    return [...list].sort((a, b) => Number(this.isAmi(b)) - Number(this.isAmi(a)));
+    return [...list].sort((a, b) => Number(this.isHS(b)) - Number(this.isHS(a)));
   }
 
   private get kpiSignals(): SignalCardDto[] {
     return this.allSignals;
   }
 
-  private isAmi(signal: SignalCardDto): boolean {
-    return signal.layerID === 0 || (signal.layerCode || '').toUpperCase() === 'AMI';
+  private isHS(signal: SignalCardDto): boolean {
+    return signal.layerID === 0 || (signal.layerCode || '').toUpperCase() === 'HS';
   }
 
   private updateGlanceCharts(): void {
@@ -222,9 +222,9 @@ export class DashboardDiagnosticsPanelComponent implements OnChanges, OnDestroy 
     const aiCondition = signal.aiCondition || signal.aiInterpretationValue || 'No Data';
     const manualCondition = signal.manualCondition || signal.manualInterpretationValue || 'No Data';
     return {
-      code: this.isAmi(signal) ? 'AMI' : signal.code || signal.layerCode || catalog?.code || '',
+      code: this.isHS(signal) ? 'HS' : signal.code || signal.layerCode || catalog?.code || '',
       name: signal.name || signal.layerName || catalog?.name || 'Indicator',
-      icon: this.isAmi(signal) ? 'bi-graph-up' : catalog?.icon || 'bi-broadcast',
+      icon: this.isHS(signal) ? 'bi-graph-up' : catalog?.icon || 'bi-broadcast',
       measures: catalog?.measures || signal.description || '',
       formula: catalog?.formula,
       riskIndicator: catalog?.riskIndicator,
