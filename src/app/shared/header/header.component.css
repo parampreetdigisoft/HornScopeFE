@@ -45,10 +45,10 @@
 
 .hs_dashboard_logo img
 {
-    width: 80px;
+    width: 100px;
     height: auto;
     display: block;
-    filter: drop-shadow(0 1px 6px rgba(197, 160, 90, 0.25));
+    filter: drop-shadow(0 1px 8px rgba(197, 160, 90, 0.35));
     transition: transform 0.25s ease;
 }
 
