@@ -358,7 +358,6 @@ tr.pillar_disabled {
 
 /* Decorative Glow */
 .kpi-card::after {
-  content: '';
   position: absolute;
   top: -50%;
   right: -50%;

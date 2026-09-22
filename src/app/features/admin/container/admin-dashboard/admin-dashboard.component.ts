@@ -73,6 +73,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   selectedCountries: number | any = "";
   countryHistory: CountryHistoryDto | null = null;
   countryQuestionHistoryResponse: AiCountryPillarDashboardResponseDto | null = null;
+  allPillars: any[] = [];
   isLoader: boolean = false;
   @ViewChild("chart") chart!: ChartComponent;
   public chartOptions!: Partial<ChartOptions>;
@@ -89,8 +90,21 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
 
   ngOnInit(): void {
     this.isLoader = true;
+    this.loadAllPillars();
     this.getAllCountriesByUserId();
     this.GetCountryHistory();
+  }
+
+  loadAllPillars(): void {
+    this.adminService.getAllPillars().subscribe({
+      next: (res) => {
+        this.allPillars = res ?? [];
+        if (!this.countryQuestionHistoryResponse?.pillars?.length && this.allPillars.length > 0) {
+          this.buildPillarComparisonChart();
+        }
+      },
+      error: () => {}
+    });
   }
 
   ngAfterViewInit() { }
@@ -156,13 +170,41 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
     this.adminService.getCountryPillarHistory(request).subscribe({
       next: (res) => {
         this.isLoader = false;
-        this.countryQuestionHistoryResponse = res.result;
-        if (this.countryQuestionHistoryResponse) {
-          this.buildPillarComparisonChart();
+        if (res.succeeded && res.result?.pillars?.length) {
+          this.countryQuestionHistoryResponse = res.result;
+        } else {
+          this.countryQuestionHistoryResponse = {
+            countryID: this.selectedCountries,
+            countryName: this.getCountryName(),
+            aiValue: res.result?.aiValue ?? 0,
+            evaluationValue: res.result?.evaluationValue ?? 0,
+            pillars: res.result?.pillars?.length ? res.result.pillars : this.allPillars.map(p => ({
+              pillarID: p.pillarID,
+              pillarName: p.pillarName,
+              displayOrder: p.displayOrder,
+              aiValue: 0,
+              evaluationValue: 0
+            }))
+          };
         }
+        this.buildPillarComparisonChart();
       },
       error: (err) => {
         this.isLoader = false;
+        this.countryQuestionHistoryResponse = {
+          countryID: this.selectedCountries,
+          countryName: this.getCountryName(),
+          aiValue: 0,
+          evaluationValue: 0,
+          pillars: this.allPillars.map(p => ({
+            pillarID: p.pillarID,
+            pillarName: p.pillarName,
+            displayOrder: p.displayOrder,
+            aiValue: 0,
+            evaluationValue: 0
+          }))
+        };
+        this.buildPillarComparisonChart();
       },
     });
   }
@@ -378,11 +420,20 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
   }
 
   buildPillarComparisonChart() {
-    const data = [...(this.countryQuestionHistoryResponse?.pillars ?? [])];
+    let data = [...(this.countryQuestionHistoryResponse?.pillars ?? [])];
+    if (!data.length && this.allPillars.length > 0) {
+      data = this.allPillars.map(p => ({
+        pillarID: p.pillarID,
+        pillarName: p.pillarName,
+        displayOrder: p.displayOrder,
+        aiValue: 0,
+        evaluationValue: 0
+      }));
+    }
 
     const categories = this.buildUniqueCategories(data);
-    const aiSeries = data.map(x => x.aiValue);
-    const evaluatorSeries = data.map(x => x.evaluationValue);
+    const aiSeries = data.map(x => x.aiValue ?? 0);
+    const evaluatorSeries = data.map(x => x.evaluationValue ?? 0);
     this.chartPillarOptions = {
       series: [{
         name: 'AI Score',
@@ -454,7 +505,7 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
 
       markers: {
         size: data.map(p => 4),
-        colors: data.map(p => hsScoreColor(p.aiValue)),
+        colors: data.map(p => hsScoreColor(p.aiValue ?? 0)),
         strokeColors: HS_CHART.primaryMid,
         strokeWidth: 2,
         hover: {
@@ -526,9 +577,10 @@ export class AdminDashboardComponent implements OnInit, AfterViewInit {
         theme: 'dark',
         custom: ({ dataPointIndex }) => {
           const pillar = data[dataPointIndex];
+          if (!pillar) return '';
 
-          const progressColor = hsScoreColor(pillar.aiValue);
-          const evaluatorProgressColor = hsScoreColor(pillar.evaluationValue);
+          const progressColor = hsScoreColor(pillar.aiValue ?? 0);
+          const evaluatorProgressColor = hsScoreColor(pillar.evaluationValue ?? 0);
           const progressPercent = pillar.aiValue ?? 0;
           const evaluatorProgressPercent = pillar.evaluationValue ?? 0;
           const avgScore = ((progressPercent + evaluatorProgressPercent) / 2);

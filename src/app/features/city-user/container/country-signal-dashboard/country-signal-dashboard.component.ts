@@ -88,6 +88,7 @@ export class CountryUserDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoader = true;
+    this.getAllPillars();
     this.getCountryHistory();
     this.getCountryUserCountries();
   }
@@ -217,14 +218,31 @@ export class CountryUserDashboardComponent implements OnInit {
     this.countryUserService.getAICountryPillars(request).subscribe({
       next: (res) => {
         const pillars = res.result?.pillars ?? [];
-        this.aiPillars = pillars.map((p, index) => ({
-          pillarID: p.pillarID ?? index,
-          pillarName: p.pillarName || `Pillar ${index + 1}`,
-          aiValue: Number(p.aiProgress ?? p.aiScore ?? 0),
-        }));
+        if (pillars.length > 0) {
+          this.aiPillars = pillars.map((p, index) => ({
+            pillarID: p.pillarID ?? index,
+            pillarName: p.pillarName || `Pillar ${index + 1}`,
+            aiValue: Number(p.aiProgress ?? p.aiScore ?? 0),
+          }));
+        } else if (this.pillars.length > 0) {
+          this.aiPillars = this.pillars.map((p, index) => ({
+            pillarID: p.pillarID ?? index,
+            pillarName: p.pillarName || `Pillar ${index + 1}`,
+            aiValue: 0,
+          }));
+        } else {
+          this.aiPillars = [];
+        }
         this.refreshDerivedViews();
       },
       error: () => {
+        if (this.pillars.length > 0) {
+          this.aiPillars = this.pillars.map((p, index) => ({
+            pillarID: p.pillarID ?? index,
+            pillarName: p.pillarName || `Pillar ${index + 1}`,
+            aiValue: 0,
+          }));
+        }
         this.refreshDerivedViews();
       },
     });

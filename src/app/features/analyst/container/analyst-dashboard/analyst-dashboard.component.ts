@@ -75,6 +75,7 @@ export class AnalystDashboardComponent implements OnInit {
   selectedCountries: number | any = '';
   countryHistory: CountryHistoryDto | null = null;
   countryQuestionHistoryReponse: AiCountryPillarDashboardResponseDto | null = null;
+  allPillars: any[] = [];
   pillarBarOptions: any = {};
   isLoader: boolean = false;
   resizeTimeout: any;
@@ -94,10 +95,23 @@ export class AnalystDashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.isLoader = true;
+    this.loadAllPillars();
     this.getAllCountriesByUserId();
     this.yearChanged();
-
   }
+
+  loadAllPillars(): void {
+    this.analystService.getAllPillars().subscribe({
+      next: (res) => {
+        this.allPillars = res ?? [];
+        if (!this.countryQuestionHistoryReponse?.pillars?.length && this.allPillars.length > 0) {
+          this.buildPillarComparisonChart();
+        }
+      },
+      error: () => {}
+    });
+  }
+
   yearChanged() {
     this.GetCountryHistory();
     this.getCountriesProgressByUserId();
@@ -141,6 +155,13 @@ export class AnalystDashboardComponent implements OnInit {
       }
     });
   }
+  
+  // getCountryName(): string {
+  //   return (
+  //     this.countries?.find((x) => x.countryID === this.selectedCountries)?.countryName ||
+  //     "Selected Country"
+  //   );
+  // }
   getCountryPillarHistory() {
     if (this.userService?.userInfo?.userID == null || !this.selectedCountries || this.selectedCountries === '' || this.selectedCountries == null) {
       return;
@@ -153,13 +174,41 @@ export class AnalystDashboardComponent implements OnInit {
     this.analystService.getCountryPillarHistory(request).subscribe({
       next: (res) => {
         this.isLoader = false;
-        this.countryQuestionHistoryReponse = res.result;
-        if (this.countryQuestionHistoryReponse) {
-          this.buildPillarComparisonChart();
+        if (res.succeeded && res.result?.pillars?.length) {
+          this.countryQuestionHistoryReponse = res.result;
+        } else {
+          this.countryQuestionHistoryReponse = {
+            countryID: this.selectedCountries,
+            countryName: this.getCountryName(),
+            aiValue: res.result?.aiValue ?? 0,
+            evaluationValue: res.result?.evaluationValue ?? 0,
+            pillars: res.result?.pillars?.length ? res.result.pillars : this.allPillars.map(p => ({
+              pillarID: p.pillarID,
+              pillarName: p.pillarName,
+              displayOrder: p.displayOrder,
+              aiValue: 0,
+              evaluationValue: 0
+            }))
+          };
         }
+        this.buildPillarComparisonChart();
       },
       error: (err) => {
         this.isLoader = false;
+        this.countryQuestionHistoryReponse = {
+          countryID: this.selectedCountries,
+          countryName: this.getCountryName(),
+          aiValue: 0,
+          evaluationValue: 0,
+          pillars: this.allPillars.map(p => ({
+            pillarID: p.pillarID,
+            pillarName: p.pillarName,
+            displayOrder: p.displayOrder,
+            aiValue: 0,
+            evaluationValue: 0
+          }))
+        };
+        this.buildPillarComparisonChart();
       }
     });
   }
@@ -507,11 +556,20 @@ export class AnalystDashboardComponent implements OnInit {
 
 
   buildPillarComparisonChart() {
-    const data = [...(this.countryQuestionHistoryReponse?.pillars ?? [])];
+    let data = [...(this.countryQuestionHistoryReponse?.pillars ?? [])];
+    if (!data.length && this.allPillars.length > 0) {
+      data = this.allPillars.map(p => ({
+        pillarID: p.pillarID,
+        pillarName: p.pillarName,
+        displayOrder: p.displayOrder,
+        aiValue: 0,
+        evaluationValue: 0
+      }));
+    }
 
     const categories = this.buildUniqueCategories(data);
-    const aiSeries = data.map(x => x.aiValue);
-    const evaluatorSeries = data.map(x => x.evaluationValue);
+    const aiSeries = data.map(x => x.aiValue ?? 0);
+    const evaluatorSeries = data.map(x => x.evaluationValue ?? 0);
     this.chartPillarOptions = {
       series: [{
         name: 'AI Score',
@@ -583,7 +641,7 @@ export class AnalystDashboardComponent implements OnInit {
 
       markers: {
         size: data.map(p => 4),
-        colors: data.map(p => hsScoreColor(p.aiValue)),
+        colors: data.map(p => hsScoreColor(p.aiValue ?? 0)),
         strokeColors: HS_CHART.primaryMid,
         strokeWidth: 2,
         hover: {
@@ -655,9 +713,10 @@ export class AnalystDashboardComponent implements OnInit {
         },
         custom: ({ dataPointIndex }) => {
           const pillar = data[dataPointIndex];
+          if (!pillar) return '';
 
-          const progressColor = hsScoreColor(pillar.aiValue);
-          const evaluatorProgressColor = hsScoreColor(pillar.evaluationValue);
+          const progressColor = hsScoreColor(pillar.aiValue ?? 0);
+          const evaluatorProgressColor = hsScoreColor(pillar.evaluationValue ?? 0);
           const progressPercent = pillar.aiValue ?? 0;
           const evaluatorProgressPercent = pillar.evaluationValue ?? 0;
           const avgScore = ((progressPercent + evaluatorProgressPercent) / 2);

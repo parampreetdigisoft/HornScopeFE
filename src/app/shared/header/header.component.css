@@ -1,4 +1,4 @@
-.vui_header
+.hs_header
 {
     padding: 0 20px;
     position: sticky;
@@ -8,7 +8,7 @@
     background: #061525;
 }
 
-.vui_header_inner
+.hs_header_inner
 {
     border-radius: 12px;
     padding: 12px 18px;
@@ -26,12 +26,12 @@
     transition: border-color 0.25s ease, box-shadow 0.25s ease;
 }
 
-.vui_header_inner:hover {
+.hs_header_inner:hover {
     border-color: rgba(212, 184, 106, 0.4);
     box-shadow: 0 10px 32px rgba(197, 160, 90, 0.12);
 }
 
-.vui_header_inner::after {
+.hs_header_inner::after {
     content: '';
     position: absolute;
     left: 18px;
@@ -43,7 +43,7 @@
     opacity: 0.9;
 }
 
-.vui_dashboard_logo img
+.hs_dashboard_logo img
 {
     width: 80px;
     height: auto;
@@ -52,7 +52,7 @@
     transition: transform 0.25s ease;
 }
 
-.vui_dashboard_logo a:hover img {
+.hs_dashboard_logo a:hover img {
     transform: scale(1.03);
 }
 
@@ -195,10 +195,10 @@
     .profile_name_div {
         display: none;
     }
-    .vui_header {
+    .hs_header {
         padding: 0 12px;
     }
-    .vui_header_inner {
+    .hs_header_inner {
         padding: 10px 12px;
         border-radius: 10px;
         min-height: 48px;
@@ -221,7 +221,7 @@
         top: 5px;
         right: 5px;
     }
-    .vui_dashboard_logo img {
+    .hs_dashboard_logo img {
         width: 150px;
     }
     .menu_toggle {
@@ -248,7 +248,7 @@
 }
 
 @media only screen and (max-width:1280px) {
-  .vui_header_inner {
+  .hs_header_inner {
     padding: 10px 14px;
   }
   .user_name {

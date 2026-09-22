@@ -59,30 +59,37 @@ export class AddUpdateAnalystComponent implements OnInit {
       ],
     });
   }
-emailExistsValidator(): AsyncValidatorFn {
-  return (control: AbstractControl): Observable<ValidationErrors | null> => {
 
-    if (!control.value) {
-      return of(null);
-    }
-
-    return of(control.value).pipe(
-      debounceTime(500),
-      switchMap(email =>
-        this.adminService.checkEmailExist({
-          email: email,
-          userId: this.analyst?.userID ?? 0
-        })
-      ),
-      map((exists: boolean) => {      
-        return exists ? { emailExists: true } : null;
-      }),
-      catchError(() => of(null))
+  customSearchFn(term: string, item: any) {
+    term = term.toLowerCase();
+    return (
+      item.countryName?.toLowerCase().includes(term) ||
+      item.countryAliasName?.toLowerCase().includes(term)
     );
-  };
-}
+  }
 
-get selectedFile(): File | null {
+  emailExistsValidator(): AsyncValidatorFn {
+    return (control: AbstractControl): Observable<ValidationErrors | null> => {
+      if (!control.value) {
+        return of(null);
+      }
+      return of(control.value).pipe(
+        debounceTime(500),
+        switchMap(email =>
+          this.adminService.checkEmailExist({
+            email: email,
+            userId: this.analyst?.userID ?? 0
+          })
+        ),
+        map((exists: boolean) => {      
+          return exists ? { emailExists: true } : null;
+        }),
+        catchError(() => of(null))
+      );
+    };
+  }
+
+  get selectedFile(): File | null {
     return this.fileInput?.nativeElement?.files?.[0] || null;
   }
 

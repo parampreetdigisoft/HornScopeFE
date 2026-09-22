@@ -60,7 +60,7 @@
                             <!-- Country Multi-Select -->
                             <div class="input_field">
                                 <label>Assign Country *</label>
-                                <ng-select [items]="countries" bindValue="countryID" bindLabel="countryName"
+                                <ng-select [items]="countries" bindValue="countryID" bindLabel="countryName" [searchFn]="customSearchFn"
                                     formControlName="country" [multiple]="true" class="form-control analyst_multi_select"
                                     [searchable]="true"
                                     [placeholder]="analystForm.get('country')?.invalid ? 'Assign Country' : ''">

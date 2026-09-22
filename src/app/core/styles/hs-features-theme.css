@@ -468,7 +468,7 @@ path[fill="#0c2c67"] {
 /* Chart panels */
 #chart,
 #chartPillar,
-.ami-chart-panel,
+.hs-chart-panel,
 .apx_chart_new,
 .outer_graph,
 .city_pillar + app-ag-bar {
@@ -566,7 +566,7 @@ path[fill="#0c2c67"] {
 /* ApexCharts toolbar export menu (Download SVG / PNG / CSV) */
 #chart .apexcharts-menu,
 #chartPillar .apexcharts-menu,
-.ami-chart-panel .apexcharts-menu,
+.hs-chart-panel .apexcharts-menu,
 .apx_chart_new .apexcharts-menu,
 .outer_graph .apexcharts-menu,
 .apexcharts-canvas .apexcharts-menu,
@@ -582,7 +582,7 @@ path[fill="#0c2c67"] {
 
 #chart .apexcharts-menu-item,
 #chartPillar .apexcharts-menu-item,
-.ami-chart-panel .apexcharts-menu-item,
+.hs-chart-panel .apexcharts-menu-item,
 .apx_chart_new .apexcharts-menu-item,
 .outer_graph .apexcharts-menu-item,
 .apexcharts-canvas .apexcharts-menu-item,
@@ -598,7 +598,7 @@ path[fill="#0c2c67"] {
 
 #chart .apexcharts-menu-item:hover,
 #chartPillar .apexcharts-menu-item:hover,
-.ami-chart-panel .apexcharts-menu-item:hover,
+.hs-chart-panel .apexcharts-menu-item:hover,
 .apx_chart_new .apexcharts-menu-item:hover,
 .outer_graph .apexcharts-menu-item:hover,
 .apexcharts-canvas .apexcharts-menu-item:hover,

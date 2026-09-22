@@ -1,8 +1,8 @@
 <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-  <section class="vui_before_login vui_auth_page">
-    <div class="vui_before_login_cards ami_auth_card ami_auth_card--narrow">
-      <figure class="vui_logo">
-        <a><img src="assets/images/Logo-market-large.png" alt="Hornscope"></a>
+  <section class="hs_before_login hs_auth_page">
+    <div class="hs_before_login_cards ami_auth_card ami_auth_card--narrow">
+      <figure class="hs_logo">
+        <a><img src="assets/images/Logo-market-large.png" alt="Hornscope" width="100" height="100" /></a>
       </figure>
 
       <div class="ami_auth_icon_badge" aria-hidden="true">
@@ -44,7 +44,7 @@
 
       <div class="row g-2 align-items-center">
         <div class="col">
-          <div class="vui_checkbox">
+          <div class="hs_checkbox">
             <div class="form-check">
               <input class="form-check-input" formControlName="rememberMe" type="checkbox" id="flexCheckChecked">
               <label class="form-check-label" for="flexCheckChecked">Remember me</label>
@@ -52,7 +52,7 @@
           </div>
         </div>
         <div class="col-auto">
-          <a [routerLink]="['/auth/forgot-password']" class="vui_reset_pass_link">
+          <a [routerLink]="['/auth/forgot-password']" class="hs_reset_pass_link">
             <i class="bi bi-key"></i> Forgot password?
           </a>
         </div>
@@ -64,7 +64,7 @@
       </button>
 
       <div class="text-center" *ngIf="role == '3'">
-        <a [routerLink]="['/auth/sign-up']" class="create_new_account vui_reset_pass_link d-inline-block mt-2">
+        <a [routerLink]="['/auth/sign-up']" class="create_new_account hs_reset_pass_link d-inline-block mt-2">
           <i class="bi bi-person-plus"></i> Create account
         </a>
       </div>

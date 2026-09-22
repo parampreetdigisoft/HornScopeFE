@@ -346,6 +346,7 @@ export class AICountryAnalaysisComponent implements OnInit, OnDestroy {
       item.countryAliasName?.toLowerCase().includes(term)
     );
   }
+  
   refresh() {
     this.getAICountries(this.currentPage);
   }

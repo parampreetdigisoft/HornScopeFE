@@ -1,10 +1,10 @@
-<section class="vui_before_login vui_before_signup">
+<section class="hs_before_login hs_before_signup">
   <div class="ami_auth_shell ami_auth_shell--signup">
 
     <aside class="ami_auth_brand">
       <div class="ami_auth_brand_inner">
-        <figure class="vui_logo ami_auth_logo_plate">
-          <a><img src="assets/images/Logo-market-large.png" alt="Hornscope"></a>
+        <figure class="hs_logo ami_auth_logo_plate">
+          <a><img src="assets/images/Logo-market-large.png" alt="Hornscope" width="100" height="100" /></a>
         </figure>
 
         <span class="ami_auth_badge"><i class="bi bi-globe-africa"></i> Client Portal</span>
@@ -43,7 +43,7 @@
       </div>
     </aside>
 
-    <div class="vui_before_login_cards ami_auth_card ami_auth_card--signup">
+    <div class="hs_before_login_cards ami_auth_card ami_auth_card--signup">
       <form [formGroup]="signupForm" (ngSubmit)="submit()">
 
         <div class="ami_signup_form_head">
@@ -174,7 +174,7 @@
 
         <div class="text-center mt-2">
           <span class="text-muted" style="font-size: 13px;">Already have an account?</span>
-          <a [routerLink]="['/auth/clientPortalLogin']" class="vui_reset_pass_link d-inline-block ms-1">
+          <a [routerLink]="['/auth/clientPortalLogin']" class="hs_reset_pass_link d-inline-block ms-1">
             <i class="bi bi-box-arrow-in-right"></i> Log In
           </a>
         </div>

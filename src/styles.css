@@ -4,8 +4,8 @@
 @import "~@ng-select/ng-select/themes/default.theme.css";
 @import "./app/core/styles/hornscope-theme.css";
 @import "./app/core/styles/hs-dashboard-theme.css";
-@import "./app/core/styles/ami-shared-ui.css";
-@import "./app/core/styles/ami-features-theme.css";
+@import "./app/core/styles/hs-shared-ui.css";
+@import "./app/core/styles/hs-features-theme.css";
 
 /* Force dark ng-select after default theme import */
 .ng-dropdown-panel .ng-option-selected,
@@ -515,7 +515,7 @@ padding-right: 40px;
 }
 
 @keyframes l3 {to{transform: rotate(1turn)}}
-/* .bold_num styled in ami-shared-ui.css */
+/* .bold_num styled in hs-shared-ui.css */
 
 .cdk-overlay-container {
   position: fixed !important;
@@ -544,7 +544,7 @@ padding-right: 40px;
 .modal.show .modal-dialog {
   pointer-events: auto;
 }
-.vui_before_signup .vui_before_login_cards {
+.hs_before_signup .hs_before_login_cards {
     width: auto;
     max-width: none;
 }
@@ -766,7 +766,7 @@ padding-right: 40px;
 .table_outer .table tr th{
     border-bottom: 1px solid rgb(222, 226, 230);
 }
-.vui_header:after {
+.hs_header:after {
     content: "";
     width: 100%;
     height: calc(100% - 8px);
@@ -870,7 +870,7 @@ body .content_area .inner_content_area {
     text-align: center;
 }
 
-/* Confidence badge colors overridden in ami-shared-ui.css */
+/* Confidence badge colors overridden in hs-shared-ui.css */
 
 .city_img {
     background: linear-gradient(135deg, #C5A05A, #8B6B32);

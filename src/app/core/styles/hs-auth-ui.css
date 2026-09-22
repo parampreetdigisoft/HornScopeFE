@@ -10,12 +10,13 @@ app-sign-up,
 app-forgot-password,
 app-reset-password,
 app-twofa-verification,
-app-confirm-mail {
+app-confirm-mail,
+app-account-pop-up {
   display: block;
   width: 100%;
 }
 
-.vui_before_login {
+.hs_before_login {
   position: relative;
   min-height: 100dvh;
   max-height: 100dvh;
@@ -33,7 +34,7 @@ app-confirm-mail {
   scrollbar-color: #C5A05A #0C2238;
 }
 
-.vui_before_login::before {
+.hs_before_login::before {
   content: '';
   position: absolute;
   inset: 0;
@@ -45,7 +46,7 @@ app-confirm-mail {
   opacity: 0.5;
 }
 
-.vui_before_login::after {
+.hs_before_login::after {
   content: '';
   position: absolute;
   width: 480px;
@@ -79,7 +80,7 @@ app-confirm-mail {
 }
 
 /* ── Compact auth card (login / forgot / reset / 2FA) ───────── */
-.vui_before_login_cards,
+.hs_before_login_cards,
 .ami_auth_card {
   position: relative;
   z-index: 1;
@@ -120,8 +121,8 @@ app-confirm-mail {
 }
 
 /* ── Signup / login split shell — one desktop viewport ──────── */
-.vui_before_signup,
-.vui_auth_page {
+.hs_before_signup,
+.hs_auth_page {
   padding: 12px !important;
   align-items: center;
 }
@@ -185,7 +186,7 @@ app-confirm-mail {
   z-index: 1;
 }
 
-.ami_auth_brand .vui_logo {
+.ami_auth_brand .hs_logo {
   margin-bottom: 10px !important;
   background: transparent !important;
   border: none !important;
@@ -195,13 +196,13 @@ app-confirm-mail {
   justify-content: flex-start;
 }
 
-.ami_auth_brand .vui_logo > a {
+.ami_auth_brand .hs_logo > a {
   margin: 0 !important;
   padding: 5px 8px !important;
   border-radius: 10px !important;
 }
 
-.ami_auth_brand .vui_logo img,
+.ami_auth_brand .hs_logo img,
 .ami_auth_brand .ami_auth_logo_plate img {
   width: 130px !important;
   max-width: 100%;
@@ -315,7 +316,7 @@ app-confirm-mail {
 }
 
 .ami_auth_shell .ami_auth_card,
-.ami_auth_shell .vui_before_login_cards {
+.ami_auth_shell .hs_before_login_cards {
   min-width: 0;
   min-height: 0;
   width: auto !important;
@@ -335,35 +336,35 @@ app-confirm-mail {
 }
 
 .ami_auth_shell .ami_auth_card::-webkit-scrollbar,
-.ami_auth_shell .vui_before_login_cards::-webkit-scrollbar,
+.ami_auth_shell .hs_before_login_cards::-webkit-scrollbar,
 .ami_auth_brand::-webkit-scrollbar,
-.vui_before_login::-webkit-scrollbar {
+.hs_before_login::-webkit-scrollbar {
   width: 8px;
 }
 
 .ami_auth_shell .ami_auth_card::-webkit-scrollbar-thumb,
-.ami_auth_shell .vui_before_login_cards::-webkit-scrollbar-thumb,
+.ami_auth_shell .hs_before_login_cards::-webkit-scrollbar-thumb,
 .ami_auth_brand::-webkit-scrollbar-thumb,
-.vui_before_login::-webkit-scrollbar-thumb {
+.hs_before_login::-webkit-scrollbar-thumb {
   background: #C5A05A;
   border-radius: 8px;
 }
 
 .ami_auth_shell .ami_auth_card::-webkit-scrollbar-track,
-.ami_auth_shell .vui_before_login_cards::-webkit-scrollbar-track,
+.ami_auth_shell .hs_before_login_cards::-webkit-scrollbar-track,
 .ami_auth_brand::-webkit-scrollbar-track,
-.vui_before_login::-webkit-scrollbar-track {
+.hs_before_login::-webkit-scrollbar-track {
   background: #0C2238;
 }
 
 /* ── Logo / headings ────────────────────────────────────────── */
-.vui_before_login .vui_logo {
+.hs_before_login .hs_logo {
   margin: 0 0 12px;
   display: flex;
   justify-content: center;
 }
 
-.vui_before_login .vui_logo > a {
+.hs_before_login .hs_logo > a {
   display: inline-flex !important;
   align-items: center;
   justify-content: center;
@@ -378,7 +379,7 @@ app-confirm-mail {
   transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
 }
 
-.vui_before_login .vui_logo > a:hover {
+.hs_before_login .hs_logo > a:hover {
   transform: translateY(-1px);
   border-color: rgba(212, 184, 106, 0.7);
   box-shadow:
@@ -386,10 +387,10 @@ app-confirm-mail {
     0 12px 28px rgba(0, 0, 0, 0.45);
 }
 
-.vui_before_login .vui_logo img,
+.hs_before_login .hs_logo img,
 .ami_auth_logo_plate img {
-  width: 220px;
-  max-width: 100%;
+  /* width: 220px;
+  max-width: 100%; */
   height: auto;
   display: block;
   border-radius: 6px;
@@ -398,17 +399,17 @@ app-confirm-mail {
   transition: none;
 }
 
-.vui_before_login .vui_logo > a:hover img {
+.hs_before_login .hs_logo > a:hover img {
   transform: none;
 }
 
-.vui_before_login .ami_auth_brand .vui_logo {
+.hs_before_login .ami_auth_brand .hs_logo {
   justify-content: flex-start;
   text-align: left;
 }
 
-.vui_before_signup .vui_logo > a,
-.ami_auth_brand .vui_logo > a {
+.hs_before_signup .hs_logo > a,
+.ami_auth_brand .hs_logo > a {
   background: #ffffff !important;
   border: 1px solid rgba(197, 160, 90, 0.45) !important;
   padding: 8px 10px !important;
@@ -460,13 +461,13 @@ app-confirm-mail {
 }
 
 /* ── Form fields ────────────────────────────────────────────── */
-.vui_before_login .input_field {
+.hs_before_login .input_field {
   margin-bottom: 12px !important;
 }
 
-.vui_before_login .input_field label,
-.vui_before_login .form-label,
-.vui_before_login .ami_form_label {
+.hs_before_login .input_field label,
+.hs_before_login .form-label,
+.hs_before_login .ami_form_label {
   color: var(--ami-auth-gold) !important;
   font-size: 11px !important;
   font-weight: 650 !important;
@@ -479,8 +480,8 @@ app-confirm-mail {
   gap: 7px;
 }
 
-.vui_before_login .ami_form_label > i,
-.vui_before_login .input_field label > i {
+.hs_before_login .ami_form_label > i,
+.hs_before_login .input_field label > i {
   display: inline-grid;
   place-items: center;
   width: 22px;
@@ -491,12 +492,12 @@ app-confirm-mail {
   font-size: 12px;
 }
 
-.vui_before_login .ami_form_label > span {
+.hs_before_login .ami_form_label > span {
   color: inherit;
 }
 
-.vui_before_login .input_field .form-control,
-.vui_before_login .input_field .form-select {
+.hs_before_login .input_field .form-control,
+.hs_before_login .input_field .form-select {
   border-radius: 11px !important;
   border: 1px solid var(--ami-auth-border) !important;
   min-height: 40px !important;
@@ -509,15 +510,15 @@ app-confirm-mail {
   color-scheme: dark;
 }
 
-.vui_before_login .input_field .form-control::placeholder {
+.hs_before_login .input_field .form-control::placeholder {
   color: #7A8A9A !important;
 }
 
-.vui_before_login .input_field .form-control:hover {
+.hs_before_login .input_field .form-control:hover {
   border-color: rgba(197, 160, 90, 0.5) !important;
 }
 
-.vui_before_login .input_field .form-control:focus {
+.hs_before_login .input_field .form-control:focus {
   border-color: var(--ami-auth-gold) !important;
   box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.2) !important;
   background: var(--ami-auth-panel-2) !important;
@@ -526,9 +527,9 @@ app-confirm-mail {
 }
 
 /* Chrome autofill — keep dark */
-.vui_before_login input.form-control:-webkit-autofill,
-.vui_before_login input.form-control:-webkit-autofill:hover,
-.vui_before_login input.form-control:-webkit-autofill:focus {
+.hs_before_login input.form-control:-webkit-autofill,
+.hs_before_login input.form-control:-webkit-autofill:hover,
+.hs_before_login input.form-control:-webkit-autofill:focus {
   -webkit-text-fill-color: #E8EEF4 !important;
   caret-color: #E8EEF4;
   box-shadow: 0 0 0 1000px #123049 inset !important;
@@ -536,14 +537,14 @@ app-confirm-mail {
   border-color: rgba(197, 160, 90, 0.45) !important;
 }
 
-.vui_before_login .error-msg,
-.vui_before_login .text-danger {
-  color: #E08A6A !important;
+.hs_before_login .error-msg,
+.hs_before_login .text-danger {
+  color: #fb9d79 !important;
   font-size: 11px;
   margin-top: 4px;
 }
 
-.vui_before_login .password_eye_icon {
+.hs_before_login .password_eye_icon {
   position: absolute;
   top: 50%;
   right: 4px;
@@ -561,63 +562,63 @@ app-confirm-mail {
   transition: background 0.2s ease, transform 0.2s ease;
 }
 
-.vui_before_login .input_field.password_eye .form-control {
+.hs_before_login .input_field.password_eye .form-control {
   padding-right: 44px !important;
 }
 
-.vui_before_login .password_eye_icon:hover {
+.hs_before_login .password_eye_icon:hover {
   background: rgba(197, 160, 90, 0.14);
 }
 
-.vui_before_login .password_eye_icon i {
+.hs_before_login .password_eye_icon i {
   font-size: 16px;
   color: #C5A05A;
 }
 
-.vui_before_login .password_eye_icon path {
+.hs_before_login .password_eye_icon path {
   fill: #C5A05A;
 }
 
 /* ── Checkbox / switch / links ──────────────────────────────── */
-.vui_before_login .vui_checkbox .form-check-input:checked,
-.vui_before_login .form-switch .form-check-input:checked {
+.hs_before_login .hs_checkbox .form-check-input:checked,
+.hs_before_login .form-switch .form-check-input:checked {
   border-color: #C5A05A !important;
   background-color: #C5A05A !important;
 }
 
-.vui_before_login .form-check-label,
-.vui_before_login .form-switch .form-check-label {
+.hs_before_login .form-check-label,
+.hs_before_login .form-switch .form-check-label {
   color: #B8C5D0 !important;
   font-size: 13px;
   font-weight: 500;
 }
 
-.vui_before_login .auth_text {
+.hs_before_login .auth_text {
   font-size: 11px;
   color: #8FA3B5 !important;
   line-height: 1.4;
 }
 
-.vui_before_login .vui_reset_pass_link {
+.hs_before_login .hs_reset_pass_link {
   color: #C5A05A !important;
   font-weight: 600;
   text-decoration: none !important;
   transition: color 0.2s ease;
 }
 
-.vui_before_login .vui_reset_pass_link:hover {
+.hs_before_login .hs_reset_pass_link:hover {
   color: #D4B86A !important;
   text-decoration: underline !important;
 }
 
-.vui_before_login a.create_new_account {
+.hs_before_login a.create_new_account {
   font-size: 14px;
   padding-top: 10px;
   color: #C5A05A !important;
 }
 
 /* ── Primary button ─────────────────────────────────────────── */
-.vui_before_login .common_button {
+.hs_before_login .common_button {
   min-height: 44px !important;
   font-size: 14px !important;
   font-weight: 650;
@@ -633,24 +634,24 @@ app-confirm-mail {
   transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease;
 }
 
-.vui_before_login .common_button:not(:disabled):hover {
+.hs_before_login .common_button:not(:disabled):hover {
   transform: translateY(-2px);
   box-shadow: 0 10px 22px rgba(197, 160, 90, 0.4);
 }
 
-.vui_before_login .common_button:disabled {
+.hs_before_login .common_button:disabled {
   opacity: 0.5;
   cursor: not-allowed;
 }
 
 /* ── Divider / social ───────────────────────────────────────── */
-.vui_before_login .or {
+.hs_before_login .or {
   border-top: 1px solid #1E3D5C;
   margin-top: 14px;
   margin-bottom: 12px;
 }
 
-.vui_before_login .or span {
+.hs_before_login .or span {
   border: 1px solid #1E3D5C;
   border-radius: 999px;
   padding: 3px 12px;
@@ -662,7 +663,7 @@ app-confirm-mail {
   display: table;
 }
 
-.vui_before_login .face_button {
+.hs_before_login .face_button {
   border-radius: 11px !important;
   min-height: 40px;
   font-weight: 600;
@@ -670,13 +671,13 @@ app-confirm-mail {
   border: none !important;
 }
 
-.vui_before_login #googleBtn {
+.hs_before_login #googleBtn {
   display: flex;
   justify-content: center;
 }
 
 /* ── OTP ────────────────────────────────────────────────────── */
-.vui_before_login .otp_field {
+.hs_before_login .otp_field {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
@@ -685,7 +686,7 @@ app-confirm-mail {
   margin-top: 6px;
 }
 
-.vui_before_login .otp_field > input {
+.hs_before_login .otp_field > input {
   flex: 0 0 44px;
   width: 44px !important;
   height: 48px !important;
@@ -700,35 +701,35 @@ app-confirm-mail {
   transition: border-color 0.2s ease, box-shadow 0.2s ease, transform 0.15s ease;
 }
 
-.vui_before_login .otp_field > input:focus {
+.hs_before_login .otp_field > input:focus {
   border-color: #C5A05A !important;
   box-shadow: 0 0 0 3px rgba(197, 160, 90, 0.22) !important;
   transform: scale(1.05);
   outline: none;
 }
 
-.vui_before_login .resend_code {
+.hs_before_login .resend_code {
   font-size: 13px;
   color: #8FA3B5;
 }
 
-.vui_before_login .resend_code a {
+.hs_before_login .resend_code a {
   color: #C5A05A;
   font-weight: 700;
   text-decoration: none;
 }
 
-.vui_before_login .resend_code a:hover:not(.disabled) {
+.hs_before_login .resend_code a:hover:not(.disabled) {
   color: #D4B86A;
   text-decoration: underline;
 }
 
-.vui_before_login .resend_code a.disabled {
+.hs_before_login .resend_code a.disabled {
   opacity: 0.5;
   pointer-events: none;
 }
 
-.vui_before_login .ami_2fa_box {
+.hs_before_login .ami_2fa_box {
   padding: 12px 14px;
   border-radius: 12px;
   background: rgba(197, 160, 90, 0.08);
@@ -801,7 +802,7 @@ app-confirm-mail {
   }
 }
 
-@media (min-width: 901px) and (max-height: 860px) {
+/* @media (min-width: 901px) and (max-height: 860px) {
   .ami_auth_brand_desc {
     font-size: 11px !important;
     margin-bottom: 6px !important;
@@ -821,13 +822,13 @@ app-confirm-mail {
     padding: 14px 18px !important;
   }
 
-  .vui_before_login .vui_logo img,
+  .hs_before_login .hs_logo img,
   .ami_auth_logo_plate img {
     width: 120px !important;
   }
-}
+} */
 
-@media (min-width: 901px) and (max-height: 740px) {
+/* @media (min-width: 901px) and (max-height: 740px) {
   .ami_aevum_chip {
     padding: 4px 8px !important;
     margin-bottom: 6px !important;
@@ -863,7 +864,7 @@ app-confirm-mail {
     height: calc(100dvh - 16px);
   }
 
-  .vui_before_login .vui_logo img,
+  .hs_before_login .hs_logo img,
   .ami_auth_logo_plate img {
     width: 96px !important;
   }
@@ -872,13 +873,13 @@ app-confirm-mail {
     font-size: 18px !important;
   }
 
-  .vui_before_login .input_field {
+  .hs_before_login .input_field {
     margin-bottom: 6px !important;
   }
 }
 
 @media (max-width: 900px) {
-  .vui_before_login {
+  .hs_before_login {
     max-height: none;
     overflow: auto;
     padding: 12px;
@@ -917,17 +918,17 @@ app-confirm-mail {
     max-width: 100%;
   }
 
-  .ami_auth_brand .vui_logo > a {
+  .ami_auth_brand .hs_logo > a {
     margin: 0 auto !important;
   }
 
-  .ami_auth_brand .vui_logo {
+  .ami_auth_brand .hs_logo {
     text-align: center;
   }
 }
 
 @media (max-width: 480px) {
-  .vui_before_login_cards,
+  .hs_before_login_cards,
   .ami_auth_card {
     padding: 22px 16px !important;
   }
@@ -938,13 +939,13 @@ app-confirm-mail {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .vui_before_login::after,
+  .hs_before_login::after,
   .ami_auth_shell,
-  .vui_before_login_cards,
+  .hs_before_login_cards,
   .ami_auth_card,
   .ami_auth_features li,
   .ami_auth_icon_badge,
   .ami_auth_card::before {
     animation: none !important;
   }
-}
+} */
