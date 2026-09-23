@@ -1,22 +1,22 @@
-<div class="ami_account_popup" role="dialog" aria-modal="true" aria-labelledby="ami-popup-title">
-  <div class="ami_account_popup__card">
-    <div class="ami_account_popup__accent" aria-hidden="true"></div>
-
-    <figure class="ami_account_popup__logo">
-      <img src="assets/images/Logo-hornscope-large.png" alt="Hornscope" />
+<section class="hs_before_login hs_auth_page">
+  <div class="hs_before_login_cards ami_auth_card ami_auth_card--narrow">
+    <figure class="hs_logo">
+      <a>
+        <img src="assets/images/Logo-hornscope-large.png" alt="Hornscope" width="100" height="100" />
+      </a>
     </figure>
 
-    <div class="ami_account_popup__icon_wrap" aria-hidden="true">
-      <span class="ami_account_popup__icon_ring">
-        <i class="bi bi-check-lg"></i>
-      </span>
+    <div class="ami_auth_icon_badge" aria-hidden="true">
+      <i class="bi bi-check2-circle"></i>
     </div>
 
-    <h2 id="ami-popup-title" class="ami_account_popup__title">{{ title }}</h2>
-    <p class="ami_account_popup__text">{{ text }}</p>
+    <h4 class="before_login_card_head text-center">{{ title }}</h4>
+    <p class="before_login_card_desc text-center">
+      {{ text }}
+    </p>
 
-    <button type="button" (click)="onSubmit()" class="common_button ami_account_popup__btn">
-      {{ buttonText || 'Log In' }}
+    <button type="button" (click)="onSubmit()" class="common_button w-100 mt-3">
+      <i class="bi bi-box-arrow-in-right"></i> {{ buttonText || 'Log In' }}
     </button>
   </div>
-</div>
+</section>
