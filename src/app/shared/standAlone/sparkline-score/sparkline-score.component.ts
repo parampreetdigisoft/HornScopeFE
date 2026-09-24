@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { MatTooltipModule } from '@angular/material/tooltip';
-import { Component, inject, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
-import { CommonService } from 'src/app/core/services/common.service';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { HS_CHART } from 'src/app/core/constants/hs-chart-theme';
 
 @Component({
   selector: 'app-sparkline-score',
@@ -15,7 +15,6 @@ export class SparklineScoreComponent implements OnInit, OnChanges {
   @Input() value: number | null = null;
   @Input() tooltipText: string = '';
   @Input() symbol: string = '';
-  commonService = inject(CommonService);
   formattedValue: string = '';
 
   ngOnInit(): void {
@@ -31,7 +30,7 @@ export class SparklineScoreComponent implements OnInit, OnChanges {
     this.formattedValue = val == 100 ? val.toFixed(0) : val.toFixed(2);
   }
   getColor(value: number): string {
-    const colors = this.commonService.PillarColors;
+    const colors = HS_CHART.scoreScale;
 
     if (value >= 90) return colors[9];
     else if (value >= 80) return colors[8];

@@ -96,10 +96,86 @@ app-kpianalysis app-ag-bar:nth-child(3) {
   color: #212529;
 }
 
-.table_outer .compare_table.table tr th:last-child {
-  min-width: 200px;
-  max-width: 100%;
-  width: 200px;
+.action-header-content,
+.action-header-tools {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.action-header-content {
+  justify-content: space-around;
+}
+
+.action-header {
+  position: relative;
+  z-index: 6;
+  overflow: visible;
+}
+
+.action-report {
+  position: relative;
+}
+
+.action_report_trigger {
+  display: inline-flex;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.action_report_trigger.disabled {
+  pointer-events: none;
+  opacity: 0.7;
+}
+
+.action-report-menu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  left: auto;
+  display: block;
+  z-index: 20;
+  margin: 0;
+  min-width: 157px;
+  list-style: none;
+  background: #0C2238;
+  border: 1px solid #1E3D5C;
+  border-radius: 12px;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
+  padding: 8px;
+}
+
+.action-report-menu a {
+  display: block;
+  color: #E8EEF4;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 500;
+  padding: 8px 12px;
+  border: 1px solid transparent;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.action-report-menu a:hover {
+  background: rgba(197, 160, 90, 0.16);
+  color: #D4B86A;
+  border-color: rgba(197, 160, 90, 0.4);
+}
+
+.action_report_icon {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #C5A05A;
+  padding: 8px 10px;
+  border-radius: 5px;
+  line-height: 0;
+}
+
+.action_report_icon svg path {
+  fill: #0C2238;
 }
 
 .city_cards_p {
@@ -213,6 +289,67 @@ app-kpianalysis app-ag-bar:nth-child(3) {
 
 .table-responsive tbody td.action_td table .action_icons {
     justify-content: center;
+}
+
+.export-icon-wrapper {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+}
+
+/* .export-count {
+    position: absolute;
+    top: -8px;
+    right: -10px;
+    background: #ffffff;
+    color: #463a0c;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 50%;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    line-height: 1;
+} */
+
+.export-count {
+    position: absolute;
+    top: -6px;
+    right: -8px;
+    background: #ffffff;
+    color: #463a0c;
+    font-size: 10px;
+    font-weight: 600;
+    border-radius: 50%;
+    min-width: 16px;
+    height: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 3px;
+    box-shadow: 0 0 0 2px #5c530e;
+}
+
+.global_Checkbox {
+    width: 16px;
+    height: 16px;
+    cursor: pointer;
+    accent-color: #C5A05A;
+    flex: 0 0 auto;
+}
+
+.global_Checkbox:disabled {
+    cursor: not-allowed;
+}
+
+.action_report_icon .spinner-border {
+    width: 16px;
+    height: 16px;
+    border-width: 2px;
+    color: #080705 !important;
 }
 
 .table-responsive tbody td.action_td table .action_icons span {
@@ -352,8 +489,9 @@ p.btn_spinner {
     .compare_city_table tbody td.action_td table .action_icons span {
         padding: 6px 8px;
     }
-    .table_outer .table td.action_td ,.table_outer .compare_table.table tr th:last-child{
-        width: 185px;
+    .table_outer .table td.action_td,
+    .table_outer .compare_table.table tr th.action-header {
+        width: 210px;
     }
     .table_outer .table td.action_td td{
       padding: 0;
