@@ -48,11 +48,12 @@ export class AddUpdateAnalystComponent implements OnInit {
   ngOnInit(): void {
     this.initializeForm();    
   }
+
   initializeForm() {
     this.analystForm = this.fb.group({
-      fullName: [this.analyst?.fullName, [Validators.required]],
-      email: [this.analyst?.email, [Validators.required, Validators.email], this.emailExistsValidator()],
-      phone: [this.analyst?.phone, [Validators.required]],
+      fullName: [this.analyst?.fullName || '', [Validators.required]],
+      email: [this.analyst?.email || '', [Validators.required, Validators.email], this.emailExistsValidator()],
+      phone: [this.analyst?.phone || '', [Validators.required]],
       country: [
         this.analyst?.countries?.map((x) => x?.countryID) ?? [],
         [Validators.required],
@@ -100,16 +101,10 @@ export class AddUpdateAnalystComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     this.alertMsg = "";
     this.isSubmitted = false;
-    if (this.analyst && this.analyst.countries) {
-    const selectedCountryIds = this.analyst.countries.map(c => c.countryID);
-    this.analystForm.patchValue({
-      country: selectedCountryIds
-    });
-  }
-    //this.initializeForm();
+    if (changes['analyst']) {
+      this.initializeForm();
+    }
   } 
-
-
   onSubmit() {
     this.isSubmitted = true;
     if (this.analystForm.valid) {
@@ -121,6 +116,7 @@ export class AddUpdateAnalystComponent implements OnInit {
       this.analystChange.emit(countryData);
     }
   }
+
   downloadTemplate() {
     const headers = ["FullName", "Email", "Phone", "countryName"];
 

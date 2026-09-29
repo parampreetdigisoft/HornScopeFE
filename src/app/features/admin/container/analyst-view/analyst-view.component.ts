@@ -194,8 +194,9 @@ export class AnalystViewComponent implements OnInit, OnDestroy {
   }
 
   closeModal() {
-     this.selectedIndex =undefined;
+    this.selectedIndex = undefined;
     this.loading = false;
+    this.selectedAnalyst = null;
     const homeTab = document.querySelector("#pills-home-tab") as HTMLElement;
     if (homeTab) {
       homeTab.click();

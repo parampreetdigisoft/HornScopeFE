@@ -10,9 +10,7 @@ color: #ff5f5f;
     outline: none !important;
     box-shadow: none !important;
 }
-::ng-deep .analyst_multi_select  .ng-select-container .ng-value-container {
-    padding: 0 !important;
-}
+
 .wrong_upload_alert p {
     font-size: 13px;
     font-style: normal;

@@ -368,17 +368,17 @@ margin-left: 5px;
 .input_field .form-control,
 .input_field .form-select
 {
-  border-radius: 50px;
-border: 1px solid var(--Border-Color);
-color: var(--Text-Color);
-font-size: 13px;
-font-style: normal;
-font-weight: 400;
-line-height: normal;
-height: auto;
-min-height: 40px;
-font-weight: 600;
-    padding-left: 16px;
+    border-radius: 50px;
+    border: 1px solid var(--Border-Color);
+    color: var(--Text-Color);
+    font-size: 13px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+    height: auto;
+    min-height: 40px;
+    font-weight: 600;
+    padding-left: 14px;
 }
 .input_field select.form-control
 {
@@ -1007,4 +1007,53 @@ body > .ng-dropdown-panel .ng-option.ng-option-marked,
   background: rgba(197, 160, 90, 0.16) !important;
   background-color: rgba(197, 160, 90, 0.16) !important;
   color: #d4b86a !important;
+}
+
+/* ============================================================
+   Global Autofill Override for Dark Theme
+   ============================================================ */
+
+/* 1. Inform browser of dark mode */
+:root {
+  color-scheme: dark;
+}
+
+/* 2. Override browser autofill styles (Chrome, Edge, Safari, Opera) */
+input:-webkit-autofill,
+input:-webkit-autofill:hover, 
+input:-webkit-autofill:focus, 
+input:-webkit-autofill:active,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+textarea:-webkit-autofill:active,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus,
+select:-webkit-autofill:active {
+  /* Retain light text color */
+  -webkit-text-fill-color: #E8EEF4 !important;
+  /* Paint dark input background over the browser default using inset shadow */
+  -webkit-box-shadow: 0 0 0px 1000px #123049 inset !important;
+  box-shadow: 0 0 0px 1000px #123049 inset !important;
+  caret-color: #E8EEF4 !important;
+  border-color: #1E3D5C !important;
+  transition: background-color 5000s ease-in-out 0s !important;
+}
+
+/* 3. Autofill style on focus */
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill:focus {
+  -webkit-box-shadow: 0 0 0px 1000px #0C2238 inset, 0 0 0 3px rgba(197, 160, 90, 0.2) !important;
+  box-shadow: 0 0 0px 1000px #0C2238 inset, 0 0 0 3px rgba(197, 160, 90, 0.2) !important;
+  border-color: rgba(197, 160, 90, 0.55) !important;
+}
+
+/* 4. Standard modern CSS autofill pseudo-class (Firefox / standard spec) */
+input:autofill,
+textarea:autofill,
+select:autofill {
+  background-color: #123049 !important;
+  color: #E8EEF4 !important;
 }

@@ -95,8 +95,8 @@
 
   <div class="glance_charts_section" *ngIf="showGlanceCharts && (glanceBarChartOptions?.series || glanceDonutChartOptions?.series)">
     <div class="diag-section-head">
-      <h4><i class="bi bi-bar-chart-line"></i> At a Glance</h4>
-      <span>Compare indicator values and status distribution</span>
+      <h4><i class="bi bi-bar-chart-line"></i> AI at a Glance</h4>
+      <span>Compare indicator values and condition based distribution</span>
     </div>
     <div class="glance_charts_grid">
       <div class="glance_chart_card">
@@ -117,7 +117,7 @@
         </apx-chart>
       </div>
       <div class="glance_chart_card">
-        <h5><i class="bi bi-pie-chart"></i> Status Distribution</h5>
+        <h5><i class="bi bi-pie-chart"></i> Condition based Distribution</h5>
         <apx-chart
           *ngIf="glanceDonutChartOptions?.series"
           [series]="glanceDonutChartOptions!.series!"

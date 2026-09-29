@@ -18,7 +18,7 @@
 
       <div class="input_field">
         <label for="loginEmail"><i class="bi bi-envelope"></i> Email *</label>
-        <input id="loginEmail" type="email" formControlName="email" placeholder="Enter Username" class="form-control" autocomplete="username">
+        <input id="loginEmail" type="email" formControlName="email" placeholder="Enter Email" class="form-control" autocomplete="username">
         <div *ngIf="(email?.touched || (email?.invalid && isSubmitted))" class="error-msg">
           <div *ngIf="email?.errors?.['required']">Email is required.</div>
           <div *ngIf="email?.errors?.['email']">Please enter a valid email address.</div>
