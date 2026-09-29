@@ -18,4 +18,12 @@
     <span class="assessmentdata-label">Questions Answered</span>
     <span class="assessmentdata-value">{{assessmentProgress.totalAnsQuestion}} / {{assessmentProgress.totalQuestion}}</span>
   </div>
+  <div class="assessmentdata">
+    <span class="assessmentdata-label">Domain Score</span>
+    <span class="assessmentdata-value">{{assessmentProgress.pillarScore ?? 0}}</span>
+  </div>
+  <div class="assessmentdata">
+    <span class="assessmentdata-label">Overall Score</span>
+    <span class="assessmentdata-value">{{assessmentProgress.overallScore ?? 0}}</span>
+  </div>
 </div>

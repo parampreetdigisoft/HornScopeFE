@@ -374,7 +374,8 @@ export class AnalystAssessmentComponent implements OnInit, OnDestroy {
     this.analystService
       .getAssessmentProgressHistory({
         userCountryMappingID: this.selectedUserCountryMappingID,
-        assessmentID: this.pillarQuestions?.assessmentID ?? 0
+        assessmentID: this.pillarQuestions?.assessmentID ?? 0,
+        pillarID: this.pillarQuestions?.pillarID ?? null,
       })
       .subscribe((res) => {
         if (res.succeeded) {

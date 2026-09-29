@@ -61,4 +61,5 @@ export interface TransferAssessmentRequestDto {
 export interface GetProgramProgressHistoryRequestDto {
   userCountryMappingID: number;
   assessmentID: number | null;
+  pillarID?: number | null;
 }

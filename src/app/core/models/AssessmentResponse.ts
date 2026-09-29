@@ -41,7 +41,9 @@ export interface AssessmentWithProgressVM {
   totalAnsPillar: number;
   totalQuestion: number;
   totalAnsQuestion: number;
-  currentProgress:number
+  currentProgress: number;
+  pillarScore?: number;
+  overallScore?: number;
 }
 
 export interface GetCountrySubmitionHistoryResponseDto {

@@ -368,8 +368,9 @@ export class MakeAssessmentComponent implements OnInit, OnDestroy {
     this.evaluatorService
       .getAssessmentProgressHistory({
         userCountryMappingID: this.selectedUserCountryMappingID,
-        assessmentID: this.pillarQuestions?.assessmentID ?? 0
-      })
+        assessmentID: this.pillarQuestions?.assessmentID ?? 0,
+        pillarID: this.pillarQuestions?.pillarID ?? null,
+      })  
       .subscribe((res) => {
         if (res.succeeded) {
           this.userService.assessmentProgress.next(res.result);
