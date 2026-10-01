@@ -60,16 +60,25 @@ function signalAiScore(signal: SignalCardDto): number | null {
 }
 
 function glanceCondition(signal: SignalCardDto): string {
+  if (!hasScore(signal.aiValue)) {
+    return 'Not assessed';
+  }
   return (
     signal.aiCondition ||
     signal.aiInterpretationValue ||
-    (hasScore(signal.aiValue) ? 'Scored' : 'No Data')
+    'Scored'
   );
 }
 
 export function glanceConditionColor(condition: string): string {
   const value = (condition || '').toLowerCase();
-  if (!value || value.includes('no data') || value.includes('stale') || value.includes('scored')) {
+  if (
+    !value ||
+    value.includes('no data') ||
+    value.includes('not assessed') ||
+    value.includes('stale') ||
+    value.includes('scored')
+  ) {
     return value.includes('scored') ? HS_CHART.primarySoft : NEUTRAL_BAR;
   }
   if (
@@ -169,7 +178,7 @@ export function buildGlanceBarChartOptions(signals: SignalCardDto[]): Partial<Gl
       enabled: true,
       formatter: (val: number, opts: any) => {
         const signal = signals[opts.dataPointIndex];
-        return signalAiScore(signal) === null ? 'N/A' : Number(val).toFixed(1);
+        return signalAiScore(signal) === null ? 'Not assessed' : Number(val).toFixed(1);
       },
       offsetX: 8,
       style: { fontSize: '11px', fontWeight: 700, colors: [HS_CHART.text] },
@@ -206,21 +215,27 @@ export function buildGlanceBarChartOptions(signals: SignalCardDto[]): Partial<Gl
         const manual = hasScore(signal.manualValue) ? Number(signal.manualValue) : null;
         const name = signal.layerName || signal.name || signalLabel(signal);
         const condition = glanceCondition(signal);
+        const showCondition = ai !== null;
         return `
           <div style="padding:12px 14px;min-width:220px;background:#0C2238;border:1px solid ${HS_CHART.border};border-radius:10px;color:${HS_CHART.text};font-family:Inter,sans-serif;">
             <div style="font-weight:700;margin-bottom:8px;color:${HS_CHART.primaryMid};">${name}</div>
             <div style="display:flex;justify-content:space-between;gap:16px;margin-bottom:4px;">
               <span style="color:${HS_CHART.textMuted};">AI</span>
-              <span style="font-weight:700;">${ai === null ? 'N/A' : ai.toFixed(1)}</span>
+              <span style="font-weight:700;">${ai === null ? 'Not assessed' : ai.toFixed(1)}</span>
             </div>
             <div style="display:flex;justify-content:space-between;gap:16px;margin-bottom:4px;">
               <span style="color:${HS_CHART.textMuted};">Manual</span>
-              <span style="font-weight:700;">${manual === null ? 'N/A' : manual.toFixed(1)}</span>
+              <span style="font-weight:700;">${manual === null ? 'Not assessed' : manual.toFixed(1)}</span>
             </div>
+            ${
+              showCondition
+                ? `
             <div style="display:flex;justify-content:space-between;gap:16px;padding-top:6px;border-top:1px solid ${HS_CHART.border};">
               <span style="color:${HS_CHART.textMuted};">Status</span>
               <span style="font-weight:700;color:${glanceConditionColor(condition)};">${condition}</span>
-            </div>
+            </div>`
+                : ''
+            }
           </div>
         `;
       },

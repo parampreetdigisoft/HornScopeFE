@@ -31,7 +31,7 @@
                             <!-- Email -->
                             <div class="input_field">
                                 <label>Email *</label>
-                                <input type="email" formControlName="email" placeholder="Enter Email"
+                                <input type="email" formControlName="email" placeholder="name@example.com"
                                     class="form-control">
                                 <div class="error-msg" *ngIf="countryUserForm.get('email')?.touched || isSubmitted">
                                     <span *ngIf="countryUserForm.get('email')?.errors?.['required']">Email is

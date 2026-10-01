@@ -270,6 +270,12 @@
   font-variant-numeric: tabular-nums;
 }
 
+.kpi-score.is-unassessed {
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+}
+
 .kpi-unit {
   color: #c9d4de;
   font-size: 13px;
@@ -450,3 +456,13 @@
     grid-template-columns: 1fr;
   }
 }
+
+::ng-deep .kpi-detail-modal .kpi-pane-stats.kpi-pane-stats--single {
+  grid-template-columns: 1fr;
+}
+
+::ng-deep .kpi-detail-modal .kpi-stat-value.is-unassessed {
+  font-size: 16px;
+  font-weight: 700;
+}
+

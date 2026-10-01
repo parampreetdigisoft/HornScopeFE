@@ -148,9 +148,9 @@
     <div class="kpi-score-block">
       <div class="kpi-score-row">
         <i class="bi bi-robot kpi-role-icon" *ngIf="showManual" aria-hidden="true"></i>
-        <span class="kpi-score">{{ formatScore(item.aiScore) }}</span>
+        <span class="kpi-score" [class.is-unassessed]="!hasScore(item.aiScore)">{{ formatScore(item.aiScore) }}</span>
         <span class="kpi-unit" *ngIf="showScale(item.aiScore)">/ 100</span>
-        <span class="kpi-condition" [attr.data-band]="statusTone(item.aiCondition)">
+        <span class="kpi-condition" *ngIf="hasScore(item.aiScore)" [attr.data-band]="statusTone(item.aiCondition)">
           {{ item.aiCondition || 'No Data' }}
         </span>
       </div>
@@ -161,9 +161,9 @@
     <div class="kpi-score-block" *ngIf="showManual">
       <div class="kpi-score-row">
         <i class="bi bi-person kpi-role-icon" aria-hidden="true"></i>
-        <span class="kpi-score">{{ formatScore(item.manualScore) }}</span>
+        <span class="kpi-score" [class.is-unassessed]="!hasScore(item.manualScore)">{{ formatScore(item.manualScore) }}</span>
         <span class="kpi-unit" *ngIf="showScale(item.manualScore)">/ 100</span>
-        <span class="kpi-condition" [attr.data-band]="statusTone(item.manualCondition)">
+        <span class="kpi-condition" *ngIf="hasScore(item.manualScore)" [attr.data-band]="statusTone(item.manualCondition)">
           {{ item.manualCondition || 'No Data' }}
         </span>
       </div>
@@ -201,15 +201,15 @@
         <div class="kpi-compare" [class.kpi-compare--single]="!showManual">
           <article class="kpi-pane is-ai">
             <span class="kpi-pane-tag" *ngIf="showManual"><i class="bi bi-robot"></i> AI</span>
-            <div class="kpi-pane-stats">
+            <div class="kpi-pane-stats" [class.kpi-pane-stats--single]="!hasScore(detail.aiScore)">
               <div class="kpi-stat">
                 <span class="kpi-stat-label">{{ showManual ? 'AI Score' : 'Score' }}</span>
-                <strong class="kpi-stat-value">{{ formatScore(detail.aiScore) }}</strong>
+                <strong class="kpi-stat-value" [class.is-unassessed]="!hasScore(detail.aiScore)">{{ formatScore(detail.aiScore) }}</strong>
               </div>
-              <div class="kpi-stat">
+              <div class="kpi-stat" *ngIf="hasScore(detail.aiScore)">
                 <span class="kpi-stat-label">Condition</span>
                 <strong class="kpi-stat-condition" [attr.data-band]="statusTone(detail.aiCondition)">
-                  {{ detail.aiCondition || 'No Data' }}
+                  {{ detail.aiCondition || 'Not assessed' }}
                 </strong>
               </div>
             </div>
@@ -222,15 +222,15 @@
 
           <article class="kpi-pane is-manual" *ngIf="showManual">
             <span class="kpi-pane-tag"><i class="bi bi-person"></i> Manual</span>
-            <div class="kpi-pane-stats">
+            <div class="kpi-pane-stats" [class.kpi-pane-stats--single]="!hasScore(detail.manualScore)">
               <div class="kpi-stat">
                 <span class="kpi-stat-label">Manual Score</span>
-                <strong class="kpi-stat-value">{{ formatScore(detail.manualScore) }}</strong>
+                <strong class="kpi-stat-value" [class.is-unassessed]="!hasScore(detail.manualScore)">{{ formatScore(detail.manualScore) }}</strong>
               </div>
-              <div class="kpi-stat">
+              <div class="kpi-stat" *ngIf="hasScore(detail.manualScore)">
                 <span class="kpi-stat-label">Condition</span>
                 <strong class="kpi-stat-condition" [attr.data-band]="statusTone(detail.manualCondition)">
-                  {{ detail.manualCondition || 'No Data' }}
+                  {{ detail.manualCondition || 'Not assessed' }}
                 </strong>
               </div>
             </div>

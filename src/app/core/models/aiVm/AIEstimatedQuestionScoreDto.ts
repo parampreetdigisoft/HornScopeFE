@@ -14,7 +14,6 @@ export interface AIEstimatedQuestionScoreDto {
   structuralEvidence: string | null;
   operationalEvidence: string | null;
   outcomeEvidence: string | null;
-  perceptionEvidence: string | null;
   temporalReliability: string | null;
   relationalDependencies: string | null;
   stressGeopoliticalShock: string | null;

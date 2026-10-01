@@ -14,7 +14,6 @@ export interface UpdateAICountryScoreDto {
   structuralEvidence?: string | null;
   operationalEvidence?: string | null;
   outcomeEvidence?: string | null;
-  perceptionEvidence?: string | null;
   temporalReliability?: string | null;
   geopoliticalShock?: string | null;
   economicShock?: string | null;
@@ -38,7 +37,6 @@ export interface UpdateAIPillarScoreDto {
   structuralEvidence?: string | null;
   operationalEvidence?: string | null;
   outcomeEvidence?: string | null;
-  perceptionEvidence?: string | null;
   temporalReliability?: string | null;
   relationalIntegrity?: string | null;
   stressGeopoliticalShock?: string | null;
@@ -73,7 +71,6 @@ export interface UpdateAIEstimatedQuestionScoreDto {
   structuralEvidence?: string | null;
   operationalEvidence?: string | null;
   outcomeEvidence?: string | null;
-  perceptionEvidence?: string | null;
   temporalReliability?: string | null;
   relationalDependencies?: string | null;
   stressGeopoliticalShock?: string | null;

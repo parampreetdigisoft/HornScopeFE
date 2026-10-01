@@ -86,18 +86,6 @@
         </div>
       </div>
       <div class="cross-pillar">
-        <h5>Perception Evidence</h5>
-        &nbsp;
-        <div *ngIf="question?.perceptionEvidence">
-          <app-typing-text
-            [text]="question?.perceptionEvidence ?? ''"
-            [speed]="10"
-            [numberOfWordAfterHideText]="50"
-          >
-          </app-typing-text>
-        </div>
-      </div>
-      <div class="cross-pillar">
         <h5>Temporal Reliability</h5>
         &nbsp;
         <div *ngIf="question?.temporalReliability">

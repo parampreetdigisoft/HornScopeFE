@@ -30,7 +30,6 @@ export interface AiCountryPillarVM {
   structuralEvidence?: string | null;
   operationalEvidence?: string | null;
   outcomeEvidence?: string | null;
-  perceptionEvidence?: string | null;
   temporalReliability?: string | null;
   relationalIntegrity?: string | null;
 

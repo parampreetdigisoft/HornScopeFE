@@ -89,12 +89,16 @@ export class DashboardDiagnosticsPanelComponent implements OnChanges, OnDestroy 
   }
 
   formatScore(score: number | null | undefined): string {
-    if (score === null || score === undefined || Number.isNaN(Number(score))) return 'NA';
+    if (score === null || score === undefined || Number.isNaN(Number(score))) return 'Not assessed';
     return Number(score).toFixed(1);
   }
 
+  hasScore(score: number | null | undefined): boolean {
+    return score !== null && score !== undefined && !Number.isNaN(Number(score));
+  }
+
   showScale(score: number | null | undefined): boolean {
-    return score !== null && score !== undefined && !Number.isNaN(Number(score)) && Number(score) >= 0;
+    return this.hasScore(score) && Number(score) >= 0;
   }
 
   progress(score: number | null | undefined): number {
@@ -219,8 +223,8 @@ export class DashboardDiagnosticsPanelComponent implements OnChanges, OnDestroy 
     const catalog = this.lookupCatalog(signal);
     const aiScore = this.toScore(signal.aiValue);
     const manualScore = this.toScore(signal.manualValue);
-    const aiCondition = signal.aiCondition || signal.aiInterpretationValue || 'No Data';
-    const manualCondition = signal.manualCondition || signal.manualInterpretationValue || 'No Data';
+    const aiCondition = aiScore === null ? 'Not assessed' : (signal.aiCondition || signal.aiInterpretationValue || 'No Data');
+    const manualCondition = manualScore === null ? 'Not assessed' : (signal.manualCondition || signal.manualInterpretationValue || 'No Data');
     return {
       code: this.isHS(signal) ? 'HS' : signal.code || signal.layerCode || catalog?.code || '',
       name: signal.name || signal.layerName || catalog?.name || 'Indicator',

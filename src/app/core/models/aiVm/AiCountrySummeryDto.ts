@@ -17,7 +17,6 @@ export interface AiCountrySummeryDto {
   structuralEvidence: string | null;
   operationalEvidence: string | null;
   outcomeEvidence: string | null;
-  perceptionEvidence: string | null;
 
   reliabilityAssessment: string | null;
   temporalReliability: string | null;
